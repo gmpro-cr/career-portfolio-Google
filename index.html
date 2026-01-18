@@ -1,74 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gaurav Mahale | Product Architect</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'monospace'],
-            },
-            colors: {
-              canvas: {
-                bg: '#F4F4F5', // Zinc 100
-                card: 'rgba(255, 255, 255, 0.8)',
-                glass: 'rgba(255, 255, 255, 0.4)',
-                text: '#18181B', // Zinc 900
-                muted: '#71717A', // Zinc 500
-                border: '#E4E4E7', // Zinc 200
-                accent: '#2563EB', // Blue 600
-                accentLight: '#DBEAFE',
-                success: '#10B981',
-              }
-            },
-            boxShadow: {
-              'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
-              'elevated': '0 20px 40px -4px rgba(0, 0, 0, 0.1)',
-            },
-            backgroundImage: {
-              'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
-            },
-            animation: {
-              'float': 'float 6s ease-in-out infinite',
-              'float-delayed': 'float 6s ease-in-out 3s infinite',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-10px)' },
-              }
-            }
-          }
-        }
-      }
-    </script>
-    <style>
-      body {
-        background-color: #F4F4F5;
-        color: #18181B;
-        overflow: hidden;
-      }
-      .camera-plane {
-        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        will-change: transform;
-      }
-      .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      .glass-panel {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-      }
-    </style>
-    <script type="importmap">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaurav Mahale | Product Architect</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+
+  <script type="importmap">
     {
       "imports": {
         "react": "https://esm.sh/react@^19.2.3",
@@ -80,8 +24,11 @@
       }
     }
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>

@@ -15,6 +15,16 @@ export interface Project {
   tech: string[];
   link?: string;
   metrics?: string;
+
+  // Enhanced case study fields
+  category: 'build' | 'case-study';
+  problem?: string;
+  approach?: string[];
+  keyInsights?: string[];
+  outcomes?: string[];
+  userResearch?: string;
+  competitiveAnalysis?: string;
+  frameworks?: string[];
 }
 
 export interface SkillMetric {

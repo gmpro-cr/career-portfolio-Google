@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@config "./tailwind.config.ts";
+
+@layer base {
+  body {
+    background-color: #F4F4F5;
+    color: #18181B;
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  .camera-plane {
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+}

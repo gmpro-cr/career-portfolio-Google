@@ -4,13 +4,13 @@ import { SKILL_DATA, TECH_STACK, CERTIFICATIONS_DATA } from '../../constants';
 
 const SkillsCard: React.FC = () => {
   return (
-    <div className="w-full h-full p-6 grid grid-cols-1 md:grid-cols-3 grid-rows-2 gap-6">
-      
+    <div className="w-full h-full p-3 md:p-6 grid grid-cols-1 md:grid-cols-3 grid-rows-auto md:grid-rows-2 gap-3 md:gap-6 overflow-y-auto md:overflow-hidden pb-12 md:pb-6">
+
       {/* 1. Primary Chart (Radar) - 1x2 */}
-      <div className="glass-panel p-4 rounded-3xl shadow-glass flex flex-col relative bg-white md:row-span-2">
+      <div className="glass-panel p-4 rounded-3xl shadow-glass flex flex-col relative bg-white md:row-span-2 min-h-[300px]">
         <div className="absolute top-6 left-6 z-10">
-           <h3 className="text-lg font-bold text-canvas-text">Skill Topology</h3>
-           <p className="text-xs text-gray-500">Holistic Assessment</p>
+          <h3 className="text-lg font-bold text-canvas-text">Skill Topology</h3>
+          <p className="text-xs text-gray-500">Holistic Assessment</p>
         </div>
         <div className="flex-1 mt-8">
           <ResponsiveContainer width="100%" height="100%">
@@ -53,14 +53,14 @@ const SkillsCard: React.FC = () => {
               <div className="flex justify-between">
                 <span className="font-bold text-sm text-gray-800">{tech.name}</span>
                 <span className={`text-[10px] font-mono ${tech.change.startsWith('+') ? 'text-green-500' : 'text-red-500'}`}>
-                   {tech.change}
+                  {tech.change}
                 </span>
               </div>
               <div className="text-[10px] text-gray-400">{tech.category}</div>
               <div className="w-full bg-gray-100 h-1.5 rounded-full mt-2 overflow-hidden">
-                <div 
-                   className="bg-canvas-accent h-full rounded-full group-hover:bg-blue-600 transition-all" 
-                   style={{width: `${(parseFloat(tech.price)/200)*100}%`}}
+                <div
+                  className="bg-canvas-accent h-full rounded-full group-hover:bg-blue-600 transition-all"
+                  style={{ width: `${(parseFloat(tech.price) / 200) * 100}%` }}
                 ></div>
               </div>
             </div>

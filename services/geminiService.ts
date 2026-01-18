@@ -1,12 +1,12 @@
 import { GoogleGenAI } from "@google/genai";
 import { RESUME_CONTEXT } from '../constants';
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
 const generateContent = async (prompt: string, userQuery: string) => {
   try {
     const model = 'gemini-3-flash-preview';
-    
+
     const response = await ai.models.generateContent({
       model: model,
       contents: [
