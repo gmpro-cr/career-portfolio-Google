@@ -13,7 +13,7 @@ const ProjectsCard: React.FC = () => {
         <div className="flex justify-between items-end mb-4 md:mb-6 px-2">
           <div>
             <h1 className="text-2xl md:text-4xl font-black text-canvas-text tracking-tight">Project Gallery</h1>
-            <p className="text-canvas-muted">Selected deployments and case studies.</p>
+            <p className="text-canvas-muted mt-1">Selected deployments and case studies.</p>
           </div>
           <div className="text-right hidden md:block">
             <div className="text-3xl font-bold text-canvas-accent">{PROJECTS.length}</div>
@@ -21,7 +21,7 @@ const ProjectsCard: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
+        <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-6 pb-28 md:pb-12">
           {PROJECTS.map((proj, idx) => {
             const isCaseStudy = proj.category === 'case-study';
 
@@ -48,8 +48,8 @@ const ProjectsCard: React.FC = () => {
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-2">
                     <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider shadow-sm ${isCaseStudy
-                        ? 'bg-purple-100 text-purple-700 border border-purple-200'
-                        : 'bg-blue-100 text-blue-700 border border-blue-200'
+                      ? 'bg-purple-100 text-purple-700 border border-purple-200'
+                      : 'bg-blue-100 text-blue-700 border border-blue-200'
                       }`}>
                       {isCaseStudy ? 'Case Study' : 'Build'}
                     </span>

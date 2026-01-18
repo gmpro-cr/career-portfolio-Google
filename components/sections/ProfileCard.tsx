@@ -3,7 +3,7 @@ import { TECH_STACK } from '../../constants';
 
 const ProfileCard: React.FC = () => {
   return (
-    <div className="w-full h-full p-3 md:p-6 grid grid-cols-1 md:grid-cols-4 grid-rows-auto md:grid-rows-3 gap-3 md:gap-6 overflow-y-auto md:overflow-hidden pb-20 md:pb-6">
+    <div className="w-full h-full p-3 md:p-6 grid grid-cols-1 md:grid-cols-4 grid-rows-auto md:grid-rows-3 gap-3 md:gap-6 overflow-y-auto md:overflow-hidden pb-28 md:pb-6">
 
       {/* 1. Identity Module (Large, 2x2) */}
       <div className="md:col-span-2 md:row-span-2 glass-panel p-5 md:p-8 rounded-3xl shadow-glass flex flex-col justify-between relative overflow-hidden bg-white/60 min-h-[300px]">

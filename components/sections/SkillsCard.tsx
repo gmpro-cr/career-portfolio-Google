@@ -4,7 +4,7 @@ import { SKILL_DATA, TECH_STACK, CERTIFICATIONS_DATA } from '../../constants';
 
 const SkillsCard: React.FC = () => {
   return (
-    <div className="w-full h-full p-3 md:p-6 grid grid-cols-1 md:grid-cols-3 grid-rows-auto md:grid-rows-2 gap-3 md:gap-6 overflow-y-auto md:overflow-hidden pb-12 md:pb-6">
+    <div className="w-full h-full p-3 md:p-6 grid grid-cols-1 md:grid-cols-3 grid-rows-auto md:grid-rows-2 gap-3 md:gap-6 overflow-y-auto md:overflow-hidden pb-28 md:pb-6">
 
       {/* 1. Primary Chart (Radar) - 1x2 */}
       <div className="glass-panel p-4 rounded-3xl shadow-glass flex flex-col relative bg-white md:row-span-2 min-h-[300px]">
@@ -33,9 +33,9 @@ const SkillsCard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {CERTIFICATIONS_DATA.map((cert) => (
             <div key={cert.id} className="bg-white/5 border border-white/10 p-4 rounded-2xl hover:bg-white/10 transition-colors">
-              <div className="text-xs text-gray-400 mb-1">{cert.year}</div>
-              <div className="font-bold text-sm mb-1 line-clamp-1">{cert.name}</div>
-              <div className="text-[10px] text-gray-500 bg-black/30 inline-block px-2 py-1 rounded">{cert.issuer}</div>
+              <div className="text-xs text-gray-300 mb-1">{cert.year}</div>
+              <div className="font-bold text-sm mb-1 line-clamp-1 text-white">{cert.name}</div>
+              <div className="text-[10px] text-gray-400 bg-black/30 inline-block px-2 py-1 rounded">{cert.issuer}</div>
             </div>
           ))}
         </div>

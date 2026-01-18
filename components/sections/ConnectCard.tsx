@@ -41,7 +41,7 @@ const ConnectCard: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl h-full md:h-[60vh] flex flex-col md:flex-row gap-4 md:gap-6 p-4 md:p-0">
+    <div className="w-full max-w-4xl h-full md:h-[60vh] flex flex-col md:flex-row gap-4 md:gap-6 p-4 pb-28 md:pb-0 md:p-0">
       {/* Left: Quick Actions */}
       <div className="w-full md:w-1/3 flex flex-row md:flex-col gap-4 shrink-0">
         <div className="glass-panel p-6 rounded-3xl shadow-glass flex-1 flex flex-col justify-center items-center text-center">
@@ -72,8 +72,8 @@ const ConnectCard: React.FC = () => {
           {messages.map((msg) => (
             <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[85%] px-5 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${msg.role === 'user'
-                  ? 'bg-blue-600 text-white rounded-br-none'
-                  : 'bg-white text-gray-800 rounded-bl-none border border-gray-100'
+                ? 'bg-blue-600 text-white rounded-br-none'
+                : 'bg-white text-gray-800 rounded-bl-none border border-gray-100'
                 }`}>
                 {msg.text}
               </div>

@@ -6,7 +6,7 @@ const TimelineCard: React.FC = () => {
   const [selectedExp, setSelectedExp] = useState<Experience>(EXPERIENCES[0]);
 
   return (
-    <div className="w-full h-full p-3 md:p-6 flex flex-col md:flex-row gap-3 md:gap-6 overflow-y-auto md:overflow-hidden bg-transparent">
+    <div className="w-full h-full p-3 md:p-6 flex flex-col md:flex-row gap-3 md:gap-6 overflow-y-auto md:overflow-hidden bg-transparent pb-28 md:pb-6">
 
       {/* Left Pane: The List */}
       <div className="w-full md:w-1/3 glass-panel rounded-3xl shadow-glass p-2 flex flex-col h-[280px] md:h-full shrink-0">
@@ -21,8 +21,8 @@ const TimelineCard: React.FC = () => {
               key={idx}
               onClick={() => setSelectedExp(exp)}
               className={`w-full text-left p-4 rounded-2xl transition-all border ${selectedExp === exp
-                  ? 'bg-white border-canvas-accent shadow-md'
-                  : 'bg-transparent border-transparent hover:bg-white/50 text-gray-500'
+                ? 'bg-white border-canvas-accent shadow-md'
+                : 'bg-transparent border-transparent hover:bg-white/50 text-gray-500'
                 }`}
             >
               <div className="text-[10px] font-mono mb-1 uppercase tracking-wider opacity-60">{exp.period}</div>
