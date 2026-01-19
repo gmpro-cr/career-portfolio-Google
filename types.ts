@@ -25,6 +25,32 @@ export interface Project {
   userResearch?: string;
   competitiveAnalysis?: string;
   frameworks?: string[];
+  caseStudyAnalysis?: CaseStudyAnalysis;
+}
+
+export interface UserSegment {
+  segment: string;
+  needs: string[];
+  addressed: string[];
+}
+
+export interface FeatureBreakdown {
+  feature: string;
+  problem: string;
+  whyItWorks: string;
+}
+
+export interface CompetitiveEntry {
+  platform: string;
+  strengths: string[];
+  weaknesses: string[];
+}
+
+export interface CaseStudyAnalysis {
+  userSegments: UserSegment[];
+  featureBreakdown: FeatureBreakdown[];
+  competitiveAnalysis: CompetitiveEntry[];
+  keyTakeaways: string[];
 }
 
 export interface SkillMetric {
