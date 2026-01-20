@@ -293,7 +293,94 @@ export const PROJECTS: Project[] = [
     ],
     userResearch: "Interviewed 10 users who attend 3+ non-movie events per month. Key finding: discovery happens off-platform (Instagram, WhatsApp groups, comedian social media) but booking happens on BMS. Opportunity to capture discovery within the platform.",
     competitiveAnalysis: "Analyzed Paytm Insider (strong curation), Skillbox (niche workshops), and international players like Eventbrite and Dice. BMS's advantage is transaction trust and venue partnerships; weakness is content/social layer. Insider leads in editorial curation but lacks transaction volume.",
-    frameworks: ["AARRR Funnel", "Feature Prioritization Matrix", "Kano Model", "Double Diamond Design"]
+    frameworks: ["AARRR Funnel", "Feature Prioritization Matrix", "Kano Model", "Double Diamond Design"],
+    caseStudyAnalysis: {
+      userSegments: [
+        {
+          segment: "Movie Goers",
+          needs: [
+            "Multiple movie options in one place",
+            "Effortless ticket booking",
+            "Advance booking capability",
+            "Discounts on tickets",
+            "Access to reviews"
+          ],
+          addressed: [
+            "Complete movie listings",
+            "Seamless booking platform",
+            "Advance ticket booking",
+            "Card-specific discounts",
+            "User reviews visible"
+          ]
+        },
+        {
+          segment: "Entertainment Seekers",
+          needs: [
+            "All entertainment shows in city",
+            "Book from home comfort",
+            "Seat selection",
+            "Early access and discounts"
+          ],
+          addressed: [
+            "Comprehensive show listings",
+            "App and web booking",
+            "Seat selection feature",
+            "Platform discounts unavailable in traditional booking"
+          ]
+        },
+        {
+          segment: "Performers/Artists",
+          needs: [
+            "Online ticket selling platform",
+            "Hassle-free booking management",
+            "Real-time booking updates"
+          ],
+          addressed: [
+            "Platform for new-age comedians and artists",
+            "Real-time booking data for marketing content"
+          ]
+        }
+      ],
+      featureBreakdown: [
+        {
+          feature: "Latest Movie Advertisement",
+          problem: "Users must search for new releases manually",
+          whyItWorks: "Most users open app for latest releases - this reduces steps and surfaces intent immediately"
+        },
+        {
+          feature: "Category Section",
+          problem: "Users browsing for entertainment options need navigation",
+          whyItWorks: "Leisure users can explore multiple event types by location"
+        },
+        {
+          feature: "Seat Booking",
+          problem: "Users want control over their experience",
+          whyItWorks: "Provides feel-good factor and personal choice satisfaction"
+        }
+      ],
+      competitiveAnalysis: [
+        {
+          platform: "Paytm Insider",
+          strengths: ["Wide user base", "2nd highest market share", "Familiar interface", "Payment integration"],
+          weaknesses: ["Unfocused product", "Users not loyal", "Commoditized experience"]
+        },
+        {
+          platform: "PVR App",
+          strengths: ["Loyal customers", "Focused experience"],
+          weaknesses: ["Limited to movies only"]
+        },
+        {
+          platform: "District (Zomato)",
+          strengths: ["Interactive UI", "Zomato's user base"],
+          weaknesses: ["Late market entry", "Difficult to capture attention"]
+        }
+      ],
+      keyTakeaways: [
+        "Simplicity and focus helped BMS capture ~70% market share",
+        "Users prefer uncluttered experience and form habits around focused solutions",
+        "Innovation (big events like Coldplay) keeps engagement while staying in entertainment realm"
+      ]
+    }
   }
 ];
 
