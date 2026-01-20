@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ViewState } from '../types';
-import { ProjectTab } from '../App';
 
-interface TopBarProps {
-  view: ViewState;
-  projectTab: ProjectTab;
-  onProjectTabChange: (tab: ProjectTab) => void;
-}
-
-const TopBar: React.FC<TopBarProps> = ({ view, projectTab, onProjectTabChange }) => {
+const TopBar: React.FC = () => {
   const [time, setTime] = useState('');
 
   useEffect(() => {
@@ -27,32 +19,6 @@ const TopBar: React.FC<TopBarProps> = ({ view, projectTab, onProjectTabChange })
       <div className="flex items-center gap-2 glass-panel px-3 py-1.5 rounded-full pointer-events-auto shadow-sm">
         <span className="text-xs font-semibold text-canvas-text">Gaurav Mahale</span>
       </div>
-
-      {/* Center: Project Tabs (only visible on PROJECTS view) */}
-      {view === 'PROJECTS' && (
-        <div className="flex items-center gap-1 glass-panel px-1 py-1 rounded-full pointer-events-auto shadow-sm">
-          <button
-            onClick={() => onProjectTabChange('projects')}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
-              projectTab === 'projects'
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Projects
-          </button>
-          <button
-            onClick={() => onProjectTabChange('case-studies')}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
-              projectTab === 'case-studies'
-                ? 'bg-purple-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Case Studies
-          </button>
-        </div>
-      )}
 
       {/* Right: Status */}
       <div className="flex items-center gap-3 glass-panel px-3 py-1.5 rounded-full pointer-events-auto shadow-sm">

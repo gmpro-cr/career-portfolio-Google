@@ -32,11 +32,7 @@ function App() {
   return (
     <div className="relative w-screen h-screen overflow-hidden font-sans text-canvas-text selection:bg-canvas-accent selection:text-white bg-canvas-bg">
       
-      <TopBar
-        view={view}
-        projectTab={projectTab}
-        onProjectTabChange={setProjectTab}
-      />
+      <TopBar />
       <Background view={view} />
 
       {/* The Infinite Canvas Container */}
@@ -96,7 +92,12 @@ function App() {
 
       </div>
 
-      <Navigator current={view} onNavigate={setView} />
+      <Navigator
+        current={view}
+        onNavigate={setView}
+        projectTab={projectTab}
+        onProjectTabChange={setProjectTab}
+      />
       
     </div>
   );
