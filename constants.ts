@@ -25,9 +25,9 @@ export const EXPERIENCES: Experience[] = [
     period: "Dec 25 - Present",
     type: 'AI',
     description: [
-      "Training LLMs on financial modeling, Doc and PPT generation.",
-      "Evaluated and improved AI outputs for credit analysis and projections.",
-      "Applied banking domain expertise to enhance AI model accuracy."
+      "Training LLMs on financial modeling, Doc and PPT generation through evals and prompt engineering",
+      "Evaluated and improved AI outputs for credit analysis, financial projections, and business documentation",
+      "Applied banking domain expertise to enhance AI model accuracy in corporate finance applications"
     ]
   },
   {
@@ -36,9 +36,13 @@ export const EXPERIENCES: Experience[] = [
     period: "Apr 22 - Present",
     type: 'Finance',
     description: [
-      "Managed corporate lending portfolios worth ₹500 Cr.",
-      "Generated income of ~₹2.5 Cr/year from corporate clients.",
-      "Prepared credit appraisal memos and term sheets for leadership decisions."
+      "Led end-to-end lifecycle of corporate lending products, aligning solutions to customer pain points",
+      "Managed portfolio of new and existing corporate clients, generating income of ~₹2.5 Cr/year",
+      "Prepared credit appraisal memos and term sheets for portfolios worth ₹500 Cr",
+      "Partnered with cross-functional stakeholders using RACI to deliver lending products",
+      "Drove customer-centric discovery and onboarding, acquiring ~4 new corporate clients annually",
+      "Monitored product adoption post-onboarding and iterated based on feedback loops",
+      "Managed corporate customers across education, steel, textile, safety equipment, and G&J sectors"
     ]
   },
   {
@@ -47,9 +51,11 @@ export const EXPERIENCES: Experience[] = [
     period: "Jan 20 - Apr 22",
     type: 'Finance',
     description: [
-      "Designed solutions to minimise delinquency risk using predictive analytics.",
-      "Used PowerBI/Excel to track default probabilities.",
-      "Co-created restructuring product flows for stressed assets."
+      "Designed solutions to minimise delinquency risk using predictive analytics and early warning systems",
+      "Used PowerBI and Excel dashboards to track default probabilities and portfolio health metrics",
+      "Co-created restructuring product flows tailored to stressed assets by analyzing user financial behavior",
+      "Created sector-specific business models (real estate, energy, hospitality) based on customer segments",
+      "Interacted with business, credit and recovery teams for Maharashtra and Goa region"
     ]
   },
   {
@@ -58,9 +64,24 @@ export const EXPERIENCES: Experience[] = [
     period: "Sep 17 - Jan 20",
     type: 'Operations',
     description: [
-      "Analysed financial health of NPA accounts.",
-      "Assisted in acquiring accounts with debt of ~₹9000 Cr under IBC.",
-      "Conducted due diligence for cases > ₹50 Cr."
+      "Analysed financial health and recovery potential of NPA accounts offered for sale by banks",
+      "Liaised with bank officials and legal team for acquisition and resolution of accounts",
+      "Assisted on end-to-end process of acquiring account with debt of ~₹9000 Cr under IBC framework",
+      "Conducted due diligence and loan documentation for cases with ticket size >₹50 Cr",
+      "Monitored operations involving labour count, construction cost, and sales data of Real Estate cases",
+      "Responsible for catalysing existing processes to complete work within set deadlines"
+    ]
+  },
+  {
+    role: "Consultant",
+    company: "Tata Trusts & Ministry of Water and Sanitation",
+    period: "May 17 - Sep 17",
+    type: 'Operations',
+    description: [
+      "Set up system of extension officers, BRCs & CRCs to speed up MIS entries",
+      "Within 2 months, region crossed 8 others shifting from last position in IHHLs",
+      "Initiated process to build handwash stations in 1,200 schools with Rotary Club",
+      "Responsible for catalysing processes to complete work within deadlines"
     ]
   }
 ];
