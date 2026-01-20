@@ -90,8 +90,23 @@ const ProfileCard: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. About Module */}
-      <div className="glass-panel p-5 rounded-3xl shadow-glass bg-gradient-to-br from-white to-gray-50 flex flex-col">
+      {/* 2. Skills/Tech Stack */}
+      <div className="glass-panel p-5 rounded-3xl shadow-glass overflow-hidden bg-gradient-to-br from-white to-gray-50">
+        <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">Skills</div>
+        <div className="flex flex-wrap gap-1.5">
+          {TECH_STACK.slice(0, 8).map((tech) => (
+            <span key={tech.id} className="px-2 py-1 bg-white border border-gray-100 rounded-lg text-[10px] font-medium text-gray-700 shadow-sm">
+              {tech.name}
+            </span>
+          ))}
+          {TECH_STACK.length > 8 && (
+            <span className="px-2 py-1 text-[10px] text-gray-400">+{TECH_STACK.length - 8}</span>
+          )}
+        </div>
+      </div>
+
+      {/* 3. About Module */}
+      <div className="md:col-span-2 glass-panel p-5 rounded-3xl shadow-glass bg-gradient-to-br from-white to-gray-50 flex flex-col">
         <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">About</div>
         <p className="text-xs text-gray-600 leading-relaxed mb-3">
           AI Product Manager with 8+ years in banking and finance. Training LLMs at Pareto.AI while managing corporate lending at Yes Bank.
@@ -105,21 +120,6 @@ const ProfileCard: React.FC = () => {
             <div className="text-[10px] text-gray-400">Certifications</div>
             <div className="text-xs font-medium text-gray-700">IBM AI Product Mgmt</div>
           </div>
-        </div>
-      </div>
-
-      {/* 3. Skills/Tech Stack */}
-      <div className="md:col-span-2 glass-panel p-5 rounded-3xl shadow-glass overflow-hidden">
-        <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">Skills & Technologies</div>
-        <div className="flex flex-wrap gap-2">
-          {TECH_STACK.slice(0, 12).map((tech) => (
-            <span key={tech.id} className="px-3 py-1.5 bg-white border border-gray-100 rounded-lg text-xs font-medium text-gray-700 shadow-sm">
-              {tech.name}
-            </span>
-          ))}
-          {TECH_STACK.length > 12 && (
-            <span className="px-3 py-1.5 text-xs text-gray-400">+{TECH_STACK.length - 12} more</span>
-          )}
         </div>
       </div>
 
