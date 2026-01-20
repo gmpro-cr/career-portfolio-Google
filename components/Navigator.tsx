@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ViewState } from '../types';
 import { ProjectTab } from '../App';
 
@@ -10,6 +10,18 @@ interface NavigatorProps {
 }
 
 const Navigator: React.FC<NavigatorProps> = ({ current, onNavigate, projectTab, onProjectTabChange }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const threshold = window.innerHeight - 80;
+      setIsVisible(e.clientY > threshold);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   const handleProjectsClick = () => {
     onNavigate('PROJECTS');
     onProjectTabChange('projects');
@@ -21,7 +33,11 @@ const Navigator: React.FC<NavigatorProps> = ({ current, onNavigate, projectTab, 
   };
 
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95vw] max-w-fit">
+    <div
+      className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95vw] max-w-fit transition-all duration-300 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+      }`}
+    >
       <nav className="flex items-center gap-1 bg-white/80 backdrop-blur-xl border border-canvas-border p-1.5 rounded-2xl shadow-elevated overflow-x-auto px-2 no-scrollbar">
         <button
           onClick={handleProjectsClick}
