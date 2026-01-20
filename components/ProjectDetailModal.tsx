@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Project } from '../types';
 import { X, Lightbulb, Target, TrendingUp, Users, BarChart3, Layers } from 'lucide-react';
+import CaseStudyModal from './CaseStudyModal';
 
 interface ProjectDetailModalProps {
     project: Project | null;
@@ -10,6 +11,7 @@ interface ProjectDetailModalProps {
 const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClose }) => {
     if (!project) return null;
 
+    const [showCaseStudyModal, setShowCaseStudyModal] = useState(false);
     const isCaseStudy = project.category === 'case-study';
 
     return (
@@ -177,6 +179,18 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                         </section>
                     )}
 
+                    {/* Full Analysis Button for Case Studies */}
+                    {project.caseStudyAnalysis && (
+                        <div className="pt-4">
+                            <button
+                                onClick={() => setShowCaseStudyModal(true)}
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+                            >
+                                View Full Analysis →
+                            </button>
+                        </div>
+                    )}
+
                     {/* Link */}
                     {project.link && (
                         <div className="pt-4 border-t border-gray-100">
@@ -192,6 +206,15 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                     )}
                 </div>
             </div>
+
+            {/* Case Study Analysis Modal */}
+            {showCaseStudyModal && project.caseStudyAnalysis && (
+                <CaseStudyModal
+                    analysis={project.caseStudyAnalysis}
+                    title={project.title}
+                    onClose={() => setShowCaseStudyModal(false)}
+                />
+            )}
         </div>
     );
 };
