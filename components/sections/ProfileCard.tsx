@@ -13,8 +13,7 @@ const ProfileCard: React.FC = () => {
 
         <div className="z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-bold tracking-wider mb-4 md:mb-6 border border-blue-200">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-            SYSTEM OPERATIONAL
+            Open to Opportunities
           </div>
 
           <h1 className="text-4xl md:text-7xl font-black text-canvas-text mb-2 md:mb-4 tracking-tighter leading-[0.9]">
@@ -38,22 +37,23 @@ const ProfileCard: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Terminal Module (1x2) - Adds technical feel */}
-      <div className="md:col-span-2 glass-panel p-6 rounded-3xl shadow-glass bg-black text-green-400 font-mono text-xs overflow-hidden flex flex-col">
-        <div className="flex justify-between border-b border-green-900 pb-2 mb-2 opacity-50">
-          <span>TERMINAL_OUTPUT</span>
-          <span>:8080</span>
-        </div>
-        <div className="space-y-1 opacity-80 flex-1">
-          <div className="flex"><span className="text-blue-400 mr-2">➜</span> <span>init_sequence --force</span></div>
-          <div className="text-gray-500">Loading modules...</div>
-          <div className="flex"><span className="text-green-600 mr-2">✓</span> <span>Credit_Risk_Engine loaded (v2.4)</span></div>
-          <div className="flex"><span className="text-green-600 mr-2">✓</span> <span>Gemini_1.5_Pro connected</span></div>
-          <div className="flex"><span className="text-green-600 mr-2">✓</span> <span>React_Interface rendered</span></div>
-          <div className="flex"><span className="text-blue-400 mr-2">➜</span> <span>cat /var/log/activity.log</span></div>
-          <div className="text-gray-300">&gt; Deployed "MemoGen" to production...</div>
-          <div className="text-gray-300">&gt; Optimizing context window tokens...</div>
-          <div className="animate-pulse">_</div>
+      {/* 2. About Module (1x2) */}
+      <div className="md:col-span-2 glass-panel p-6 rounded-3xl shadow-glass bg-gradient-to-br from-white to-gray-50 flex flex-col">
+        <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">About</div>
+        <p className="text-sm text-gray-600 leading-relaxed mb-4">
+          AI Product Manager with 8+ years in banking and finance. Currently training LLMs at Pareto.AI
+          while managing corporate lending at Yes Bank. Passionate about building AI-powered tools
+          that solve real business problems.
+        </p>
+        <div className="mt-auto pt-4 border-t border-gray-100 grid grid-cols-2 gap-4">
+          <div>
+            <div className="text-xs text-gray-400 mb-1">Education</div>
+            <div className="text-sm font-medium text-gray-700">PGPM, IIM Sirmaur</div>
+          </div>
+          <div>
+            <div className="text-xs text-gray-400 mb-1">Certifications</div>
+            <div className="text-sm font-medium text-gray-700">IBM AI Product Mgmt</div>
+          </div>
         </div>
       </div>
 

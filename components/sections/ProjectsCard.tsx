@@ -45,19 +45,19 @@ const ProjectsCard: React.FC = () => {
                   {isCaseStudy ? <BarChart3 className="w-8 h-8" /> : <Layers className="w-8 h-8" />}
                 </div>
 
-                <div className="flex justify-between items-start mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider shadow-sm ${isCaseStudy
-                      ? 'bg-purple-100 text-purple-700 border border-purple-200'
-                      : 'bg-blue-100 text-blue-700 border border-blue-200'
+                <div className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${isCaseStudy
+                      ? 'bg-purple-100 text-purple-700'
+                      : 'bg-blue-100 text-blue-700'
                       }`}>
                       {isCaseStudy ? 'Case Study' : 'Build'}
                     </span>
-                    <span className={`px-2 py-1 bg-white border border-gray-200 rounded text-[10px] font-bold text-gray-500 shadow-sm`}>
-                      {proj.metrics || "BUILD"}
-                    </span>
+                    <span className="text-xs text-gray-400">{proj.date}</span>
                   </div>
-                  <span className="text-xs font-mono text-gray-400">{proj.date}</span>
+                  {proj.metrics && (
+                    <span className="text-xs font-medium text-gray-500">{proj.metrics}</span>
+                  )}
                 </div>
 
                 <h2 className="font-bold text-xl text-canvas-text mb-3 pr-8">

@@ -16,9 +16,8 @@ const TopBar: React.FC = () => {
   return (
     <div className="fixed top-0 left-0 right-0 h-12 z-50 px-6 flex justify-between items-center pointer-events-none">
       {/* Left: Brand */}
-      <div className="flex items-center gap-3 glass-panel px-3 py-1.5 rounded-full pointer-events-auto shadow-sm">
-        <div className="w-2.5 h-2.5 bg-canvas-accent rounded-full animate-pulse"></div>
-        <span className="text-xs font-mono font-semibold text-canvas-text tracking-tight">GMHL // SYSTEM_V3</span>
+      <div className="flex items-center gap-2 glass-panel px-3 py-1.5 rounded-full pointer-events-auto shadow-sm">
+        <span className="text-xs font-semibold text-canvas-text">Gaurav Mahale</span>
       </div>
 
       {/* Right: Status */}
