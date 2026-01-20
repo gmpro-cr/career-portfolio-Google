@@ -40,6 +40,28 @@ const Navigator: React.FC<NavigatorProps> = ({ current, onNavigate, projectTab, 
     >
       <nav className="flex items-center gap-1 bg-white/80 backdrop-blur-xl border border-canvas-border p-1.5 rounded-2xl shadow-elevated overflow-x-auto px-2 no-scrollbar">
         <button
+          onClick={() => onNavigate('HOME')}
+          className={`
+            whitespace-nowrap px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all duration-300
+            ${current === 'HOME'
+              ? 'bg-canvas-text text-white shadow-md scale-105'
+              : 'text-canvas-muted hover:bg-black/5 hover:text-canvas-text'}
+          `}
+        >
+          Profile
+        </button>
+        <button
+          onClick={() => onNavigate('WORK')}
+          className={`
+            whitespace-nowrap px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all duration-300
+            ${current === 'WORK'
+              ? 'bg-canvas-text text-white shadow-md scale-105'
+              : 'text-canvas-muted hover:bg-black/5 hover:text-canvas-text'}
+          `}
+        >
+          Experience
+        </button>
+        <button
           onClick={handleProjectsClick}
           className={`
             whitespace-nowrap px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all duration-300
@@ -60,28 +82,6 @@ const Navigator: React.FC<NavigatorProps> = ({ current, onNavigate, projectTab, 
           `}
         >
           Case Studies
-        </button>
-        <button
-          onClick={() => onNavigate('WORK')}
-          className={`
-            whitespace-nowrap px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all duration-300
-            ${current === 'WORK'
-              ? 'bg-canvas-text text-white shadow-md scale-105'
-              : 'text-canvas-muted hover:bg-black/5 hover:text-canvas-text'}
-          `}
-        >
-          Experience
-        </button>
-        <button
-          onClick={() => onNavigate('HOME')}
-          className={`
-            whitespace-nowrap px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all duration-300
-            ${current === 'HOME'
-              ? 'bg-canvas-text text-white shadow-md scale-105'
-              : 'text-canvas-muted hover:bg-black/5 hover:text-canvas-text'}
-          `}
-        >
-          Profile
         </button>
       </nav>
     </div>
