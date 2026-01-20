@@ -176,7 +176,93 @@ export const PROJECTS: Project[] = [
     ],
     userResearch: "Analyzed 500+ user reviews on app stores and social media to understand pain points. Key themes: 'too many options', 'unclear what I need', 'expensive for what you get'. Also reviewed Glassdoor and LinkedIn job posting patterns to understand recruiter-side dynamics.",
     competitiveAnalysis: "Benchmarked against LinkedIn Premium (₹1500/mo), Indeed Resume (free with limits), and Shine.com. LinkedIn's single premium tier is both strength (simplicity) and weakness (no mid-market option). Naukri's opportunity lies in India-specific pricing and vernacular support.",
-    frameworks: ["Jobs-to-be-Done", "Value Proposition Canvas", "Pricing Strategy Matrix", "RICE Prioritization"]
+    frameworks: ["Jobs-to-be-Done", "Value Proposition Canvas", "Pricing Strategy Matrix", "RICE Prioritization"],
+    caseStudyAnalysis: {
+      userSegments: [
+        {
+          segment: "Free Users (Freshers & Experienced)",
+          needs: [
+            "Search jobs by education/experience",
+            "Hassle-free application process",
+            "Profile-based suggestions",
+            "Profile compatibility analytics"
+          ],
+          addressed: [
+            "Search by location, industry, company, role",
+            "One-click apply without re-entering details",
+            "AI suggestions based on background and preferences",
+            "Profile visits, activity, and skills match analytics"
+          ]
+        },
+        {
+          segment: "Paid Users (Immediate Job Seekers)",
+          needs: [
+            "Resume building services",
+            "Faster application process",
+            "Greater visibility to recruiters"
+          ],
+          addressed: [
+            "Resume display and writing services",
+            "Recruiter connection features",
+            "AI mock interviews and Naukri 360"
+          ]
+        },
+        {
+          segment: "Employers/HR",
+          needs: [
+            "Large candidate pool",
+            "Filter by JD requirements",
+            "Quick background checks",
+            "Anonymous outreach"
+          ],
+          addressed: [
+            "Access to ~3 Cr candidate CVs",
+            "Filter by salary, notice period, location",
+            "Detailed candidate profiles",
+            "Hidden identity recruitment"
+          ]
+        }
+      ],
+      featureBreakdown: [
+        {
+          feature: "Jobs You May Like",
+          problem: "Candidates need relevant job suggestions without manual searching",
+          whyItWorks: "Provides larger list of relevant postings based on activity, preferences, and AI suggestions - increases engagement and applications"
+        },
+        {
+          feature: "Application Tracker",
+          problem: "Candidates lack visibility into application status",
+          whyItWorks: "Shows competing applicants, profile views, shortlist status - helps candidates calibrate expectations"
+        },
+        {
+          feature: "Paid Services",
+          problem: "Freshers and urgent job seekers need guidance and visibility",
+          whyItWorks: "Resume building, recruiter access, and career boost attract desperate and guidance-seeking candidates"
+        }
+      ],
+      competitiveAnalysis: [
+        {
+          platform: "LinkedIn",
+          strengths: ["Social platform with professional connections", "Detailed professional backgrounds", "Consolidated premium offering"],
+          weaknesses: ["Skews toward experienced professionals", "Freshers prefer Naukri"]
+        },
+        {
+          platform: "Indeed",
+          strengths: ["Global reach", "Cleaner interface"],
+          weaknesses: ["Fewer Indian listings", "Less popular than LinkedIn/Naukri in India"]
+        },
+        {
+          platform: "IIMJobs",
+          strengths: ["Focused premium segment platform"],
+          weaknesses: ["Limited postings", "Can be replaced by LinkedIn"]
+        }
+      ],
+      keyTakeaways: [
+        "Naukri's longevity (since 1997) comes from consistent UX upgrades and staying relevant",
+        "Users prefer uncluttered experience with focused offerings",
+        "Engagement driven by accurate suggestions from large job posting pool"
+      ]
+    }
   },
   {
     title: "BookMyShow: Deep Dive",
