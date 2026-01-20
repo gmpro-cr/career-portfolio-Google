@@ -83,28 +83,6 @@ const Navigator: React.FC<NavigatorProps> = ({ current, onNavigate, projectTab, 
         >
           Profile
         </button>
-        <button
-          onClick={() => onNavigate('SKILLS')}
-          className={`
-            whitespace-nowrap px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all duration-300
-            ${current === 'SKILLS'
-              ? 'bg-canvas-text text-white shadow-md scale-105'
-              : 'text-canvas-muted hover:bg-black/5 hover:text-canvas-text'}
-          `}
-        >
-          Skills
-        </button>
-        <button
-          onClick={() => onNavigate('CONNECT')}
-          className={`
-            whitespace-nowrap px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all duration-300
-            ${current === 'CONNECT'
-              ? 'bg-canvas-text text-white shadow-md scale-105'
-              : 'text-canvas-muted hover:bg-black/5 hover:text-canvas-text'}
-          `}
-        >
-          AI Chat
-        </button>
       </nav>
     </div>
   );
