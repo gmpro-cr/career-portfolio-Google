@@ -9,8 +9,11 @@ import ProjectsCard from './components/sections/ProjectsCard';
 import ConnectCard from './components/sections/ConnectCard';
 import { ViewState } from './types';
 
+export type ProjectTab = 'projects' | 'case-studies';
+
 function App() {
   const [view, setView] = useState<ViewState>('HOME');
+  const [projectTab, setProjectTab] = useState<ProjectTab>('projects');
 
   const getTransform = () => {
     switch (view) {
@@ -29,7 +32,11 @@ function App() {
   return (
     <div className="relative w-screen h-screen overflow-hidden font-sans text-canvas-text selection:bg-canvas-accent selection:text-white bg-canvas-bg">
       
-      <TopBar />
+      <TopBar
+        view={view}
+        projectTab={projectTab}
+        onProjectTabChange={setProjectTab}
+      />
       <Background view={view} />
 
       {/* The Infinite Canvas Container */}
@@ -73,7 +80,7 @@ function App() {
              opacity: view === 'PROJECTS' ? 1 : 0.3,
              transform: view === 'PROJECTS' ? 'translateX(0)' : 'translateX(50px)'
            }}>
-             <ProjectsCard />
+             <ProjectsCard activeTab={projectTab} />
            </div>
         </div>
 

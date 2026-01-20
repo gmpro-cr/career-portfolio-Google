@@ -3,10 +3,14 @@ import { PROJECTS } from '../../constants';
 import { Project } from '../../types';
 import ProjectDetailModal from '../ProjectDetailModal';
 import { ArrowUpRight } from 'lucide-react';
+import { ProjectTab } from '../../App';
 
-const ProjectsCard: React.FC = () => {
+interface ProjectsCardProps {
+  activeTab: ProjectTab;
+}
+
+const ProjectsCard: React.FC<ProjectsCardProps> = ({ activeTab }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [activeTab, setActiveTab] = useState<'projects' | 'case-studies'>('projects');
 
   const projects = PROJECTS.filter(p => p.category !== 'case-study');
   const caseStudies = PROJECTS.filter(p => p.category === 'case-study');
@@ -15,33 +19,16 @@ const ProjectsCard: React.FC = () => {
   return (
     <>
       <div className="w-full h-full p-3 md:p-6 flex flex-col">
-        {/* Header with Tabs */}
+        {/* Header */}
         <div className="mb-4 md:mb-6 px-2">
-          <h1 className="text-2xl md:text-3xl font-bold text-canvas-text mb-4">Portfolio</h1>
-
-          {/* Tabs */}
-          <div className="flex gap-2">
-            <button
-              onClick={() => setActiveTab('projects')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeTab === 'projects'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Projects ({projects.length})
-            </button>
-            <button
-              onClick={() => setActiveTab('case-studies')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeTab === 'case-studies'
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Case Studies ({caseStudies.length})
-            </button>
-          </div>
+          <h1 className="text-2xl md:text-3xl font-bold text-canvas-text">
+            {activeTab === 'projects' ? 'Projects' : 'Case Studies'}
+          </h1>
+          <p className="text-sm text-gray-500 mt-1">
+            {activeTab === 'projects'
+              ? 'Technical builds and implementations'
+              : 'Product analysis and strategic thinking'}
+          </p>
         </div>
 
         {/* Cards Grid */}
