@@ -43,26 +43,15 @@ const SkillsCard: React.FC = () => {
 
       {/* 3. Tech Stack Grid - 2x1 */}
       <div className="md:col-span-2 glass-panel p-6 rounded-3xl shadow-glass overflow-y-auto">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="font-bold text-canvas-text">Technical Arsenal</h3>
-          <span className="text-xs font-mono text-gray-400">LIVE MARKET VALUES</span>
+        <div className="mb-4">
+          <h3 className="font-bold text-canvas-text">Technologies</h3>
+          <p className="text-xs text-gray-400">Tools and frameworks I work with</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {TECH_STACK.map((tech) => (
             <div key={tech.id} className="bg-white border border-gray-100 p-3 rounded-xl flex flex-col gap-1 hover:border-blue-200 transition-colors group shadow-sm">
-              <div className="flex justify-between">
-                <span className="font-bold text-sm text-gray-800">{tech.name}</span>
-                <span className={`text-[10px] font-mono ${tech.change.startsWith('+') ? 'text-green-500' : 'text-red-500'}`}>
-                  {tech.change}
-                </span>
-              </div>
+              <span className="font-bold text-sm text-gray-800">{tech.name}</span>
               <div className="text-[10px] text-gray-400">{tech.category}</div>
-              <div className="w-full bg-gray-100 h-1.5 rounded-full mt-2 overflow-hidden">
-                <div
-                  className="bg-canvas-accent h-full rounded-full group-hover:bg-blue-600 transition-all"
-                  style={{ width: `${(parseFloat(tech.price) / 200) * 100}%` }}
-                ></div>
-              </div>
             </div>
           ))}
         </div>
