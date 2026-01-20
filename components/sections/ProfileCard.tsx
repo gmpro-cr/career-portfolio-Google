@@ -1,25 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ProfileCard: React.FC = () => {
+  const [photoError, setPhotoError] = useState(false);
+
   return (
-    <div className="w-full h-full p-3 md:p-6 grid grid-cols-1 md:grid-cols-4 grid-rows-auto md:grid-rows-2 gap-3 md:gap-6 overflow-y-auto md:overflow-hidden pb-28 md:pb-6">
+    <div className="w-full h-full p-3 md:p-6 grid grid-cols-1 md:grid-cols-3 grid-rows-auto md:grid-rows-2 gap-3 md:gap-6 overflow-y-auto md:overflow-hidden pb-28 md:pb-6">
 
       {/* 1. Identity Module (2x2) */}
       <div className="md:col-span-2 md:row-span-2 glass-panel p-5 md:p-8 rounded-3xl shadow-glass flex flex-col justify-between relative overflow-hidden bg-white/60 min-h-[300px]">
-        <div className="absolute top-0 right-0 p-4 md:p-6 opacity-5">
-          <div className="text-7xl md:text-9xl font-black">GM</div>
-        </div>
-
         <div className="z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-bold tracking-wider mb-4 md:mb-6 border border-blue-200">
             Open to Opportunities
           </div>
 
-          <h1 className="text-4xl md:text-7xl font-black text-canvas-text mb-2 md:mb-4 tracking-tighter leading-[0.9]">
-            GAURAV<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-canvas-accent to-purple-600">MAHALE</span>
-          </h1>
+          {/* Photo + Name Row */}
+          <div className="flex items-center gap-4 md:gap-6 mb-4">
+            {/* Circular Photo */}
+            <div className="w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 flex-shrink-0 border-4 border-white shadow-lg">
+              {!photoError ? (
+                <img
+                  src="/photo.jpg"
+                  alt="Gaurav Mahale"
+                  className="w-full h-full object-cover"
+                  onError={() => setPhotoError(true)}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-400">
+                  <span className="text-3xl">👤</span>
+                </div>
+              )}
+            </div>
 
-          <p className="text-xl text-canvas-muted leading-relaxed max-w-lg font-medium">
+            {/* Name */}
+            <h1 className="text-3xl md:text-6xl font-black text-canvas-text tracking-tighter leading-[0.9]">
+              GAURAV<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-canvas-accent to-purple-600">MAHALE</span>
+            </h1>
+          </div>
+
+          <p className="text-lg md:text-xl text-canvas-muted leading-relaxed max-w-lg font-medium">
             Architecting the convergence of <strong className="text-canvas-text">Fintech</strong> and <strong className="text-canvas-text">Agentic AI</strong>.
           </p>
         </div>
@@ -36,29 +54,7 @@ const ProfileCard: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Photo Module (1x2) */}
-      <div className="md:row-span-2 glass-panel p-0 rounded-3xl shadow-glass relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center min-h-[200px]">
-        {/* Placeholder for photo - replace src with actual photo path */}
-        <img
-          src="/photo.jpg"
-          alt="Gaurav Mahale"
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-            target.parentElement!.innerHTML = `
-              <div class="flex flex-col items-center justify-center text-gray-400 p-6">
-                <div class="w-20 h-20 rounded-full bg-gray-300 flex items-center justify-center mb-3">
-                  <span class="text-3xl">👤</span>
-                </div>
-                <span class="text-xs text-center">Add photo.jpg to public folder</span>
-              </div>
-            `;
-          }}
-        />
-      </div>
-
-      {/* 3. About Module */}
+      {/* 2. About Module */}
       <div className="glass-panel p-6 rounded-3xl shadow-glass bg-gradient-to-br from-white to-gray-50 flex flex-col">
         <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">About</div>
         <p className="text-sm text-gray-600 leading-relaxed mb-4">
