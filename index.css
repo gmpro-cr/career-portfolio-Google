@@ -2,27 +2,43 @@
 @config "./tailwind.config.ts";
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    background-color: #F4F4F5;
-    color: #18181B;
-    overflow: hidden;
+    @apply bg-warm-white text-charcoal antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif;
   }
 }
 
-@layer utilities {
-  .camera-plane {
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
+@layer components {
+  .btn-primary {
+    @apply bg-terracotta text-white px-6 py-3 rounded-lg font-medium
+           hover:bg-terracotta-dark transition-colors duration-200;
   }
 
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
+  .btn-outline {
+    @apply border-2 border-terracotta text-terracotta px-6 py-3 rounded-lg font-medium
+           hover:bg-terracotta hover:text-white transition-colors duration-200;
   }
 
-  .glass-panel {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+  .card {
+    @apply bg-warm-cream rounded-xl p-6 shadow-soft;
+  }
+
+  .badge-ai {
+    @apply bg-terracotta/10 text-terracotta px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-finance {
+    @apply bg-olive/10 text-olive px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-ops {
+    @apply bg-gray-200 text-gray-600 px-3 py-1 rounded-full text-sm font-medium;
   }
 }
