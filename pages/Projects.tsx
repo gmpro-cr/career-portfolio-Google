@@ -65,8 +65,10 @@ export default function Projects() {
                 onClick={() => setSelectedProject(project)}
                 className="bg-warm-cream rounded-xl overflow-hidden shadow-soft hover:shadow-card transition-all cursor-pointer group"
               >
-                <div className="aspect-video bg-gray-100 flex items-center justify-center relative">
-                  {activeTab === 'builds' ? (
+                <div className="aspect-video bg-gray-100 flex items-center justify-center relative overflow-hidden">
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                  ) : activeTab === 'builds' ? (
                     <Lightbulb size={48} className="text-gray-300" />
                   ) : (
                     <FileText size={48} className="text-gray-300" />

@@ -17,16 +17,31 @@ export default function About() {
               <h1 className="text-4xl md:text-5xl text-charcoal">About Me</h1>
               <div className="mt-6 space-y-4 text-muted">
                 <p>
-                  I started as an engineer, became fascinated by how businesses make decisions, and found my calling at the intersection of finance and AI.
+                  I'm a <strong>Relationship Manager at Yes Bank</strong> with 8 years of experience in corporate banking, credit risk, and portfolio management. I'm now actively transitioning into Product Management.
                 </p>
                 <p>
-                  Over 8 years, I've managed portfolios worth ₹500 Cr, built AI tools that save hours of manual work, and helped companies make better lending decisions. My MBA from IIM Sirmaur gave me the strategic lens; my engineering background gives me the builder's mindset.
+                  My banking career taught me to deeply understand user pain points — whether it's a CFO needing faster credit decisions or a business owner struggling with documentation. This user-first thinking now drives my product work.
                 </p>
                 <p>
-                  Today, I'm most excited about using AI to solve real problems in financial services — not flashy demos, but tools that actually ship and create value.
+                  On the side, I've built AI tools that solve real problems I've seen at work: a credit memo generator that cuts analysis time by 80%, and an AI persona platform with 500 monthly users. These projects prove I can ship products, not just talk about them.
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Product Section */}
+      <section className="py-16 bg-terracotta/10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl text-charcoal text-center mb-8">Why Product?</h2>
+          <div className="bg-warm-white rounded-xl p-8 shadow-soft">
+            <p className="text-muted text-lg leading-relaxed">
+              After 8 years in banking, I realized the moments I was most energized weren't when I closed a deal — they were when I <strong>solved a problem</strong>. When I automated a tedious credit analysis process. When I redesigned a client onboarding flow that reduced drop-offs. When I built an internal tool that my colleagues actually wanted to use.
+            </p>
+            <p className="text-muted text-lg leading-relaxed mt-4">
+              Product Management lets me do this full-time: understand users deeply, define problems clearly, and ship solutions that create real value. My finance background isn't a detour — it's my unfair advantage. I understand B2B users, enterprise sales cycles, regulatory constraints, and what "value" means when real money is on the line.
+            </p>
           </div>
         </div>
       </section>

@@ -15,12 +15,12 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="flex-1 text-center md:text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight">
-                Building products at the intersection of{' '}
-                <span className="text-terracotta">finance</span> and{' '}
-                <span className="text-olive">AI</span>
+                <span className="text-terracotta">Finance professional</span>{' '}
+                transitioning to{' '}
+                <span className="text-olive">Product Management</span>
               </h1>
               <p className="mt-6 text-lg text-muted max-w-xl">
-                8 years turning complex problems into simple solutions — from ₹500 Cr portfolios to AI tools used by hundreds.
+                8 years in banking taught me to understand users and solve complex problems. Now I'm channeling that into building AI-powered products.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <Link to="/work" className="btn-primary inline-flex items-center justify-center gap-2">
@@ -48,7 +48,7 @@ export default function Home() {
             <div className="flex flex-col items-center gap-1">
               <Briefcase size={24} className="opacity-80" />
               <span className="text-2xl font-semibold">8+</span>
-              <span className="text-sm opacity-80">Years Experience</span>
+              <span className="text-sm opacity-80">Years in Finance</span>
             </div>
             <div className="flex flex-col items-center gap-1">
               <span className="text-2xl">₹</span>

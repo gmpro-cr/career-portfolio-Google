@@ -15,6 +15,7 @@ export interface Project {
   tech: string[];
   link?: string;
   metrics?: string;
+  image?: string;
 
   // Enhanced case study fields
   category: 'build' | 'case-study';

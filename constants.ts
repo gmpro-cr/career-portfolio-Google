@@ -1,38 +1,27 @@
 import { Experience, Project, SkillMetric, Education, Certification, TechItem } from './types';
 
 export const RESUME_CONTEXT = `
-Gaurav Mahale is an AI Product Manager with a strong background in Credit Risk & Lending.
+Gaurav Mahale is a finance professional transitioning to Product Management, with 8+ years in banking and credit risk.
 Education: PGPM from IIM Sirmaur (2015-2017), B.E. from University of Pune (2010-2014).
-Current Role: AI Trainer at Pareto.AI (Dec 2025 - Present, Part Time) and Relationship Manager at Yes Bank (Full Time).
+Current Role: Relationship Manager at Yes Bank (Full Time, Apr 2022 - Present). Also working part-time as AI Trainer at Pareto.AI.
 Previous Roles:
-- Relationship Manager at Yes Bank (Apr 2022 - Present): Managed corporate lending portfolios worth 500 Cr.
 - Portfolio Manager at HDFC Bank (Jan 2020 - Apr 2022): Minimised delinquency risk using predictive analytics.
 - Operations Manager at Suraksha ARC (Sep 2017 - Jan 2020): NPA account resolution.
 - Consultant at Tata Trusts (May 2017 - Sep 2017).
-Key Skills: AI Product/MVP Development, Credit Analysis, SQL, Google Analytics, Gemini API, Claude, Python.
-Projects:
-1. AI Persona interaction platform: 500 monthly users, used Gemini/Claude/Supabase.
-2. Credit Memo and FS Generation using AI: Full-stack platform for generating credit memos from annual reports using Gemini/Groq.
+Key Skills: Credit Analysis, Financial Modeling, SQL, Google Analytics, Python. Building AI/Product skills through side projects.
+Projects (demonstrating product thinking):
+1. AI Persona interaction platform: 500 monthly users, built with Gemini/Claude/Supabase.
+2. Credit Memo and FS Generation using AI: Full-stack platform solving a real banking pain point.
 Certifications: IBM AI Product Management, HelloPM, Figma Essentials.
+Why Product: After 8 years solving customer problems in banking, I realized I'm most energized when building solutions. My side projects prove I can ship products that users love.
 Location: Pune, India.
 Contact: mahalegauravk@gmail.com.
 `;
 
 export const EXPERIENCES: Experience[] = [
   {
-    role: "AI Trainer",
-    company: "Pareto.AI (Part Time)",
-    period: "Dec 25 - Present",
-    type: 'AI',
-    description: [
-      "Training LLMs on financial modeling, Doc and PPT generation through evals and prompt engineering",
-      "Evaluated and improved AI outputs for credit analysis, financial projections, and business documentation",
-      "Applied banking domain expertise to enhance AI model accuracy in corporate finance applications"
-    ]
-  },
-  {
     role: "Relationship Manager",
-    company: "Yes Bank Limited (Full Time)",
+    company: "Yes Bank Limited",
     period: "Apr 22 - Present",
     type: 'Finance',
     description: [
@@ -83,6 +72,17 @@ export const EXPERIENCES: Experience[] = [
       "Initiated process to build handwash stations in 1,200 schools with Rotary Club",
       "Responsible for catalysing processes to complete work within deadlines"
     ]
+  },
+  {
+    role: "AI Trainer",
+    company: "Pareto.AI (Part-Time)",
+    period: "Dec 25 - Present",
+    type: 'AI',
+    description: [
+      "Training LLMs on financial modeling, Doc and PPT generation through evals and prompt engineering",
+      "Evaluated and improved AI outputs for credit analysis, financial projections, and business documentation",
+      "Applied banking domain expertise to enhance AI model accuracy in corporate finance applications"
+    ]
   }
 ];
 
@@ -123,6 +123,7 @@ export const PROJECTS: Project[] = [
     tech: ["Next.js", "Supabase", "Gemini API", "Vercel", "A/B Testing", "Analytics", "PostgreSQL"],
     metrics: "500 MAU",
     link: "https://ai-spirit.vercel.app",
+    image: "/ai-spirit.png",
     category: 'build',
     problem: "Generic chatbots lack personality and emotional connection, leading to short sessions and low return rates. Users want meaningful interactions that feel authentic, whether with historical figures for learning or fictional characters for entertainment. Existing solutions either lack depth or require expensive fine-tuning.",
     approach: [
@@ -153,6 +154,7 @@ export const PROJECTS: Project[] = [
     description: "Strategic product analysis of India's largest job portal, identifying service clutter issues and proposing a bundling strategy to reduce decision paralysis and increase paid adoption. Recommended 'Naukri Plus' (mass market) vs 'Naukri Pro' (premium) tiering.",
     tech: ["Product Strategy", "User Segmentation", "Monetization", "Market Analysis", "Pricing Strategy"],
     metrics: "Strategic Proposal",
+    image: "/naukri.png",
     category: 'case-study',
     problem: "Naukri.com offers 10+ individual services (Resume Display, Resume Critique, Job Search Booster, etc.) creating decision paralysis for job seekers. This leads to low conversion rates on paid services, high cart abandonment, and users defaulting to the free tier. The fragmented offering also makes it difficult to communicate value proposition clearly.",
     approach: [
@@ -270,6 +272,7 @@ export const PROJECTS: Project[] = [
     description: "Product deconstruction of BookMyShow's non-movie entertainment vertical, identifying a critical gap in discovery for plays, comedy shows, and live events. Proposed a 'Reviews & Social' layer to drive engagement and reduce dependency on movie releases.",
     tech: ["Product Deconstruction", "UX Analysis", "Feature Prioritization", "Competitive Audit", "User Research"],
     metrics: "Feature Concept",
+    image: "/bookmyshow.png",
     category: 'case-study',
     problem: "While BookMyShow dominates movie ticketing (90%+ market share), its non-movie entertainment vertical (plays, comedy, concerts) has poor discovery and low engagement. Users don't know what events exist, can't gauge quality, and lack social proof for unfamiliar experiences. This leads to last-minute bookings (revenue volatility) and high marketing costs for event organizers.",
     approach: [
