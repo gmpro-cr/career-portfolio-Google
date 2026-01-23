@@ -34,9 +34,7 @@ export default function Home() {
 
             <div className="flex-shrink-0">
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-warm-cream border-4 border-terracotta/20 overflow-hidden shadow-elevated">
-                <div className="w-full h-full flex items-center justify-center text-muted">
-                  <span className="text-6xl">👨‍💼</span>
-                </div>
+                <img src="/profile.jpeg" alt="Gaurav" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -110,8 +108,12 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8">
             {featuredProjects.map((project, index) => (
               <div key={index} className="bg-warm-white rounded-xl overflow-hidden shadow-soft hover:shadow-card transition-shadow">
-                <div className="aspect-video bg-gray-100 flex items-center justify-center">
-                  <Lightbulb size={48} className="text-gray-300" />
+                <div className="aspect-video bg-gray-100 flex items-center justify-center overflow-hidden">
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                  ) : (
+                    <Lightbulb size={48} className="text-gray-300" />
+                  )}
                 </div>
                 <div className="p-6">
                   <div className="flex items-start justify-between">

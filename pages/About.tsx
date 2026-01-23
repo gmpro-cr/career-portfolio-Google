@@ -9,9 +9,7 @@ export default function About() {
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="flex-shrink-0">
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-warm-cream border-4 border-olive/20 overflow-hidden shadow-elevated">
-                <div className="w-full h-full flex items-center justify-center text-muted">
-                  <span className="text-6xl">👨‍💼</span>
-                </div>
+                <img src="/profile.jpeg" alt="Gaurav" className="w-full h-full object-cover" />
               </div>
             </div>
 
