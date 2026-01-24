@@ -154,7 +154,7 @@ export const PROJECTS: Project[] = [
     description: "Strategic product analysis of India's largest job portal, identifying service clutter issues and proposing a bundling strategy to reduce decision paralysis and increase paid adoption. Recommended 'Naukri Plus' (mass market) vs 'Naukri Pro' (premium) tiering.",
     tech: ["Product Strategy", "User Segmentation", "Monetization", "Market Analysis", "Pricing Strategy"],
     metrics: "Strategic Proposal",
-    image: "/naukri.png",
+    image: "/naukri-logo.png",
     category: 'case-study',
     problem: "Naukri.com offers 10+ individual services (Resume Display, Resume Critique, Job Search Booster, etc.) creating decision paralysis for job seekers. This leads to low conversion rates on paid services, high cart abandonment, and users defaulting to the free tier. The fragmented offering also makes it difficult to communicate value proposition clearly.",
     approach: [
@@ -272,7 +272,7 @@ export const PROJECTS: Project[] = [
     description: "Product deconstruction of BookMyShow's non-movie entertainment vertical, identifying a critical gap in discovery for plays, comedy shows, and live events. Proposed a 'Reviews & Social' layer to drive engagement and reduce dependency on movie releases.",
     tech: ["Product Deconstruction", "UX Analysis", "Feature Prioritization", "Competitive Audit", "User Research"],
     metrics: "Feature Concept",
-    image: "/bookmyshow.png",
+    image: "/bookmyshow-logo.png",
     category: 'case-study',
     problem: "While BookMyShow dominates movie ticketing (90%+ market share), its non-movie entertainment vertical (plays, comedy, concerts) has poor discovery and low engagement. Users don't know what events exist, can't gauge quality, and lack social proof for unfamiliar experiences. This leads to last-minute bookings (revenue volatility) and high marketing costs for event organizers.",
     approach: [
