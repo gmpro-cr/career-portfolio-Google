@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Twitter } from 'lucide-react';
+import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText } from 'lucide-react';
+
+const XIcon = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
 import { EXPERIENCES, PROJECTS, SKILL_DATA, TECH_STACK, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 
 export default function Home() {
@@ -272,7 +278,7 @@ export default function Home() {
                 <span>linkedin.com/in/mahalegauravk</span>
               </a>
               <a href="https://x.com/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
-                <Twitter size={18} />
+                <XIcon size={18} />
                 <span>x.com/mahalegauravk</span>
               </a>
               <div className="flex items-center gap-3 text-muted">
