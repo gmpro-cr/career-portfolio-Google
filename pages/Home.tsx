@@ -1,16 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Briefcase, Lightbulb, GraduationCap, Users } from 'lucide-react';
-import { EXPERIENCES, PROJECTS } from '../constants';
+import React, { useState } from 'react';
+import { Mail, Linkedin, MapPin, Phone, Briefcase, GraduationCap, Award, ExternalLink, Lightbulb, FileText } from 'lucide-react';
+import { EXPERIENCES, PROJECTS, SKILL_DATA, TECH_STACK, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 
 export default function Home() {
-  const featuredExperiences = EXPERIENCES.slice(0, 3);
-  const featuredProjects = PROJECTS.filter(p => p.category === 'build').slice(0, 2);
+  const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null);
 
   return (
     <div>
       {/* Hero Section */}
-      <section className="py-20 md:py-28">
+      <section id="hero" className="py-20 md:py-28">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="flex-1 text-center md:text-left">
@@ -23,12 +21,12 @@ export default function Home() {
                 8 years in banking taught me to understand users and solve complex problems. Now I'm channeling that into building AI-powered products.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <Link to="/work" className="btn-primary inline-flex items-center justify-center gap-2">
-                  View My Work <ArrowRight size={18} />
-                </Link>
-                <Link to="/contact" className="btn-outline inline-flex items-center justify-center">
+                <a href="#experience" className="btn-primary inline-flex items-center justify-center gap-2">
+                  View My Work
+                </a>
+                <a href="#contact" className="btn-outline inline-flex items-center justify-center">
                   Get In Touch
-                </Link>
+                </a>
               </div>
             </div>
 
@@ -56,9 +54,9 @@ export default function Home() {
               <span className="text-sm opacity-80">Portfolios Managed</span>
             </div>
             <div className="flex flex-col items-center gap-1">
-              <Users size={24} className="opacity-80" />
-              <span className="text-2xl font-semibold">500</span>
-              <span className="text-sm opacity-80">MAU Product</span>
+              <Lightbulb size={24} className="opacity-80" />
+              <span className="text-2xl font-semibold">2</span>
+              <span className="text-sm opacity-80">AI Products Built</span>
             </div>
             <div className="flex flex-col items-center gap-1">
               <GraduationCap size={24} className="opacity-80" />
@@ -69,73 +67,397 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Work */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-3xl text-charcoal">Where I've Made Impact</h2>
-            <Link to="/work" className="text-terracotta hover:text-terracotta-dark font-medium inline-flex items-center gap-1">
-              View All <ArrowRight size={16} />
-            </Link>
+      {/* About Section */}
+      <section id="about" className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl text-charcoal text-center mb-8">About Me</h2>
+          <div className="space-y-4 text-muted text-lg">
+            <p>
+              I'm a <strong>Relationship Manager at Yes Bank</strong> with 8 years of experience in corporate banking, credit risk, and portfolio management. I'm now actively transitioning into Product Management.
+            </p>
+            <p>
+              My banking career taught me to deeply understand user pain points — whether it's a CFO needing faster credit decisions or a business owner struggling with documentation. This user-first thinking now drives my product work.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {featuredExperiences.map((exp, index) => (
-              <div key={index} className="card hover:shadow-card transition-shadow">
-                <span className={`${exp.type === 'AI' ? 'badge-ai' : exp.type === 'Finance' ? 'badge-finance' : 'badge-ops'}`}>
-                  {exp.type}
-                </span>
-                <h3 className="mt-4 text-xl font-serif text-charcoal">{exp.role}</h3>
-                <p className="text-muted mt-1">{exp.company}</p>
-                <p className="text-sm text-muted mt-1">{exp.period}</p>
-                <p className="mt-4 text-sm text-muted line-clamp-2">{exp.description[0]}</p>
+          {/* Why Product */}
+          <div className="mt-12 bg-terracotta/10 rounded-xl p-8">
+            <h3 className="text-2xl text-charcoal mb-4">Why Product?</h3>
+            <p className="text-muted text-lg leading-relaxed">
+              After 8 years in banking, I realized the moments I was most energized weren't when I closed a deal — they were when I <strong>solved a problem</strong>. When I automated a tedious credit analysis process. When I redesigned a client onboarding flow. When I built an internal tool that my colleagues actually wanted to use.
+            </p>
+            <p className="text-muted text-lg leading-relaxed mt-4">
+              Product Management lets me do this full-time. My finance background isn't a detour — it's my unfair advantage. I understand B2B users, enterprise sales cycles, regulatory constraints, and what "value" means when real money is on the line.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-20 bg-warm-cream">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl text-charcoal text-center mb-12">Experience</h2>
+
+          {/* Current Roles - Yes Bank + Pareto.AI side by side */}
+          <div className="flex flex-col md:flex-row gap-6 mb-8">
+            {/* Yes Bank - 75% */}
+            <div className="md:w-3/4">
+              <div className="bg-warm-white rounded-xl p-6 shadow-soft h-full">
+                <div className="flex items-start justify-between flex-wrap gap-2">
+                  <span className="badge-finance">Finance</span>
+                  <span className="text-sm text-muted">{EXPERIENCES[0].period}</span>
+                </div>
+                <h3 className="mt-3 text-xl font-serif text-charcoal">{EXPERIENCES[0].role}</h3>
+                <p className="text-terracotta font-medium">{EXPERIENCES[0].company}</p>
+                <ul className="mt-4 space-y-2">
+                  {EXPERIENCES[0].description.map((desc, i) => (
+                    <li key={i} className="text-sm text-muted flex gap-2">
+                      <span className="text-terracotta mt-1">•</span>
+                      <span>{desc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Pareto.AI - 25% */}
+            <div className="md:w-1/4">
+              <div className="bg-warm-white rounded-xl p-6 shadow-soft h-full border-2 border-terracotta/20">
+                <div className="flex items-start justify-between flex-wrap gap-2">
+                  <span className="badge-ai">AI</span>
+                  <span className="text-xs text-muted">Part-Time</span>
+                </div>
+                <h3 className="mt-3 text-lg font-serif text-charcoal">{EXPERIENCES[4].role}</h3>
+                <p className="text-terracotta font-medium text-sm">{EXPERIENCES[4].company}</p>
+                <p className="text-xs text-muted mt-1">{EXPERIENCES[4].period}</p>
+                <ul className="mt-3 space-y-2">
+                  {EXPERIENCES[4].description.slice(0, 2).map((desc, i) => (
+                    <li key={i} className="text-xs text-muted flex gap-2">
+                      <span className="text-terracotta mt-0.5">•</span>
+                      <span>{desc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Previous Experiences - Stacked vertically */}
+          <div className="space-y-6">
+            {EXPERIENCES.slice(1, 4).map((exp, index) => (
+              <div key={index} className="bg-warm-white rounded-xl p-6 shadow-soft">
+                <div className="flex items-start justify-between flex-wrap gap-2">
+                  <span className={`${exp.type === 'AI' ? 'badge-ai' : exp.type === 'Finance' ? 'badge-finance' : 'badge-ops'}`}>
+                    {exp.type}
+                  </span>
+                  <span className="text-sm text-muted">{exp.period}</span>
+                </div>
+                <h3 className="mt-3 text-xl font-serif text-charcoal">{exp.role}</h3>
+                <p className="text-terracotta font-medium">{exp.company}</p>
+                <ul className="mt-4 space-y-2">
+                  {exp.description.map((desc, i) => (
+                    <li key={i} className="text-sm text-muted flex gap-2">
+                      <span className="text-terracotta mt-1">•</span>
+                      <span>{desc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Education & Certifications */}
+          <div className="grid md:grid-cols-2 gap-8 mt-12">
+            <div>
+              <h3 className="text-xl text-charcoal flex items-center gap-3 mb-4">
+                <GraduationCap className="text-terracotta" size={24} />
+                Education
+              </h3>
+              <div className="space-y-3">
+                {EDUCATION_DATA.map((edu) => (
+                  <div key={edu.id} className="bg-warm-white rounded-lg p-4 shadow-soft">
+                    <h4 className="font-serif text-charcoal">{edu.institution}</h4>
+                    <p className="text-sm text-muted">{edu.degree}</p>
+                    <p className="text-xs text-muted mt-1">{edu.year}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl text-charcoal flex items-center gap-3 mb-4">
+                <Award className="text-terracotta" size={24} />
+                Certifications
+              </h3>
+              <div className="space-y-3">
+                {CERTIFICATIONS_DATA.map((cert) => (
+                  <div key={cert.id} className="bg-warm-white rounded-lg p-4 shadow-soft">
+                    <h4 className="font-serif text-charcoal">{cert.name}</h4>
+                    <p className="text-sm text-muted">{cert.issuer}</p>
+                    <p className="text-xs text-muted mt-1">{cert.year}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl text-charcoal text-center mb-4">Projects & Case Studies</h2>
+          <p className="text-muted text-center mb-12 max-w-2xl mx-auto">
+            Products I've built and problems I've analyzed — proof that I can ship, not just talk.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {PROJECTS.map((project, index) => (
+              <div
+                key={index}
+                onClick={() => setSelectedProject(project)}
+                className="bg-warm-cream rounded-xl overflow-hidden shadow-soft hover:shadow-card transition-all cursor-pointer group"
+              >
+                <div className="aspect-video bg-gray-100 flex items-center justify-center relative overflow-hidden">
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                  ) : project.category === 'build' ? (
+                    <Lightbulb size={48} className="text-gray-300" />
+                  ) : (
+                    <FileText size={48} className="text-gray-300" />
+                  )}
+                  <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/10 transition-colors flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 text-charcoal font-medium transition-opacity bg-white/80 px-4 py-2 rounded-lg">
+                      View Details
+                    </span>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className={`text-xs px-2 py-1 rounded-full ${project.category === 'build' ? 'bg-terracotta/10 text-terracotta' : 'bg-gray-200 text-gray-600'}`}>
+                      {project.category === 'build' ? 'Build' : 'Case Study'}
+                    </span>
+                    <span className="text-xs text-muted">{project.date}</span>
+                  </div>
+                  <h3 className="text-xl font-serif text-charcoal">{project.title}</h3>
+                  <p className="mt-2 text-sm text-muted line-clamp-2">{project.description}</p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <div className="flex flex-wrap gap-1">
+                      {project.tech.slice(0, 3).map((tech, i) => (
+                        <span key={i} className="text-xs bg-warm-white text-gray-600 px-2 py-0.5 rounded">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="text-terracotta font-medium text-sm">{project.metrics}</span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Projects */}
-      <section className="py-20 bg-warm-cream">
+      {/* Skills Section */}
+      <section id="skills" className="py-20 bg-warm-cream">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-3xl text-charcoal">Things I've Built</h2>
-            <Link to="/projects" className="text-terracotta hover:text-terracotta-dark font-medium inline-flex items-center gap-1">
-              View All <ArrowRight size={16} />
-            </Link>
-          </div>
+          <h2 className="text-3xl text-charcoal text-center mb-12">Skills & Tools</h2>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {featuredProjects.map((project, index) => (
-              <div key={index} className="bg-warm-white rounded-xl overflow-hidden shadow-soft hover:shadow-card transition-shadow">
-                <div className="aspect-video bg-gray-100 flex items-center justify-center overflow-hidden">
-                  {project.image ? (
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                  ) : (
-                    <Lightbulb size={48} className="text-gray-300" />
-                  )}
-                </div>
-                <div className="p-6">
-                  <div className="flex items-start justify-between">
-                    <h3 className="text-xl font-serif text-charcoal">{project.title}</h3>
-                    <span className="bg-terracotta/10 text-terracotta px-3 py-1 rounded-full text-sm font-medium">
-                      {project.metrics}
-                    </span>
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Skill Bars */}
+            <div>
+              <h3 className="text-xl text-charcoal mb-6">Core Competencies</h3>
+              <div className="space-y-4">
+                {SKILL_DATA.map((skill) => (
+                  <div key={skill.subject} className="bg-warm-white rounded-lg p-4 shadow-soft">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-medium text-charcoal">{skill.subject}</span>
+                      <span className="text-sm text-muted">{skill.A}%</span>
+                    </div>
+                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-terracotta transition-all duration-500"
+                        style={{ width: `${skill.A}%` }}
+                      />
+                    </div>
                   </div>
-                  <p className="mt-2 text-muted">{project.description.slice(0, 120)}...</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.tech.slice(0, 4).map((tech, i) => (
-                      <span key={i} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-                        {tech}
+                ))}
+              </div>
+            </div>
+
+            {/* Tech Stack */}
+            <div>
+              <h3 className="text-xl text-charcoal mb-6">Tools & Technologies</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {TECH_STACK.map((tech) => (
+                  <div key={tech.id} className="bg-warm-white rounded-lg p-4 shadow-soft text-center">
+                    <h4 className="font-medium text-charcoal">{tech.name}</h4>
+                    <p className="text-xs text-muted mt-1">{tech.category}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-3xl text-charcoal mb-4">Let's Connect</h2>
+          <p className="text-muted mb-8">
+            Whether it's a role, a project, or just a conversation about AI and finance — I'd love to hear from you.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            <div className="bg-warm-cream rounded-xl p-6 shadow-soft">
+              <h3 className="font-serif text-lg text-charcoal mb-4">Contact</h3>
+              <div className="space-y-3 text-left">
+                <a href="tel:+919923540336" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
+                  <Phone size={18} />
+                  <span>+91 9923540336</span>
+                </a>
+                <a href="mailto:mahalegauravk@gmail.com" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
+                  <Mail size={18} />
+                  <span>mahalegauravk@gmail.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
+                  <Linkedin size={18} />
+                  <span>linkedin.com/in/mahalegauravk</span>
+                </a>
+                <div className="flex items-center gap-3 text-muted">
+                  <MapPin size={18} />
+                  <span>Pune, India</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-terracotta/10 rounded-xl p-6 border border-terracotta/20">
+              <h3 className="font-serif text-lg text-charcoal mb-4">Open to</h3>
+              <ul className="space-y-2 text-muted text-left">
+                <li>• Full-time PM/AI roles</li>
+                <li>• Consulting projects</li>
+                <li>• Speaking opportunities</li>
+                <li>• Coffee chats about AI & Finance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Project Modal */}
+      {selectedProject && (
+        <div
+          className="fixed inset-0 bg-charcoal/50 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedProject(null)}
+        >
+          <div
+            className="bg-warm-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-6 md:p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <span className={`text-xs px-2 py-1 rounded-full ${selectedProject.category === 'build' ? 'bg-terracotta/10 text-terracotta' : 'bg-gray-200 text-gray-600'}`}>
+                    {selectedProject.category === 'build' ? 'Build' : 'Case Study'}
+                  </span>
+                  <h2 className="text-2xl md:text-3xl font-serif text-charcoal mt-2">{selectedProject.title}</h2>
+                  <p className="text-muted mt-1">{selectedProject.date}</p>
+                </div>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="text-muted hover:text-charcoal text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="mt-4">
+                <span className="bg-terracotta/10 text-terracotta px-4 py-2 rounded-full font-medium">
+                  {selectedProject.metrics}
+                </span>
+              </div>
+
+              {selectedProject.link && (
+                <a
+                  href={selectedProject.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 text-terracotta hover:text-terracotta-dark"
+                >
+                  <ExternalLink size={16} />
+                  View Live Project
+                </a>
+              )}
+
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold text-charcoal">The Problem</h3>
+                <p className="mt-2 text-muted">{selectedProject.problem}</p>
+              </div>
+
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-charcoal">Approach</h3>
+                <ul className="mt-2 space-y-2">
+                  {selectedProject.approach.map((item, i) => (
+                    <li key={i} className="text-muted flex gap-2">
+                      <span className="text-terracotta">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-charcoal">Key Insights</h3>
+                <ul className="mt-2 space-y-2">
+                  {selectedProject.keyInsights.map((item, i) => (
+                    <li key={i} className="text-muted flex gap-2">
+                      <span className="text-terracotta">→</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-charcoal">Outcomes</h3>
+                <ul className="mt-2 space-y-2">
+                  {selectedProject.outcomes.map((item, i) => (
+                    <li key={i} className="text-muted flex gap-2">
+                      <span className="text-terracotta">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-gray-200">
+                <h3 className="text-sm font-semibold text-charcoal uppercase tracking-wide">Tech Stack</h3>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {selectedProject.tech.map((tech, i) => (
+                    <span key={i} className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {selectedProject.frameworks && (
+                <div className="mt-4">
+                  <h3 className="text-sm font-semibold text-charcoal uppercase tracking-wide">Frameworks Used</h3>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {selectedProject.frameworks.map((fw, i) => (
+                      <span key={i} className="bg-terracotta/10 text-terracotta px-3 py-1 rounded-full text-sm">
+                        {fw}
                       </span>
                     ))}
                   </div>
                 </div>
-              </div>
-            ))}
+              )}
+            </div>
           </div>
         </div>
-      </section>
+      )}
     </div>
   );
 }
