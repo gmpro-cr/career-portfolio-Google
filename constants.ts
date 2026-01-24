@@ -2,7 +2,7 @@ import { Experience, Project, SkillMetric, Education, Certification, TechItem } 
 
 export const RESUME_CONTEXT = `
 Gaurav Mahale is a finance professional transitioning to Product Management, with 8+ years in banking and credit risk.
-Education: PGPM from IIM Sirmaur (2015-2017), B.E. from University of Pune (2010-2014).
+Education: PGPM from Indian Institute of Management Sirmaur (2015-2017), B.E. from University of Pune (2010-2014).
 Current Role: Relationship Manager at Yes Bank (Full Time, Apr 2022 - Present). Also working part-time as AI Trainer at Pareto.AI.
 Previous Roles:
 - Portfolio Manager at HDFC Bank (Jan 2020 - Apr 2022): Minimised delinquency risk using predictive analytics.
@@ -407,7 +407,7 @@ export const STOCK_TICKER_ITEMS = [
 
 export const EDUCATION_DATA: Education[] = [
   {
-    institution: "IIM Sirmaur",
+    institution: "Indian Institute of Management Sirmaur",
     degree: "PGPM (Post Graduate Programme in Management)",
     year: "2015 - 2017",
     id: "EDU-01"
