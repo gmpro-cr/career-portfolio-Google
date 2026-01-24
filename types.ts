@@ -47,10 +47,21 @@ export interface CompetitiveEntry {
   weaknesses: string[];
 }
 
+export interface ImprovementSection {
+  problem: string;
+  impact: string;
+  solution: string;
+  whyItWorks: string;
+}
+
 export interface CaseStudyAnalysis {
+  companyMission: string;
+  primaryRevenue: string;
+  secondaryRevenue: string;
   userSegments: UserSegment[];
   featureBreakdown: FeatureBreakdown[];
   competitiveAnalysis: CompetitiveEntry[];
+  improvement: ImprovementSection;
   keyTakeaways: string[];
 }
 

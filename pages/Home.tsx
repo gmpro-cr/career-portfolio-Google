@@ -399,6 +399,163 @@ export default function Home() {
                   </div>
                 </div>
               )}
+
+              {/* Case Study Analysis Sections */}
+              {selectedProject.caseStudyAnalysis && (
+                <div className="mt-8 pt-6 border-t border-gray-200 space-y-8">
+                  {/* Company Mission & Revenue */}
+                  <div className="bg-warm-cream rounded-lg p-6">
+                    <h3 className="text-lg font-semibold text-charcoal mb-4">Company Overview</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <span className="text-sm font-medium text-terracotta">Mission:</span>
+                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.companyMission}</p>
+                      </div>
+                      <div>
+                        <span className="text-sm font-medium text-terracotta">Primary Revenue:</span>
+                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.primaryRevenue}</p>
+                      </div>
+                      <div>
+                        <span className="text-sm font-medium text-terracotta">Secondary Revenue:</span>
+                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.secondaryRevenue}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* User Segments */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-charcoal mb-4">User Segmentation</h3>
+                    <div className="space-y-4">
+                      {selectedProject.caseStudyAnalysis.userSegments.map((segment, i) => (
+                        <div key={i} className="bg-warm-cream rounded-lg p-4">
+                          <h4 className="font-medium text-charcoal mb-3">{segment.segment}</h4>
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <span className="text-xs font-medium text-terracotta uppercase">Needs</span>
+                              <ul className="mt-2 space-y-1">
+                                {segment.needs.map((need, j) => (
+                                  <li key={j} className="text-sm text-muted flex gap-2">
+                                    <span className="text-terracotta">•</span>
+                                    <span>{need}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <span className="text-xs font-medium text-terracotta uppercase">How Product Addresses</span>
+                              <ul className="mt-2 space-y-1">
+                                {segment.addressed.map((addr, j) => (
+                                  <li key={j} className="text-sm text-muted flex gap-2">
+                                    <span className="text-terracotta">✓</span>
+                                    <span>{addr}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Feature Breakdown */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-charcoal mb-4">Key Feature Breakdown</h3>
+                    <div className="space-y-4">
+                      {selectedProject.caseStudyAnalysis.featureBreakdown.map((feature, i) => (
+                        <div key={i} className="bg-warm-cream rounded-lg p-4">
+                          <h4 className="font-medium text-charcoal">{feature.feature}</h4>
+                          <div className="mt-2 space-y-2">
+                            <p className="text-sm text-muted">
+                              <span className="font-medium text-terracotta">Problem:</span> {feature.problem}
+                            </p>
+                            <p className="text-sm text-muted">
+                              <span className="font-medium text-terracotta">Why It Works:</span> {feature.whyItWorks}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Competitive Analysis */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-charcoal mb-4">Competitive Analysis</h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b border-gray-200">
+                            <th className="text-left py-2 px-3 text-charcoal font-medium">Platform</th>
+                            <th className="text-left py-2 px-3 text-charcoal font-medium">Strengths</th>
+                            <th className="text-left py-2 px-3 text-charcoal font-medium">Weaknesses</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {selectedProject.caseStudyAnalysis.competitiveAnalysis.map((comp, i) => (
+                            <tr key={i} className="border-b border-gray-100">
+                              <td className="py-3 px-3 font-medium text-charcoal">{comp.platform}</td>
+                              <td className="py-3 px-3 text-muted">
+                                <ul className="space-y-1">
+                                  {comp.strengths.map((s, j) => (
+                                    <li key={j} className="flex gap-1">
+                                      <span className="text-green-600">✓</span> {s}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </td>
+                              <td className="py-3 px-3 text-muted">
+                                <ul className="space-y-1">
+                                  {comp.weaknesses.map((w, j) => (
+                                    <li key={j} className="flex gap-1">
+                                      <span className="text-red-500">✗</span> {w}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Improvement Opportunity */}
+                  <div className="bg-terracotta/10 rounded-lg p-6">
+                    <h3 className="text-lg font-semibold text-charcoal mb-4">Proposed Improvement</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <span className="text-sm font-medium text-terracotta">Identified Problem:</span>
+                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.improvement.problem}</p>
+                      </div>
+                      <div>
+                        <span className="text-sm font-medium text-terracotta">Why This Is Impactful:</span>
+                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.improvement.impact}</p>
+                      </div>
+                      <div>
+                        <span className="text-sm font-medium text-terracotta">Proposed Solution:</span>
+                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.improvement.solution}</p>
+                      </div>
+                      <div>
+                        <span className="text-sm font-medium text-terracotta">Why It Will Work:</span>
+                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.improvement.whyItWorks}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Key Takeaways */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-charcoal mb-4">Key Takeaways</h3>
+                    <ul className="space-y-2">
+                      {selectedProject.caseStudyAnalysis.keyTakeaways.map((takeaway, i) => (
+                        <li key={i} className="text-muted flex gap-3 items-start">
+                          <span className="text-terracotta text-lg">📌</span>
+                          <span>{takeaway}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
