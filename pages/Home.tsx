@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText } from 'lucide-react';
+import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Twitter } from 'lucide-react';
 import { EXPERIENCES, PROJECTS, SKILL_DATA, TECH_STACK, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 
 export default function Home() {
@@ -270,6 +270,10 @@ export default function Home() {
               <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
                 <Linkedin size={18} />
                 <span>linkedin.com/in/mahalegauravk</span>
+              </a>
+              <a href="https://x.com/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
+                <Twitter size={18} />
+                <span>x.com/mahalegauravk</span>
               </a>
               <div className="flex items-center gap-3 text-muted">
                 <MapPin size={18} />
