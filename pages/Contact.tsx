@@ -34,13 +34,13 @@ export default function Contact() {
                   <span>mahalegauravk@gmail.com</span>
                 </a>
                 <a
-                  href="https://linkedin.com/in/gauravmahale"
+                  href="https://www.linkedin.com/in/mahalegauravk"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors"
                 >
                   <Linkedin size={20} />
-                  <span>linkedin.com/in/gauravmahale</span>
+                  <span>linkedin.com/in/mahalegauravk</span>
                 </a>
                 <div className="flex items-center gap-3 text-muted">
                   <MapPin size={20} />

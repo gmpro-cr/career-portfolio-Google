@@ -20,7 +20,7 @@ export default function Footer() {
               <Mail size={20} />
             </a>
             <a
-              href="https://linkedin.com/in/gauravmahale"
+              href="https://www.linkedin.com/in/mahalegauravk"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full bg-warm-cream text-muted hover:text-terracotta hover:bg-terracotta/10 transition-colors"
