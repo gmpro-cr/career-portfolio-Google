@@ -235,40 +235,17 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl text-charcoal text-center mb-12">Skills & Tools</h2>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Skill Bars */}
-            <div>
-              <h3 className="text-xl text-charcoal mb-6">Core Competencies</h3>
-              <div className="space-y-4">
-                {SKILL_DATA.map((skill) => (
-                  <div key={skill.subject} className="bg-warm-white rounded-lg p-4 shadow-soft">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-charcoal">{skill.subject}</span>
-                      <span className="text-sm text-muted">{skill.A}%</span>
-                    </div>
-                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-terracotta transition-all duration-500"
-                        style={{ width: `${skill.A}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {SKILL_DATA.map((skill) => (
+              <div key={skill.subject} className="bg-warm-white rounded-lg p-4 shadow-soft text-center hover:shadow-card transition-shadow">
+                <span className="font-medium text-charcoal">{skill.subject}</span>
               </div>
-            </div>
-
-            {/* Tech Stack */}
-            <div>
-              <h3 className="text-xl text-charcoal mb-6">Tools & Technologies</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {TECH_STACK.map((tech) => (
-                  <div key={tech.id} className="bg-warm-white rounded-lg p-4 shadow-soft text-center">
-                    <h4 className="font-medium text-charcoal">{tech.name}</h4>
-                    <p className="text-xs text-muted mt-1">{tech.category}</p>
-                  </div>
-                ))}
+            ))}
+            {TECH_STACK.map((tech) => (
+              <div key={tech.id} className="bg-warm-white rounded-lg p-4 shadow-soft text-center hover:shadow-card transition-shadow">
+                <span className="font-medium text-charcoal">{tech.name}</span>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
