@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Linkedin, MapPin } from 'lucide-react';
+import { Mail, Linkedin, MapPin, Phone } from 'lucide-react';
 
 export default function Contact() {
   return (
@@ -19,6 +19,13 @@ export default function Contact() {
             <div className="card">
               <h3 className="font-serif text-lg text-charcoal mb-4">Direct Contact</h3>
               <div className="space-y-4">
+                <a
+                  href="tel:+919923540336"
+                  className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors"
+                >
+                  <Phone size={20} />
+                  <span>+91 9923540336</span>
+                </a>
                 <a
                   href="mailto:mahalegauravk@gmail.com"
                   className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors"
