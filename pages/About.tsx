@@ -8,7 +8,7 @@ export default function About() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="flex-shrink-0">
-              <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-warm-cream border-4 border-olive/20 overflow-hidden shadow-elevated">
+              <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-warm-cream border-4 border-terracotta/20 overflow-hidden shadow-elevated">
                 <img src="/profile.jpeg" alt="Gaurav" className="w-full h-full object-cover" />
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-20 bg-olive text-white">
+      <section className="py-20 bg-terracotta text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl font-serif">When I'm not building products...</h2>
           <p className="mt-6 text-lg opacity-90">

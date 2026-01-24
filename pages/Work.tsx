@@ -30,7 +30,7 @@ export default function Work() {
                 <ul className="mt-4 space-y-2">
                   {EXPERIENCES[0].description.map((desc, i) => (
                     <li key={i} className="text-sm text-muted flex gap-2">
-                      <span className="text-olive mt-1">•</span>
+                      <span className="text-terracotta mt-1">•</span>
                       <span>{desc}</span>
                     </li>
                   ))}
@@ -40,7 +40,7 @@ export default function Work() {
 
             {/* Pareto.AI - 25% */}
             <div className="md:w-1/4">
-              <div className="card h-full bg-olive/5 border border-olive/20">
+              <div className="card h-full bg-terracotta/5 border border-terracotta/20">
                 <div className="flex items-start justify-between flex-wrap gap-2">
                   <span className="badge-ai">AI</span>
                   <span className="text-xs text-muted">Part-Time</span>
@@ -51,7 +51,7 @@ export default function Work() {
                 <ul className="mt-3 space-y-2">
                   {EXPERIENCES[4].description.slice(0, 2).map((desc, i) => (
                     <li key={i} className="text-xs text-muted flex gap-2">
-                      <span className="text-olive mt-0.5">•</span>
+                      <span className="text-terracotta mt-0.5">•</span>
                       <span>{desc}</span>
                     </li>
                   ))}
@@ -75,7 +75,7 @@ export default function Work() {
                 <ul className="mt-4 space-y-2">
                   {exp.description.map((desc, i) => (
                     <li key={i} className="text-sm text-muted flex gap-2">
-                      <span className="text-olive mt-1">•</span>
+                      <span className="text-terracotta mt-1">•</span>
                       <span>{desc}</span>
                     </li>
                   ))}
@@ -91,7 +91,7 @@ export default function Work() {
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <h2 className="text-2xl text-charcoal flex items-center gap-3 mb-6">
-                <GraduationCap className="text-olive" size={28} />
+                <GraduationCap className="text-terracotta" size={28} />
                 Education
               </h2>
               <div className="space-y-4">

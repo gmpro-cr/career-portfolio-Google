@@ -49,7 +49,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="card bg-olive/5 border border-olive/20">
+            <div className="card bg-terracotta/5 border border-terracotta/20">
               <h3 className="font-serif text-lg text-charcoal mb-2">Open to</h3>
               <ul className="space-y-2 text-muted">
                 <li>• Full-time PM/AI roles</li>

@@ -158,7 +158,7 @@ export default function Projects() {
                 <ul className="mt-2 space-y-2">
                   {selectedProject.approach.map((item, i) => (
                     <li key={i} className="text-muted flex gap-2">
-                      <span className="text-olive">•</span>
+                      <span className="text-terracotta">•</span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -182,7 +182,7 @@ export default function Projects() {
                 <ul className="mt-2 space-y-2">
                   {selectedProject.outcomes.map((item, i) => (
                     <li key={i} className="text-muted flex gap-2">
-                      <span className="text-olive">✓</span>
+                      <span className="text-terracotta">✓</span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -205,7 +205,7 @@ export default function Projects() {
                   <h3 className="text-sm font-semibold text-charcoal uppercase tracking-wide">Frameworks Used</h3>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {selectedProject.frameworks.map((fw, i) => (
-                      <span key={i} className="bg-olive/10 text-olive px-3 py-1 rounded-full text-sm">
+                      <span key={i} className="bg-terracotta/10 text-terracotta px-3 py-1 rounded-full text-sm">
                         {fw}
                       </span>
                     ))}

@@ -17,7 +17,7 @@ export default function Home() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight">
                 <span className="text-terracotta">Finance professional</span>{' '}
                 transitioning to{' '}
-                <span className="text-olive">Product Management</span>
+                <span className="text-terracotta">Product Management</span>
               </h1>
               <p className="mt-6 text-lg text-muted max-w-xl">
                 8 years in banking taught me to understand users and solve complex problems. Now I'm channeling that into building AI-powered products.
@@ -42,7 +42,7 @@ export default function Home() {
       </section>
 
       {/* Stats Bar */}
-      <section className="bg-olive text-white py-6">
+      <section className="bg-terracotta text-white py-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="flex flex-col items-center gap-1">
