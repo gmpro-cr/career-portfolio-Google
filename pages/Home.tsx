@@ -235,15 +235,15 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl text-charcoal text-center mb-12">Skills & Tools</h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
             {SKILL_DATA.map((skill) => (
-              <div key={skill.subject} className="bg-warm-white rounded-lg p-4 shadow-soft text-center hover:shadow-card transition-shadow">
-                <span className="font-medium text-charcoal">{skill.subject}</span>
+              <div key={skill.subject} className="bg-warm-white rounded-lg shadow-soft text-center hover:shadow-card transition-shadow h-20 flex items-center justify-center px-3">
+                <span className="font-medium text-charcoal text-sm">{skill.subject}</span>
               </div>
             ))}
             {TECH_STACK.map((tech) => (
-              <div key={tech.id} className="bg-warm-white rounded-lg p-4 shadow-soft text-center hover:shadow-card transition-shadow">
-                <span className="font-medium text-charcoal">{tech.name}</span>
+              <div key={tech.id} className="bg-warm-white rounded-lg shadow-soft text-center hover:shadow-card transition-shadow h-20 flex items-center justify-center px-3">
+                <span className="font-medium text-charcoal text-sm">{tech.name}</span>
               </div>
             ))}
           </div>
