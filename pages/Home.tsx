@@ -97,11 +97,10 @@ export default function Home() {
               <div className="bg-warm-white rounded-xl p-6 shadow-soft h-full border-2 border-terracotta/20">
                 <div className="flex items-start justify-between flex-wrap gap-2">
                   <span className="badge-ai">AI</span>
-                  <span className="text-xs text-muted">Part-Time</span>
+                  <span className="text-xs text-muted">{EXPERIENCES[4].period}</span>
                 </div>
                 <h3 className="mt-3 text-lg font-serif text-charcoal">{EXPERIENCES[4].role}</h3>
                 <p className="text-terracotta font-medium text-sm">{EXPERIENCES[4].company}</p>
-                <p className="text-xs text-muted mt-1">{EXPERIENCES[4].period}</p>
                 <ul className="mt-3 space-y-2">
                   {EXPERIENCES[4].description.slice(0, 2).map((desc, i) => (
                     <li key={i} className="text-xs text-muted flex gap-2">
