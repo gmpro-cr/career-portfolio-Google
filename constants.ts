@@ -180,98 +180,94 @@ export const PROJECTS: Project[] = [
     competitiveAnalysis: "Benchmarked against LinkedIn Premium (₹1500/mo), Indeed Resume (free with limits), and Shine.com. LinkedIn's single premium tier is both strength (simplicity) and weakness (no mid-market option). Naukri's opportunity lies in India-specific pricing and vernacular support.",
     frameworks: ["Jobs-to-be-Done", "Value Proposition Canvas", "Pricing Strategy Matrix", "RICE Prioritization"],
     caseStudyAnalysis: {
-      companyMission: "To reposition Naukri.com as a complete recruitment partner by consolidating all products into a Naukri Hiring Suite that caters to almost all the recruitment needs of customers",
+      companyMission: "To reposition naukri.com as a complete recruitment partner by consolidating all products into a Naukri Hiring Suite that caters to almost all the recruitment needs of customers",
       primaryRevenue: "Revenue generation from employers who pay for job postings, resume database access, and premium recruitment solutions",
-      secondaryRevenue: "Advertising, premium services to job seekers",
+      secondaryRevenue: "Advertising, premium services to the job seekers",
       userSegments: [
         {
-          segment: "Free Users (Freshers & Experienced)",
+          segment: "A. Free Users\n1. Freshers - Immediate Job Seekers\n2. Experienced professionals - Casual Job Hunters, Immediate Job Seekers",
           needs: [
-            "Search jobs by education/experience",
-            "Hassle-free application process without checking each job posting on employer website",
+            "Search jobs basis their education background and professional experience",
+            "Hassle free application process without checking each job posting on employer website",
             "Get suggestions according to the candidate's profile",
-            "Find details on profile compatibility to available jobs"
+            "Find details on profile compatibility to the available jobs"
           ],
           addressed: [
-            "Search by location, industry, company, or job role",
-            "One-click apply without filling details for each separate job posting",
-            "AI suggestions based on background, applies, and preferences",
-            "Brief analytics on profile performance including visits, activity, and skills match"
+            "The product offers the ability to search the jobs basis the location, industry, company or job role to the candidates",
+            "It provides hassle free approach to apply to the jobs without requirement of filling the details for each separate job posting",
+            "The product offers suggestions to the candidate based on their background, their applies and the preference they have set",
+            "The product also offers brief analytics on the performance of their profile which includes profile visits, profile activity and the skills match details"
           ]
         },
         {
-          segment: "Paid Users (Immediate Job Seekers)",
+          segment: "B. Paid Users\n1. Immediate Job Seekers\na. Freshers\nb. Experienced professionals",
           needs: [
-            "Resume building services",
-            "Faster application process",
-            "Greater visibility to job posters"
+            "In addition to above mentioned uses cases the paid users seek following use case",
+            "Jobseekers immediately looking for jobs look for services like resume building, faster application process and greater visibility to the job poster"
           ],
           addressed: [
-            "Resume display and resume writing services",
-            "Recruiter connection features",
-            "AI-driven mock interviews, Naukri 360, profile display, and career booster plan"
+            "The job seekers who are looking for job search on an immediate basis largely get attracted towards the paid facilities like resume display, resume writing services, recruiter connection, AI driven mock interview, Naukri 360 etc."
           ]
         },
         {
-          segment: "Employers/HR",
+          segment: "C. Employers/HR",
           needs: [
-            "Platform with large pool of candidates",
-            "Ability to filter candidates according to JD",
-            "Faster way to check background and expectations",
-            "Ability to connect with candidates while keeping identity hidden"
+            "Looking for a platform with pool of candidates",
+            "Ability to filter the candidates according to the JD",
+            "Faster way to check the background of the candidates and their expectations",
+            "Ability to connect with the candidate by keeping their identity hidden"
           ],
           addressed: [
-            "Access to ~3 Cr candidate CVs on the portal",
-            "Filter search by candidate background, salary expectations, notice period, location preferences",
-            "Detailed candidate profiles for quick evaluation",
-            "Anonymity for hassle-free outreach"
+            "The product provides CVs of ~ 3 Cr candidates on its portal",
+            "Naukri provides the ability to filter the search according to the candidate background, salary expectations, notice period and location preferences etc",
+            "The platform provides anonymity to the employers/HRs to provide hassle free experience"
           ]
         }
       ],
       featureBreakdown: [
         {
-          feature: "Jobs You May Like",
-          problem: "Candidates need relevant job suggestions based on: 1) Recent activity, 2) Preferences, 3) Additional AI suggestions",
-          whyItWorks: "Gives candidates a bigger list of suggested job postings, engages them on the app, and provides ease to apply for multiple relevant postings"
+          feature: "Jobs you may like",
+          problem: "Offers the job postings based on three categories 1) Jobs based on recent activity 2) Jobs based on preference and 3) Additional jobs suggestions that the candidate may like",
+          whyItWorks: "The feature works as it gives the candidate a bigger list of suggested job postings and engages the candidate on the app. The feature provides ease to the candidate to apply for multiple job postings which are largely relevant to his preferences."
         },
         {
-          feature: "Applies (Application Tracker)",
-          problem: "Candidates lack visibility into the status and flow of their job applications",
-          whyItWorks: "Shows how many other candidates applied, how many profiles were viewed by employer, whether shortlisted - helps candidates calibrate expectations of getting shortlisted"
+          feature: "Applies",
+          problem: "The feature provides the status of the job application and various stages it has passed through.",
+          whyItWorks: "The feature provides details on the flow of the application made by the candidate and provides details such as how many other candidates have applied to the same role, how many profiles have been visited by the employer and whether the candidate's profile has been shortlisted or not. These insights are valuable and candidates can calibrate their expectations of getting shortlisted"
         },
         {
           feature: "Paid Services",
-          problem: "Candidates with little guidance on resume building and career need support",
-          whyItWorks: "Freshers or candidates in dire need of a new job get attracted to resume building, recruiter access, and career guidance services"
+          problem: "Candidates with little guidance on resume building, career guidance can get the same from paid services.",
+          whyItWorks: "Freshers or candidates who are looking for guidance on resume building, recruiter access or the candidate who are in dire need of a new job gets attracted to the paid services."
         }
       ],
       competitiveAnalysis: [
         {
           platform: "LinkedIn",
           strengths: ["Social platform with ability to connect to professionals", "Details on background of professionals", "Consolidated paid service offering"],
-          weaknesses: ["Platform more likely to be used by experienced professionals", "Freshers prefer platforms like Naukri.com"]
+          weaknesses: ["The platform is more likely to be used by experienced professionals while freshers prefer platform like Naukri.com"]
         },
         {
           platform: "Indeed.com",
-          strengths: ["Global reach", "Cleaner interface"],
-          weaknesses: ["Lesser listings of clients", "Not as popular as LinkedIn or Naukri.com in India"]
+          strengths: ["Global reach", "Cleaner Interface"],
+          weaknesses: ["Lesser listings of the client", "Not as popular as Linkedin or Naukri.com"]
         },
         {
           platform: "IIMJobs",
-          strengths: ["Provides platform for a designated premium segment"],
-          weaknesses: ["Limited job postings", "Can be replaced by LinkedIn"]
+          strengths: ["Provides platform for a designated segment"],
+          weaknesses: ["Limited job postings and can be replaced by Linkedin"]
         }
       ],
       improvement: {
-        problem: "Multiple paid offerings (Resume building, Job posting on SMS, Recruiter connection, Naukri 360, Profile display, AI mock interview, Career booster plan) confuse candidates. The wide variety makes users distrust effectiveness and creates decision paralysis.",
-        impact: "Job seekers often do not trust the effectiveness of these offerings. Candidates requiring multiple paid services get confused by the wide variety.",
-        solution: "Bundle services into two categories: 1) Naukri Plus - basic services like resume display, profile booster, and job posting on SMS. 2) Naukri Pro - full bundle of all paid services with higher fees for higher margins.",
-        whyItWorks: "Reduces clutter in paid offerings, attracts more candidates to paid services. Naukri Plus offers automated services at accessible price. Naukri Pro allows premium pricing for comprehensive features."
+        problem: "Multiple paid offerings are provided by the app which include\n1. Resume building\n2. Job posting on sms\n3. Recruiter connection\n4. Naukri 360\n5. Profile display\n6. AI mock interview\n7. Career booster plan",
+        impact: "Since the product provides such wide paid offerings, the job seekers often do not trust the effectiveness of these offerings.\n\nAlso, the candidates may require multiple paid services and the wide variety of these offerings confuses the candidate.",
+        solution: "Naukri.com can bundle the services in two categories with following offerings\n\n1. Naukri Plus - offering basic services like resume display, profile booster and job posting on sms\n\n2. Naukri Pro - offering full bundle of paid services where the candidates can use all the facilities",
+        whyItWorks: "This solution can reduce the clutter in paid offerings and the product will be able to attract more candidates towards the paid offerings.\n\nNaukri plus wherein automated services can be provided to the candidate can become impactful offering\n\nIn Naukri pro, the Co. can charge higher fees to get higher margins."
       },
       keyTakeaways: [
-        "Naukri's longevity (since 1997) comes from consistent UX upgrades and staying relevant",
+        "Naukri being launched in 1997 has performed on the user's experience with consistent upgradation and by staying relevant",
         "Users prefer uncluttered experience and want focused offerings",
-        "Engagement driven by providing accurate suggestions given the large pool of job postings"
+        "How to keep the user engaged by providing accurate suggestions given the product has large pool of job postings"
       ]
     }
   },
@@ -322,7 +318,7 @@ export const PROJECTS: Project[] = [
           ],
           addressed: [
             "Offers list of all the movie shows",
-            "Platform to book the movie tickets seamlessly",
+            "Offers platform to book the movie tickets",
             "Option to book advance tickets",
             "Discounts on specific cards on the movie tickets",
             "Users are able to see the reviews of the movies"
@@ -338,67 +334,66 @@ export const PROJECTS: Project[] = [
           ],
           addressed: [
             "App provides list of all the shows in the city",
-            "App and website provides ability to book regular live shows easily",
-            "Seat selection feature available",
-            "BMS offers discounts on multiple shows - an 'aha moment' that traditional booking cannot provide"
+            "App and the website provides ability to book the regular live shows very easily",
+            "BMS offers discounts on multiple shows which offers users aha moment which traditional booking can not provide"
           ]
         },
         {
           segment: "Performers/Artists",
           needs: [
             "Online platform for selling the tickets",
-            "Hassle-free booking and real-time update on ticket booking"
+            "Hassle free booking and real time update on ticket booking"
           ],
           addressed: [
-            "BMS provides a unique online platform for new-age comedians and play artists",
-            "App provides real-time update on booking which helps performers create marketing content for additional bookings"
+            "BMS provides a unique online platform for new age comedians and play artist which",
+            "The app provides real time update on booking of the shows which helps the performers create marketing content for additional bookings"
           ]
         }
       ],
       featureBreakdown: [
         {
-          feature: "Latest Movie Advertisement",
+          feature: "Advertisement of latest movie being released after opening of the app",
           problem: "Reduces the effort to search for the latest movie the user is looking for",
-          whyItWorks: "More often the user is using the app for booking the latest movie being released. This feature helps the user skip other steps and surfaces intent immediately"
+          whyItWorks: "More often the user is using the app for booking the latest movie being released or will be released. This feature helps the user skip other steps"
         },
         {
           feature: "Category Section",
           problem: "Offers the users to navigate through multiple entertainment categories",
-          whyItWorks: "Users on leisure time looking for various options are able to look for multiple events nearby their location"
+          whyItWorks: "User who on leisure time are looking for various options are able to look for multiple events nearby their location"
         },
         {
           feature: "Seat Booking Option",
-          problem: "Offers choice in selecting the seat of user's own choice",
-          whyItWorks: "Provides a feel-good factor since users can choose seats of their own choice, adding to personal satisfaction"
+          problem: "Offers choice in selecting the seat of users own choice",
+          whyItWorks: "The activity provides user a feel good factor since they can choose seats of their own choice. Also"
         }
       ],
       competitiveAnalysis: [
         {
-          platform: "Paytm Insider",
-          strengths: ["Wide user base and 2nd highest market share", "Familiar interface to users", "Payment integration already available"],
-          weaknesses: ["Product is not focused and users are not loyal", "Multiple players in segment offering same user experience"]
+          platform: "Paytm",
+          strengths: ["Wide user base and 2nd highest markt share", "Familier interface to the user", "Payment integration already available"],
+          weaknesses: ["The product is not focused and users are not loyal", "Multiple players in the segment are offering the same user experience"]
         },
         {
-          platform: "PVR App",
-          strengths: ["Loyal customers", "Focused user experience"],
-          weaknesses: ["Limited to movies only"]
+          platform: "PVR",
+          strengths: ["Loyal Customers and a focused user experience"],
+          weaknesses: ["Limited to movies"]
         },
         {
-          platform: "District (Zomato)",
-          strengths: ["Interactive user interface", "Availability of Zomato's user base"],
-          weaknesses: ["Late entry into the segment", "Difficult to gain user's attention"]
+          platform: "District",
+          strengths: ["Interactive user interface and availability of zomatos user base"],
+          weaknesses: ["Late entry into the segment, difficult to gain user's attention"]
         }
       ],
       improvement: {
-        problem: "Review section for plays and comedy shows is not included in the app",
-        impact: "Users looking for booking play and comedy shows cannot gauge through the app which shows they can book if they don't have previous knowledge. Users often look for shows on weekends and need to book on an immediate basis.",
-        solution: "Review section for play and comedy shows can be included in the app. Alternatively, a general chat box can provide reviews on the shows.",
-        whyItWorks: "The review section helps users book the right shows, especially for immediate weekend bookings. It provides social proof for unfamiliar experiences."
+        problem: "Review section for plays and comedy shows is not included in the app.",
+        impact: "The users looking for booking play and comedy shows can not gauge through the app which shows they can book if they dont have previous knowledge of the shows. The reviews section in this case helps the user to book the show",
+        solution: "Review section for the play and comedy shows can be included in the app. Alternatively, a general chat box can be included which can provide reviews on the shows",
+        whyItWorks: "Some users often look for shows on weekends and are in need of booking shows on an immediate basis. The review section can help them book the show.\n\nThe review section can also provide more to all the users on booking the right shows."
       },
       keyTakeaways: [
-        "Simplicity in UI and focused area of business helps in long run - BMS has captured ~70% of the market",
-        "Users prefer uncluttered experience and form habits around focused solutions",
-        "BMS has innovated on multiple fronts (adding shows, organizing big events like Coldplay) while staying focused in the entertainment realm for last 20 years"
+        "Simplicity in the UI and focused area of business helps in long run - BMS has captured ~70% of the market",
+        "Users prefer uncluttered experience and form habits to the experience where they find focused solutions",
+        "BMS has innovated on multiple fronts like adding shows, organizing big events (Coldplay) and others to keep the engagement flowing. However, the vision of keeping themselves focused in the entertainment realm from last 20 years has helped to be a consistent market leader"
       ]
     }
   }
