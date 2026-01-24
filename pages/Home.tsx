@@ -281,37 +281,24 @@ export default function Home() {
             Whether it's a role, a project, or just a conversation about AI and finance — I'd love to hear from you.
           </p>
 
-          <div className="grid sm:grid-cols-2 gap-6">
-            <div className="bg-warm-cream rounded-xl p-6 shadow-soft">
-              <h3 className="font-serif text-lg text-charcoal mb-4">Contact</h3>
-              <div className="space-y-3 text-left">
-                <a href="tel:+919923540336" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
-                  <Phone size={18} />
-                  <span>+91 9923540336</span>
-                </a>
-                <a href="mailto:mahalegauravk@gmail.com" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
-                  <Mail size={18} />
-                  <span>mahalegauravk@gmail.com</span>
-                </a>
-                <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
-                  <Linkedin size={18} />
-                  <span>linkedin.com/in/mahalegauravk</span>
-                </a>
-                <div className="flex items-center gap-3 text-muted">
-                  <MapPin size={18} />
-                  <span>Pune, India</span>
-                </div>
+          <div className="bg-warm-cream rounded-xl p-6 shadow-soft max-w-md mx-auto">
+            <div className="space-y-3">
+              <a href="tel:+919923540336" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
+                <Phone size={18} />
+                <span>+91 9923540336</span>
+              </a>
+              <a href="mailto:mahalegauravk@gmail.com" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
+                <Mail size={18} />
+                <span>mahalegauravk@gmail.com</span>
+              </a>
+              <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
+                <Linkedin size={18} />
+                <span>linkedin.com/in/mahalegauravk</span>
+              </a>
+              <div className="flex items-center gap-3 text-muted">
+                <MapPin size={18} />
+                <span>Pune, India</span>
               </div>
-            </div>
-
-            <div className="bg-terracotta/10 rounded-xl p-6 border border-terracotta/20">
-              <h3 className="font-serif text-lg text-charcoal mb-4">Open to</h3>
-              <ul className="space-y-2 text-muted text-left">
-                <li>• Full-time PM/AI roles</li>
-                <li>• Consulting projects</li>
-                <li>• Speaking opportunities</li>
-                <li>• Coffee chats about AI & Finance</li>
-              </ul>
             </div>
           </div>
         </div>
