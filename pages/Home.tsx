@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Linkedin, MapPin, Phone, Briefcase, GraduationCap, Award, ExternalLink, Lightbulb, FileText } from 'lucide-react';
+import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText } from 'lucide-react';
 import { EXPERIENCES, PROJECTS, SKILL_DATA, TECH_STACK, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 
 export default function Home() {
@@ -34,34 +34,6 @@ export default function Home() {
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-warm-cream border-4 border-terracotta/20 overflow-hidden shadow-elevated">
                 <img src="/profile.jpeg" alt="Gaurav" className="w-full h-full object-cover" />
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Bar */}
-      <section className="bg-terracotta text-white py-6">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="flex flex-col items-center gap-1">
-              <Briefcase size={24} className="opacity-80" />
-              <span className="text-2xl font-semibold">8+</span>
-              <span className="text-sm opacity-80">Years in Finance</span>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-2xl">₹</span>
-              <span className="text-2xl font-semibold">500 Cr</span>
-              <span className="text-sm opacity-80">Portfolios Managed</span>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <Lightbulb size={24} className="opacity-80" />
-              <span className="text-2xl font-semibold">2</span>
-              <span className="text-sm opacity-80">AI Products Built</span>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <GraduationCap size={24} className="opacity-80" />
-              <span className="text-2xl font-semibold">IIM</span>
-              <span className="text-sm opacity-80">Sirmaur</span>
             </div>
           </div>
         </div>
