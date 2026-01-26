@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText } from 'lucide-react';
+import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Github } from 'lucide-react';
 
 const XIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -280,6 +280,10 @@ export default function Home() {
               <a href="https://x.com/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
                 <XIcon size={18} />
                 <span>x.com/mahalegauravk</span>
+              </a>
+              <a href="https://github.com/gmpro-cr" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
+                <Github size={18} />
+                <span>github.com/gmpro-cr</span>
               </a>
               <div className="flex items-center gap-3 text-muted">
                 <MapPin size={18} />
