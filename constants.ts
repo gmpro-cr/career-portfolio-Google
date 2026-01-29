@@ -88,6 +88,36 @@ export const EXPERIENCES: Experience[] = [
 
 export const PROJECTS: Project[] = [
   {
+    title: "Discord Web Scraper Bot",
+    date: "Jan 2026",
+    description: "AI-powered Discord bot that scrapes any webpage and enables natural conversation about its content. Users can ask questions, get summaries, or extract specific information from URLs — all within Discord with conversation memory that maintains context across messages.",
+    tech: ["Python", "Discord.py", "Groq API", "Llama 3.3 70B", "BeautifulSoup", "Render"],
+    metrics: "Live Bot",
+    category: 'build',
+    problem: "Teams using Discord for research, content curation, or competitive analysis need to constantly switch between browser and chat to share and discuss web content. Copy-pasting excerpts loses context, and teammates often ask questions that require re-reading the same pages. There's no native way to collaboratively analyze web content within Discord's conversational flow.",
+    approach: [
+      "Built a Discord bot using discord.py that listens to all channel messages and auto-detects URLs using regex pattern matching",
+      "Implemented web scraper using BeautifulSoup that extracts clean text content, removing scripts, styles, nav, and footer elements for focused analysis",
+      "Integrated Groq's Llama 3.3 70B model for fast inference with specialized prompts for Q&A, summarization, and information extraction",
+      "Designed conversation memory system that stores last 10 messages per channel, enabling follow-up questions without re-sharing URLs",
+      "Created modular architecture separating bot logic (bot.py), LLM integration (llm.py), and web scraping (scraper.py) for maintainability",
+      "Deployed on Render as a background worker for 24/7 availability"
+    ],
+    keyInsights: [
+      "Conversation memory transforms utility into engagement — users asked 3x more follow-up questions once they didn't need to re-paste URLs",
+      "Auto-URL detection removes friction — users naturally share links in conversation; forcing a command syntax felt unnatural",
+      "Groq's speed matters for chat UX — sub-second responses feel conversational; 3+ second delays break the flow",
+      "Content truncation is critical — LLMs choke on full webpage dumps; smart extraction of 8000 chars balances context vs performance"
+    ],
+    outcomes: [
+      "Built fully functional bot deployed and running 24/7 on Render",
+      "Supports natural conversation with context memory across 10 messages per channel",
+      "4 core commands: !ask, !summarize, !extract, !clear plus natural @mention chat",
+      "Clean architecture enabling easy addition of new LLM providers or scraping strategies"
+    ],
+    frameworks: ["Build-Measure-Learn", "Jobs-to-be-Done", "Modular Architecture"]
+  },
+  {
     title: "Credit Memo & FS Gen AI",
     date: "Dec 2025",
     description: "Full-stack AI platform that automates the generation of comprehensive credit memos from annual reports. Transforms 4-6 hour manual analysis into 15-minute automated workflows with financial data extraction, ratio calculations, and narrative generation.",
