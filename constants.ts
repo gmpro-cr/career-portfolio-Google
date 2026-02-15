@@ -79,6 +79,7 @@ export const EXPERIENCES: Experience[] = [
     period: "Dec 25 - Present",
     type: 'AI',
     description: [
+      "Training Claude models using RLHF (Reinforcement Learning from Human Feedback) to improve AI capabilities",
       "Training LLMs on financial modeling, Doc and PPT generation through evals and prompt engineering",
       "Evaluated and improved AI outputs for credit analysis, financial projections, and business documentation",
       "Applied banking domain expertise to enhance AI model accuracy in corporate finance applications"
