@@ -52,40 +52,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* GitHub Contribution Graph */}
-          <div className="mt-12 github-graph-container">
-            <h3 className="text-xl text-charcoal mb-4 flex items-center gap-2">
-              <Github size={24} className="text-terracotta" />
-              GitHub Activity
-            </h3>
-            <a
-              href="https://github.com/gmpro-cr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block hover:opacity-80 transition-opacity"
-            >
-              <div className="overflow-x-auto">
-                <img
-                  src="https://github-readme-activity-graph.vercel.app/graph?username=gmpro-cr&theme=minimal&hide_border=true&bg_color=f5f0e8&color=c46d5e&line=c46d5e&point=8b4513&area=true&area_color=c46d5e"
-                  alt="GitHub Contribution Activity Graph"
-                  className="w-full rounded-lg"
-                  loading="lazy"
-                />
-              </div>
-            </a>
-            <p className="text-sm text-muted mt-2 text-center">
-              Real-time activity: commits, pull requests, and contributions
-              <a
-                href="https://github.com/gmpro-cr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-terracotta hover:underline ml-2"
-              >
-                → View GitHub Profile
-              </a>
-            </p>
-          </div>
-
           {/* Why Product */}
           <div className="mt-12 bg-terracotta/10 rounded-xl p-8">
             <h3 className="text-2xl text-charcoal mb-4">Why Product?</h3>
