@@ -28,7 +28,7 @@ export default function Home() {
             <a href="#projects" className="btn-primary inline-flex items-center justify-center gap-2">
               View My Work
             </a>
-            <a href="/Gaurav_Mahale_Resume.md" download className="btn-download inline-flex items-center justify-center gap-2">
+            <a href="/Gaurav_Mahale_Resume.pdf" download className="btn-download inline-flex items-center justify-center gap-2">
               <Download size={18} />
               Download Resume
             </a>
