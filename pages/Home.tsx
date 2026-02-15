@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Github } from 'lucide-react';
+import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Github, Download } from 'lucide-react';
 
 const XIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -15,32 +15,26 @@ export default function Home() {
     <div>
       {/* Hero Section */}
       <section id="hero" className="py-20 md:py-28">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="flex-1 text-center md:text-left">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight">
-                <span className="text-terracotta">Finance professional</span>{' '}
-                transitioning to{' '}
-                <span className="text-terracotta">Product Management</span>
-              </h1>
-              <p className="mt-6 text-lg text-muted max-w-xl">
-                8 years in banking taught me to understand users and solve complex problems. Now I'm channeling that into building AI-powered products.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <a href="#experience" className="btn-primary inline-flex items-center justify-center gap-2">
-                  View My Work
-                </a>
-                <a href="#contact" className="btn-outline inline-flex items-center justify-center">
-                  Get In Touch
-                </a>
-              </div>
-            </div>
-
-            <div className="flex-shrink-0">
-              <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-warm-cream border-4 border-terracotta/20 overflow-hidden shadow-elevated">
-                <img src="/profile.jpeg" alt="Gaurav" className="w-full h-full object-cover" />
-              </div>
-            </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight">
+            <span className="text-terracotta">Finance professional</span>{' '}
+            transitioning to{' '}
+            <span className="text-terracotta">Product Management</span>
+          </h1>
+          <p className="mt-6 text-lg text-muted max-w-2xl mx-auto">
+            8 years solving complex problems for corporate clients — from designing credit products to building AI tools that cut analysis time by 80%. Now channeling that into Product Management.
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#projects" className="btn-primary inline-flex items-center justify-center gap-2">
+              View My Work
+            </a>
+            <a href="/Gaurav_Mahale_Resume.md" download className="btn-download inline-flex items-center justify-center gap-2">
+              <Download size={18} />
+              Download Resume
+            </a>
+            <a href="#contact" className="btn-outline inline-flex items-center justify-center">
+              Get In Touch
+            </a>
           </div>
         </div>
       </section>
@@ -51,10 +45,29 @@ export default function Home() {
           <h2 className="text-3xl text-charcoal text-center mb-8">About Me</h2>
           <div className="space-y-4 text-muted text-lg">
             <p>
-              I'm a <strong>Relationship Manager at Yes Bank</strong> with 8 years of experience in corporate banking, credit risk, and portfolio management. I'm now actively transitioning into Product Management.
+              I've spent 8 years solving complex problems for corporate clients — from designing credit products for stressed assets to building AI tools that cut analysis time by 80%. As a <strong>Relationship Manager at Yes Bank</strong> managing a ₹500 Cr portfolio, I learned what drives real user value in B2B contexts.
             </p>
             <p>
-              My banking career taught me to deeply understand user pain points — whether it's a CFO needing faster credit decisions or a business owner struggling with documentation. This user-first thinking now drives my product work.
+              Now I'm channeling that into Product Management. My side projects prove I can ship: <strong>500 monthly users on AI Persona Platform</strong>, live Discord bot with 24/7 uptime, and credit analysis tools deployed in production.
+            </p>
+          </div>
+
+          {/* GitHub Contribution Graph */}
+          <div className="mt-12 github-graph-container">
+            <h3 className="text-xl text-charcoal mb-4 flex items-center gap-2">
+              <Github size={24} className="text-terracotta" />
+              GitHub Activity
+            </h3>
+            <div className="overflow-x-auto">
+              <img
+                src="https://ghchart.rshah.org/c46d5e/gmpro-cr"
+                alt="GitHub Contribution Graph"
+                className="w-full rounded-lg"
+                loading="lazy"
+              />
+            </div>
+            <p className="text-sm text-muted mt-2 text-center">
+              Building in public: AI tools, full-stack apps, and product experiments
             </p>
           </div>
 
@@ -62,7 +75,7 @@ export default function Home() {
           <div className="mt-12 bg-terracotta/10 rounded-xl p-8">
             <h3 className="text-2xl text-charcoal mb-4">Why Product?</h3>
             <p className="text-muted text-lg leading-relaxed">
-              After 8 years in banking, I realized the moments I was most energized weren't when I closed a deal — they were when I <strong>solved a problem</strong>. When I automated a tedious credit analysis process. When I redesigned a client onboarding flow. When I built an internal tool that my colleagues actually wanted to use.
+              After 8 years in banking, I realized the moments I was most energized weren't when I closed a deal — they were when I <strong>solved a problem</strong>. When I automated credit analysis workflows. When I redesigned client onboarding flows. When I built internal tools that colleagues actually wanted to use.
             </p>
             <p className="text-muted text-lg leading-relaxed mt-4">
               Product Management lets me do this full-time. My finance background isn't a detour — it's my unfair advantage. I understand B2B users, enterprise sales cycles, regulatory constraints, and what "value" means when real money is on the line.
@@ -327,17 +340,30 @@ export default function Home() {
                 </span>
               </div>
 
-              {selectedProject.link && (
-                <a
-                  href={selectedProject.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 text-terracotta hover:text-terracotta-dark"
-                >
-                  <ExternalLink size={16} />
-                  View Live Project
-                </a>
-              )}
+              <div className="mt-4 flex flex-wrap gap-4">
+                {selectedProject.link && (
+                  <a
+                    href={selectedProject.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-terracotta hover:text-terracotta-dark font-medium"
+                  >
+                    <ExternalLink size={16} />
+                    View Live Project
+                  </a>
+                )}
+                {selectedProject.githubUrl && (
+                  <a
+                    href={selectedProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-charcoal hover:text-terracotta font-medium"
+                  >
+                    <Github size={16} />
+                    View Source Code
+                  </a>
+                )}
+              </div>
 
               <div className="mt-8">
                 <h3 className="text-lg font-semibold text-charcoal">The Problem</h3>

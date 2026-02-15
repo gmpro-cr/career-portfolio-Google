@@ -94,6 +94,7 @@ export const PROJECTS: Project[] = [
     tech: ["Python", "Discord.py", "Groq API", "Llama 3.3 70B", "BeautifulSoup", "Render"],
     metrics: "Live Bot",
     category: 'build',
+    githubUrl: "https://github.com/gmpro-cr",
     problem: "Teams using Discord for research, content curation, or competitive analysis need to constantly switch between browser and chat to share and discuss web content. Copy-pasting excerpts loses context, and teammates often ask questions that require re-reading the same pages. There's no native way to collaboratively analyze web content within Discord's conversational flow.",
     approach: [
       "Built a Discord bot using discord.py that listens to all channel messages and auto-detects URLs using regex pattern matching",
@@ -124,6 +125,7 @@ export const PROJECTS: Project[] = [
     tech: ["Python", "Gemini API", "Groq", "Claude", "Financial Analysis", "PDF Parsing", "React"],
     metrics: "80% Time Reduction",
     category: 'build',
+    githubUrl: "https://github.com/gmpro-cr",
     problem: "Credit analysts spend 4-6 hours manually analyzing annual reports to create credit memos. This involves extracting financial data from PDFs, calculating 20+ financial ratios, comparing year-over-year trends, and writing narrative assessments. The process is error-prone, inconsistent across analysts, and creates bottlenecks in loan processing pipelines.",
     approach: [
       "Built intelligent PDF parser using Gemini Vision to extract financial tables from annual reports with 95%+ accuracy",
