@@ -58,16 +58,31 @@ export default function Home() {
               <Github size={24} className="text-terracotta" />
               GitHub Activity
             </h3>
-            <div className="overflow-x-auto">
-              <img
-                src="https://ghchart.rshah.org/c46d5e/gmpro-cr"
-                alt="GitHub Contribution Graph"
-                className="w-full rounded-lg"
-                loading="lazy"
-              />
-            </div>
+            <a
+              href="https://github.com/gmpro-cr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block hover:opacity-80 transition-opacity"
+            >
+              <div className="overflow-x-auto">
+                <img
+                  src="https://ghchart.rshah.org/c46d5e/gmpro-cr"
+                  alt="GitHub Contribution Graph"
+                  className="w-full rounded-lg"
+                  loading="lazy"
+                />
+              </div>
+            </a>
             <p className="text-sm text-muted mt-2 text-center">
               Building in public: AI tools, full-stack apps, and product experiments
+              <a
+                href="https://github.com/gmpro-cr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-terracotta hover:underline ml-2"
+              >
+                → View GitHub Profile
+              </a>
             </p>
           </div>
 
