@@ -66,15 +66,15 @@ export default function Home() {
             >
               <div className="overflow-x-auto">
                 <img
-                  src="https://ghchart.rshah.org/c46d5e/gmpro-cr"
-                  alt="GitHub Contribution Graph"
+                  src="https://github-readme-activity-graph.vercel.app/graph?username=gmpro-cr&theme=minimal&hide_border=true&bg_color=f5f0e8&color=c46d5e&line=c46d5e&point=8b4513&area=true&area_color=c46d5e"
+                  alt="GitHub Contribution Activity Graph"
                   className="w-full rounded-lg"
                   loading="lazy"
                 />
               </div>
             </a>
             <p className="text-sm text-muted mt-2 text-center">
-              Building in public: AI tools, full-stack apps, and product experiments
+              Real-time activity: commits, pull requests, and contributions
               <a
                 href="https://github.com/gmpro-cr"
                 target="_blank"
