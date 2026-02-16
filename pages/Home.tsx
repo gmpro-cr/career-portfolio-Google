@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Github, Download, ArrowRight } from 'lucide-react';
+import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Github, Download, ArrowRight, X } from 'lucide-react';
 import { useSearch } from '../context/SearchContext';
 import { motion } from 'framer-motion';
 
@@ -398,7 +398,7 @@ export default function Home() {
                   onClick={() => setSelectedProject(null)}
                   className="text-dark-muted hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-2 rounded-full"
                 >
-                  <XIcon size={20} />
+                  <X size={20} />
                 </button>
               </div>
 
