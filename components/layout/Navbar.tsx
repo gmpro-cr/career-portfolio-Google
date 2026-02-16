@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
@@ -11,6 +11,15 @@ const navLinks = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -22,13 +31,16 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-warm-white/80 backdrop-blur-md z-50 border-b border-gray-200">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-dark-bg/80 backdrop-blur-md border-b border-white/5 shadow-lg' : 'bg-transparent border-transparent'
+        }`}
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <a
             href="#hero"
             onClick={(e) => scrollToSection(e, '#hero')}
-            className="font-serif text-xl text-charcoal hover:text-terracotta transition-colors"
+            className="font-bold text-xl text-dark-text hover:text-accent-blue transition-colors tracking-tight"
           >
             Gaurav Mahale
           </a>
@@ -39,7 +51,8 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="text-sm font-medium text-muted hover:text-terracotta transition-colors"
+                className="text-sm font-medium text-dark-muted hover:text-accent-blue transition-colors"
+                href={link.href}
               >
                 {link.label}
               </a>
@@ -47,7 +60,7 @@ export default function Navbar() {
           </div>
 
           <button
-            className="md:hidden p-2 text-charcoal"
+            className="md:hidden p-2 text-dark-text hover:bg-white/5 rounded-lg transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -56,15 +69,16 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-warm-white border-t border-gray-200">
-          <div className="px-4 py-4 space-y-3">
+        <div className="md:hidden bg-dark-surface border-t border-white/5 animate-fade-in absolute w-full">
+          <div className="px-4 py-4 space-y-2">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="block py-2 text-base font-medium text-muted hover:text-terracotta transition-colors"
+                className="block py-3 px-4 rounded-lg text-base font-medium text-dark-muted hover:text-white hover:bg-white/5 transition-all"
               >
                 {link.label}
               </a>
