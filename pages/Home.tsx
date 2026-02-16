@@ -12,79 +12,85 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null);
 
   return (
-    <div>
+    <div className="relative overflow-hidden">
+      {/* Aurora Background */}
+      <div className="absolute top-0 left-0 w-full h-[800px] aurora-bg -z-10 opacity-60"></div>
+
       {/* Hero Section */}
-      <section id="hero" className="py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight">
-            <span className="text-terracotta">Finance professional</span>{' '}
-            transitioning to{' '}
-            <span className="text-terracotta">Product Management</span>
+      <section id="hero" className="py-24 md:py-32 relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center animate-fade-in">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl text-dark-text leading-tight tracking-tight mb-6">
+            <span className="text-gradient font-bold">Finance Pro</span>{' '}
+            turned{' '}
+            <span className="text-accent-blue">Product Manager</span>
           </h1>
-          <p className="mt-6 text-lg text-muted max-w-2xl mx-auto">
-            8 years solving complex problems for corporate clients — from designing credit products to building AI tools that cut analysis time by 80%. Now channeling that into Product Management.
+          <p className="mt-6 text-xl text-dark-muted max-w-2xl mx-auto leading-relaxed">
+            8 years solving complex problems. From managing ₹500 Cr portfolios to building AI tools that cut analysis time by 80%.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#projects" className="btn-primary inline-flex items-center justify-center gap-2">
-              View My Work
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#projects" className="btn-primary inline-flex items-center justify-center gap-2 shadow-glow">
+              View Work
             </a>
             <a href="/Gaurav_Mahale_Resume.pdf" download className="btn-download inline-flex items-center justify-center gap-2">
               <Download size={18} />
-              Download Resume
+              Resume
             </a>
             <a href="#contact" className="btn-outline inline-flex items-center justify-center">
-              Get In Touch
+              Contact
             </a>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20">
+      <section id="about" className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl text-charcoal text-center mb-8">About Me</h2>
-          <div className="space-y-4 text-muted text-lg">
-            <p>
-              I've spent 8 years solving complex problems for corporate clients — from designing credit products for stressed assets to building AI tools that cut analysis time by 80%. As a <strong>Relationship Manager at Yes Bank</strong> managing a ₹500 Cr portfolio, I learned what drives real user value in B2B contexts.
-            </p>
-            <p>
-              Now I'm channeling that into Product Management. My side projects prove I can ship: <strong>500 monthly users on AI Persona Platform</strong>, live Discord bot with 24/7 uptime, and credit analysis tools deployed in production.
-            </p>
-          </div>
+          <h2 className="text-3xl font-bold text-dark-text text-center mb-12">About Me</h2>
 
-          {/* Why Product */}
-          <div className="mt-12 bg-terracotta/10 rounded-xl p-8">
-            <h3 className="text-2xl text-charcoal mb-4">Why Product?</h3>
-            <p className="text-muted text-lg leading-relaxed">
-              After 8 years in banking, I realized the moments I was most energized weren't when I closed a deal — they were when I <strong>solved a problem</strong>. When I automated credit analysis workflows. When I redesigned client onboarding flows. When I built internal tools that colleagues actually wanted to use.
-            </p>
-            <p className="text-muted text-lg leading-relaxed mt-4">
-              Product Management lets me do this full-time. My finance background isn't a detour — it's my unfair advantage. I understand B2B users, enterprise sales cycles, regulatory constraints, and what "value" means when real money is on the line.
-            </p>
+          <div className="glass-card p-8 md:p-10">
+            <div className="space-y-6 text-dark-muted text-lg leading-relaxed">
+              <p>
+                I've spent 8 years in the trenches of corporate banking, solving complex problems for stressed assets. As a <strong>Relationship Manager at Yes Bank</strong>, I didn't just manage a portfolio; I learned what drives value for B2B users.
+              </p>
+              <p>
+                Now, I've pivoted to Product Management. My side projects aren't just code—they're products with users. <strong>500+ monthly users on my AI platform</strong>, tools deployed in production, and real problems solved.
+              </p>
+            </div>
+
+            {/* Why Product */}
+            <div className="mt-10 bg-dark-bg/50 rounded-xl p-8 border border-white/5">
+              <h3 className="text-xl font-bold text-dark-text mb-4 text-accent-blue">Why Product?</h3>
+              <p className="text-dark-muted text-lg leading-relaxed">
+                I realized my best moments in banking weren't closing deals—they were <strong>fixing broken systems</strong>. When I automated workflows or built internal tools, I felt alive.
+              </p>
+              <p className="text-dark-muted text-lg leading-relaxed mt-4">
+                My finance background is my superpower. I understand enterprise sales, regulatory constraints, and the "value" of a solution.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-20 bg-warm-cream">
+      <section id="experience" className="py-24 relative">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl text-charcoal text-center mb-12">Experience</h2>
+          <h2 className="text-3xl font-bold text-dark-text text-center mb-16">Experience</h2>
 
-          {/* Current Roles - Yes Bank + Pareto.AI side by side */}
+          {/* Current Roles */}
           <div className="flex flex-col md:flex-row gap-6 mb-8">
-            {/* Yes Bank - 75% */}
+            {/* Yes Bank */}
             <div className="md:w-3/4">
-              <div className="bg-warm-white rounded-xl p-6 shadow-soft h-full">
+              <div className="card h-full">
                 <div className="flex items-start justify-between flex-wrap gap-2">
                   <span className="badge-finance">Finance</span>
-                  <span className="text-sm text-muted">{EXPERIENCES[0].period}</span>
+                  <span className="text-sm text-dark-muted">{EXPERIENCES[0].period}</span>
                 </div>
-                <h3 className="mt-3 text-xl font-serif text-charcoal">{EXPERIENCES[0].role}</h3>
-                <p className="text-terracotta font-medium">{EXPERIENCES[0].company}</p>
-                <ul className="mt-4 space-y-2">
+                <h3 className="mt-4 text-2xl font-bold text-dark-text">{EXPERIENCES[0].role}</h3>
+                <p className="text-accent-orange font-medium mt-1">{EXPERIENCES[0].company}</p>
+                <ul className="mt-6 space-y-3">
                   {EXPERIENCES[0].description.map((desc, i) => (
-                    <li key={i} className="text-sm text-muted flex gap-2">
-                      <span className="text-terracotta mt-1">•</span>
+                    <li key={i} className="text-dark-muted flex gap-3 text-base">
+                      <span className="text-accent-orange mt-1.5 text-xs">●</span>
                       <span>{desc}</span>
                     </li>
                   ))}
@@ -92,19 +98,19 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Pareto.AI - 25% */}
+            {/* Pareto.AI */}
             <div className="md:w-1/4">
-              <div className="bg-warm-white rounded-xl p-6 shadow-soft h-full border-2 border-terracotta/20">
+              <div className="card h-full border border-accent-blue/20 bg-accent-blue/5">
                 <div className="flex items-start justify-between flex-wrap gap-2">
                   <span className="badge-ai">AI</span>
-                  <span className="text-xs text-muted">{EXPERIENCES[4].period}</span>
+                  <span className="text-xs text-dark-muted">{EXPERIENCES[4].period}</span>
                 </div>
-                <h3 className="mt-3 text-lg font-serif text-charcoal">{EXPERIENCES[4].role}</h3>
-                <p className="text-terracotta font-medium text-sm">{EXPERIENCES[4].company}</p>
-                <ul className="mt-3 space-y-2">
-                  {EXPERIENCES[4].description.slice(0, 2).map((desc, i) => (
-                    <li key={i} className="text-xs text-muted flex gap-2">
-                      <span className="text-terracotta mt-0.5">•</span>
+                <h3 className="mt-4 text-xl font-bold text-dark-text">{EXPERIENCES[4].role}</h3>
+                <p className="text-accent-blue font-medium mt-1 text-sm">{EXPERIENCES[4].company}</p>
+                <ul className="mt-4 space-y-3">
+                  {EXPERIENCES[4].description.slice(0, 3).map((desc, i) => (
+                    <li key={i} className="text-sm text-dark-muted flex gap-3">
+                      <span className="text-accent-blue mt-1.5 text-xs">●</span>
                       <span>{desc}</span>
                     </li>
                   ))}
@@ -113,22 +119,22 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Previous Experiences - Stacked vertically */}
+          {/* Previous Experiences */}
           <div className="space-y-6">
             {EXPERIENCES.slice(1, 4).map((exp, index) => (
-              <div key={index} className="bg-warm-white rounded-xl p-6 shadow-soft">
+              <div key={index} className="card">
                 <div className="flex items-start justify-between flex-wrap gap-2">
                   <span className={`${exp.type === 'AI' ? 'badge-ai' : exp.type === 'Finance' ? 'badge-finance' : 'badge-ops'}`}>
                     {exp.type}
                   </span>
-                  <span className="text-sm text-muted">{exp.period}</span>
+                  <span className="text-sm text-dark-muted">{exp.period}</span>
                 </div>
-                <h3 className="mt-3 text-xl font-serif text-charcoal">{exp.role}</h3>
-                <p className="text-terracotta font-medium">{exp.company}</p>
+                <h3 className="mt-4 text-xl font-bold text-dark-text">{exp.role}</h3>
+                <p className="text-accent-gray font-medium mt-1">{exp.company}</p>
                 <ul className="mt-4 space-y-2">
                   {exp.description.map((desc, i) => (
-                    <li key={i} className="text-sm text-muted flex gap-2">
-                      <span className="text-terracotta mt-1">•</span>
+                    <li key={i} className="text-dark-muted flex gap-3 text-base">
+                      <span className="text-dark-muted/50 mt-1.5 text-xs">●</span>
                       <span>{desc}</span>
                     </li>
                   ))}
@@ -138,34 +144,34 @@ export default function Home() {
           </div>
 
           {/* Education & Certifications */}
-          <div className="grid md:grid-cols-2 gap-8 mt-12">
-            <div>
-              <h3 className="text-xl text-charcoal flex items-center gap-3 mb-4">
-                <GraduationCap className="text-terracotta" size={24} />
+          <div className="grid md:grid-cols-2 gap-8 mt-16">
+            <div className="glass-card p-6">
+              <h3 className="text-xl font-bold text-dark-text flex items-center gap-3 mb-6">
+                <GraduationCap className="text-accent-blue" size={24} />
                 Education
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {EDUCATION_DATA.map((edu) => (
-                  <div key={edu.id} className="bg-warm-white rounded-lg p-4 shadow-soft">
-                    <h4 className="font-serif text-charcoal">{edu.institution}</h4>
-                    <p className="text-sm text-muted">{edu.degree}</p>
-                    <p className="text-xs text-muted mt-1">{edu.year}</p>
+                  <div key={edu.id} className="p-4 rounded-lg bg-dark-bg/30 border border-white/5 hover:border-white/10 transition-colors">
+                    <h4 className="font-semibold text-dark-text">{edu.institution}</h4>
+                    <p className="text-sm text-dark-muted">{edu.degree}</p>
+                    <p className="text-xs text-dark-muted/70 mt-1">{edu.year}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div>
-              <h3 className="text-xl text-charcoal flex items-center gap-3 mb-4">
-                <Award className="text-terracotta" size={24} />
+            <div className="glass-card p-6">
+              <h3 className="text-xl font-bold text-dark-text flex items-center gap-3 mb-6">
+                <Award className="text-accent-purple" size={24} />
                 Certifications
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {CERTIFICATIONS_DATA.map((cert) => (
-                  <div key={cert.id} className="bg-warm-white rounded-lg p-4 shadow-soft">
-                    <h4 className="font-serif text-charcoal">{cert.name}</h4>
-                    <p className="text-sm text-muted">{cert.issuer}</p>
-                    <p className="text-xs text-muted mt-1">{cert.year}</p>
+                  <div key={cert.id} className="p-4 rounded-lg bg-dark-bg/30 border border-white/5 hover:border-white/10 transition-colors">
+                    <h4 className="font-semibold text-dark-text">{cert.name}</h4>
+                    <p className="text-sm text-dark-muted">{cert.issuer}</p>
+                    <p className="text-xs text-dark-muted/70 mt-1">{cert.year}</p>
                   </div>
                 ))}
               </div>
@@ -175,11 +181,11 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20">
+      <section id="projects" className="py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl text-charcoal text-center mb-4">Projects & Case Studies</h2>
-          <p className="text-muted text-center mb-12 max-w-2xl mx-auto">
-            Products I've built and problems I've analyzed — proof that I can ship, not just talk.
+          <h2 className="text-3xl font-bold text-dark-text text-center mb-4">Projects & Case Studies</h2>
+          <p className="text-dark-muted text-center mb-16 max-w-2xl mx-auto">
+            Products I've built and problems I've analyzed. Proof that I can ship.
           </p>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -187,40 +193,62 @@ export default function Home() {
               <div
                 key={index}
                 onClick={() => setSelectedProject(project)}
-                className="bg-warm-cream rounded-xl overflow-hidden shadow-soft hover:shadow-card transition-all cursor-pointer group"
+                className="card group cursor-pointer border-transparent hover:border-accent-blue/30 relative overflow-hidden"
               >
-                <div className="aspect-video bg-gray-100 flex items-center justify-center relative overflow-hidden">
+                {/* Image/Icon Area */}
+                <div className="aspect-video bg-dark-bg/50 rounded-lg flex items-center justify-center relative overflow-hidden mb-6 border border-white/5">
                   {project.image ? (
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   ) : project.category === 'build' ? (
-                    <Lightbulb size={48} className="text-gray-300" />
+                    <Lightbulb size={48} className="text-dark-muted/30 group-hover:text-accent-blue transition-colors duration-300" />
                   ) : (
-                    <FileText size={48} className="text-gray-300" />
+                    <FileText size={48} className="text-dark-muted/30 group-hover:text-accent-purple transition-colors duration-300" />
                   )}
-                  <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/10 transition-colors flex items-center justify-center">
-                    <span className="opacity-0 group-hover:opacity-100 text-charcoal font-medium transition-opacity bg-white/80 px-4 py-2 rounded-lg">
+
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-dark-bg/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                    <span className="text-dark-text font-medium bg-dark-surface border border-white/10 px-4 py-2 rounded-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                       View Details
                     </span>
                   </div>
                 </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className={`text-xs px-2 py-1 rounded-full ${project.category === 'build' ? 'bg-terracotta/10 text-terracotta' : 'bg-gray-200 text-gray-600'}`}>
+
+                {/* Content */}
+                <div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${project.category === 'build' ? 'bg-accent-blue/10 text-accent-blue border border-accent-blue/20' : 'bg-accent-purple/10 text-accent-purple border border-accent-purple/20'}`}>
                       {project.category === 'build' ? 'Build' : 'Case Study'}
                     </span>
-                    <span className="text-xs text-muted">{project.date}</span>
+                    <span className="text-xs text-dark-muted">{project.date}</span>
                   </div>
-                  <h3 className="text-xl font-serif text-charcoal">{project.title}</h3>
-                  <p className="mt-2 text-sm text-muted line-clamp-2">{project.description}</p>
-                  <div className="mt-3 flex items-center justify-between">
-                    <div className="flex flex-wrap gap-1">
+
+                  <h3 className="text-xl font-bold text-dark-text group-hover:text-accent-blue transition-colors">{project.title}</h3>
+                  <p className="mt-3 text-sm text-dark-muted line-clamp-2 leading-relaxed">{project.description}</p>
+
+                  <div className="mt-5 flex items-center justify-between">
+                    <div className="flex flex-wrap gap-1.5">
                       {project.tech.slice(0, 3).map((tech, i) => (
-                        <span key={i} className="text-xs bg-warm-white text-gray-600 px-2 py-0.5 rounded">
+                        <span key={i} className="text-xs bg-dark-bg text-dark-muted/80 px-2 py-1 rounded border border-white/5">
                           {tech}
                         </span>
                       ))}
                     </div>
-                    <span className="text-terracotta font-medium text-sm">{project.metrics}</span>
+                    {project.category === 'build' && (
+                      <div className="flex gap-3">
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            onClick={(e) => e.stopPropagation()}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-dark-muted hover:text-white transition-colors"
+                            title="View Source Code"
+                          >
+                            <Github size={18} />
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -230,19 +258,19 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 bg-warm-cream">
+      <section id="skills" className="py-24 bg-dark-surface/30 border-y border-white/5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl text-charcoal text-center mb-12">Skills & Tools</h2>
+          <h2 className="text-3xl font-bold text-dark-text text-center mb-16">Skills & Tools</h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {SKILL_DATA.map((skill) => (
-              <div key={skill.subject} className="bg-warm-white rounded-lg shadow-soft text-center hover:shadow-card transition-shadow h-20 flex items-center justify-center px-3">
-                <span className="font-medium text-charcoal text-sm">{skill.subject}</span>
+              <div key={skill.subject} className="bg-dark-surface border border-white/5 rounded-lg p-4 text-center hover:border-accent-blue/30 hover:bg-dark-surface/80 transition-all cursor-default h-24 flex items-center justify-center">
+                <span className="font-medium text-dark-text text-sm">{skill.subject}</span>
               </div>
             ))}
             {TECH_STACK.map((tech) => (
-              <div key={tech.id} className="bg-warm-white rounded-lg shadow-soft text-center hover:shadow-card transition-shadow h-20 flex items-center justify-center px-3">
-                <span className="font-medium text-charcoal text-sm">{tech.name}</span>
+              <div key={tech.id} className="bg-dark-surface border border-white/5 rounded-lg p-4 text-center hover:border-accent-blue/30 hover:bg-dark-surface/80 transition-all cursor-default h-24 flex items-center justify-center">
+                <span className="font-medium text-dark-text text-sm">{tech.name}</span>
               </div>
             ))}
           </div>
@@ -250,84 +278,76 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20">
+      <section id="contact" className="py-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl text-charcoal mb-4">Let's Connect</h2>
-          <p className="text-muted mb-8">
-            Whether it's a role, a project, or just a conversation about AI and finance — I'd love to hear from you.
+          <h2 className="text-3xl font-bold text-dark-text mb-6">Let's Connect</h2>
+          <p className="text-dark-muted mb-10 text-lg">
+            Whether it's a role, a project, or just a conversation about AI and finance.
           </p>
 
-          <div className="bg-warm-cream rounded-xl p-6 shadow-soft max-w-md mx-auto">
-            <div className="space-y-3">
-              <a href="tel:+919923540336" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
-                <Phone size={18} />
-                <span>+91 9923540336</span>
+          <div className="glass-card p-8 max-w-md mx-auto">
+            <div className="space-y-5">
+              <a href="mailto:mahalegauravk@gmail.com" className="flex items-center gap-4 text-dark-muted hover:text-accent-blue transition-colors p-3 rounded-lg hover:bg-white/5">
+                <Mail size={20} className="text-accent-blue" />
+                <span className="font-medium">mahalegauravk@gmail.com</span>
               </a>
-              <a href="mailto:mahalegauravk@gmail.com" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
-                <Mail size={18} />
-                <span>mahalegauravk@gmail.com</span>
+              <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-dark-muted hover:text-accent-blue transition-colors p-3 rounded-lg hover:bg-white/5">
+                <Linkedin size={20} className="text-accent-blue" />
+                <span className="font-medium">linkedin.com/in/mahalegauravk</span>
               </a>
-              <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
-                <Linkedin size={18} />
-                <span>linkedin.com/in/mahalegauravk</span>
+              <a href="https://github.com/gmpro-cr" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-dark-muted hover:text-accent-blue transition-colors p-3 rounded-lg hover:bg-white/5">
+                <Github size={20} className="text-accent-blue" />
+                <span className="font-medium">github.com/gmpro-cr</span>
               </a>
-              <a href="https://x.com/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
-                <XIcon size={18} />
-                <span>x.com/mahalegauravk</span>
+              <a href="https://x.com/mahalegauravk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-dark-muted hover:text-accent-blue transition-colors p-3 rounded-lg hover:bg-white/5">
+                <XIcon size={20} />
+                <span className="font-medium">x.com/mahalegauravk</span>
               </a>
-              <a href="https://github.com/gmpro-cr" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted hover:text-terracotta transition-colors">
-                <Github size={18} />
-                <span>github.com/gmpro-cr</span>
-              </a>
-              <div className="flex items-center gap-3 text-muted">
-                <MapPin size={18} />
-                <span>Pune, India</span>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Project Modal */}
+      {/* Project Modal - Dark Mode */}
       {selectedProject && (
         <div
-          className="fixed inset-0 bg-charcoal/50 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="bg-warm-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-dark-surface border border-white/10 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-6 md:p-8">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <span className={`text-xs px-2 py-1 rounded-full ${selectedProject.category === 'build' ? 'bg-terracotta/10 text-terracotta' : 'bg-gray-200 text-gray-600'}`}>
+                  <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${selectedProject.category === 'build' ? 'bg-accent-blue/10 text-accent-blue border border-accent-blue/20' : 'bg-accent-purple/10 text-accent-purple border border-accent-purple/20'}`}>
                     {selectedProject.category === 'build' ? 'Build' : 'Case Study'}
                   </span>
-                  <h2 className="text-2xl md:text-3xl font-serif text-charcoal mt-2">{selectedProject.title}</h2>
-                  <p className="text-muted mt-1">{selectedProject.date}</p>
+                  <h2 className="text-2xl md:text-3xl font-bold text-dark-text mt-4">{selectedProject.title}</h2>
+                  <p className="text-dark-muted mt-2">{selectedProject.date}</p>
                 </div>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="text-muted hover:text-charcoal text-2xl"
+                  className="text-dark-muted hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-2 rounded-full"
                 >
-                  ×
+                  <XIcon size={20} />
                 </button>
               </div>
 
-              <div className="mt-4">
-                <span className="bg-terracotta/10 text-terracotta px-4 py-2 rounded-full font-medium">
+              <div className="mt-6">
+                <span className="bg-accent-green/10 text-accent-green border border-accent-green/20 px-4 py-2 rounded-full font-medium text-sm inline-block">
                   {selectedProject.metrics}
                 </span>
               </div>
 
-              <div className="mt-4 flex flex-wrap gap-4">
+              <div className="mt-6 flex flex-wrap gap-4">
                 {selectedProject.link && (
                   <a
                     href={selectedProject.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-terracotta hover:text-terracotta-dark font-medium"
+                    className="btn-primary inline-flex items-center gap-2 py-2 px-4 text-sm"
                   >
                     <ExternalLink size={16} />
                     View Live Project
@@ -338,235 +358,62 @@ export default function Home() {
                     href={selectedProject.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-charcoal hover:text-terracotta font-medium"
+                    className="btn-outline inline-flex items-center gap-2 py-2 px-4 text-sm"
                   >
                     <Github size={16} />
-                    View Source Code
+                    Source Code
                   </a>
                 )}
               </div>
 
-              <div className="mt-8">
-                <h3 className="text-lg font-semibold text-charcoal">The Problem</h3>
-                <p className="mt-2 text-muted">{selectedProject.problem}</p>
+              {/* Case Study Content */}
+              <div className="mt-10 space-y-8">
+                <div>
+                  <h3 className="text-lg font-bold text-dark-text mb-3">The Problem</h3>
+                  <p className="text-dark-muted leading-relaxed">{selectedProject.problem}</p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold text-dark-text mb-3">Approach</h3>
+                  <ul className="space-y-3">
+                    {selectedProject.approach.map((item, i) => (
+                      <li key={i} className="text-dark-muted flex gap-3">
+                        <span className="text-accent-blue mt-1">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold text-dark-text mb-3">Outcomes</h3>
+                  <ul className="space-y-3">
+                    {selectedProject.outcomes.map((item, i) => (
+                      <li key={i} className="text-dark-muted flex gap-3">
+                        <span className="text-accent-green mt-1">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold text-charcoal">Approach</h3>
-                <ul className="mt-2 space-y-2">
-                  {selectedProject.approach.map((item, i) => (
-                    <li key={i} className="text-muted flex gap-2">
-                      <span className="text-terracotta">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold text-charcoal">Key Insights</h3>
-                <ul className="mt-2 space-y-2">
-                  {selectedProject.keyInsights.map((item, i) => (
-                    <li key={i} className="text-muted flex gap-2">
-                      <span className="text-terracotta">→</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold text-charcoal">Outcomes</h3>
-                <ul className="mt-2 space-y-2">
-                  {selectedProject.outcomes.map((item, i) => (
-                    <li key={i} className="text-muted flex gap-2">
-                      <span className="text-terracotta">✓</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <h3 className="text-sm font-semibold text-charcoal uppercase tracking-wide">Tech Stack</h3>
-                <div className="mt-3 flex flex-wrap gap-2">
+              {/* Tech Stack */}
+              <div className="mt-10 pt-8 border-t border-white/5">
+                <h3 className="text-sm font-semibold text-dark-muted uppercase tracking-wide mb-4">Tech Used</h3>
+                <div className="flex flex-wrap gap-2">
                   {selectedProject.tech.map((tech, i) => (
-                    <span key={i} className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm">
+                    <span key={i} className="bg-dark-bg text-dark-text px-3 py-1 rounded-full text-sm border border-white/5">
                       {tech}
+                    </span>
+                  ))}
+                  {selectedProject.frameworks?.map((fw, i) => (
+                    <span key={i} className="bg-dark-bg text-accent-blue px-3 py-1 rounded-full text-sm border border-accent-blue/20">
+                      {fw}
                     </span>
                   ))}
                 </div>
               </div>
-
-              {selectedProject.frameworks && (
-                <div className="mt-4">
-                  <h3 className="text-sm font-semibold text-charcoal uppercase tracking-wide">Frameworks Used</h3>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {selectedProject.frameworks.map((fw, i) => (
-                      <span key={i} className="bg-terracotta/10 text-terracotta px-3 py-1 rounded-full text-sm">
-                        {fw}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Case Study Analysis Sections */}
-              {selectedProject.caseStudyAnalysis && (
-                <div className="mt-8 pt-6 border-t border-gray-200 space-y-8">
-                  {/* Company Mission & Revenue */}
-                  <div className="bg-warm-cream rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-charcoal mb-4">Company Overview</h3>
-                    <div className="space-y-3">
-                      <div>
-                        <span className="text-sm font-medium text-terracotta">Mission:</span>
-                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.companyMission}</p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-terracotta">Primary Revenue:</span>
-                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.primaryRevenue}</p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-terracotta">Secondary Revenue:</span>
-                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.secondaryRevenue}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* User Segments */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-charcoal mb-4">User Segmentation</h3>
-                    <div className="space-y-4">
-                      {selectedProject.caseStudyAnalysis.userSegments.map((segment, i) => (
-                        <div key={i} className="bg-warm-cream rounded-lg p-4">
-                          <h4 className="font-medium text-charcoal mb-3">{segment.segment}</h4>
-                          <div className="grid md:grid-cols-2 gap-4">
-                            <div>
-                              <span className="text-xs font-medium text-terracotta uppercase">Needs</span>
-                              <ul className="mt-2 space-y-1">
-                                {segment.needs.map((need, j) => (
-                                  <li key={j} className="text-sm text-muted flex gap-2">
-                                    <span className="text-terracotta">•</span>
-                                    <span>{need}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                            <div>
-                              <span className="text-xs font-medium text-terracotta uppercase">How Product Addresses</span>
-                              <ul className="mt-2 space-y-1">
-                                {segment.addressed.map((addr, j) => (
-                                  <li key={j} className="text-sm text-muted flex gap-2">
-                                    <span className="text-terracotta">✓</span>
-                                    <span>{addr}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Feature Breakdown */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-charcoal mb-4">Key Feature Breakdown</h3>
-                    <div className="space-y-4">
-                      {selectedProject.caseStudyAnalysis.featureBreakdown.map((feature, i) => (
-                        <div key={i} className="bg-warm-cream rounded-lg p-4">
-                          <h4 className="font-medium text-charcoal">{feature.feature}</h4>
-                          <div className="mt-2 space-y-2">
-                            <p className="text-sm text-muted">
-                              <span className="font-medium text-terracotta">Problem:</span> {feature.problem}
-                            </p>
-                            <p className="text-sm text-muted">
-                              <span className="font-medium text-terracotta">Why It Works:</span> {feature.whyItWorks}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Competitive Analysis */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-charcoal mb-4">Competitive Analysis</h3>
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-sm">
-                        <thead>
-                          <tr className="border-b border-gray-200">
-                            <th className="text-left py-2 px-3 text-charcoal font-medium">Platform</th>
-                            <th className="text-left py-2 px-3 text-charcoal font-medium">Strengths</th>
-                            <th className="text-left py-2 px-3 text-charcoal font-medium">Weaknesses</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {selectedProject.caseStudyAnalysis.competitiveAnalysis.map((comp, i) => (
-                            <tr key={i} className="border-b border-gray-100">
-                              <td className="py-3 px-3 font-medium text-charcoal">{comp.platform}</td>
-                              <td className="py-3 px-3 text-muted">
-                                <ul className="space-y-1">
-                                  {comp.strengths.map((s, j) => (
-                                    <li key={j} className="flex gap-1">
-                                      <span className="text-green-600">✓</span> {s}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </td>
-                              <td className="py-3 px-3 text-muted">
-                                <ul className="space-y-1">
-                                  {comp.weaknesses.map((w, j) => (
-                                    <li key={j} className="flex gap-1">
-                                      <span className="text-red-500">✗</span> {w}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                  {/* Improvement Opportunity */}
-                  <div className="bg-terracotta/10 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-charcoal mb-4">Proposed Improvement</h3>
-                    <div className="space-y-3">
-                      <div>
-                        <span className="text-sm font-medium text-terracotta">Identified Problem:</span>
-                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.improvement.problem}</p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-terracotta">Why This Is Impactful:</span>
-                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.improvement.impact}</p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-terracotta">Proposed Solution:</span>
-                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.improvement.solution}</p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-terracotta">Why It Will Work:</span>
-                        <p className="text-muted mt-1">{selectedProject.caseStudyAnalysis.improvement.whyItWorks}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Key Takeaways */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-charcoal mb-4">Key Takeaways</h3>
-                    <ul className="space-y-2">
-                      {selectedProject.caseStudyAnalysis.keyTakeaways.map((takeaway, i) => (
-                        <li key={i} className="text-muted flex gap-3 items-start">
-                          <span className="text-terracotta text-lg">📌</span>
-                          <span>{takeaway}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
