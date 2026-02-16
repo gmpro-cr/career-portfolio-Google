@@ -52,7 +52,6 @@ export default function Navbar() {
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
                 className="text-sm font-medium text-dark-muted hover:text-accent-blue transition-colors"
-                href={link.href}
               >
                 {link.label}
               </a>
