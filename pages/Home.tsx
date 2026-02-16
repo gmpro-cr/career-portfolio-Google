@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Github, Download } from 'lucide-react';
+import { useSearch } from '../context/SearchContext';
 
 const XIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -10,6 +11,21 @@ import { EXPERIENCES, PROJECTS, SKILL_DATA, TECH_STACK, EDUCATION_DATA, CERTIFIC
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null);
+  const { searchQuery } = useSearch();
+
+  const filteredProjects = useMemo(() => {
+    if (!searchQuery) return PROJECTS;
+    const lowerQuery = searchQuery.toLowerCase();
+
+    // Auto-scroll logic could be added here or in effect
+
+    return PROJECTS.filter(project =>
+      project.title.toLowerCase().includes(lowerQuery) ||
+      project.description.toLowerCase().includes(lowerQuery) ||
+      project.tech.some(t => t.toLowerCase().includes(lowerQuery)) ||
+      project.category.toLowerCase().includes(lowerQuery)
+    );
+  }, [searchQuery]);
 
   return (
     <div className="relative overflow-hidden">
