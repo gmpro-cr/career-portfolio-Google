@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Github, Download } from 'lucide-react';
+import { Mail, Linkedin, MapPin, Phone, GraduationCap, Award, ExternalLink, Lightbulb, FileText, Github, Download, ArrowRight } from 'lucide-react';
 import { useSearch } from '../context/SearchContext';
+import { motion } from 'framer-motion';
 
 const XIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -33,8 +34,14 @@ export default function Home() {
       <div className="absolute top-0 left-0 w-full h-[800px] aurora-bg -z-10 opacity-60"></div>
 
       {/* Hero Section */}
-      <section id="hero" className="py-24 md:py-32 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center animate-fade-in">
+      <motion.section
+        id="hero"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="py-24 md:py-32 relative"
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h1 className="text-5xl md:text-6xl lg:text-7xl text-dark-text leading-tight tracking-tight mb-6">
             <span className="text-gradient font-bold">Finance Pro</span>{' '}
             turned{' '}
@@ -56,10 +63,17 @@ export default function Home() {
             </a>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* About Section */}
-      <section id="about" className="py-24">
+      <motion.section
+        id="about"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="py-24"
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl font-bold text-dark-text text-center mb-12">About Me</h2>
 
@@ -85,10 +99,17 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-24 relative">
+      <motion.section
+        id="experience"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="py-24 relative"
+      >
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl font-bold text-dark-text text-center mb-16">Experience</h2>
 
@@ -194,10 +215,17 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-24">
+      <motion.section
+        id="projects"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="py-24"
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl font-bold text-dark-text text-center mb-4">Projects & Case Studies</h2>
           <p className="text-dark-muted text-center mb-16 max-w-2xl mx-auto">
@@ -207,68 +235,57 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8">
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project, index) => (
-                <div
+                <motion.div
                   key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   onClick={() => setSelectedProject(project)}
-                  className="card group cursor-pointer border-transparent hover:border-accent-blue/30 relative overflow-hidden"
+                  className="card group cursor-pointer border-transparent hover:border-accent-blue/30 relative overflow-hidden flex flex-col h-full bg-dark-surface/50 hover:bg-dark-surface/80 transition-all duration-300"
                 >
-                  {/* Image/Icon Area */}
-                  <div className="aspect-video bg-dark-bg/50 rounded-lg flex items-center justify-center relative overflow-hidden mb-6 border border-white/5">
-                    {project.image ? (
-                      <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                    ) : project.category === 'build' ? (
-                      <Lightbulb size={48} className="text-dark-muted/30 group-hover:text-accent-blue transition-colors duration-300" />
-                    ) : (
-                      <FileText size={48} className="text-dark-muted/30 group-hover:text-accent-purple transition-colors duration-300" />
-                    )}
-
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-dark-bg/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                      <span className="text-dark-text font-medium bg-dark-surface border border-white/10 px-4 py-2 rounded-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        View Details
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div>
-                    <div className="flex items-center gap-3 mb-3">
+                  <div className="p-6 flex flex-col h-full">
+                    <div className="flex justify-between items-start mb-4">
                       <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${project.category === 'build' ? 'bg-accent-blue/10 text-accent-blue border border-accent-blue/20' : 'bg-accent-purple/10 text-accent-purple border border-accent-purple/20'}`}>
                         {project.category === 'build' ? 'Build' : 'Case Study'}
                       </span>
-                      <span className="text-xs text-dark-muted">{project.date}</span>
+                      <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        whileHover={{ opacity: 1, x: 0 }}
+                        className="text-accent-blue"
+                      >
+                        <ArrowRight size={20} />
+                      </motion.div>
                     </div>
 
-                    <h3 className="text-xl font-bold text-dark-text group-hover:text-accent-blue transition-colors">{project.title}</h3>
-                    <p className="mt-3 text-sm text-dark-muted line-clamp-2 leading-relaxed">{project.description}</p>
+                    <h3 className="text-2xl font-bold text-dark-text group-hover:text-accent-blue transition-colors mb-2">{project.title}</h3>
+                    <p className="text-sm text-dark-muted mb-4">{project.date}</p>
 
-                    <div className="mt-5 flex items-center justify-between">
-                      <div className="flex flex-wrap gap-1.5">
+                    <p className="text-dark-muted leading-relaxed line-clamp-3 mb-6 flex-grow">{project.description}</p>
+
+                    <div className="mt-auto">
+                      <div className="flex flex-wrap gap-2 mb-4">
                         {project.tech.slice(0, 3).map((tech, i) => (
                           <span key={i} className="text-xs bg-dark-bg text-dark-muted/80 px-2 py-1 rounded border border-white/5">
                             {tech}
                           </span>
                         ))}
+                        {project.tech.length > 3 && (
+                          <span className="text-xs text-dark-muted/60 px-1 py-1">+ {project.tech.length - 3}</span>
+                        )}
                       </div>
-                      {project.category === 'build' && (
-                        <div className="flex gap-3">
-                          {project.githubUrl && (
-                            <a
-                              href={project.githubUrl}
-                              onClick={(e) => e.stopPropagation()}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-dark-muted hover:text-white transition-colors"
-                              title="View Source Code"
-                            >
-                              <Github size={18} />
-                            </a>
-                          )}
-                        </div>
-                      )}
+
+                      <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                        <span className="text-sm font-medium text-accent-green">{project.metrics}</span>
+                        {project.githubUrl && (
+                          <div className="flex items-center gap-2 text-dark-muted group-hover:text-white transition-colors">
+                            <Github size={16} />
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))
             ) : (
               <div className="col-span-2 text-center py-12">
@@ -283,30 +300,52 @@ export default function Home() {
             )}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-24 bg-dark-surface/30 border-y border-white/5">
+      <motion.section
+        id="skills"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="py-24 bg-dark-surface/30 border-y border-white/5"
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl font-bold text-dark-text text-center mb-16">Skills & Tools</h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {SKILL_DATA.map((skill) => (
-              <div key={skill.subject} className="bg-dark-surface border border-white/5 rounded-lg p-4 text-center hover:border-accent-blue/30 hover:bg-dark-surface/80 transition-all cursor-default h-24 flex items-center justify-center">
+              <motion.div
+                key={skill.subject}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-dark-surface border border-white/5 rounded-lg p-4 text-center hover:border-accent-blue/30 hover:bg-dark-surface/80 transition-all cursor-default h-24 flex items-center justify-center"
+              >
                 <span className="font-medium text-dark-text text-sm">{skill.subject}</span>
-              </div>
+              </motion.div>
             ))}
             {TECH_STACK.map((tech) => (
-              <div key={tech.id} className="bg-dark-surface border border-white/5 rounded-lg p-4 text-center hover:border-accent-blue/30 hover:bg-dark-surface/80 transition-all cursor-default h-24 flex items-center justify-center">
+              <motion.div
+                key={tech.id}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-dark-surface border border-white/5 rounded-lg p-4 text-center hover:border-accent-blue/30 hover:bg-dark-surface/80 transition-all cursor-default h-24 flex items-center justify-center"
+              >
                 <span className="font-medium text-dark-text text-sm">{tech.name}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24">
+      <motion.section
+        id="contact"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="py-24"
+      >
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl font-bold text-dark-text mb-6">Let's Connect</h2>
           <p className="text-dark-muted mb-10 text-lg">
@@ -334,7 +373,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Project Modal - Dark Mode */}
       {selectedProject && (

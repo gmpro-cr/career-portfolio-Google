@@ -436,7 +436,7 @@ export const SKILL_DATA: SkillMetric[] = [
   { subject: 'AI/LLM Ops', A: 90, fullMark: 100 },
   { subject: 'Credit Risk', A: 95, fullMark: 100 },
   { subject: 'Product Mgmt', A: 85, fullMark: 100 },
-  { subject: 'Python/SQL', A: 75, fullMark: 100 },
+
   { subject: 'Financial Modeling', A: 90, fullMark: 100 },
   { subject: 'UI/UX (Figma)', A: 70, fullMark: 100 },
 ];
@@ -490,7 +490,7 @@ export const TECH_STACK: TechItem[] = [
   { id: "PYTH", name: "Python", category: "Backend", price: "98.45", change: "+2.4%" },
   { id: "SQL", name: "SQL / DB", category: "Data", price: "88.20", change: "+1.1%" },
   { id: "GEM", name: "Gemini API", category: "AI Ops", price: "142.10", change: "+15.3%" },
-  { id: "CLD", name: "Claude AI", category: "AI Ops", price: "135.50", change: "+12.1%" },
+  { id: "CLD", name: "Claude Code", category: "AI Ops", price: "135.50", change: "+12.1%" },
   { id: "FIG", name: "Figma", category: "Design", price: "76.30", change: "+0.5%" },
   { id: "GAN", name: "Google Analytics", category: "Growth", price: "92.10", change: "+3.2%" },
   { id: "PBI", name: "PowerBI", category: "Analytics", price: "101.00", change: "+4.5%" },
