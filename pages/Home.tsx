@@ -205,70 +205,82 @@ export default function Home() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {PROJECTS.map((project, index) => (
-              <div
-                key={index}
-                onClick={() => setSelectedProject(project)}
-                className="card group cursor-pointer border-transparent hover:border-accent-blue/30 relative overflow-hidden"
-              >
-                {/* Image/Icon Area */}
-                <div className="aspect-video bg-dark-bg/50 rounded-lg flex items-center justify-center relative overflow-hidden mb-6 border border-white/5">
-                  {project.image ? (
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  ) : project.category === 'build' ? (
-                    <Lightbulb size={48} className="text-dark-muted/30 group-hover:text-accent-blue transition-colors duration-300" />
-                  ) : (
-                    <FileText size={48} className="text-dark-muted/30 group-hover:text-accent-purple transition-colors duration-300" />
-                  )}
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-dark-bg/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                    <span className="text-dark-text font-medium bg-dark-surface border border-white/10 px-4 py-2 rounded-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      View Details
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${project.category === 'build' ? 'bg-accent-blue/10 text-accent-blue border border-accent-blue/20' : 'bg-accent-purple/10 text-accent-purple border border-accent-purple/20'}`}>
-                      {project.category === 'build' ? 'Build' : 'Case Study'}
-                    </span>
-                    <span className="text-xs text-dark-muted">{project.date}</span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-dark-text group-hover:text-accent-blue transition-colors">{project.title}</h3>
-                  <p className="mt-3 text-sm text-dark-muted line-clamp-2 leading-relaxed">{project.description}</p>
-
-                  <div className="mt-5 flex items-center justify-between">
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tech.slice(0, 3).map((tech, i) => (
-                        <span key={i} className="text-xs bg-dark-bg text-dark-muted/80 px-2 py-1 rounded border border-white/5">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    {project.category === 'build' && (
-                      <div className="flex gap-3">
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            onClick={(e) => e.stopPropagation()}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-dark-muted hover:text-white transition-colors"
-                            title="View Source Code"
-                          >
-                            <Github size={18} />
-                          </a>
-                        )}
-                      </div>
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((project, index) => (
+                <div
+                  key={index}
+                  onClick={() => setSelectedProject(project)}
+                  className="card group cursor-pointer border-transparent hover:border-accent-blue/30 relative overflow-hidden"
+                >
+                  {/* Image/Icon Area */}
+                  <div className="aspect-video bg-dark-bg/50 rounded-lg flex items-center justify-center relative overflow-hidden mb-6 border border-white/5">
+                    {project.image ? (
+                      <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    ) : project.category === 'build' ? (
+                      <Lightbulb size={48} className="text-dark-muted/30 group-hover:text-accent-blue transition-colors duration-300" />
+                    ) : (
+                      <FileText size={48} className="text-dark-muted/30 group-hover:text-accent-purple transition-colors duration-300" />
                     )}
+
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-dark-bg/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                      <span className="text-dark-text font-medium bg-dark-surface border border-white/10 px-4 py-2 rounded-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                        View Details
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div>
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${project.category === 'build' ? 'bg-accent-blue/10 text-accent-blue border border-accent-blue/20' : 'bg-accent-purple/10 text-accent-purple border border-accent-purple/20'}`}>
+                        {project.category === 'build' ? 'Build' : 'Case Study'}
+                      </span>
+                      <span className="text-xs text-dark-muted">{project.date}</span>
+                    </div>
+
+                    <h3 className="text-xl font-bold text-dark-text group-hover:text-accent-blue transition-colors">{project.title}</h3>
+                    <p className="mt-3 text-sm text-dark-muted line-clamp-2 leading-relaxed">{project.description}</p>
+
+                    <div className="mt-5 flex items-center justify-between">
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.tech.slice(0, 3).map((tech, i) => (
+                          <span key={i} className="text-xs bg-dark-bg text-dark-muted/80 px-2 py-1 rounded border border-white/5">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      {project.category === 'build' && (
+                        <div className="flex gap-3">
+                          {project.githubUrl && (
+                            <a
+                              href={project.githubUrl}
+                              onClick={(e) => e.stopPropagation()}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-dark-muted hover:text-white transition-colors"
+                              title="View Source Code"
+                            >
+                              <Github size={18} />
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="col-span-2 text-center py-12">
+                <p className="text-dark-muted text-lg">No projects match your search.</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 text-accent-blue hover:underline"
+                >
+                  Clear search
+                </button>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
