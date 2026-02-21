@@ -21,18 +21,16 @@ export default {
                 'dark-text': '#fafafa',     // Primary text
                 'dark-muted': '#a3a3a3',    // Secondary text
 
-                // Theme accent options
+                // Dynamic accent (driven by ThemePicker CSS variables)
+                'accent': 'var(--accent-color, #60a5fa)',
+
+                // Theme accent options (static references)
                 'accent-rose': '#fb7185',
                 'accent-blue': '#60a5fa',
                 'accent-green': '#4ade80',
                 'accent-orange': '#fb923c',
                 'accent-purple': '#c084fc',
                 'accent-gray': '#6b7280',
-
-                // Specific brand colors (mapped to new system references or kept for backward compat)
-                'terracotta': '#fb923c', // Temporarily mapping old brand color to new accent-orange
-                'warm-cream': '#171717', // Temporarily mapping old bg to new surface
-                'charcoal': '#fafafa',   // Temporarily mapping old text to new light text
             },
             boxShadow: {
                 'glow': '0 0 20px rgba(96, 165, 250, 0.5)',

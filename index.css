@@ -4,7 +4,6 @@
 @layer base {
   :root {
     --accent-color: #60a5fa;
-    /* Default to blue to match reference site */
     --accent-glow: rgba(96, 165, 250, 0.5);
   }
 
@@ -13,7 +12,12 @@
   }
 
   body {
-    @apply bg-dark-bg text-dark-text antialiased selection:bg-accent-blue/30;
+    @apply bg-dark-bg text-dark-text antialiased;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent-color) 30%, transparent);
   }
 
   h1,
@@ -24,15 +28,44 @@
   h6 {
     @apply font-sans font-bold tracking-tight;
   }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-accent-blue text-white px-6 py-3 rounded-md font-medium hover:brightness-110 hover:shadow-glow transition-all duration-300;
+    background-color: var(--accent-color);
+    @apply text-white px-6 py-3 rounded-md font-medium hover:brightness-110 transition-all duration-300;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 30px var(--accent-glow);
   }
 
   .btn-outline {
-    @apply border border-dark-surface bg-dark-surface/50 text-dark-text px-6 py-3 rounded-md font-medium hover:bg-dark-surface hover:text-accent-blue hover:border-accent-blue/50 transition-all duration-300;
+    @apply border border-dark-surface bg-dark-surface/50 text-dark-text px-6 py-3 rounded-md font-medium hover:bg-dark-surface transition-all duration-300;
+
+    &:hover {
+      color: var(--accent-color);
+      border-color: color-mix(in srgb, var(--accent-color) 50%, transparent);
+    }
   }
 
   .btn-download {
@@ -40,7 +73,11 @@
   }
 
   .card {
-    @apply bg-dark-surface/50 backdrop-blur-sm border border-white/5 rounded-xl p-6 hover:border-accent-blue/20 transition-colors duration-300;
+    @apply bg-dark-surface/50 backdrop-blur-sm border border-white/5 rounded-xl p-6 transition-all duration-300;
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
+    }
   }
 
   .glass-card {
@@ -56,22 +93,114 @@
   }
 
   .badge-ops {
-    @apply bg-dark-surface text-dark-muted border border-white/10 px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-accent-blue/10 text-accent-blue border border-accent-blue/20 px-3 py-1 rounded-full text-sm font-medium;
   }
 
   .github-graph-container {
     @apply bg-dark-surface/30 backdrop-blur-sm border border-white/5 rounded-xl p-6 overflow-hidden;
   }
+
+  /* Accent-aware link hover */
+  .accent-link {
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+
+  /* Accent text */
+  .text-accent {
+    color: var(--accent-color);
+  }
+
+  /* Accent bg with opacity */
+  .bg-accent-10 {
+    background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+  }
+
+  .border-accent-20 {
+    border-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
+  }
+
+  .border-accent-30 {
+    border-color: color-mix(in srgb, var(--accent-color) 30%, transparent);
+  }
+
+  /* Skill progress bar */
+  .skill-bar {
+    @apply h-1.5 rounded-full overflow-hidden bg-white/5;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 60%, #c084fc));
+    transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
 }
 
 @layer utilities {
   .aurora-bg {
-    background: radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 100% 0%, rgba(192, 132, 252, 0.1) 0%, transparent 50%);
+    background: radial-gradient(ellipse 80% 50% at 50% -10%, color-mix(in srgb, var(--accent-color) 20%, transparent) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 0%, rgba(192, 132, 252, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 20% 10%, color-mix(in srgb, var(--accent-color) 8%, transparent) 0%, transparent 50%);
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-dark-muted;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #fff 0%, var(--accent-color) 50%, #c084fc 100%);
+  }
+
+  /* Section divider */
+  .section-divider {
+    @apply w-16 h-1 rounded-full mx-auto mb-12;
+    background: linear-gradient(90deg, var(--accent-color), #c084fc);
+    opacity: 0.6;
+  }
+
+  /* Floating animation */
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 3s ease-in-out 0.5s infinite;
+  }
+
+  .animate-float-delayed-2 {
+    animation: float 3s ease-in-out 1s infinite;
+  }
+
+  /* Gradient pulse for background orb */
+  @keyframes gradient-pulse {
+
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.7;
+      transform: scale(1.1);
+    }
+  }
+
+  .animate-gradient-pulse {
+    animation: gradient-pulse 6s ease-in-out infinite;
   }
 
   /* Mobile Responsiveness Fixes */

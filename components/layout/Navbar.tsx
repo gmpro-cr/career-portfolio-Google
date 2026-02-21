@@ -15,13 +15,28 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const { searchQuery, setSearchQuery } = useSearch();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Active section detection
+      const sections = navLinks.map(l => l.href.replace('#', ''));
+      let current = '';
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 150) {
+            current = `#${section}`;
+          }
+        }
+      }
+      setActiveSection(current);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -45,20 +60,20 @@ export default function Navbar() {
             <a
               href="#hero"
               onClick={(e) => scrollToSection(e, '#hero')}
-              className="font-bold text-xl text-dark-text hover:text-accent-blue transition-colors tracking-tight"
+              className="font-bold text-xl text-dark-text hover:text-accent transition-colors tracking-tight"
             >
               Gaurav Mahale
             </a>
 
             {/* Desktop Search Bar */}
             <div className="hidden md:flex items-center relative group">
-              <Search className="absolute left-3 text-dark-muted w-4 h-4 group-focus-within:text-accent-blue transition-colors" />
+              <Search className="absolute left-3 text-dark-muted w-4 h-4 group-focus-within:text-accent transition-colors" />
               <input
                 type="text"
-                placeholder="Search projects..."
+                placeholder="Filter projects by tech..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-dark-surface/50 border border-white/10 rounded-full py-1.5 pl-9 pr-4 text-sm text-dark-text placeholder:text-dark-muted/50 focus:outline-none focus:border-accent-blue/50 focus:bg-dark-surface transition-all w-48 focus:w-64"
+                className="bg-dark-surface/50 border border-white/10 rounded-full py-1.5 pl-9 pr-4 text-sm text-dark-text placeholder:text-dark-muted/50 focus:outline-none focus:border-accent-30 focus:bg-dark-surface transition-all w-52 focus:w-72"
               />
             </div>
           </div>
@@ -69,10 +84,17 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="text-sm font-medium text-dark-muted hover:text-accent-blue transition-colors relative group"
+                className={`text-sm font-medium transition-colors relative group ${activeSection === link.href ? 'text-accent' : 'text-dark-muted hover:text-accent'
+                  }`}
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-blue transition-all group-hover:w-full"></span>
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 transition-all ${activeSection === link.href
+                      ? 'w-full'
+                      : 'w-0 group-hover:w-full'
+                    }`}
+                  style={{ backgroundColor: 'var(--accent-color)' }}
+                />
               </a>
             ))}
 
@@ -105,11 +127,11 @@ export default function Navbar() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-muted w-4 h-4" />
               <input
                 type="text"
-                placeholder="Search projects..."
+                placeholder="Filter projects by tech..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 autoFocus
-                className="w-full bg-dark-surface border border-white/10 rounded-lg py-2 pl-9 pr-4 text-sm text-dark-text placeholder:text-dark-muted/50 focus:outline-none focus:border-accent-blue/50"
+                className="w-full bg-dark-surface border border-white/10 rounded-lg py-2 pl-9 pr-4 text-sm text-dark-text placeholder:text-dark-muted/50 focus:outline-none focus:border-accent-30"
               />
             </div>
           </div>
@@ -125,7 +147,10 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="block py-3 px-4 rounded-lg text-base font-medium text-dark-muted hover:text-white hover:bg-white/5 transition-all"
+                className={`block py-3 px-4 rounded-lg text-base font-medium transition-all ${activeSection === link.href
+                    ? 'text-accent bg-white/5'
+                    : 'text-dark-muted hover:text-white hover:bg-white/5'
+                  }`}
               >
                 {link.label}
               </a>

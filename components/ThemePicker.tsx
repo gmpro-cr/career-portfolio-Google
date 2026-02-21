@@ -9,17 +9,32 @@ const themes = [
     { name: 'Rose', color: '#fb7185', glow: 'rgba(251, 113, 133, 0.5)' },
 ];
 
+const THEME_STORAGE_KEY = 'portfolio-accent-theme';
+
 export default function ThemePicker() {
     const [isOpen, setIsOpen] = useState(false);
-    const [activeTheme, setActiveTheme] = useState(themes[0]);
+    const [activeTheme, setActiveTheme] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem(THEME_STORAGE_KEY);
+            if (saved) {
+                const found = themes.find(t => t.name === saved);
+                if (found) return found;
+            }
+        }
+        return themes[0];
+    });
+
+    // Apply theme on mount (for persisted theme)
+    useEffect(() => {
+        document.documentElement.style.setProperty('--accent-color', activeTheme.color);
+        document.documentElement.style.setProperty('--accent-glow', activeTheme.glow);
+    }, []);
 
     const applyTheme = (theme: typeof themes[0]) => {
         setActiveTheme(theme);
         document.documentElement.style.setProperty('--accent-color', theme.color);
         document.documentElement.style.setProperty('--accent-glow', theme.glow);
-
-        // Update Tailwind custom properties if needed, but CSS variables handle most
-        // We update the class to trigger re-renders if necessary, but CSS vars are reactive
+        localStorage.setItem(THEME_STORAGE_KEY, theme.name);
     };
 
     return (
@@ -46,12 +61,12 @@ export default function ThemePicker() {
                                     setIsOpen(false);
                                 }}
                                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${activeTheme.name === theme.name
-                                        ? 'bg-white/10 text-white'
-                                        : 'text-dark-muted hover:text-white hover:bg-white/5'
+                                    ? 'bg-white/10 text-white'
+                                    : 'text-dark-muted hover:text-white hover:bg-white/5'
                                     }`}
                             >
                                 <span
-                                    className="w-3 h-3 rounded-full shadow-glow-subtle"
+                                    className="w-3 h-3 rounded-full"
                                     style={{ backgroundColor: theme.color, boxShadow: `0 0 8px ${theme.color}` }}
                                 />
                                 {theme.name}
@@ -61,7 +76,6 @@ export default function ThemePicker() {
                 </div>
             )}
 
-            {/* Click outside listener could be added here for polish */}
             {isOpen && (
                 <div
                     className="fixed inset-0 z-40"
