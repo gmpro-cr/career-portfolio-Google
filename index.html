@@ -645,20 +645,24 @@
             margin: 0 auto;
         }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 24px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: var(--border);
-        }
-
         .timeline-item {
             position: relative;
             padding-left: 4rem;
             margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 23px;
+            top: 48px;
+            bottom: -3rem;
+            width: 2px;
+            background-color: var(--border);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
         }
 
         .timeline-item:last-child {

@@ -645,20 +645,24 @@
             margin: 0 auto;
         }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 24px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: var(--border);
-        }
-
         .timeline-item {
             position: relative;
             padding-left: 4rem;
             margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 23px;
+            top: 48px;
+            bottom: -3rem;
+            width: 2px;
+            background-color: var(--border);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
         }
 
         .timeline-item:last-child {
@@ -1110,15 +1114,6 @@
             </nav>
 
             <div class="nav-actions">
-                <button class="search-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    Search
-                    <span class="search-kbd">⌘ K</span>
-                </button>
                 <a href="https://github.com/YourGitHub" target="_blank" class="icon-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path
@@ -1198,7 +1193,7 @@
                         risk. Combines financial acumen with AI engineering skills to build high-impact products.
                     </p>
                     <div class="profile-actions">
-                        <a href="#" class="btn btn-outline">
+                        <a href="/Gaurav_Mahale_Resume.pdf" target="_blank" class="btn btn-outline">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
