@@ -697,9 +697,16 @@
 
         .timeline-header {
             display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-details {
+            display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
+            align-items: center;
+            width: 100%;
         }
 
         .timeline-company {
@@ -717,7 +724,6 @@
         .timeline-role {
             color: var(--accent);
             font-weight: 500;
-            margin-bottom: 1rem;
         }
 
         .timeline-desc {
@@ -735,8 +741,10 @@
         }
 
         @media (max-width: 640px) {
-            .timeline-header {
+            .timeline-details {
                 flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
             }
         }
 
@@ -1253,9 +1261,11 @@
                 <div class="timeline-avatar">Y</div>
                 <div class="timeline-content">
                     <div class="timeline-header">
-                        <div class="timeline-title">Relationship Manager</div>
                         <div class="timeline-company">Yes Bank Limited</div>
-                        <div class="timeline-date">Apr 22 - Present</div>
+                        <div class="timeline-details">
+                            <div class="timeline-role">Relationship Manager</div>
+                            <div class="timeline-date">Apr 22 - Present</div>
+                        </div>
                     </div>
                     <ul class="timeline-desc">
                         <li>Led end-to-end lifecycle of corporate lending products, aligning solutions to customer pain
@@ -1277,9 +1287,11 @@
                 <div class="timeline-avatar">H</div>
                 <div class="timeline-content">
                     <div class="timeline-header">
-                        <div class="timeline-title">Portfolio Manager</div>
                         <div class="timeline-company">HDFC Bank Limited</div>
-                        <div class="timeline-date">Jan 20 - Apr 22</div>
+                        <div class="timeline-details">
+                            <div class="timeline-role">Portfolio Manager</div>
+                            <div class="timeline-date">Jan 20 - Apr 22</div>
+                        </div>
                     </div>
                     <ul class="timeline-desc">
                         <li>Designed solutions to minimise delinquency risk using predictive analytics and early warning
@@ -1299,9 +1311,11 @@
                 <div class="timeline-avatar">S</div>
                 <div class="timeline-content">
                     <div class="timeline-header">
-                        <div class="timeline-title">Operations Manager</div>
                         <div class="timeline-company">Suraksha ARC</div>
-                        <div class="timeline-date">Sep 17 - Jan 20</div>
+                        <div class="timeline-details">
+                            <div class="timeline-role">Operations Manager</div>
+                            <div class="timeline-date">Sep 17 - Jan 20</div>
+                        </div>
                     </div>
                     <ul class="timeline-desc">
                         <li>Analysed financial health and recovery potential of NPA accounts offered for sale by banks.
@@ -1321,9 +1335,11 @@
                 <div class="timeline-avatar">T</div>
                 <div class="timeline-content">
                     <div class="timeline-header">
-                        <div class="timeline-title">Consultant</div>
                         <div class="timeline-company">Tata Trusts & Ministry of Water and Sanitation</div>
-                        <div class="timeline-date">May 17 - Sep 17</div>
+                        <div class="timeline-details">
+                            <div class="timeline-role">Consultant</div>
+                            <div class="timeline-date">May 17 - Sep 17</div>
+                        </div>
                     </div>
                     <ul class="timeline-desc">
                         <li>Set up system of extension officers, BRCs & CRCs to speed up MIS entries.</li>
@@ -1338,9 +1354,11 @@
                 <div class="timeline-avatar">P</div>
                 <div class="timeline-content">
                     <div class="timeline-header">
-                        <div class="timeline-title">AI Trainer</div>
                         <div class="timeline-company">Pareto.AI (Part-Time)</div>
-                        <div class="timeline-date">Dec 25 - Present</div>
+                        <div class="timeline-details">
+                            <div class="timeline-role">AI Trainer</div>
+                            <div class="timeline-date">Dec 25 - Present</div>
+                        </div>
                     </div>
                     <ul class="timeline-desc">
                         <li>Training Claude models using RLHF (Reinforcement Learning from Human Feedback) to improve AI
