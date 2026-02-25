@@ -155,7 +155,7 @@ export const PROJECTS: Project[] = [
     description: "Interactive platform enabling users to engage with AI personas - from historical figures to fictional characters - with consistent personality, memory, and contextual awareness. Built with focus on engagement metrics and retention optimization.",
     tech: ["Next.js", "Supabase", "Gemini API", "Vercel", "A/B Testing", "Analytics", "PostgreSQL"],
     metrics: "500 MAU",
-    link: "https://ai-spirit.vercel.app",
+    link: "https://ai-spirit.in",
     image: "/ai-spirit.png",
     category: 'build',
     problem: "Generic chatbots lack personality and emotional connection, leading to short sessions and low return rates. Users want meaningful interactions that feel authentic, whether with historical figures for learning or fictional characters for entertainment. Existing solutions either lack depth or require expensive fine-tuning.",
