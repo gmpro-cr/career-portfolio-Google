@@ -15,15 +15,15 @@ export default {
                 display: ['Outfit', 'sans-serif'],
             },
             colors: {
-                // Light mode system
-                'light-bg': '#F9FAFB',      // Requested light background
-                'light-surface': '#FFFFFF', // Elevated white surface
+                // Minimalist mode system
+                'light-bg': '#FFFFFF',      // Absolute white background
+                'light-surface': '#FAFAFA', // Subtle gray surface
                 'light-card': '#FFFFFF',    // Card surface
-                'light-text': '#111827',    // Deep dark gray text
-                'light-muted': '#6B7280',   // Slate gray for secondary text
+                'light-text': '#0A0A0A',    // Very dark text
+                'light-muted': '#737373',   // Crisp secondary text
                 
                 // Tech/Cyber aesthetic accents
-                'accent': 'var(--accent-color, #38bdf8)', // Default light blue
+                'accent': 'var(--accent-color, #000000)', // Default stark black
                 'accent-rose': '#f43f5e',
                 'accent-purple': '#a855f7',
                 'accent-emerald': '#10b981',
@@ -31,9 +31,9 @@ export default {
                 'accent-indigo': '#6366f1',
             },
             boxShadow: {
-                'glow': '0 0 25px var(--accent-glow)',
-                'glow-subtle': '0 0 12px var(--accent-glow-subtle)',
-                'card-hover': '0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px var(--accent-glow-subtle)',
+                'glow': 'none',
+                'glow-subtle': 'none',
+                'card-hover': '0 4px 12px rgba(0, 0, 0, 0.05)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

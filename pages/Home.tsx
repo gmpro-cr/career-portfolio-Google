@@ -74,12 +74,7 @@ export default function Home() {
 
   return (
     <div className="relative overflow-hidden font-sans">
-      <div className="absolute top-0 left-0 w-full h-full aurora-bg -z-10"></div>
-      
-      {/* Background glow orb */}
-      <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full -z-10 blur-[100px] opacity-20 transition-all duration-[6s] animate-pulse"
-        style={{ background: 'var(--accent-color)' }}
-      />
+      {/* Background glow orb removed for minimalist theme */}
 
       {/* HERO SECTION */}
       <motion.section
@@ -103,29 +98,27 @@ export default function Home() {
             Open to AI Product Manager roles
           </motion.div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl text-light-text leading-[1.1] mb-8">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-light-text to-gray-600">AI Builder &</span><br />
-            <span className="text-gradient">Credit Domain Expert</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl text-light-text leading-[1.1] mb-8 font-extrabold tracking-tight">
+            AI Product Builder
           </h1>
           
           <p className="mt-6 text-xl text-light-muted max-w-2xl mx-auto font-light leading-relaxed">
-            Building AI products. Understanding credit the way most AI builders never will. Fintech Products · LLM Evals · Corporate Lending.
+            Building products at the frontier of applied AI. Generative AI · LLM Evals · Product Strategy.
           </p>
 
           <div className="mt-12 flex flex-wrap justify-center gap-4 md:gap-8">
-            {STATS.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + i * 0.1, duration: 0.5 }}
-                className="glass-card px-8 py-4 animate-float"
-                style={{ animationDelay: `${i * 0.3}s` }}
-              >
-                <div className="text-3xl font-display font-bold text-accent">{stat.label}</div>
-                <div className="text-sm font-medium text-light-muted mt-1 tracking-wide uppercase opacity-80">{stat.sublabel}</div>
-              </motion.div>
-            ))}
+            <div className="glass-card px-8 py-4 animate-float" style={{ animationDelay: '0s' }}>
+              <div className="text-3xl font-display font-bold text-light-text">500+</div>
+              <div className="text-sm font-medium text-light-muted mt-1 tracking-wide uppercase opacity-80">MAU AI Platform</div>
+            </div>
+            <div className="glass-card px-8 py-4 animate-float" style={{ animationDelay: '0.3s' }}>
+              <div className="text-3xl font-display font-bold text-light-text">80%</div>
+              <div className="text-sm font-medium text-light-muted mt-1 tracking-wide uppercase opacity-80">Time Saved (Automations)</div>
+            </div>
+            <div className="glass-card px-8 py-4 animate-float" style={{ animationDelay: '0.6s' }}>
+              <div className="text-3xl font-display font-bold text-light-text">8+ Yrs</div>
+              <div className="text-sm font-medium text-light-muted mt-1 tracking-wide uppercase opacity-80">Cross-functional execution</div>
+            </div>
           </div>
 
           <motion.div 
@@ -167,13 +160,13 @@ export default function Home() {
             
             <div className="space-y-6 text-xl tracking-tight leading-relaxed text-gray-700 relative z-10 w-full md:w-[85%] font-light">
               <p>
-                8+ years across Yes Bank, HDFC Bank, and Suraksha ARC — managing <strong className="text-light-text font-medium">₹500 Cr+ lending portfolios</strong>, resolving distressed assets worth <strong className="text-light-text font-medium">₹9,000 Cr under IBC</strong>, and sitting across the table from CFOs and credit committees. That domain depth now powers a different kind of work: <span className="text-accent font-medium">building the tools that the industry still lacks.</span>
+                As an <strong>AI Product Manager</strong>, I build platforms using Next.js, Python, Supabase, and frontier LLMs (Claude, Gemini, Groq). My technical edge is paired with a sophisticated understanding of product validation, prompt architectures, and structured evals.
               </p>
               <p>
-                The edge here is not just technical. Credit analysts at 11pm before a credit committee meeting have a very specific set of needs. Relationship managers managing covenant-breaching borrowers face a very specific kind of pressure. 
+                Previously, I managed high-stakes portfolios exceeding ₹5,000M across HDFC Bank and Yes Bank. But my core thesis is different: that pure domain depth, combined with the ability to actually build and ship working AI products, creates the highest-leverage solutions possible.
               </p>
-              <p className="border-l-4 border-accent pl-6 py-2 mt-8 italic bg-black/5 rounded-r-xl">
-                That elite domain knowledge — combined with the ability to actually build and ship working products — is the unique combination I bring to AI PM roles in fintech, credit-tech, and lending automation.
+              <p className="border-l-2 border-black pl-6 py-2 mt-8 italic text-light-text font-medium">
+                I don't just write PRDs. I validate ideas, architect prompts, scrutinize the data pipelines, and ship the MVP.
               </p>
             </div>
           </div>
@@ -183,7 +176,7 @@ export default function Home() {
       {/* EXPERIENCE SECTION */}
       <motion.section id="experience" className="py-24 relative">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16 text-glow">The Journey</h2>
+          <h2 className="text-4xl font-bold text-center mb-16 text-light-text">The Journey</h2>
           
           <div className="space-y-6">
             {EXPERIENCES.map((exp, i) => (
@@ -252,7 +245,7 @@ export default function Home() {
       <motion.section id="projects" className="py-24 relative">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-glow mb-4">Proof of Work</h2>
+            <h2 className="text-4xl font-bold text-light-text mb-4">Proof of Work</h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light">Products I've built and problems I've solved end-to-end.</p>
           </div>
 
@@ -333,8 +326,8 @@ export default function Home() {
       {/* FOOTER CTA */}
       <footer id="contact" className="py-32 relative text-center">
         <div className="max-w-2xl mx-auto px-4 z-10 relative">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-light-text text-glow">Ready to collaborate?</h2>
-          <p className="text-xl text-gray-400 mb-12">Whether it's a role, scaling an AI product, or navigating complex credits.</p>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-light-text">Ready to collaborate?</h2>
+          <p className="text-xl text-gray-600 mb-12">Whether it's a role, scaling an AI product, or navigating complex systems.</p>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a href="mailto:mahalegauravk@gmail.com" className="btn-primary w-full sm:w-auto h-14 flex justify-center items-center px-8 text-lg">

@@ -1,85 +1,64 @@
 import { Experience, Project, SkillMetric, Education, Certification, TechItem } from './types';
 
 export const RESUME_CONTEXT = `
-Gaurav Mahale is an AI Builder & Credit Domain Expert, operating at the intersection of Fintech Products, LLM Evals, and Corporate Lending.
+Gaurav Mahale is an AI Product Builder & Product Manager, specialising in Generative AI, LLM Evaluations, and End-to-End Product Life-cycles.
 Location: Pune, India. Open to hybrid/remote roles. Contact: mahalegauravk@gmail.com
-Headline: AI Builder & Credit Domain Expert | Fintech Products · LLM Evals · Corporate Lending | Open to AI PM Roles
+Headline: AI Product Builder | LLM Evals · RAG · Fine-Tuning | Open to AI PM Roles
 
 About:
-Building AI products. Understanding credit the way most AI builders never will.
-8+ years across Yes Bank, HDFC Bank, and Suraksha ARC — managing ₹500 Cr+ lending portfolios, resolving distressed assets worth ₹9,000 Cr under IBC, sitting across the table from CFOs and credit committees. That domain depth now powers a different kind of work: building the tools that the industry still lacks.
+Building products at the frontier of applied AI. 
+I am an AI Product Manager who independently designs, builds, and ships LLM-based platforms using modern stacks (Next.js, Python, Supabase) and frontier models (Claude, GPT, Google Gemini, Groq). 
 
-The edge here is not just technical. Credit analysts at 11pm before a credit committee meeting have a very specific set of needs. Relationship managers managing covenant-breaching borrowers face a very specific kind of pressure. That domain knowledge — combined with the ability to build and ship working products — is the combination brought to an AI PM role in fintech.
+My edge is practical, shipped experience. From framing product visions and scoping MVPs, to designing structured prompt architectures and evaluating model outputs, I treat every iteration as a product sprint. Previously, I honed a deep analytical rigour by managing complex £50M+ financial portfolios — a domain expertise I now leverage to build high-stakes, precision-focused AI tools.
 
-Currently exploring AI Product Manager opportunities in fintech, credit-tech, lending automation, and RegTech.
+Currently seeking AI Product Management roles where end-to-end building experience and structured product thinking can drive transformative AI solutions.
 `;
 
 export const EXPERIENCES: Experience[] = [
   {
-    role: "Assistant Vice President, Corporate Relationship Management",
-    company: "Yes Bank Limited",
-    period: "Apr 2022 - Present",
-    type: 'Finance',
-    description: [
-      "Managed end-to-end corporate lending relationships across a ₹500 Cr+ book — from client discovery and credit structuring through disbursement, monitoring, and renewal",
-      "Conducted structured discovery conversations with CFOs, MDs, and Finance Controllers to understand working capital gaps and banking pain points",
-      "Proposed customised product bundles combining term loans, cash credit, and trade finance (solution design across multiple product lines)",
-      "Ran a full client acquisition funnel annually mapping to ~4 new corporate accounts per year",
-      "Prepared detailed credit appraisal memos and term sheets synthesising financial statements, industry analysis, and management assessment",
-      "Owned the narrative layer of every credit decision, translating raw financials into a clear risk-reward story for credit committees",
-      "Coordinated multi-stakeholder delivery using RACI frameworks across credit approvers, legal, operations, and compliance",
-      "Generated ~₹2.5 Cr/year in fee and interest income through new client acquisition and portfolio deepening"
-    ]
-  },
-  {
-    role: "Portfolio Manager, Corporate Credit",
-    company: "HDFC Bank Limited",
-    period: "Jan 2020 - Apr 2022",
-    type: 'Finance',
-    description: [
-      "Built and maintained PowerBI and Excel dashboards to track default probabilities, covenant compliance, and portfolio health metrics",
-      "Designed early warning system (EWS) frameworks to proactively flag delinquency risk — defining the trigger logic, data inputs, and escalation",
-      "Co-created restructuring product flows for stressed borrowers by analysing actual repayment behaviour and cash conversion cycles",
-      "Identified gaps in the existing monitoring process and proposed improvements to the review cadence and reporting format",
-      "Reduced NPA formation in managed accounts through proactive restructuring interventions triggered by early warning signals",
-      "Improved portfolio visibility for the Maharashtra & Goa region through standardised dashboards adopted across the team"
-    ]
-  },
-  {
-    role: "Operations Manager, NPA Resolution & Acquisitions",
-    company: "Suraksha Asset Reconstruction Ltd.",
-    period: "Sep 2017 - Jan 2020",
-    type: 'Operations',
-    description: [
-      "Evaluated financial health, recovery potential, and asset quality of NPA accounts offered for sale by banks including SBI, HDFC, and ICICI",
-      "Conducted end-to-end due diligence on cases with ticket sizes exceeding ₹50 Cr — covering financial analysis, legal, and operational assessment",
-      "Supported full acquisition of a distressed account with ~₹9,000 Cr total debt under the IBC framework",
-      "Monitored day-to-day operations of real estate cases under ARC structure tracking labour counts, construction costs, and sales data",
-      "Identified inefficiencies in the MIS entry system and redesigned the workflow, accelerating turnaround time significantly",
-      "Led the Maharashtra region from last position to top 9 in IHHL targets within 2 months through process redesign"
-    ]
-  },
-  {
-    role: "AI Trainer (Part-Time)",
+    role: "AI Trainer & Prompt Engineer",
     company: "Pareto.AI",
     period: "Dec 2025 - Present",
     type: 'AI',
     description: [
-      "Evaluating and training large language models on complex financial tasks — applying 8+ years of banking domain expertise",
-      "Designing and evaluating prompts for LLMs on high-complexity financial tasks: credit memos, 3-statement financial models, and structured lending docs",
-      "Building evaluation frameworks (evals) that stress-test model outputs against real banking workflows to surface failure modes",
-      "Applying RLHF principles to improve model performance on corporate finance tasks, bridging the gap between generic output and domain precision",
-      "Developing progressively harder prompt scenarios with forward dependencies and compressed multi-step logic"
+      "Train and fine-tune Large Language Models (LLMs) on complex analytical tasks through rigorous structured evaluation (evals) and prompt engineering.",
+      "Iteratively evaluate AI outputs against strict expert benchmarks to enhance model accuracy, reasoning capabilities, and factual alignment.",
+      "Develop progressively complex prompt scenarios involving forward dependencies, multi-hop reasoning, and constrained summarisation.",
+      "Apply deep domain expertise (honed from 8+ years analysing complex datasets in banking) to bridge the gap between raw model capability and reliable real-world workflow automation."
+    ]
+  },
+  {
+    role: "Product Builder (Independent)",
+    company: "AI & Automation Projects",
+    period: "2023 - Present",
+    type: 'AI',
+    description: [
+      "Shipped multiple AI products end-to-end: owning problem discovery, PRD scoping, prompt architecture, UI/UX, and production deployments.",
+      "Conducted iterative development cycles: prioritised feature backlogs (memory systems, voice cloning, API routing), wrote user stories, and shipped incremental releases.",
+      "Defined go-to-market and monetisation strategies, treating every launch as a data-driven product sprint with defined KPIs.",
+      "Direct technical implementation across Python, Next.js, FastAPI, Supabase, Vercel, and various LLM APIs."
+    ]
+  },
+  {
+    role: "Past Domain Experience: Corporate Analytics & Lending",
+    company: "Yes Bank / HDFC Bank / Suraksha ARC",
+    period: "Sep 2017 - Present",
+    type: 'Finance',
+    description: [
+      "8+ years of analytical and cross-functional leadership, managing high-stakes portfolios exceeding ₹5,000M.",
+      "Designed data-driven early warning systems (EWS) using predictive analytics to flag delinquency risk, proving an ability to turn raw data into actionable product features.",
+      "Built and maintained complex business intelligence dashboards tracking portfolio health, leading to real-time decision-making for senior management.",
+      "Led full project lifecycles from client discovery and appraisal through to cross-functional coordination across legal, compliance, and engineering/operations teams."
     ]
   }
 ];
 
 export const PROJECTS: Project[] = [
   {
-    title: "AI-Spirit Platform",
+    title: "AI Persona Interaction Platform",
     date: "Oct 2025",
-    description: "Designed, built, and deployed an AI platform enabling users to interact with consistent, memory-aware AI personas. Structured prompt engineering used to maintain persona tone and memory context.",
-    tech: ["Next.js", "Supabase", "Gemini API", "Vercel", "Claude"],
+    description: "Conceived and launched a B2C AI platform serving 500+ monthly users. Defined product strategy, persona taxonomy, and monetisation while maintaining strict character consistency.",
+    tech: ["Next.js 14", "Supabase", "Gemini 1.5 Flash", "Groq Llama 3.3 70B", "Vercel"],
     metrics: "500 MAU",
     link: "https://ai-spirit.in",
     image: "/ai-spirit.png",
@@ -101,140 +80,84 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
-    title: "Credit Memo & FS Gen Tool",
+    title: "AI-Powered Intelligence Platform",
     date: "Dec 2025",
-    description: "Full-stack AI platform built to automate comprehensive credit memo generation from annual reports — reducing a 4–6 hour manual analysis process to under 15 minutes.",
-    tech: ["Python", "Gemini API", "Groq", "Claude", "React", "PDF Parsing"],
+    description: "Full-stack AI platform built to automate comprehensive analytical memo generation from long-form complex reports — reducing a 4–6 hour manual analysis process to under 15 minutes.",
+    tech: ["Python", "FastAPI", "Gemini API", "Claude API", "Next.js 16", "SQLite"],
     metrics: "80% Time Save",
     category: 'build',
     githubUrl: "https://github.com/gmpro-cr",
-    problem: "Credit analysts spend 4-6 hours manually extracting data and writing memos. The manual process is painful and slow.",
+    problem: "Analysts spend excessively repetitive hours manually extracting data and writing synthesis memos. The manual process is error-prone and bottlenecks workflow.",
     approach: [
-      "Extracts financial data, computes key credit ratios, and generates a structured narrative credit assessment",
-      "PRD and user flows defined before building: scoped problem statement, user journey, and success metric upfront",
-      "Exports to both Excel and PDF formats — strictly aligned to actual workflow requirements of credit teams"
+      "Defined product vision and mapped user journeys as primary functional personas",
+      "Drafted LLM prompt architectures specifically tuned for high-fidelity data extraction",
+      "Oversaw testing and verified output accuracy against actual human-produced benchmarks"
     ],
     keyInsights: [
-      "Matching the output a senior credit analyst would produce manually built immense enterprise trust",
-      "Scoping the success metric (time-to-memo) upfront ensured the product remained lean and focused"
+      "Matching the output a senior analyst would produce manually built immense enterprise trust",
+      "Iterating rigorously on prompt constraints was more effective than raw model switching"
     ],
     outcomes: [
       "Reduced a 4–6 hour manual analysis process to under 15 minutes",
-      "Automated complex ratio calculations alongside narrative generation"
+      "Shipped with multi-format exports (Excel & PDF) perfectly aligned to business reporting standards"
     ]
   },
   {
-    title: "Job Intelligence Scraper",
+    title: "Automated Multi-Portal Job Logic",
     date: "Jan 2026",
-    description: "Personal job search automated by building a scraper that pulls relevant listings twice daily, matches them against a target CV using semantic logic, and delivers a curated shortlist via email.",
-    tech: ["Python", "Web Scraping", "Email Automation", "AI Setups"],
+    description: "Designed a local solution to the massive signal-to-noise ratio in manual web searching. Configured an automated daily digest with AI-driven relevance scoring (0–100).",
+    tech: ["Python", "Flask", "Ollama/Mistral", "Selenium", "Telegram Bot API"],
     metrics: "2x Daily Automated",
     category: 'build',
-    problem: "Manual job board browsing is a real pain point, consuming hours daily with massive signal-to-noise ratio issues.",
+    problem: "Manual discovery across fragmented portals is a massive pain point due to search noise and inefficiencies.",
     approach: [
-      "Built a technical pipeline that scrapes relevant listings twice daily",
-      "Matches listings against a target CV using semantic logic",
-      "Delivers a curated shortlist via email automatically"
+      "Constructed a technical pipeline that scrapes listings twice daily",
+      "Implemented a local LLM matching engine against target profiles using semantic logic",
+      "Validiated product-market fit through self-use, iterating heavily on the zero-friction digest delivery"
     ],
     keyInsights: [
-      "Eliminating the manual step directly translated to higher quality of applications submitted",
-      "Demonstrates end-to-end product thinking: problem defined, solution built, validated in production"
+      "Eliminating the manual evaluation step via LLMs dramatically increased process velocity",
+      "Daily active integration tests proved the pipeline's robustness in production"
     ],
     outcomes: [
-      "Fully automated the job search pipeline",
-      "Zero time spent on manual job board browsing post-deployment"
+      "Fully automated the discovery pipeline with zero time spent on manual browsing",
+      "Shipped a web dashboard for settings management and digest history"
     ]
   },
   {
-    title: "Naukri.com: Product Sense",
-    date: "Aug 2025",
-    description: "Structured product analysis of India's largest job portal — identifying SKU complexity as a core conversion barrier for paid plans.",
-    tech: ["Product Strategy", "User Segmentation", "Monetisation", "Go-to-Market"],
-    metrics: "Strategic Case Study",
-    image: "/naukri-logo.png",
-    category: 'case-study',
-    problem: "Too many services and SKUs create decision paralysis for job seekers, hindering paid subscriptions.",
-    approach: [
-      "Structured product analysis of SKU complexity acting as a conversion barrier",
-      "Proposed a bundled plan architecture (Naukri Plus vs Pro) to reduce decision paralysis",
-      "Covered user segmentation, competitive landscape, monetisation strategy, and GTM framing"
-    ],
-    keyInsights: [
-      "Service proliferation creates paralysis, not choice",
-      "Bundling (Plus vs Pro) clarifies the value proposition and increases paid subscription adoption"
-    ],
-    outcomes: [
-      "Developed a robust bundled plan architecture for increased paid adoption",
-      "Detailed segmentation strategies aligned to real-world monetisation goals"
-    ],
-    caseStudyAnalysis: {
-      companyMission: "To reposition naukri.com as a complete recruitment partner",
-      primaryRevenue: "Employer subscriptions & job postings",
-      secondaryRevenue: "Advertising, premium services to job seekers",
-      userSegments: [
-        {
-          segment: "Free Users (Freshers & Experienced)",
-          needs: ["Search jobs easily", "Hassle-free application"],
-          addressed: ["Provides large job pool", "Easy-apply features"]
-        }
-      ],
-      featureBreakdown: [
-        {
-          feature: "Bundled Service (Proposed)",
-          problem: "SKU complexity leads to decision paralysis",
-          whyItWorks: "Groups services into logical Plus and Pro tiers to streamline checkout."
-        }
-      ],
-      competitiveAnalysis: [
-        {
-          platform: "LinkedIn",
-          strengths: ["Social graphs", "B2B strength"],
-          weaknesses: ["Costly for freshers"]
-        }
-      ],
-      improvement: {
-        problem: "Multiple paid offerings confuse the user.",
-        impact: "Drop-offs at payment gateway.",
-        solution: "Naukri Plus and Naukri Pro.",
-        whyItWorks: "Reduces cognitive load."
-      },
-      keyTakeaways: ["Keep pricing architecture simple", "Consolidated choices improve conversion patterns"]
-    }
-  },
-  {
-    title: "Discord Web Scraper Bot",
+    title: "Discord AI Web Scraper Bot",
     date: "Jan 2026",
     description: "AI-powered Discord bot that scrapes any webpage and enables natural conversation about its content. Users can ask questions, get summaries, or extract specific information from URLs.",
     tech: ["Python", "Discord.py", "Groq API", "Llama 3.3 70B", "BeautifulSoup"],
     metrics: "Live Bot",
     category: 'build',
     githubUrl: "https://github.com/gmpro-cr",
-    problem: "Fragmented context switching between browser and chat when researching.",
+    problem: "Fragmented context switching between browser and chat when researching collaboratively.",
     approach: [
-      "Built a Discord bot using discord.py that listens to auto-detects URLs",
-      "Integrated Groq's Llama 3.3 70B model for fast inference",
-      "Designed conversation memory system"
+      "Built a Discord bot that listens and auto-detects URLs within chat contexts",
+      "Integrated Groq's API for ultra-fast Llama 3.3 70B inference speeds",
+      "Architected a robust conversation memory system for follow-up queries"
     ],
-    keyInsights: ["Conversation memory transforms utility into engagement", "Auto-URL detection removes friction"],
-    outcomes: ["Built fully functional bot running 24/7", "Supports natural conversation with context memory"]
+    keyInsights: ["Conversation memory transforms simple utility into prolonged engagement", "Auto-URL detection drastically reduces user friction"],
+    outcomes: ["Built fully functional bot running 24/7", "Supports natural conversation seamlessly integrated into group chats"]
   }
 ];
 
 export const SKILL_DATA: SkillMetric[] = [
-  { subject: 'Product & PM', A: 90, fullMark: 100 },
-  { subject: 'Credit & Banking', A: 95, fullMark: 100 },
-  { subject: 'AI & Technical', A: 90, fullMark: 100 },
+  { subject: 'AI Product Strategy', A: 95, fullMark: 100 },
   { subject: 'Prompt Engineering', A: 95, fullMark: 100 },
-  { subject: 'Corporate Lending', A: 95, fullMark: 100 },
+  { subject: 'LLM Evaluation (Evals)', A: 90, fullMark: 100 },
+  { subject: 'Agile & Execution', A: 90, fullMark: 100 },
+  { subject: 'Technical Build (Python/JS)', A: 85, fullMark: 100 },
 ];
 
 export const STOCK_TICKER_ITEMS = [
-  "GMHL: AI+CREDIT",
-  "DOMAIN: BANKING & FINTECH",
-  "EXP: 8+ YEARS LENDING",
-  "RATING: STRONG BUY",
-  "SKILLS: PM · LLM EVALS · CREDIT",
-  "LOC: PUNE, IN"
+  "GMHL: AI BUILDER",
+  "DOMAIN: TECH & AI PM",
+  "FOCUS: LLM EVALS · RAG",
+  "STACK: NEXT.JS · PYTHON · PROMPT",
+  "TRAINING: PARETO.AI",
+  "RATING: STRONG BUY"
 ];
 
 export const EDUCATION_DATA: Education[] = [
@@ -266,9 +189,9 @@ export const CERTIFICATIONS_DATA: Certification[] = [
     id: "CRT-02"
   },
   {
-    name: "Figma Essentials",
-    issuer: "LinkedIn Learning",
-    year: "2023",
+    name: "Agile Foundations",
+    issuer: "PMI",
+    year: "2025",
     id: "CRT-03"
   },
   {
@@ -280,12 +203,11 @@ export const CERTIFICATIONS_DATA: Certification[] = [
 ];
 
 export const TECH_STACK: TechItem[] = [
-  { id: "LLM", name: "LLM Evaluation", category: "AI Skills", price: "150.00", change: "+15.2%" },
-  { id: "RLHF", name: "RLHF", category: "AI Skills", price: "148.50", change: "+12.1%" },
-  { id: "PRMPT", name: "Prompt Engineering", category: "AI Skills", price: "140.20", change: "+10.5%" },
-  { id: "PRD", name: "PRD Writing", category: "PM Skills", price: "120.40", change: "+5.4%" },
-  { id: "NPA", name: "NPA Management", category: "Credit", price: "115.10", change: "+3.2%" },
-  { id: "FIN", name: "Financial Modelling", category: "Credit", price: "118.50", change: "+4.1%" },
-  { id: "PYTH", name: "Python", category: "Tech", price: "98.45", change: "+2.4%" },
-  { id: "NXT", name: "Next.js", category: "Tech", price: "105.10", change: "+5.1%" },
+  { id: "LLM", name: "LLM Evaluation & Evals", category: "AI Skills", price: "250.00", change: "+25.2%" },
+  { id: "PRMPT", name: "Prompt Architecture", category: "AI Skills", price: "248.50", change: "+14.1%" },
+  { id: "RAG", name: "RAG & Vector DBs", category: "AI Skills", price: "180.20", change: "+11.5%" },
+  { id: "PRD", name: "PRD & Product Strategy", category: "PM Skills", price: "160.40", change: "+8.4%" },
+  { id: "API", name: "API & Backend Integrations", category: "Tech", price: "135.10", change: "+5.2%" },
+  { id: "PYTH", name: "Python / FastAPI", category: "Tech", price: "128.50", change: "+6.1%" },
+  { id: "NXT", name: "Next.js / TypeScript", category: "Tech", price: "118.45", change: "+4.4%" }
 ];
