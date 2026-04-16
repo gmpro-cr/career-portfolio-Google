@@ -13,36 +13,36 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-dark-surface border-t border-white/5 mt-auto">
+    <footer className="bg-light-surface border-t border-black/5 mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Left: Brand */}
           <div className="text-center md:text-left">
-            <p className="font-semibold text-dark-text text-sm">Gaurav Mahale</p>
-            <p className="text-xs text-dark-muted mt-0.5">Finance Pro → Product Builder</p>
+            <p className="font-semibold text-light-text text-sm">Gaurav Mahale</p>
+            <p className="text-xs text-light-muted mt-0.5">Finance Pro → Product Builder</p>
           </div>
 
           {/* Center: Social Links */}
           <div className="flex items-center gap-4">
-            <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="text-dark-muted hover:text-accent transition-colors p-2 hover:bg-white/5 rounded-lg" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="text-light-muted hover:text-accent transition-colors p-2 hover:bg-black/5 rounded-lg" aria-label="LinkedIn">
               <Linkedin size={18} />
             </a>
-            <a href="https://github.com/gmpro-cr" target="_blank" rel="noopener noreferrer" className="text-dark-muted hover:text-accent transition-colors p-2 hover:bg-white/5 rounded-lg" aria-label="GitHub">
+            <a href="https://github.com/gmpro-cr" target="_blank" rel="noopener noreferrer" className="text-light-muted hover:text-accent transition-colors p-2 hover:bg-black/5 rounded-lg" aria-label="GitHub">
               <Github size={18} />
             </a>
-            <a href="https://x.com/mahalegauravk" target="_blank" rel="noopener noreferrer" className="text-dark-muted hover:text-accent transition-colors p-2 hover:bg-white/5 rounded-lg" aria-label="X (Twitter)">
+            <a href="https://x.com/mahalegauravk" target="_blank" rel="noopener noreferrer" className="text-light-muted hover:text-accent transition-colors p-2 hover:bg-black/5 rounded-lg" aria-label="X (Twitter)">
               <XIcon size={18} />
             </a>
           </div>
 
           {/* Right: Copyright + Back to Top */}
           <div className="flex items-center gap-4">
-            <p className="text-xs text-dark-muted">
+            <p className="text-xs text-light-muted">
               © {new Date().getFullYear()}
             </p>
             <button
               onClick={scrollToTop}
-              className="text-dark-muted hover:text-accent transition-colors p-2 hover:bg-white/5 rounded-lg"
+              className="text-light-muted hover:text-accent transition-colors p-2 hover:bg-black/5 rounded-lg"
               aria-label="Back to top"
             >
               <ArrowUp size={18} />

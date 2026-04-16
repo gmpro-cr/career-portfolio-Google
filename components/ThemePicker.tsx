@@ -41,15 +41,15 @@ export default function ThemePicker() {
         <div className="relative">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 text-dark-muted hover:text-white transition-colors hover:bg-white/5 rounded-lg"
+                className="p-2 text-light-muted hover:text-light-text transition-colors hover:bg-black/5 rounded-lg"
                 aria-label="Change Theme"
             >
                 <Palette size={20} />
             </button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-dark-surface border border-white/10 rounded-xl shadow-xl p-2 animate-fade-in z-50 backdrop-blur-md">
-                    <div className="text-xs font-medium text-dark-muted px-2 py-1 mb-1 uppercase tracking-wider">
+                <div className="absolute right-0 mt-2 w-48 bg-light-surface border border-black/10 rounded-xl shadow-xl p-2 animate-fade-in z-50 backdrop-blur-md">
+                    <div className="text-xs font-medium text-light-muted px-2 py-1 mb-1 uppercase tracking-wider">
                         Select Accent
                     </div>
                     <div className="space-y-1">
@@ -61,8 +61,8 @@ export default function ThemePicker() {
                                     setIsOpen(false);
                                 }}
                                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${activeTheme.name === theme.name
-                                    ? 'bg-white/10 text-white'
-                                    : 'text-dark-muted hover:text-white hover:bg-white/5'
+                                    ? 'bg-black/10 text-light-text'
+                                    : 'text-light-muted hover:text-light-text hover:bg-black/5'
                                     }`}
                             >
                                 <span

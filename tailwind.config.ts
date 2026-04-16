@@ -15,12 +15,12 @@ export default {
                 display: ['Outfit', 'sans-serif'],
             },
             colors: {
-                // Deeper dark mode system
-                'dark-bg': '#050505',      // Deepest black background
-                'dark-surface': '#111111',  // Slightly elevated surface
-                'dark-card': '#1a1a1a',     // Card surface
-                'dark-text': '#f8fafc',     // Crisp white text
-                'dark-muted': '#94a3b8',    // Slate text for secondary
+                // Light mode system
+                'light-bg': '#F9FAFB',      // Requested light background
+                'light-surface': '#FFFFFF', // Elevated white surface
+                'light-card': '#FFFFFF',    // Card surface
+                'light-text': '#111827',    // Deep dark gray text
+                'light-muted': '#6B7280',   // Slate gray for secondary text
                 
                 // Tech/Cyber aesthetic accents
                 'accent': 'var(--accent-color, #38bdf8)', // Default light blue

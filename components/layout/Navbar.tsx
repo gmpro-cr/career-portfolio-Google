@@ -51,7 +51,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-dark-bg/80 backdrop-blur-md border-b border-white/5 shadow-lg' : 'bg-transparent border-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-light-bg/80 backdrop-blur-md border-b border-black/5 shadow-lg' : 'bg-transparent border-transparent'
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -60,20 +60,20 @@ export default function Navbar() {
             <a
               href="#hero"
               onClick={(e) => scrollToSection(e, '#hero')}
-              className="font-bold text-xl text-dark-text hover:text-accent transition-colors tracking-tight"
+              className="font-bold text-xl text-light-text hover:text-accent transition-colors tracking-tight"
             >
               Gaurav Mahale
             </a>
 
             {/* Desktop Search Bar */}
             <div className="hidden md:flex items-center relative group">
-              <Search className="absolute left-3 text-dark-muted w-4 h-4 group-focus-within:text-accent transition-colors" />
+              <Search className="absolute left-3 text-light-muted w-4 h-4 group-focus-within:text-accent transition-colors" />
               <input
                 type="text"
                 placeholder="Filter projects by tech..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-dark-surface/50 border border-white/10 rounded-full py-1.5 pl-9 pr-4 text-sm text-dark-text placeholder:text-dark-muted/50 focus:outline-none focus:border-accent-30 focus:bg-dark-surface transition-all w-52 focus:w-72"
+                className="bg-light-surface/50 border border-black/10 rounded-full py-1.5 pl-9 pr-4 text-sm text-light-text placeholder:text-light-muted/50 focus:outline-none focus:border-accent-30 focus:bg-light-surface transition-all w-52 focus:w-72"
               />
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className={`text-sm font-medium transition-colors relative group ${activeSection === link.href ? 'text-accent' : 'text-dark-muted hover:text-accent'
+                className={`text-sm font-medium transition-colors relative group ${activeSection === link.href ? 'text-accent' : 'text-light-muted hover:text-accent'
                   }`}
               >
                 {link.label}
@@ -98,20 +98,20 @@ export default function Navbar() {
               </a>
             ))}
 
-            <div className="h-4 w-[1px] bg-white/10 mx-2"></div>
+            <div className="h-4 w-[1px] bg-black/10 mx-2"></div>
             <ThemePicker />
           </div>
 
           <div className="flex items-center gap-4 md:hidden">
             <button
               onClick={() => setShowSearch(!showSearch)}
-              className="p-2 text-dark-muted hover:text-white"
+              className="p-2 text-light-muted hover:text-light-text"
             >
               <Search size={20} />
             </button>
             <ThemePicker />
             <button
-              className="p-2 text-dark-text hover:bg-white/5 rounded-lg transition-colors"
+              className="p-2 text-light-text hover:bg-black/5 rounded-lg transition-colors"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
@@ -124,14 +124,14 @@ export default function Navbar() {
         {showSearch && (
           <div className="md:hidden pb-4 animate-fade-in">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-muted w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-light-muted w-4 h-4" />
               <input
                 type="text"
                 placeholder="Filter projects by tech..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 autoFocus
-                className="w-full bg-dark-surface border border-white/10 rounded-lg py-2 pl-9 pr-4 text-sm text-dark-text placeholder:text-dark-muted/50 focus:outline-none focus:border-accent-30"
+                className="w-full bg-light-surface border border-black/10 rounded-lg py-2 pl-9 pr-4 text-sm text-light-text placeholder:text-light-muted/50 focus:outline-none focus:border-accent-30"
               />
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-dark-surface border-t border-white/5 animate-fade-in absolute w-full shadow-2xl">
+        <div className="md:hidden bg-light-surface border-t border-black/5 animate-fade-in absolute w-full shadow-2xl">
           <div className="px-4 py-4 space-y-2">
             {navLinks.map((link) => (
               <a
@@ -148,8 +148,8 @@ export default function Navbar() {
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
                 className={`block py-3 px-4 rounded-lg text-base font-medium transition-all ${activeSection === link.href
-                    ? 'text-accent bg-white/5'
-                    : 'text-dark-muted hover:text-white hover:bg-white/5'
+                    ? 'text-accent bg-black/5'
+                    : 'text-light-muted hover:text-light-text hover:bg-black/5'
                   }`}
               >
                 {link.label}

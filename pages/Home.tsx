@@ -38,7 +38,7 @@ function SkillBar({ score, delay }: { score: number; delay: number }) {
   }, [score, delay]);
 
   return (
-    <div className="h-2 rounded-full overflow-hidden bg-white/5 relative">
+    <div className="h-2 rounded-full overflow-hidden bg-black/5 relative">
       <div 
         className="absolute left-0 top-0 h-full rounded-full transition-all duration-1000 ease-out"
         style={{ width: `${width}%`, background: 'linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 40%, #c084fc))' }} 
@@ -94,7 +94,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-dark-card border border-white/5 rounded-[2rem] px-5 py-2 mb-8 text-sm font-medium glass-card"
+            className="inline-flex items-center gap-2 bg-light-card border border-black/5 rounded-[2rem] px-5 py-2 mb-8 text-sm font-medium glass-card"
           >
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
@@ -103,12 +103,12 @@ export default function Home() {
             Open to AI Product Manager roles
           </motion.div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl text-dark-text leading-[1.1] mb-8">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">AI Builder &</span><br />
+          <h1 className="text-5xl md:text-7xl lg:text-8xl text-light-text leading-[1.1] mb-8">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-light-text to-gray-600">AI Builder &</span><br />
             <span className="text-gradient">Credit Domain Expert</span>
           </h1>
           
-          <p className="mt-6 text-xl text-dark-muted max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="mt-6 text-xl text-light-muted max-w-2xl mx-auto font-light leading-relaxed">
             Building AI products. Understanding credit the way most AI builders never will. Fintech Products · LLM Evals · Corporate Lending.
           </p>
 
@@ -123,7 +123,7 @@ export default function Home() {
                 style={{ animationDelay: `${i * 0.3}s` }}
               >
                 <div className="text-3xl font-display font-bold text-accent">{stat.label}</div>
-                <div className="text-sm font-medium text-dark-muted mt-1 tracking-wide uppercase opacity-80">{stat.sublabel}</div>
+                <div className="text-sm font-medium text-light-muted mt-1 tracking-wide uppercase opacity-80">{stat.sublabel}</div>
               </motion.div>
             ))}
           </div>
@@ -160,19 +160,19 @@ export default function Home() {
               <FileText size={160} />
             </div>
             
-            <h2 className="text-3xl font-bold mb-8 text-white flex items-center gap-3">
+            <h2 className="text-3xl font-bold mb-8 text-light-text flex items-center gap-3">
               <span className="w-8 h-1 bg-accent rounded-full inline-block"></span>
               The Thesis
             </h2>
             
-            <div className="space-y-6 text-xl tracking-tight leading-relaxed text-gray-300 relative z-10 w-full md:w-[85%] font-light">
+            <div className="space-y-6 text-xl tracking-tight leading-relaxed text-gray-700 relative z-10 w-full md:w-[85%] font-light">
               <p>
-                8+ years across Yes Bank, HDFC Bank, and Suraksha ARC — managing <strong className="text-white font-medium">₹500 Cr+ lending portfolios</strong>, resolving distressed assets worth <strong className="text-white font-medium">₹9,000 Cr under IBC</strong>, and sitting across the table from CFOs and credit committees. That domain depth now powers a different kind of work: <span className="text-accent font-medium">building the tools that the industry still lacks.</span>
+                8+ years across Yes Bank, HDFC Bank, and Suraksha ARC — managing <strong className="text-light-text font-medium">₹500 Cr+ lending portfolios</strong>, resolving distressed assets worth <strong className="text-light-text font-medium">₹9,000 Cr under IBC</strong>, and sitting across the table from CFOs and credit committees. That domain depth now powers a different kind of work: <span className="text-accent font-medium">building the tools that the industry still lacks.</span>
               </p>
               <p>
                 The edge here is not just technical. Credit analysts at 11pm before a credit committee meeting have a very specific set of needs. Relationship managers managing covenant-breaching borrowers face a very specific kind of pressure. 
               </p>
-              <p className="border-l-4 border-accent pl-6 py-2 mt-8 italic bg-white/5 rounded-r-xl">
+              <p className="border-l-4 border-accent pl-6 py-2 mt-8 italic bg-black/5 rounded-r-xl">
                 That elite domain knowledge — combined with the ability to actually build and ship working products — is the unique combination I bring to AI PM roles in fintech, credit-tech, and lending automation.
               </p>
             </div>
@@ -193,14 +193,14 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="glass-card p-6 md:p-8 hover:bg-dark-card/80 flex flex-col md:flex-row gap-6 lg:gap-12"
+                className="glass-card p-6 md:p-8 hover:bg-light-card/80 flex flex-col md:flex-row gap-6 lg:gap-12"
               >
                 <div className="md:w-1/3 flex-shrink-0">
                   <span className={`text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block ${exp.type === 'AI' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'}`}>
                     {exp.type}
                   </span>
-                  <p className="text-dark-muted font-medium mb-1 text-sm">{exp.period}</p>
-                  <h3 className="text-xl lg:text-2xl font-bold text-white leading-tight">{exp.role}</h3>
+                  <p className="text-light-muted font-medium mb-1 text-sm">{exp.period}</p>
+                  <h3 className="text-xl lg:text-2xl font-bold text-light-text leading-tight">{exp.role}</h3>
                   <p className="text-accent mt-2 font-medium">{exp.company}</p>
                 </div>
                 
@@ -224,8 +224,8 @@ export default function Home() {
                 <h3 className="text-2xl font-bold mb-6 flex items-center gap-3"><GraduationCap className="text-accent"/> Education</h3>
                 <div className="space-y-6">
                   {EDUCATION_DATA.map(edu => (
-                    <div key={edu.id} className="border-l-2 border-white/10 pl-4 hover:border-accent transition-colors">
-                      <h4 className="text-lg font-semibold text-white">{edu.institution}</h4>
+                    <div key={edu.id} className="border-l-2 border-black/10 pl-4 hover:border-accent transition-colors">
+                      <h4 className="text-lg font-semibold text-light-text">{edu.institution}</h4>
                       <p className="text-gray-400 mt-1">{edu.degree}</p>
                       <p className="text-sm font-mono text-gray-500 mt-2">{edu.year}</p>
                     </div>
@@ -236,8 +236,8 @@ export default function Home() {
                 <h3 className="text-2xl font-bold mb-6 flex items-center gap-3"><Award className="text-accent-purple"/> Certifications</h3>
                 <div className="space-y-6">
                   {CERTIFICATIONS_DATA.map(cert => (
-                    <div key={cert.id} className="border-l-2 border-white/10 pl-4 hover:border-accent-purple transition-colors">
-                      <h4 className="text-lg font-semibold text-white">{cert.name}</h4>
+                    <div key={cert.id} className="border-l-2 border-black/10 pl-4 hover:border-accent-purple transition-colors">
+                      <h4 className="text-lg font-semibold text-light-text">{cert.name}</h4>
                       <p className="text-gray-400 mt-1">{cert.issuer}</p>
                       <p className="text-sm font-mono text-gray-500 mt-2">{cert.year}</p>
                     </div>
@@ -275,14 +275,14 @@ export default function Home() {
                     <span className="text-accent font-semibold">{project.metrics}</span>
                   </div>
                   
-                  <h3 className="text-3xl font-display font-bold text-white mb-3 group-hover:text-accent transition-colors">{project.title}</h3>
+                  <h3 className="text-3xl font-display font-bold text-light-text mb-3 group-hover:text-accent transition-colors">{project.title}</h3>
                   <p className="text-sm font-mono text-gray-500 mb-6">{project.date}</p>
                   
                   <p className="text-gray-400 text-lg leading-relaxed mb-8 flex-1">{project.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {project.tech.map((t, i) => (
-                      <span key={i} className="text-xs font-medium bg-white/5 border border-white/10 text-gray-300 px-3 py-1.5 rounded-lg">
+                      <span key={i} className="text-xs font-medium bg-black/5 border border-black/10 text-gray-700 px-3 py-1.5 rounded-lg">
                         {t}
                       </span>
                     ))}
@@ -295,14 +295,14 @@ export default function Home() {
       </motion.section>
 
       {/* SKILLS SECTION */}
-      <motion.section id="skills" className="py-24 border-t border-white/5 bg-[#030303]">
+      <motion.section id="skills" className="py-24 border-t border-black/5 bg-gray-100">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-16">The Armory</h2>
           
           <div className="grid md:grid-cols-2 gap-12 mb-20">
             {SKILL_DATA.map((skill, i) => (
               <div key={skill.subject} className="space-y-2">
-                <div className="flex justify-between text-sm font-semibold text-white tracking-wide">
+                <div className="flex justify-between text-sm font-semibold text-light-text tracking-wide">
                   <span>{skill.subject}</span>
                   <span className="text-accent">{skill.A}%</span>
                 </div>
@@ -323,7 +323,7 @@ export default function Home() {
                 className="glass-card px-6 py-4 flex items-center gap-3 w-40 justify-center cursor-default transition-all"
               >
                 <span className="text-2xl">{tool.icon}</span>
-                <span className="text-sm font-medium text-white">{tool.name}</span>
+                <span className="text-sm font-medium text-light-text">{tool.name}</span>
               </motion.div>
             ))}
           </div>
@@ -333,7 +333,7 @@ export default function Home() {
       {/* FOOTER CTA */}
       <footer id="contact" className="py-32 relative text-center">
         <div className="max-w-2xl mx-auto px-4 z-10 relative">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white text-glow">Ready to collaborate?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-light-text text-glow">Ready to collaborate?</h2>
           <p className="text-xl text-gray-400 mb-12">Whether it's a role, scaling an AI product, or navigating complex credits.</p>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
@@ -341,13 +341,13 @@ export default function Home() {
               mahalegauravk@gmail.com
             </a>
             <div className="flex gap-4">
-              <a href="https://linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" className="w-14 h-14 rounded-xl glass-card flex justify-center items-center hover:bg-white/10 hover:text-accent transition-colors">
+              <a href="https://linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" className="w-14 h-14 rounded-xl glass-card flex justify-center items-center hover:bg-black/10 hover:text-accent transition-colors">
                 <Linkedin size={24} />
               </a>
-              <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" className="w-14 h-14 rounded-xl glass-card flex justify-center items-center hover:bg-white/10 hover:text-accent transition-colors">
+              <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" className="w-14 h-14 rounded-xl glass-card flex justify-center items-center hover:bg-black/10 hover:text-accent transition-colors">
                 <Github size={24} />
               </a>
-              <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" className="w-14 h-14 rounded-xl glass-card flex justify-center items-center hover:bg-white/10 hover:text-accent transition-colors">
+              <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" className="w-14 h-14 rounded-xl glass-card flex justify-center items-center hover:bg-black/10 hover:text-accent transition-colors">
                 <XIcon size={24} />
               </a>
             </div>
@@ -366,7 +366,7 @@ export default function Home() {
             onClick={() => setSelectedProject(null)}
           >
             {/* Modal Backdrop Blur */}
-            <div className="absolute inset-0 bg-dark-bg/80 backdrop-blur-xl" />
+            <div className="absolute inset-0 bg-light-bg/80 backdrop-blur-xl" />
             
             <motion.div
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
@@ -374,19 +374,19 @@ export default function Home() {
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
               onClick={e => e.stopPropagation()}
-              className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-card border border-white/10 "
+              className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-card border border-black/10 "
             >
               <div className="p-8 md:p-12">
                 <button 
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-6 right-6 w-10 h-10 flex border border-white/10 items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"
+                  className="absolute top-6 right-6 w-10 h-10 flex border border-black/10 items-center justify-center rounded-full bg-black/5 hover:bg-black/10 text-light-text transition-colors"
                 >
                   <X size={20} />
                 </button>
 
                 <div className="mb-8">
                   <span className="text-accent font-bold tracking-widest text-sm uppercase">{selectedProject.category === 'build' ? 'Shipped Product' : 'Case Study'}</span>
-                  <h2 className="text-4xl md:text-5xl font-display font-bold text-white mt-2 mb-4">{selectedProject.title}</h2>
+                  <h2 className="text-4xl md:text-5xl font-display font-bold text-light-text mt-2 mb-4">{selectedProject.title}</h2>
                   <div className="flex flex-wrap gap-4 items-center">
                     <span className="text-gray-400 font-mono">{selectedProject.date}</span>
                     <span className="w-1 h-1 rounded-full bg-gray-600 truncate hidden sm:block"></span>
@@ -396,18 +396,18 @@ export default function Home() {
 
                 <div className="space-y-12">
                   <section>
-                    <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">1</span> The Problem</h3>
-                    <p className="text-lg text-gray-300 leading-relaxed font-light">{selectedProject.problem}</p>
+                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">1</span> The Problem</h3>
+                    <p className="text-lg text-gray-700 leading-relaxed font-light">{selectedProject.problem}</p>
                   </section>
 
                   {selectedProject.approach && selectedProject.approach.length > 0 && (
                   <section>
-                    <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">2</span> The Approach</h3>
+                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">2</span> The Approach</h3>
                     <div className="space-y-4">
                       {selectedProject.approach.map((item, i) => (
-                        <div key={i} className="flex gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                        <div key={i} className="flex gap-4 p-4 rounded-xl bg-black/5 border border-black/5">
                           <CheckIcon />
-                          <p className="text-gray-300 text-lg">{item}</p>
+                          <p className="text-gray-700 text-lg">{item}</p>
                         </div>
                       ))}
                     </div>
@@ -416,10 +416,10 @@ export default function Home() {
 
                   {selectedProject.keyInsights && selectedProject.keyInsights.length > 0 && (
                   <section>
-                    <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">3</span> Key Insights</h3>
+                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">3</span> Key Insights</h3>
                       <div className="grid sm:grid-cols-2 gap-4">
                         {selectedProject.keyInsights.map((insight, i) => (
-                          <div key={i} className="p-5 rounded-xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 text-gray-300 font-light leading-relaxed">
+                          <div key={i} className="p-5 rounded-xl bg-gradient-to-br from-light-text/5 to-transparent border border-black/10 text-gray-700 font-light leading-relaxed">
                             {insight}
                           </div>
                         ))}
@@ -429,10 +429,10 @@ export default function Home() {
 
                   {selectedProject.outcomes && selectedProject.outcomes.length > 0 && (
                   <section>
-                    <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">4</span> Outcomes</h3>
+                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">4</span> Outcomes</h3>
                     <ul className="space-y-3 pl-2">
                        {selectedProject.outcomes.map((item, i) => (
-                          <li key={i} className="flex items-start gap-4 text-gray-300 text-lg">
+                          <li key={i} className="flex items-start gap-4 text-gray-700 text-lg">
                              <span className="text-green-400 font-bold mt-1">✓</span>
                              {item}
                           </li>
@@ -441,12 +441,12 @@ export default function Home() {
                   </section>
                   )}
 
-                  <section className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                  <section className="pt-8 border-t border-black/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                     <div>
                       <h4 className="text-sm font-bold tracking-widest text-gray-500 uppercase mb-3">Tech & Frameworks</h4>
                       <div className="flex flex-wrap gap-2">
                         {selectedProject.tech.map((t, i) => (
-                          <span key={i} className="bg-[#111] text-gray-300 px-3 py-1.5 rounded border border-white/5 text-sm">{t}</span>
+                          <span key={i} className="bg-gray-200 text-gray-700 px-3 py-1.5 rounded border border-black/5 text-sm">{t}</span>
                         ))}
                       </div>
                     </div>
