@@ -106,6 +106,30 @@ export const PROJECTS: Project[] = [
       "Reduced a 4–6 hour manual analysis process to under 15 minutes",
       "Shipped with multi-format exports (Excel & PDF) perfectly aligned to business reporting standards"
     ]
+  },
+  {
+    title: "Autonomous AI Job Search Agent",
+    date: "Jan 2026",
+    description: "Developed an autonomous AI agent to eliminate manual web browsing for job discovery. The system evaluates unstructured job postings against user profiles using local LLMs, delivering high-signal, scored opportunities.",
+    tech: ["Python", "Selenium", "Ollama", "Mistral", "Telegram Bot API"],
+    metrics: "100% Automation",
+    category: 'build',
+    flowType: 'job',
+    problem: "Job hunting is a painfully inefficient data extraction problem. Portals are flooded with high noise and low signal, forcing candidates to manually filter hundreds of irrelevant listings daily.",
+    approach: [
+      "Engineered a resilient Selenium-based ingestion pipeline to scrape structured and unstructured job data across top portals daily.",
+      "Integrated a local LLM (Mistral via Ollama) to semantically score job descriptions (0-100) against a target candidate profile.",
+      "Designed a push-notification system to deliver high-quality, pre-screened digests directly to the user, flipping the search model from 'pull' to 'push'."
+    ],
+    keyInsights: [
+      "Local LLMs provide significant competitive advantages for personal automation by eliminating API costs while maintaining sufficient reasoning for data filtering.",
+      "The true value of AI in this context isn't content generation, but acting as a high-fidelity filter for the signal-to-noise problem.",
+      "Zero-friction delivery (a daily digest) drastically improves UX over forcing users to log into another dashboard."
+    ],
+    outcomes: [
+      "Achieved 100% automation of the top-of-funnel job discovery phase.",
+      "Reduced daily search time from 2 hours to a 5-minute digest review."
+    ]
   }
 ];
 
