@@ -9,6 +9,96 @@ const XIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
+const ProductFlowDiagram = ({ type }: { type?: 'persona' | 'credit' | 'job' }) => {
+  if (!type) return null;
+
+  if (type === 'persona') {
+    return (
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 my-6 font-mono text-sm overflow-x-auto">
+        <div className="flex items-center justify-center gap-2 min-w-max">
+          <div className="flex flex-col items-center">
+            <div className="border-2 border-black bg-white rounded-lg px-4 py-2 font-bold select-none hover:-translate-y-1 transition-transform">User Request</div>
+          </div>
+          <ArrowRight className="text-gray-400 stroke-[3px]" />
+          <div className="flex flex-col items-center">
+            <div className="border-2 border-purple-200 bg-purple-50 text-purple-900 rounded-lg px-4 py-2 font-bold select-none hover:-translate-y-1 transition-transform">Memory DB Context</div>
+            <span className="text-[10px] text-gray-500 mt-1">Supabase Retrieval</span>
+          </div>
+          <ArrowRight className="text-gray-400 stroke-[3px]" />
+          <div className="flex flex-col items-center">
+            <div className="border-2 border-blue-200 bg-blue-50 text-blue-900 rounded-lg px-4 py-2 font-bold select-none hover:-translate-y-1 transition-transform">LLM Prompt Engine</div>
+            <span className="text-[10px] text-gray-500 mt-1">Persona Evals</span>
+          </div>
+          <ArrowRight className="text-gray-400 stroke-[3px]" />
+          <div className="flex flex-col items-center">
+            <div className="border-2 border-green-400 bg-green-50 text-green-900 rounded-lg px-4 py-2 font-bold shadow-sm select-none hover:-translate-y-1 transition-transform">In-Character Response</div>
+            <span className="text-[10px] text-gray-500 mt-1">Llama 3.3 / Gemini</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'credit') {
+    return (
+      <div className="bg-white border border-gray-200 rounded-xl p-6 my-6 text-sm overflow-x-auto">
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-8 items-center min-w-[500px]">
+          {/* Old Way */}
+          <div className="space-y-3 opacity-60">
+            <div className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Previous Legacy Flow</div>
+            <div className="border border-gray-200 bg-gray-50 p-3 rounded text-center">100pg Annual Report</div>
+            <div className="flex justify-center"><ArrowRight className="rotate-90 text-gray-300 w-4 h-4" /></div>
+            <div className="border border-red-200 bg-red-50 text-red-800 p-3 rounded text-center font-medium shadow-sm">4–6 Hours Manual Entry</div>
+            <div className="flex justify-center"><ArrowRight className="rotate-90 text-gray-300 w-4 h-4" /></div>
+            <div className="border border-gray-200 bg-gray-50 p-3 rounded text-center">Credit Memo Draft</div>
+          </div>
+
+          <div className="w-px h-[250px] bg-gray-200"></div>
+
+          {/* New Way */}
+          <div className="space-y-3">
+            <div className="text-xs font-bold uppercase tracking-wider text-green-600 mb-2">AI Architected Flow</div>
+            <div className="border border-gray-200 bg-white p-3 rounded text-center font-medium shadow-sm">Raw PDF Document</div>
+            <div className="flex justify-center"><ArrowRight className="rotate-90 text-green-500 w-4 h-4" /></div>
+            <div className="border-2 border-green-400 bg-green-50 text-green-900 p-3 rounded text-center font-bold shadow-sm hover:-translate-y-1 transition-transform">Parser + Claude API</div>
+            <div className="flex justify-center"><ArrowRight className="rotate-90 text-green-500 w-4 h-4" /></div>
+            <div className="border-2 border-black bg-black text-white p-3 rounded text-center font-bold shadow-md hover:-translate-y-1 transition-transform">15 Min Automated Export</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'job') {
+    return (
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 my-6 font-mono text-sm max-w-lg mx-auto">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-full flex justify-center gap-2">
+            <div className="border border-gray-300 bg-white px-3 py-1 rounded text-gray-500">Naukri.com</div>
+            <div className="border border-gray-300 bg-white px-3 py-1 rounded text-gray-500">LinkedIn</div>
+            <div className="border border-gray-300 bg-white px-3 py-1 rounded text-gray-500">Foundit</div>
+          </div>
+          <div className="text-gray-400 text-xs text-center border-x border-t border-gray-300 w-2/3 h-4 rounded-t-xl mt-1"></div>
+          <div className="w-1/2 border-2 border-blue-300 bg-blue-50 text-blue-900 rounded-lg p-3 text-center font-bold relative z-10 hover:-translate-y-1 transition-transform shadow-sm">
+            Selenium Scrape
+          </div>
+          <ArrowRight className="rotate-90 text-gray-400 stroke-[3px]" />
+          <div className="w-2/3 border-2 border-purple-300 bg-purple-50 text-purple-900 rounded-lg p-3 text-center font-bold hover:-translate-y-1 transition-transform shadow-sm">
+            Local LLM Processing
+            <div className="text-[10px] font-normal text-purple-600 mt-1">Mistral Score (0-100) vs Profile</div>
+          </div>
+          <ArrowRight className="rotate-90 text-gray-400 stroke-[3px]" />
+          <div className="w-1/3 border-2 border-black bg-black text-white rounded-lg p-3 text-center font-bold shadow-md hover:-translate-y-1 transition-transform">
+            Daily Digest
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+}
+
 import { EXPERIENCES, PROJECTS, SKILL_DATA, TECH_STACK, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 
 const STATS = [
@@ -392,6 +482,13 @@ export default function Home() {
                     <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">1</span> The Problem</h3>
                     <p className="text-lg text-gray-700 leading-relaxed font-light">{selectedProject.problem}</p>
                   </section>
+
+                  {selectedProject.flowType && (
+                  <section>
+                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">Flow</span> Architecture & Diagram</h3>
+                    <ProductFlowDiagram type={selectedProject.flowType} />
+                  </section>
+                  )}
 
                   {selectedProject.approach && selectedProject.approach.length > 0 && (
                   <section>

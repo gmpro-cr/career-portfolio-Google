@@ -57,89 +57,55 @@ export const PROJECTS: Project[] = [
   {
     title: "AI Persona Interaction Platform",
     date: "Oct 2025",
-    description: "Conceived and launched a B2C AI platform serving 500+ monthly users. Defined product strategy, persona taxonomy, and monetisation while maintaining strict character consistency.",
+    description: "Architected and shipped a B2C AI platform serving 500+ MAU. Applied rigorous product thinking to solve LLM hallucination and persona drift, using structured evals to define character taxonomy, memory systems, and retention-driven engagement mechanics.",
     tech: ["Next.js 14", "Supabase", "Gemini 1.5 Flash", "Groq Llama 3.3 70B", "Vercel"],
     metrics: "500 MAU",
     link: "https://ai-spirit.in",
     image: "/ai-spirit.png",
     category: 'build',
-    problem: "Generic chatbots lack personality consistency. Users want meaningful interactions that feel authentic, but existing solutions struggle with maintaining consistent character and memory across sessions.",
+    flowType: 'persona',
+    problem: "Generic AI chatbots fail at long-term engagement because they lack character consistency and memory. Users crave authentic, persistent relationships, but foundational models inherently drift from their system prompts during extended multi-turn conversations.",
     approach: [
-      "Structured prompt engineering used to maintain consistent persona tone, identity, and memory context across sessions",
-      "Iterative A/B testing on onboarding flows and persona engagement mechanics to drive user retention",
-      "Full product lifecycle owned end-to-end: idea → PRD → build → deploy → user feedback → iteration"
+      "Conducted user research to define core user personas and the engagement loops that drive retention.",
+      "Designed a sophisticated prompt architecture utilizing dynamic memory injection (via Supabase) to establish long-term context.",
+      "Implemented custom LLM evaluations to quantitatively measure 'persona adherence' and reduce out-of-character responses.",
+      "Iterated on the onboarding funnel using A/B testing, minimizing friction to the first 'aha' moment."
     ],
     keyInsights: [
-      "Persona consistency is the core driver of engagement - users return when characters stay 'in character'",
-      "Structured prompt engineering solved a non-trivial LLM reliability challenge for memory",
-      "A/B testing flows increased retention noticeably"
+      "Product-Market Fit is deeply tied to emotional consistency; users forgive logic errors, but bounce immediately if the AI breaks character.",
+      "Prompt engineering isn't just text tweaking—it's a core product feature. Structuring memory drastically outperformed raw model iteration.",
+      "Engagement loops require proactive AI interactions, prompting users rather than waiting for them."
     ],
     outcomes: [
-      "Grown to 500 Monthly Active Users (MAU)",
-      "Maintained consistent persona tone for complex and nuanced AI characters"
+      "Grown to 500 Monthly Active Users (MAU) driven by organic retention loops",
+      "Maintained consistent persona tone for complex and nuanced AI characters over 50+ turn conversations"
     ]
   },
   {
-    title: "AI-Powered Intelligence Platform",
+    title: "Enterprise AI Credit Analyst Platform",
     date: "Dec 2025",
-    description: "Full-stack AI platform built to automate comprehensive analytical memo generation from long-form complex reports — reducing a 4–6 hour manual analysis process to under 15 minutes.",
+    description: "Engineered an enterprise-grade AI intelligence system tailored for complex credit risk analysis. Transformed an unstructured, 100-page deterministic financial review process into a 15-minute automated workflow.",
     tech: ["Python", "FastAPI", "Gemini API", "Claude API", "Next.js 16", "SQLite"],
     metrics: "80% Time Save",
     category: 'build',
+    flowType: 'credit',
     githubUrl: "https://github.com/gmpro-cr",
-    problem: "Analysts spend excessively repetitive hours manually extracting data and writing synthesis memos. The manual process is error-prone and bottlenecks workflow.",
+    problem: "Senior analysts spend 4–6 hours manually scrubbing 100+ page annual reports for data extraction and subjective risk synthesis. This is a low-leverage bottleneck prone to human error, restricting the volume of transactions evaluated.",
     approach: [
-      "Defined product vision and mapped user journeys as primary functional personas",
-      "Drafted LLM prompt architectures specifically tuned for high-fidelity data extraction",
-      "Oversaw testing and verified output accuracy against actual human-produced benchmarks"
+      "Mapped the end-to-end user journey of a Credit Analyst to identify exact bottlenecks in the legacy workflow.",
+      "Architected a deterministic pre-computation layer in Python to handle hard logic, leaving the LLM purely for narrative synthesis and risk scoring.",
+      "Developed evaluation rubrics to benchmark the AI's credit memos against historical ground truths written by human analysts.",
+      "Designed a UI that allowed 'human-in-the-loop' editing, recognizing that enterprise users need control and transparency, not black-box automation."
     ],
     keyInsights: [
-      "Matching the output a senior analyst would produce manually built immense enterprise trust",
-      "Iterating rigorously on prompt constraints was more effective than raw model switching"
+      "Trust is the bottleneck in enterprise AI. Delivering an export format that mirrored existing compliance templates was crucial for adoption.",
+      "LLMs are terrible at math but incredible at synthesis. Separating deterministic parsing from probabilistic generation solved 90% of accuracy issues.",
+      "Human-in-the-loop (HITL) isn't a crutch; it's a necessary product feature for high-stakes enterprise deployments."
     ],
     outcomes: [
       "Reduced a 4–6 hour manual analysis process to under 15 minutes",
       "Shipped with multi-format exports (Excel & PDF) perfectly aligned to business reporting standards"
     ]
-  },
-  {
-    title: "Automated Multi-Portal Job Logic",
-    date: "Jan 2026",
-    description: "Designed a local solution to the massive signal-to-noise ratio in manual web searching. Configured an automated daily digest with AI-driven relevance scoring (0–100).",
-    tech: ["Python", "Flask", "Ollama/Mistral", "Selenium", "Telegram Bot API"],
-    metrics: "2x Daily Automated",
-    category: 'build',
-    problem: "Manual discovery across fragmented portals is a massive pain point due to search noise and inefficiencies.",
-    approach: [
-      "Constructed a technical pipeline that scrapes listings twice daily",
-      "Implemented a local LLM matching engine against target profiles using semantic logic",
-      "Validiated product-market fit through self-use, iterating heavily on the zero-friction digest delivery"
-    ],
-    keyInsights: [
-      "Eliminating the manual evaluation step via LLMs dramatically increased process velocity",
-      "Daily active integration tests proved the pipeline's robustness in production"
-    ],
-    outcomes: [
-      "Fully automated the discovery pipeline with zero time spent on manual browsing",
-      "Shipped a web dashboard for settings management and digest history"
-    ]
-  },
-  {
-    title: "Discord AI Web Scraper Bot",
-    date: "Jan 2026",
-    description: "AI-powered Discord bot that scrapes any webpage and enables natural conversation about its content. Users can ask questions, get summaries, or extract specific information from URLs.",
-    tech: ["Python", "Discord.py", "Groq API", "Llama 3.3 70B", "BeautifulSoup"],
-    metrics: "Live Bot",
-    category: 'build',
-    githubUrl: "https://github.com/gmpro-cr",
-    problem: "Fragmented context switching between browser and chat when researching collaboratively.",
-    approach: [
-      "Built a Discord bot that listens and auto-detects URLs within chat contexts",
-      "Integrated Groq's API for ultra-fast Llama 3.3 70B inference speeds",
-      "Architected a robust conversation memory system for follow-up queries"
-    ],
-    keyInsights: ["Conversation memory transforms simple utility into prolonged engagement", "Auto-URL detection drastically reduces user friction"],
-    outcomes: ["Built fully functional bot running 24/7", "Supports natural conversation seamlessly integrated into group chats"]
   }
 ];
 

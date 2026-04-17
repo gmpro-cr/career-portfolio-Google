@@ -20,6 +20,7 @@ export interface Project {
 
   // Enhanced case study fields
   category: 'build' | 'case-study';
+  flowType?: 'persona' | 'credit' | 'job';
   problem?: string;
   approach?: string[];
   keyInsights?: string[];
