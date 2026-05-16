@@ -11,19 +11,24 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-                display: ['Outfit', 'sans-serif'],
+                sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
             },
             colors: {
-                // Minimalist mode system
-                'light-bg': '#FFFFFF',      // Absolute white background
-                'light-surface': '#FAFAFA', // Subtle gray surface
-                'light-card': '#FFFFFF',    // Card surface
-                'light-text': '#0A0A0A',    // Very dark text
-                'light-muted': '#737373',   // Crisp secondary text
-                
-                // Tech/Cyber aesthetic accents
-                'accent': 'var(--accent-color, #000000)', // Default stark black
+                // Soft Structuralism palette (warm whites + espresso accent)
+                'paper': '#FDFBF7',     // warm cream secondary surface
+                'ink': '#1A1410',       // warm near-black, never pure #000
+                'ink-muted': '#78716C', // stone-500
+                'hairline': '#E7E5E4',  // stone-200
+                'shell': '#FAFAF9',     // outer bezel shell
+
+                // Legacy aliases kept so any unmigrated component renders
+                'light-bg': '#FFFFFF',
+                'light-surface': '#FDFBF7',
+                'light-card': '#FFFFFF',
+                'light-text': '#1A1410',
+                'light-muted': '#78716C',
+                'accent': '#1A1410',
                 'accent-rose': '#f43f5e',
                 'accent-purple': '#a855f7',
                 'accent-emerald': '#10b981',
@@ -31,17 +36,22 @@ export default {
                 'accent-indigo': '#6366f1',
             },
             boxShadow: {
-                'glow': 'none',
-                'glow-subtle': 'none',
-                'card-hover': '0 4px 12px rgba(0, 0, 0, 0.05)',
+                'bezel-inset': 'inset 0 1px 1px rgba(255, 255, 255, 0.6)',
+                'lifted': '0 24px 48px -24px rgba(26, 20, 16, 0.18)',
+                'lifted-sm': '0 12px 24px -16px rgba(26, 20, 16, 0.15)',
             },
-            backgroundImage: {
-                'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                'hero-glow': 'conic-gradient(from 180deg at 50% 50%, var(--accent-color) 0deg, transparent 180deg, var(--accent-color) 360deg)',
+            transitionTimingFunction: {
+                'spring': 'cubic-bezier(0.32, 0.72, 0, 1)',
             },
             animation: {
-                'spin-slow': 'spin 8s linear infinite',
-            }
+                'fade-up': 'fadeUp 900ms cubic-bezier(0.32, 0.72, 0, 1) both',
+            },
+            keyframes: {
+                fadeUp: {
+                    from: { opacity: '0', transform: 'translateY(24px)', filter: 'blur(6px)' },
+                    to: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0)' },
+                },
+            },
         }
     },
     plugins: [],

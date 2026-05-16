@@ -1,572 +1,698 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Mail, Linkedin, MapPin, GraduationCap, Award, ExternalLink, FileText, Github, Download, ArrowRight, X } from 'lucide-react';
-import { useSearch } from '../context/SearchContext';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ArrowDown,
+  GraduationCap,
+  SealCheck,
+  PaperPlaneTilt,
+  GithubLogo,
+  LinkedinLogo,
+  FileText,
+  MapPin,
+} from '@phosphor-icons/react';
+import { EXPERIENCES, PROJECTS, SKILL_DATA, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 
-const XIcon = ({ size = 18 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+/* ---------- Tiny brand mark for X / Twitter (Phosphor lacks a clean one) ---------- */
+const XMark = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
 );
 
-const ProductFlowDiagram = ({ type }: { type?: 'persona' | 'credit' | 'job' }) => {
-  if (!type) return null;
+/* ---------- Reusable eyebrow ---------- */
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <span className="eyebrow">
+    <span className="rule" />
+    {children}
+  </span>
+);
 
-  if (type === 'persona') {
-    return (
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 my-6 font-mono text-sm overflow-x-auto">
-        <div className="flex items-center justify-center gap-2 min-w-max">
-          <div className="flex flex-col items-center">
-            <div className="border-2 border-black bg-white rounded-lg px-4 py-2 font-bold select-none hover:-translate-y-1 transition-transform">User Request</div>
+/* ---------- Reveal helper: blurred fade-up on enter ---------- */
+const Reveal = ({
+  children,
+  delay = 0,
+  className = '',
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+    viewport={{ once: true, margin: '-10%' }}
+    transition={{ duration: 0.9, delay, ease: [0.32, 0.72, 0, 1] }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
+
+/* =========================================================================
+   HERO — Editorial Split archetype
+   ========================================================================= */
+function Hero() {
+  return (
+    <section id="hero" className="relative pt-12 md:pt-20 pb-24 md:pb-32">
+      <div className="grain" aria-hidden />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        <div className="grid md:grid-cols-12 gap-y-12 md:gap-x-12 items-end">
+          {/* LEFT — Editorial type block */}
+          <div className="md:col-span-7">
+            <Reveal>
+              <Eyebrow>Available · AI Product Manager</Eyebrow>
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <h1 className="mt-8 font-display font-light text-[12vw] md:text-[7.5vw] leading-[0.94] tracking-[-0.035em] text-ink">
+                AI products,
+                <br />
+                <em className="italic font-normal text-ink-muted/90">shipped</em>
+                <span className="text-ink"> by hand.</span>
+              </h1>
+            </Reveal>
+
+            <Reveal delay={0.18}>
+              <p className="mt-10 max-w-md text-base md:text-lg font-light leading-relaxed text-ink-muted">
+                I&rsquo;m Gaurav — an AI Product Manager who designs, builds and
+                ships LLM-based platforms end-to-end. Eight years in banking
+                taught me to handle real money; the last three taught me to
+                handle real models.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.28}>
+              <div className="mt-10 flex flex-wrap items-center gap-3">
+                <a href="#work" className="btn-pill">
+                  See selected work
+                  <span className="btn-pill-icon">
+                    <ArrowDown size={14} weight="light" />
+                  </span>
+                </a>
+                <a href="/Gaurav_Mahale_Resume.pdf" download className="btn-pill-outline">
+                  Download CV
+                  <span className="btn-pill-icon">
+                    <FileText size={14} weight="light" />
+                  </span>
+                </a>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.36}>
+              <div className="mt-10 flex items-center gap-2 text-xs text-ink-muted">
+                <MapPin size={12} weight="light" />
+                <span>Pune, India · Open to remote &amp; hybrid</span>
+              </div>
+            </Reveal>
           </div>
-          <ArrowRight className="text-gray-400 stroke-[3px]" />
-          <div className="flex flex-col items-center">
-            <div className="border-2 border-purple-200 bg-purple-50 text-purple-900 rounded-lg px-4 py-2 font-bold select-none hover:-translate-y-1 transition-transform">Memory DB Context</div>
-            <span className="text-[10px] text-gray-500 mt-1">Supabase Retrieval</span>
-          </div>
-          <ArrowRight className="text-gray-400 stroke-[3px]" />
-          <div className="flex flex-col items-center">
-            <div className="border-2 border-blue-200 bg-blue-50 text-blue-900 rounded-lg px-4 py-2 font-bold select-none hover:-translate-y-1 transition-transform">LLM Prompt Engine</div>
-            <span className="text-[10px] text-gray-500 mt-1">Persona Evals</span>
-          </div>
-          <ArrowRight className="text-gray-400 stroke-[3px]" />
-          <div className="flex flex-col items-center">
-            <div className="border-2 border-green-400 bg-green-50 text-green-900 rounded-lg px-4 py-2 font-bold shadow-sm select-none hover:-translate-y-1 transition-transform">In-Character Response</div>
-            <span className="text-[10px] text-gray-500 mt-1">Llama 3.3 / Gemini</span>
+
+          {/* RIGHT — Asymmetric stat tiles (Z-axis cascade) */}
+          <div className="md:col-span-5 md:pl-6 lg:pl-12">
+            <Reveal delay={0.12}>
+              <div className="relative h-[420px] md:h-[480px]">
+                <StatTile
+                  label="MAU"
+                  value="500+"
+                  caption="AI Persona Platform"
+                  className="absolute top-0 left-0 w-[78%] -rotate-1"
+                />
+                <StatTile
+                  label="Time saved"
+                  value="80%"
+                  caption="Credit analysis automation"
+                  className="absolute top-[38%] right-0 w-[72%] rotate-1"
+                  variant="paper"
+                />
+                <StatTile
+                  label="Experience"
+                  value="8+ yrs"
+                  caption="Cross-functional execution"
+                  className="absolute bottom-0 left-[8%] w-[70%] -rotate-[0.5deg]"
+                />
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>
-    );
-  }
-
-  if (type === 'credit') {
-    return (
-      <div className="bg-white border border-gray-200 rounded-xl p-6 my-6 text-sm overflow-x-auto">
-        <div className="grid grid-cols-[1fr_auto_1fr] gap-8 items-center min-w-[500px]">
-          {/* Old Way */}
-          <div className="space-y-3 opacity-60">
-            <div className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Previous Legacy Flow</div>
-            <div className="border border-gray-200 bg-gray-50 p-3 rounded text-center">100pg Annual Report</div>
-            <div className="flex justify-center"><ArrowRight className="rotate-90 text-gray-300 w-4 h-4" /></div>
-            <div className="border border-red-200 bg-red-50 text-red-800 p-3 rounded text-center font-medium shadow-sm">4–6 Hours Manual Entry</div>
-            <div className="flex justify-center"><ArrowRight className="rotate-90 text-gray-300 w-4 h-4" /></div>
-            <div className="border border-gray-200 bg-gray-50 p-3 rounded text-center">Credit Memo Draft</div>
-          </div>
-
-          <div className="w-px h-[250px] bg-gray-200"></div>
-
-          {/* New Way */}
-          <div className="space-y-3">
-            <div className="text-xs font-bold uppercase tracking-wider text-green-600 mb-2">AI Architected Flow</div>
-            <div className="border border-gray-200 bg-white p-3 rounded text-center font-medium shadow-sm">Raw PDF Document</div>
-            <div className="flex justify-center"><ArrowRight className="rotate-90 text-green-500 w-4 h-4" /></div>
-            <div className="border-2 border-green-400 bg-green-50 text-green-900 p-3 rounded text-center font-bold shadow-sm hover:-translate-y-1 transition-transform">Parser + Claude API</div>
-            <div className="flex justify-center"><ArrowRight className="rotate-90 text-green-500 w-4 h-4" /></div>
-            <div className="border-2 border-black bg-black text-white p-3 rounded text-center font-bold shadow-md hover:-translate-y-1 transition-transform">15 Min Automated Export</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (type === 'job') {
-    return (
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 my-6 font-mono text-sm max-w-lg mx-auto">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-full flex justify-center gap-2">
-            <div className="border border-gray-300 bg-white px-3 py-1 rounded text-gray-500">Naukri.com</div>
-            <div className="border border-gray-300 bg-white px-3 py-1 rounded text-gray-500">LinkedIn</div>
-            <div className="border border-gray-300 bg-white px-3 py-1 rounded text-gray-500">Foundit</div>
-          </div>
-          <div className="text-gray-400 text-xs text-center border-x border-t border-gray-300 w-2/3 h-4 rounded-t-xl mt-1"></div>
-          <div className="w-1/2 border-2 border-blue-300 bg-blue-50 text-blue-900 rounded-lg p-3 text-center font-bold relative z-10 hover:-translate-y-1 transition-transform shadow-sm">
-            Selenium Scrape
-          </div>
-          <ArrowRight className="rotate-90 text-gray-400 stroke-[3px]" />
-          <div className="w-2/3 border-2 border-purple-300 bg-purple-50 text-purple-900 rounded-lg p-3 text-center font-bold hover:-translate-y-1 transition-transform shadow-sm">
-            Local LLM Processing
-            <div className="text-[10px] font-normal text-purple-600 mt-1">Mistral Score (0-100) vs Profile</div>
-          </div>
-          <ArrowRight className="rotate-90 text-gray-400 stroke-[3px]" />
-          <div className="w-1/3 border-2 border-black bg-black text-white rounded-lg p-3 text-center font-bold shadow-md hover:-translate-y-1 transition-transform">
-            Daily Digest
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
+    </section>
+  );
 }
 
-import { EXPERIENCES, PROJECTS, SKILL_DATA, TECH_STACK, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
-
-const STATS = [
-  { label: '8+ Years', sublabel: 'Banking & Credit' },
-  { label: '₹9,000 Cr', sublabel: 'Distressed Assets' },
-  { label: '500 MAU', sublabel: 'AI platform built' },
-];
-
-const TOOLS = [
-  { name: 'Python', icon: '🐍' },
-  { name: 'SQL', icon: '🗄️' },
-  { name: 'Gemini API', icon: '✨' },
-  { name: 'Claude', icon: '🤖' },
-  { name: 'Figma', icon: '🎨' },
-  { name: 'PowerBI', icon: '📊' },
-  { name: 'Excel', icon: '📑' },
-  { name: 'Next.js', icon: '▲' },
-  { name: 'React', icon: '⚛️' },
-  { name: 'Github', icon: '💻' },
-];
-
-function SkillBar({ score, delay }: { score: number; delay: number }) {
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    const timer = setTimeout(() => setWidth(score), delay);
-    return () => clearTimeout(timer);
-  }, [score, delay]);
-
+function StatTile({
+  label,
+  value,
+  caption,
+  className = '',
+  variant = 'default',
+}: {
+  label: string;
+  value: string;
+  caption: string;
+  className?: string;
+  variant?: 'default' | 'paper';
+}) {
   return (
-    <div className="h-2 rounded-full overflow-hidden bg-black/5 relative">
-      <div 
-        className="absolute left-0 top-0 h-full rounded-full transition-all duration-1000 ease-out"
-        style={{ width: `${width}%`, background: 'linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 40%, #c084fc))' }} 
-      />
+    <div className={`bezel ${variant === 'paper' ? 'bezel-paper' : ''} ${className}`}>
+      <div className="bezel-core px-6 py-5">
+        <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">{label}</p>
+        <p className="mt-2 font-display font-light text-5xl text-ink tabular leading-none">
+          {value}
+        </p>
+        <p className="mt-3 text-sm text-ink-muted leading-snug">{caption}</p>
+      </div>
     </div>
   );
 }
 
-export default function Home() {
-  const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null);
-  const { searchQuery } = useSearch();
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && selectedProject) {
-        setSelectedProject(null);
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [selectedProject]);
-
-  const filteredProjects = useMemo(() => {
-    if (!searchQuery) return PROJECTS;
-    const lowerQuery = searchQuery.toLowerCase();
-    return PROJECTS.filter(project =>
-      project.title.toLowerCase().includes(lowerQuery) ||
-      project.description.toLowerCase().includes(lowerQuery) ||
-      project.tech.some(t => t.toLowerCase().includes(lowerQuery)) ||
-      project.category.toLowerCase().includes(lowerQuery)
-    );
-  }, [searchQuery]);
+/* =========================================================================
+   SELECTED WORK — Asymmetric Bento with inline expand
+   ========================================================================= */
+function SelectedWork() {
+  const [openId, setOpenId] = useState<number | null>(null);
 
   return (
-    <div className="relative overflow-hidden font-sans">
-      {/* Background glow orb removed for minimalist theme */}
-
-      {/* HERO SECTION */}
-      <motion.section
-        id="hero"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="py-32 md:py-48 relative"
-      >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-light-card border border-black/5 rounded-[2rem] px-5 py-2 mb-8 text-sm font-medium glass-card"
-          >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
-            </span>
-            Open to AI Product Manager roles
-          </motion.div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-8xl text-light-text leading-[1.1] mb-8 font-extrabold tracking-tight">
-            AI Product Builder
-          </h1>
-          
-          <p className="mt-6 text-xl text-light-muted max-w-2xl mx-auto font-light leading-relaxed">
-            Building products at the frontier of applied AI. Generative AI · LLM Evals · Product Strategy.
-          </p>
-
-          <div className="mt-12 flex flex-wrap justify-center gap-4 md:gap-8">
-            <div className="glass-card px-8 py-4 animate-float" style={{ animationDelay: '0s' }}>
-              <div className="text-3xl font-display font-bold text-light-text">500+</div>
-              <div className="text-sm font-medium text-light-muted mt-1 tracking-wide uppercase opacity-80">MAU AI Platform</div>
-            </div>
-            <div className="glass-card px-8 py-4 animate-float" style={{ animationDelay: '0.3s' }}>
-              <div className="text-3xl font-display font-bold text-light-text">80%</div>
-              <div className="text-sm font-medium text-light-muted mt-1 tracking-wide uppercase opacity-80">Time Saved (Automations)</div>
-            </div>
-            <div className="glass-card px-8 py-4 animate-float" style={{ animationDelay: '0.6s' }}>
-              <div className="text-3xl font-display font-bold text-light-text">8+ Yrs</div>
-              <div className="text-sm font-medium text-light-muted mt-1 tracking-wide uppercase opacity-80">Cross-functional execution</div>
-            </div>
-          </div>
-
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="mt-16 flex flex-col sm:flex-row gap-5 justify-center items-center"
-          >
-            <a href="#projects" className="btn-primary flex items-center gap-2 w-full sm:w-auto h-14 px-8 text-lg hover:scale-[1.02]">
-              View Real Work <ArrowRight className="w-5 h-5" />
-            </a>
-            <a href="/Gaurav_Mahale_Resume.pdf" download className="btn-outline flex items-center gap-2 w-full sm:w-auto h-14 px-8 text-lg group">
-              <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
-              Download CV
-            </a>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* ABOUT SECTION */}
-      <motion.section
-        id="about"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-10%" }}
-        transition={{ duration: 0.8 }}
-        className="py-24 relative"
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="glass-card p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-              <FileText size={160} />
-            </div>
-            
-            <h2 className="text-3xl font-bold mb-8 text-light-text flex items-center gap-3">
-              <span className="w-8 h-1 bg-accent rounded-full inline-block"></span>
-              The Thesis
+    <section id="work" className="relative py-24 md:py-32 bg-paper">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+          <div>
+            <Eyebrow>Selected Work</Eyebrow>
+            <h2 className="mt-6 font-display font-light text-5xl md:text-7xl leading-[0.95] tracking-tight text-ink max-w-2xl">
+              Three products,<br />three real bottlenecks removed.
             </h2>
-            
-            <div className="space-y-6 text-xl tracking-tight leading-relaxed text-gray-700 relative z-10 w-full md:w-[85%] font-light">
-              <p>
-                As an <strong>AI Product Manager</strong>, I build platforms using Next.js, Python, Supabase, and frontier LLMs (Claude, Gemini, Groq). My technical edge is paired with a sophisticated understanding of product validation, prompt architectures, and structured evals.
-              </p>
-              <p>
-                Previously, I managed high-stakes portfolios exceeding ₹5,000M across HDFC Bank and Yes Bank. But my core thesis is different: that pure domain depth, combined with the ability to actually build and ship working AI products, creates the highest-leverage solutions possible.
-              </p>
-              <p className="border-l-2 border-black pl-6 py-2 mt-8 italic text-light-text font-medium">
-                I don't just write PRDs. I validate ideas, architect prompts, scrutinize the data pipelines, and ship the MVP.
-              </p>
-            </div>
           </div>
+          <p className="md:max-w-xs text-sm md:text-base text-ink-muted leading-relaxed">
+            Each shipped end-to-end — discovery, prompt architecture, evals,
+            UI, deploy. No PRDs without code.
+          </p>
         </div>
-      </motion.section>
 
-      {/* EXPERIENCE SECTION */}
-      <motion.section id="experience" className="py-24 relative">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16 text-light-text">The Journey</h2>
-          
-          <div className="space-y-6">
-            {EXPERIENCES.map((exp, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="glass-card p-6 md:p-8 hover:bg-light-card/80 flex flex-col md:flex-row gap-6 lg:gap-12"
-              >
-                <div className="md:w-1/3 flex-shrink-0">
-                  <span className={`text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block ${exp.type === 'AI' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'}`}>
-                    {exp.type}
-                  </span>
-                  <p className="text-light-muted font-medium mb-1 text-sm">{exp.period}</p>
-                  <h3 className="text-xl lg:text-2xl font-bold text-light-text leading-tight">{exp.role}</h3>
-                  <p className="text-accent mt-2 font-medium">{exp.company}</p>
-                </div>
-                
-                <div className="md:w-2/3">
-                  <ul className="space-y-3">
-                    {exp.description.map((desc, idx) => (
-                      <li key={idx} className="flex gap-4 text-gray-400 group">
-                        <span className="text-accent opacity-50 relative top-1 group-hover:opacity-100 transition-opacity">●</span>
-                        <span className="leading-relaxed">{desc}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Education & Certs grid */}
-          <div className="grid md:grid-cols-2 gap-6 mt-16">
-             <div className="glass-card p-8">
-                <h3 className="text-2xl font-bold mb-6 flex items-center gap-3"><GraduationCap className="text-accent"/> Education</h3>
-                <div className="space-y-6">
-                  {EDUCATION_DATA.map(edu => (
-                    <div key={edu.id} className="border-l-2 border-black/10 pl-4 hover:border-accent transition-colors">
-                      <h4 className="text-lg font-semibold text-light-text">{edu.institution}</h4>
-                      <p className="text-gray-400 mt-1">{edu.degree}</p>
-                      <p className="text-sm font-mono text-gray-500 mt-2">{edu.year}</p>
-                    </div>
-                  ))}
-                </div>
-             </div>
-             <div className="glass-card p-8">
-                <h3 className="text-2xl font-bold mb-6 flex items-center gap-3"><Award className="text-accent-purple"/> Certifications</h3>
-                <div className="space-y-6">
-                  {CERTIFICATIONS_DATA.map(cert => (
-                    <div key={cert.id} className="border-l-2 border-black/10 pl-4 hover:border-accent-purple transition-colors">
-                      <h4 className="text-lg font-semibold text-light-text">{cert.name}</h4>
-                      <p className="text-gray-400 mt-1">{cert.issuer}</p>
-                      <p className="text-sm font-mono text-gray-500 mt-2">{cert.year}</p>
-                    </div>
-                  ))}
-                </div>
-             </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* PROJECTS SECTION */}
-      <motion.section id="projects" className="py-24 relative">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-light-text mb-4">Proof of Work</h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light">Products I've built and problems I've solved end-to-end.</p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {filteredProjects.map((project, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                onClick={() => setSelectedProject(project)}
-                className="glass-card group cursor-pointer h-full flex flex-col"
-              >
-                <div className="p-8 flex-1 flex flex-col relative z-20">
-                  <div className="flex justify-between items-start mb-6">
-                    <span className={`text-xs px-3 py-1.5 rounded-full font-bold tracking-wide uppercase ${project.category === 'build' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-purple-500/10 text-purple-400 border border-purple-500/20'}`}>
-                      {project.category === 'build' ? '🚀 Shipped' : '📋 Case Study'}
-                    </span>
-                    <span className="text-accent font-semibold">{project.metrics}</span>
-                  </div>
-                  
-                  <h3 className="text-3xl font-display font-bold text-light-text mb-3 group-hover:text-accent transition-colors">{project.title}</h3>
-                  <p className="text-sm font-mono text-gray-500 mb-6">{project.date}</p>
-                  
-                  <p className="text-gray-400 text-lg leading-relaxed mb-8 flex-1">{project.description}</p>
-                  
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {project.tech.map((t, i) => (
-                      <span key={i} className="text-xs font-medium bg-black/5 border border-black/10 text-gray-700 px-3 py-1.5 rounded-lg">
-                        {t}
+        {/* Bento grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+          {PROJECTS.map((project, idx) => {
+            const featured = idx === 0;
+            const span = featured
+              ? 'md:col-span-8 md:row-span-2'
+              : 'md:col-span-4';
+            const isOpen = openId === idx;
+            return (
+              <Reveal key={idx} delay={idx * 0.06} className={span}>
+                <article className="bezel h-full">
+                  <div className="bezel-core p-6 md:p-8 h-full flex flex-col">
+                    <header className="flex items-start justify-between gap-4 mb-6">
+                      <Eyebrow>
+                        {featured ? 'Featured · Shipped' : project.category === 'build' ? 'Shipped' : 'Case Study'}
+                      </Eyebrow>
+                      <span className="font-display italic text-sm text-ink-muted">
+                        {project.metrics}
                       </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+                    </header>
 
-      {/* SKILLS SECTION */}
-      <motion.section id="skills" className="py-24 border-t border-black/5 bg-gray-100">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16">The Armory</h2>
-          
-          <div className="grid md:grid-cols-2 gap-12 mb-20">
-            {SKILL_DATA.map((skill, i) => (
-              <div key={skill.subject} className="space-y-2">
-                <div className="flex justify-between text-sm font-semibold text-light-text tracking-wide">
-                  <span>{skill.subject}</span>
-                  <span className="text-accent">{skill.A}%</span>
-                </div>
-                {/* Custom skill bar for visual wow factor */}
-                <SkillBar score={skill.A} delay={i * 200 + 300} />
-              </div>
-            ))}
-          </div>
+                    <h3
+                      className={`font-display font-light text-ink leading-[1.05] tracking-tight ${
+                        featured ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'
+                      }`}
+                    >
+                      {project.title}
+                    </h3>
+                    <p className="mt-2 text-xs uppercase tracking-[0.18em] text-ink-muted/80">
+                      {project.date}
+                    </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            {TOOLS.map((tool, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5, borderColor: 'var(--accent-color)', backgroundColor: 'rgba(255,255,255,0.05)' }}
-                className="glass-card px-6 py-4 flex items-center gap-3 w-40 justify-center cursor-default transition-all"
-              >
-                <span className="text-2xl">{tool.icon}</span>
-                <span className="text-sm font-medium text-light-text">{tool.name}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+                    <p
+                      className={`mt-5 text-ink-muted leading-relaxed font-light flex-1 ${
+                        featured ? 'text-base md:text-lg max-w-2xl' : 'text-sm'
+                      }`}
+                    >
+                      {project.description}
+                    </p>
 
-      {/* FOOTER CTA */}
-      <footer id="contact" className="py-32 relative text-center">
-        <div className="max-w-2xl mx-auto px-4 z-10 relative">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-light-text">Ready to collaborate?</h2>
-          <p className="text-xl text-gray-600 mb-12">Whether it's a role, scaling an AI product, or navigating complex systems.</p>
-          
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <a href="mailto:mahalegauravk@gmail.com" className="btn-primary w-full sm:w-auto h-14 flex justify-center items-center px-8 text-lg">
-              mahalegauravk@gmail.com
-            </a>
-            <div className="flex gap-4">
-              <a href="https://linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" className="w-14 h-14 rounded-xl glass-card flex justify-center items-center hover:bg-black/10 hover:text-accent transition-colors">
-                <Linkedin size={24} />
-              </a>
-              <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" className="w-14 h-14 rounded-xl glass-card flex justify-center items-center hover:bg-black/10 hover:text-accent transition-colors">
-                <Github size={24} />
-              </a>
-              <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" className="w-14 h-14 rounded-xl glass-card flex justify-center items-center hover:bg-black/10 hover:text-accent transition-colors">
-                <XIcon size={24} />
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* PROJECT MODAL */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
-            onClick={() => setSelectedProject(null)}
-          >
-            {/* Modal Backdrop Blur */}
-            <div className="absolute inset-0 bg-light-bg/80 backdrop-blur-xl" />
-            
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              onClick={e => e.stopPropagation()}
-              className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-card border border-black/10 "
-            >
-              <div className="p-8 md:p-12">
-                <button 
-                  onClick={() => setSelectedProject(null)}
-                  className="absolute top-6 right-6 w-10 h-10 flex border border-black/10 items-center justify-center rounded-full bg-black/5 hover:bg-black/10 text-light-text transition-colors"
-                >
-                  <X size={20} />
-                </button>
-
-                <div className="mb-8">
-                  <span className="text-accent font-bold tracking-widest text-sm uppercase">{selectedProject.category === 'build' ? 'Shipped Product' : 'Case Study'}</span>
-                  <h2 className="text-4xl md:text-5xl font-display font-bold text-light-text mt-2 mb-4">{selectedProject.title}</h2>
-                  <div className="flex flex-wrap gap-4 items-center">
-                    <span className="text-gray-400 font-mono">{selectedProject.date}</span>
-                    <span className="w-1 h-1 rounded-full bg-gray-600 truncate hidden sm:block"></span>
-                    <span className="bg-accent/10 border border-accent/20 text-accent px-3 py-1 rounded-full text-sm font-semibold">{selectedProject.metrics}</span>
-                  </div>
-                </div>
-
-                <div className="space-y-12">
-                  <section>
-                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">1</span> The Problem</h3>
-                    <p className="text-lg text-gray-700 leading-relaxed font-light">{selectedProject.problem}</p>
-                  </section>
-
-                  {selectedProject.flowType && (
-                  <section>
-                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">Flow</span> Architecture & Diagram</h3>
-                    <ProductFlowDiagram type={selectedProject.flowType} />
-                  </section>
-                  )}
-
-                  {selectedProject.approach && selectedProject.approach.length > 0 && (
-                  <section>
-                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">2</span> The Approach</h3>
-                    <div className="space-y-4">
-                      {selectedProject.approach.map((item, i) => (
-                        <div key={i} className="flex gap-4 p-4 rounded-xl bg-black/5 border border-black/5">
-                          <CheckIcon />
-                          <p className="text-gray-700 text-lg">{item}</p>
-                        </div>
+                    <div className="mt-6 flex flex-wrap gap-1.5">
+                      {project.tech.slice(0, featured ? 6 : 4).map((t, i) => (
+                        <span
+                          key={i}
+                          className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-1"
+                        >
+                          {t}
+                        </span>
                       ))}
                     </div>
-                  </section>
-                  )}
 
-                  {selectedProject.keyInsights && selectedProject.keyInsights.length > 0 && (
-                  <section>
-                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">3</span> Key Insights</h3>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        {selectedProject.keyInsights.map((insight, i) => (
-                          <div key={i} className="p-5 rounded-xl bg-gradient-to-br from-light-text/5 to-transparent border border-black/10 text-gray-700 font-light leading-relaxed">
-                            {insight}
-                          </div>
-                        ))}
-                      </div>
-                  </section>
-                  )}
+                    <div className="mt-7 flex items-center gap-3 flex-wrap">
+                      <button
+                        onClick={() => setOpenId(isOpen ? null : idx)}
+                        aria-expanded={isOpen}
+                        className="group inline-flex items-center gap-2 text-sm text-ink hover:opacity-70 transition-opacity duration-500 ease-spring"
+                      >
+                        <span className="border-b border-ink/40 group-hover:border-ink transition-colors">
+                          {isOpen ? 'Hide case study' : 'Read case study'}
+                        </span>
+                        <ArrowRight
+                          size={14}
+                          weight="light"
+                          className={`transition-transform duration-500 ease-spring ${
+                            isOpen ? 'rotate-90' : 'group-hover:translate-x-1'
+                          }`}
+                        />
+                      </button>
 
-                  {selectedProject.outcomes && selectedProject.outcomes.length > 0 && (
-                  <section>
-                    <h3 className="text-2xl font-bold text-light-text mb-4 flex items-center gap-3"><span className="text-accent border border-accent/20 bg-accent/10 w-8 h-8 flex items-center justify-center rounded-full text-sm">4</span> Outcomes</h3>
-                    <ul className="space-y-3 pl-2">
-                       {selectedProject.outcomes.map((item, i) => (
-                          <li key={i} className="flex items-start gap-4 text-gray-700 text-lg">
-                             <span className="text-green-400 font-bold mt-1">✓</span>
-                             {item}
-                          </li>
-                       ))}
-                    </ul>
-                  </section>
-                  )}
-
-                  <section className="pt-8 border-t border-black/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-                    <div>
-                      <h4 className="text-sm font-bold tracking-widest text-gray-500 uppercase mb-3">Tech & Frameworks</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedProject.tech.map((t, i) => (
-                          <span key={i} className="bg-gray-200 text-gray-700 px-3 py-1.5 rounded border border-black/5 text-sm">{t}</span>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-4 w-full sm:w-auto mt-4 sm:mt-0">
-                      {selectedProject.link && (
-                        <a href={selectedProject.link} target="_blank" rel="noreferrer" className="btn-primary py-2 px-6 flex items-center justify-center gap-2 flex-1">
-                          <ExternalLink size={16} /> Live
+                      {project.link && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-ink transition-colors duration-500 ease-spring"
+                        >
+                          Live
+                          <ArrowUpRight size={12} weight="light" />
                         </a>
                       )}
-                      {selectedProject.githubUrl && (
-                        <a href={selectedProject.githubUrl} target="_blank" rel="noreferrer" className="btn-outline py-2 px-6 flex items-center justify-center gap-2 flex-1">
-                          <Github size={16} /> Code
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-ink transition-colors duration-500 ease-spring"
+                        >
+                          Code
+                          <ArrowUpRight size={12} weight="light" />
                         </a>
                       )}
                     </div>
-                  </section>
 
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="case"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+                          className="overflow-hidden"
+                        >
+                          <CaseStudyBody project={project} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CaseStudyBody({ project }: { project: typeof PROJECTS[0] }) {
+  return (
+    <div className="mt-10 pt-10 border-t border-hairline space-y-10">
+      <section>
+        <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Problem</p>
+        <p className="mt-3 text-base md:text-lg text-ink/90 leading-relaxed font-light">
+          {project.problem}
+        </p>
+      </section>
+
+      {project.approach && project.approach.length > 0 && (
+        <section>
+          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Approach</p>
+          <ul className="mt-3 space-y-2">
+            {project.approach.map((item, i) => (
+              <li
+                key={i}
+                className="flex gap-3 text-sm md:text-base text-ink/85 leading-relaxed font-light"
+              >
+                <span className="select-none text-ink-muted tabular pt-[2px]">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {project.keyInsights && project.keyInsights.length > 0 && (
+        <section>
+          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Key insights</p>
+          <div className="mt-3 grid sm:grid-cols-2 gap-3">
+            {project.keyInsights.map((insight, i) => (
+              <div
+                key={i}
+                className="bezel bezel-paper"
+              >
+                <div className="bezel-core px-5 py-4 text-sm leading-relaxed text-ink/85 font-light">
+                  {insight}
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {project.outcomes && project.outcomes.length > 0 && (
+        <section>
+          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Outcomes</p>
+          <ul className="mt-3 space-y-2">
+            {project.outcomes.map((item, i) => (
+              <li key={i} className="flex gap-3 text-sm md:text-base text-ink/90 font-light">
+                <SealCheck size={16} weight="light" className="text-ink mt-1 flex-shrink-0" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }
 
-const CheckIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-accent flex-shrink-0 mt-0.5">
-    <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-)
+/* =========================================================================
+   THESIS — Single Double-Bezel paper card with pull quote
+   ========================================================================= */
+function Thesis() {
+  return (
+    <section id="thesis" className="relative py-24 md:py-32">
+      <div className="max-w-5xl mx-auto px-6 md:px-10">
+        <Reveal>
+          <Eyebrow>Thesis</Eyebrow>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <div className="mt-10 bezel bezel-paper">
+            <div className="bezel-core p-10 md:p-16">
+              <h2 className="font-display font-light text-3xl md:text-5xl leading-[1.1] tracking-tight text-ink max-w-3xl">
+                Pure domain depth combined with the ability to actually build
+                working AI products creates the highest-leverage solutions.
+              </h2>
+
+              <div className="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-6 text-ink-muted">
+                <p className="font-light leading-relaxed">
+                  I build platforms on Next.js, Python, Supabase and frontier
+                  LLMs (Claude, Gemini, Groq). My technical edge is paired
+                  with rigorous product validation, prompt architectures and
+                  structured evaluations.
+                </p>
+                <p className="font-light leading-relaxed">
+                  Previously, I managed high-stakes portfolios exceeding
+                  ₹5,000M across HDFC Bank and Yes Bank. I don&rsquo;t just
+                  write PRDs — I validate ideas, architect prompts, scrutinise
+                  pipelines and ship the MVP.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* =========================================================================
+   TRAJECTORY — Vertical timeline + Credentials sub-grid
+   ========================================================================= */
+function Trajectory() {
+  return (
+    <section id="trajectory" className="relative py-24 md:py-32 bg-paper">
+      <div className="max-w-6xl mx-auto px-6 md:px-10">
+        <Reveal>
+          <Eyebrow>Trajectory</Eyebrow>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <h2 className="mt-6 font-display font-light text-5xl md:text-7xl leading-[0.95] tracking-tight text-ink">
+            Eight years
+            <br />
+            <em className="italic font-normal text-ink-muted/90">across two worlds.</em>
+          </h2>
+        </Reveal>
+
+        {/* Timeline */}
+        <div className="mt-20 relative">
+          <span
+            className="hidden md:block absolute left-[26%] top-0 bottom-0 w-px bg-hairline"
+            aria-hidden
+          />
+          <ul className="space-y-14 md:space-y-20">
+            {EXPERIENCES.map((exp, i) => (
+              <Reveal key={i} delay={i * 0.05}>
+                <li className="grid md:grid-cols-12 gap-6 md:gap-10 relative">
+                  {/* Left rail: period + type */}
+                  <div className="md:col-span-3">
+                    <p className="font-display italic text-ink-muted text-base">
+                      {exp.period}
+                    </p>
+                    <p className="mt-2 eyebrow !border-ink/15 !bg-paper">
+                      {exp.type}
+                    </p>
+                  </div>
+
+                  {/* Dot */}
+                  <span
+                    className="hidden md:block absolute left-[26%] top-2 -translate-x-1/2 h-2.5 w-2.5 rounded-full bg-ink ring-4 ring-paper"
+                    aria-hidden
+                  />
+
+                  {/* Right column: role + description */}
+                  <div className="md:col-span-9 md:pl-8">
+                    <h3 className="font-display font-light text-2xl md:text-3xl text-ink leading-tight tracking-tight">
+                      {exp.role}
+                    </h3>
+                    <p className="mt-2 text-sm text-ink-muted">{exp.company}</p>
+                    <ul className="mt-6 space-y-3">
+                      {exp.description.map((desc, idx) => (
+                        <li
+                          key={idx}
+                          className="flex gap-3 text-base text-ink/85 font-light leading-relaxed"
+                        >
+                          <span className="select-none text-ink-muted/60 tabular pt-1.5">
+                            <span className="block h-px w-3 bg-ink-muted/50" />
+                          </span>
+                          <span>{desc}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+
+        {/* Credentials sub-grid */}
+        <div className="mt-24 grid md:grid-cols-2 gap-4">
+          <Reveal>
+            <div className="bezel">
+              <div className="bezel-core p-8">
+                <header className="flex items-center gap-3 mb-6">
+                  <GraduationCap size={20} weight="light" className="text-ink" />
+                  <span className="eyebrow">Education</span>
+                </header>
+                <div className="space-y-6">
+                  {EDUCATION_DATA.map(edu => (
+                    <div key={edu.id}>
+                      <h4 className="font-display font-light text-lg text-ink leading-snug">
+                        {edu.institution}
+                      </h4>
+                      <p className="text-sm text-ink-muted mt-1">{edu.degree}</p>
+                      <p className="text-xs text-ink-muted/70 mt-1 tabular">{edu.year}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.06}>
+            <div className="bezel">
+              <div className="bezel-core p-8">
+                <header className="flex items-center gap-3 mb-6">
+                  <SealCheck size={20} weight="light" className="text-ink" />
+                  <span className="eyebrow">Certifications</span>
+                </header>
+                <div className="space-y-5">
+                  {CERTIFICATIONS_DATA.map(cert => (
+                    <div key={cert.id} className="flex justify-between gap-4 items-baseline">
+                      <div>
+                        <h4 className="font-light text-ink leading-snug">{cert.name}</h4>
+                        <p className="text-xs text-ink-muted mt-0.5">{cert.issuer}</p>
+                      </div>
+                      <span className="text-xs text-ink-muted tabular flex-shrink-0">
+                        {cert.year}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =========================================================================
+   TOOLKIT — Typographic list, no skill bars, no emoji tools
+   ========================================================================= */
+const TOOLKIT_GROUPS: { label: string; items: string[] }[] = [
+  {
+    label: 'Build',
+    items: ['Next.js', 'Python · FastAPI', 'TypeScript', 'Supabase', 'Vercel'],
+  },
+  {
+    label: 'Reason',
+    items: ['Claude API', 'Gemini', 'Groq · Llama', 'Ollama · Mistral', 'OpenAI'],
+  },
+  {
+    label: 'Ship · Measure',
+    items: ['LLM Evals', 'Prompt Architecture', 'A/B Testing', 'PostHog', 'PowerBI'],
+  },
+];
+
+function Toolkit() {
+  return (
+    <section id="toolkit" className="relative py-24 md:py-32">
+      <div className="max-w-6xl mx-auto px-6 md:px-10">
+        <Reveal>
+          <Eyebrow>Toolkit</Eyebrow>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <h2 className="mt-6 font-display font-light text-5xl md:text-7xl leading-[0.95] tracking-tight text-ink max-w-3xl">
+            How the work
+            <br />
+            <em className="italic font-normal text-ink-muted/90">actually gets done.</em>
+          </h2>
+        </Reveal>
+
+        {/* Skill emphasis row */}
+        <div className="mt-20 grid md:grid-cols-5 gap-y-10 gap-x-6">
+          {SKILL_DATA.map((s, i) => (
+            <Reveal key={s.subject} delay={i * 0.04}>
+              <div>
+                <p className="font-display font-light text-3xl text-ink leading-none tabular">
+                  {String(s.A).padStart(2, '0')}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mt-2">
+                  out of 100
+                </p>
+                <p className="mt-3 text-sm text-ink leading-snug">{s.subject}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Typographic groups */}
+        <div className="mt-24 grid md:grid-cols-3 gap-x-10 gap-y-12">
+          {TOOLKIT_GROUPS.map((group, gi) => (
+            <Reveal key={group.label} delay={gi * 0.05}>
+              <div>
+                <p className="eyebrow">{group.label}</p>
+                <ul className="mt-6 space-y-3">
+                  {group.items.map(item => (
+                    <li
+                      key={item}
+                      className="font-display font-light text-2xl text-ink tracking-tight leading-tight"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =========================================================================
+   CONTACT — Bezel CTA with button-in-button + social row
+   ========================================================================= */
+function Contact() {
+  return (
+    <section id="contact" className="relative py-24 md:py-40 bg-paper">
+      <div className="max-w-5xl mx-auto px-6 md:px-10 text-center">
+        <Reveal>
+          <Eyebrow>Contact</Eyebrow>
+        </Reveal>
+
+        <Reveal delay={0.06}>
+          <h2 className="mt-8 font-display font-light text-6xl md:text-8xl leading-[0.95] tracking-tight text-ink">
+            Let&rsquo;s build
+            <br />
+            <em className="italic font-normal text-ink-muted/90">something real.</em>
+          </h2>
+        </Reveal>
+
+        <Reveal delay={0.14}>
+          <p className="mt-10 max-w-xl mx-auto text-base md:text-lg text-ink-muted font-light leading-relaxed">
+            Whether it&rsquo;s an AI PM role, scaling an LLM product, or
+            navigating a complex regulated system — I&rsquo;m good with all
+            three.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.22}>
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="mailto:mahalegauravk@gmail.com" className="btn-pill">
+              mahalegauravk@gmail.com
+              <span className="btn-pill-icon">
+                <PaperPlaneTilt size={14} weight="light" />
+              </span>
+            </a>
+            <div className="flex gap-2">
+              <a
+                href="https://linkedin.com/in/mahalegauravk"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                className="grid h-12 w-12 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-500 ease-spring"
+              >
+                <LinkedinLogo size={18} weight="light" />
+              </a>
+              <a
+                href="https://github.com/gmpro-cr"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                className="grid h-12 w-12 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-500 ease-spring"
+              >
+                <GithubLogo size={18} weight="light" />
+              </a>
+              <a
+                href="https://x.com/mahalegauravk"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="X"
+                className="grid h-12 w-12 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-500 ease-spring"
+              >
+                <XMark size={16} />
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* =========================================================================
+   COMPOSED PAGE
+   ========================================================================= */
+export default function Home() {
+  return (
+    <div className="font-sans text-ink">
+      <Hero />
+      <SelectedWork />
+      <Thesis />
+      <Trajectory />
+      <Toolkit />
+      <Contact />
+    </div>
+  );
+}

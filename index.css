@@ -2,27 +2,30 @@
 @config "./tailwind.config.ts";
 
 @layer base {
-  :root {
-    /* Minimalist theme starts with stark black context */
-    --accent-color: #0A0A0A;
-  }
-
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-light-bg text-light-text antialiased;
-    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    @apply bg-white text-ink antialiased;
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
   }
 
   ::selection {
-    background: #000;
-    color: #fff;
+    background: #1A1410;
+    color: #FDFBF7;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-semibold tracking-tight;
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', ui-serif, Georgia, serif;
+    font-feature-settings: 'opsz' on;
+    letter-spacing: -0.02em;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
   }
 
   ::-webkit-scrollbar {
@@ -30,102 +33,109 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #fafafa;
+    background: #FDFBF7;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #e5e5e5;
+    background: #E7E5E4;
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #d4d4d4;
+    background: #D6D3D1;
   }
 }
 
 @layer components {
-  /* Minimalist Primary Button */
-  .btn-primary {
-    @apply bg-black text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 relative overflow-hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* --- Double-Bezel card system --- */
+  .bezel {
+    @apply bg-shell ring-1 ring-hairline/80 p-1.5 rounded-[2rem] transition-all duration-700 ease-spring;
   }
 
-  .btn-primary:hover {
-    @apply bg-gray-800;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  .bezel-core {
+    @apply bg-white rounded-[calc(2rem-0.375rem)] shadow-bezel-inset;
   }
 
-  /* Minimalist Outline Button */
-  .btn-outline {
-    @apply border border-gray-200 bg-white text-light-text px-6 py-3 rounded-xl font-medium transition-all duration-300;
+  .bezel-paper .bezel-core {
+    @apply bg-paper;
   }
 
-  .btn-outline:hover {
-    @apply bg-gray-50 border-gray-300 text-black;
-  }
-
-  /* Minimalist Cards */
-  .glass-card {
-    @apply bg-white border border-gray-200 rounded-2xl relative overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md;
-  }
-  
-  .glass-card:hover {
-    @apply border-gray-300;
+  .bezel:hover {
+    @apply shadow-lifted-sm;
     transform: translateY(-2px);
   }
 
-  /* Minimalist Nav */
-  .glass-nav {
-    @apply bg-white/90 backdrop-blur-md border-b border-gray-200;
+  /* --- Eyebrow pill --- */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] font-medium border border-hairline bg-white text-ink-muted;
   }
 
-  .text-accent {
-    color: var(--accent-color);
+  /* --- Button-in-Button (primary) --- */
+  .btn-pill {
+    @apply relative inline-flex items-center gap-1.5 rounded-full bg-ink text-white pl-6 pr-1.5 py-1.5 text-sm font-medium transition-all duration-700 ease-spring;
   }
 
-  .border-accent {
-    border-color: var(--accent-color);
+  .btn-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px -12px rgba(26, 20, 16, 0.35);
   }
-  
-  .bg-accent {
-    background-color: var(--accent-color);
+
+  .btn-pill:active {
+    transform: scale(0.98) translateY(-1px);
   }
+
+  .btn-pill .btn-pill-icon {
+    @apply ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition-all duration-700 ease-spring;
+  }
+
+  .btn-pill:hover .btn-pill-icon {
+    transform: translate(3px, -1px) scale(1.06);
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  /* --- Button-in-Button (outline) --- */
+  .btn-pill-outline {
+    @apply relative inline-flex items-center gap-1.5 rounded-full bg-white text-ink pl-6 pr-1.5 py-1.5 text-sm font-medium border border-hairline transition-all duration-700 ease-spring;
+  }
+
+  .btn-pill-outline:hover {
+    transform: translateY(-1px);
+    background: #FDFBF7;
+  }
+
+  .btn-pill-outline .btn-pill-icon {
+    @apply ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-paper transition-all duration-700 ease-spring;
+  }
+
+  .btn-pill-outline:hover .btn-pill-icon {
+    transform: translate(3px, -1px) scale(1.06);
+    background: #F5F5F4;
+  }
+
+  /* --- Floating fluid-island navbar pill --- */
+  .nav-island {
+    @apply mx-auto mt-4 md:mt-6 max-w-fit rounded-full bg-white/80 backdrop-blur-xl border border-hairline shadow-lifted-sm transition-all duration-700 ease-spring;
+  }
+
+  /* --- Section rule (eyebrow underline) --- */
+  .rule {
+    @apply h-px w-12 bg-ink/20 inline-block align-middle;
+  }
+
 }
 
 @layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #0A0A0A 0%, #404040 100%);
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
   }
 
-  .aurora-bg {
-    /* Removed aurora effect for minimalist design */
-    display: none;
-  }
-
-  /* Fade up stagger animations */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .animate-fade-up {
-    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  
-  .delay-100 { animation-delay: 100ms; opacity: 0; }
-  .delay-200 { animation-delay: 200ms; opacity: 0; }
-  .delay-300 { animation-delay: 300ms; opacity: 0; }
-  .delay-400 { animation-delay: 400ms; opacity: 0; }
-  
-  /* Floating elements reduced to a gentle bob */
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-  }
-  
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+  .link-ghost {
+    @apply relative text-sm font-medium text-ink-muted transition-colors duration-500 ease-spring hover:text-ink;
   }
 }

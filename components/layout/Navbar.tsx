@@ -1,163 +1,163 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Search } from 'lucide-react';
-import { useSearch } from '../../context/SearchContext';
-import ThemePicker from '../ThemePicker';
 
 const navLinks = [
-  { href: '#about', label: 'About' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
+  { href: '#work', label: 'Work' },
+  { href: '#thesis', label: 'Thesis' },
+  { href: '#trajectory', label: 'Trajectory' },
+  { href: '#toolkit', label: 'Toolkit' },
   { href: '#contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  const { searchQuery, setSearchQuery } = useSearch();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      // Active section detection
+    let raf = 0;
+    const update = () => {
       const sections = navLinks.map(l => l.href.replace('#', ''));
       let current = '';
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 150) {
-            current = `#${section}`;
-          }
+          if (rect.top <= 180) current = `#${section}`;
         }
       }
       setActiveSection(current);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  const go = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
     setIsOpen(false);
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-light-bg/80 backdrop-blur-md border-b border-black/5 shadow-lg' : 'bg-transparent border-transparent'
+    <>
+      <nav className="fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none">
+        <div className="nav-island pointer-events-auto flex items-center gap-1 px-2 py-2 md:px-3">
+          <a
+            href="#hero"
+            onClick={(e) => go(e, '#hero')}
+            className="px-4 text-sm font-medium text-ink tracking-tight hover:opacity-70 transition-opacity duration-500 ease-spring"
+          >
+            Gaurav Mahale
+          </a>
+
+          <span className="hidden md:inline-block h-4 w-px bg-hairline mx-1" aria-hidden />
+
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const active = activeSection === link.href;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => go(e, link.href)}
+                  className={`relative rounded-full px-3 py-1.5 text-sm transition-all duration-500 ease-spring ${
+                    active ? 'text-ink' : 'text-ink-muted hover:text-ink'
+                  }`}
+                >
+                  {active && (
+                    <span className="absolute inset-0 -z-10 rounded-full bg-paper" aria-hidden />
+                  )}
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
+
+          <a
+            href="mailto:mahalegauravk@gmail.com"
+            className="hidden md:inline-flex ml-1 items-center gap-1 rounded-full bg-ink text-white pl-4 pr-1.5 py-1.5 text-xs font-medium transition-all duration-700 ease-spring hover:-translate-y-px"
+          >
+            Get in touch
+            <span className="ml-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/15">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M5 12h14M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </a>
+
+          {/* Mobile hamburger morph */}
+          <button
+            onClick={() => setIsOpen(v => !v)}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+            className="relative md:hidden ml-1 grid h-9 w-9 place-items-center rounded-full border border-hairline bg-white text-ink transition-colors duration-500 ease-spring"
+          >
+            <span className="relative block h-3 w-4">
+              <span
+                className={`absolute left-0 top-0 block h-px w-full bg-ink transition-all duration-500 ease-spring ${
+                  isOpen ? 'translate-y-[6px] rotate-45' : ''
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-1.5 block h-px w-full bg-ink transition-opacity duration-500 ease-spring ${
+                  isOpen ? 'opacity-0' : 'opacity-100'
+                }`}
+              />
+              <span
+                className={`absolute left-0 bottom-0 block h-px w-full bg-ink transition-all duration-500 ease-spring ${
+                  isOpen ? '-translate-y-[6px] -rotate-45' : ''
+                }`}
+              />
+            </span>
+          </button>
+        </div>
+      </nav>
+
+      {/* Full-screen mobile overlay */}
+      <div
+        className={`fixed inset-0 z-40 md:hidden bg-white/85 backdrop-blur-2xl transition-opacity duration-700 ease-spring ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex items-center gap-8">
+      >
+        <div className="flex h-full flex-col items-start justify-center px-8 gap-2">
+          {navLinks.map((link, i) => (
             <a
-              href="#hero"
-              onClick={(e) => scrollToSection(e, '#hero')}
-              className="font-bold text-xl text-light-text hover:text-accent transition-colors tracking-tight"
+              key={link.href}
+              href={link.href}
+              onClick={(e) => go(e, link.href)}
+              style={{ transitionDelay: isOpen ? `${120 + i * 60}ms` : '0ms' }}
+              className={`font-display text-5xl font-light text-ink transition-all duration-700 ease-spring ${
+                isOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-8 opacity-0 blur-md'
+              }`}
             >
-              Gaurav Mahale
+              {link.label}
             </a>
-
-            {/* Desktop Search Bar */}
-            <div className="hidden md:flex items-center relative group">
-              <Search className="absolute left-3 text-light-muted w-4 h-4 group-focus-within:text-accent transition-colors" />
-              <input
-                type="text"
-                placeholder="Filter projects by tech..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-light-surface/50 border border-black/10 rounded-full py-1.5 pl-9 pr-4 text-sm text-light-text placeholder:text-light-muted/50 focus:outline-none focus:border-accent-30 focus:bg-light-surface transition-all w-52 focus:w-72"
-              />
-            </div>
-          </div>
-
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className={`text-sm font-medium transition-colors relative group ${activeSection === link.href ? 'text-accent' : 'text-light-muted hover:text-accent'
-                  }`}
-              >
-                {link.label}
-                <span
-                  className={`absolute -bottom-1 left-0 h-0.5 transition-all ${activeSection === link.href
-                      ? 'w-full'
-                      : 'w-0 group-hover:w-full'
-                    }`}
-                  style={{ backgroundColor: 'var(--accent-color)' }}
-                />
-              </a>
-            ))}
-
-            <div className="h-4 w-[1px] bg-black/10 mx-2"></div>
-            <ThemePicker />
-          </div>
-
-          <div className="flex items-center gap-4 md:hidden">
-            <button
-              onClick={() => setShowSearch(!showSearch)}
-              className="p-2 text-light-muted hover:text-light-text"
-            >
-              <Search size={20} />
-            </button>
-            <ThemePicker />
-            <button
-              className="p-2 text-light-text hover:bg-black/5 rounded-lg transition-colors"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          ))}
+          <a
+            href="mailto:mahalegauravk@gmail.com"
+            style={{ transitionDelay: isOpen ? `${120 + navLinks.length * 60}ms` : '0ms' }}
+            className={`mt-8 text-sm text-ink-muted transition-all duration-700 ease-spring ${
+              isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+          >
+            mahalegauravk@gmail.com
+          </a>
         </div>
-
-        {/* Mobile Search Bar Expansion */}
-        {showSearch && (
-          <div className="md:hidden pb-4 animate-fade-in">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-light-muted w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Filter projects by tech..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                autoFocus
-                className="w-full bg-light-surface border border-black/10 rounded-lg py-2 pl-9 pr-4 text-sm text-light-text placeholder:text-light-muted/50 focus:outline-none focus:border-accent-30"
-              />
-            </div>
-          </div>
-        )}
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-light-surface border-t border-black/5 animate-fade-in absolute w-full shadow-2xl">
-          <div className="px-4 py-4 space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className={`block py-3 px-4 rounded-lg text-base font-medium transition-all ${activeSection === link.href
-                    ? 'text-accent bg-black/5'
-                    : 'text-light-muted hover:text-light-text hover:bg-black/5'
-                  }`}
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
-    </nav>
+    </>
   );
 }
