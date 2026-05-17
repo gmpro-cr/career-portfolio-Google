@@ -29,6 +29,10 @@ export interface Project {
   competitiveAnalysis?: string;
   frameworks?: string[];
   caseStudyAnalysis?: CaseStudyAnalysis;
+  technicalDetails?: {
+    architecture: string;
+    dataFlow: { step: string }[];
+  };
 }
 
 export interface UserSegment {
