@@ -197,7 +197,7 @@ function Hero() {
 
       {/* Portrait card — static, no scroll link */}
       <div
-        className="hidden sm:flex absolute right-8 md:right-16 lg:right-24 inset-y-0 items-center pointer-events-none"
+        className="hidden lg:flex absolute right-8 md:right-16 lg:right-24 inset-y-0 items-center pointer-events-none"
         aria-hidden
       >
         <motion.div
@@ -208,7 +208,7 @@ function Hero() {
           <div
             className="relative overflow-hidden"
             style={{
-              width: 'clamp(180px, 24vw, 340px)',
+              width: 'clamp(240px, 30vw, 440px)',
               aspectRatio: '3 / 4',
               borderRadius: '1.75rem',
               boxShadow: '0 0 0 1.5px rgba(255,255,255,0.2), 0 40px 100px rgba(0,0,0,0.75)',
@@ -541,7 +541,7 @@ function SelectedWork() {
           </h2>
         </Reveal>
 
-        <StaggerList base={0.05} step={0.06} className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <StaggerList base={0.05} step={0.06} className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-5 min-w-0">
           {PROJECTS.map((project, idx) => (
             <article
               key={idx}
