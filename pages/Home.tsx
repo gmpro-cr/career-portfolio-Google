@@ -53,19 +53,19 @@ function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
   return <span ref={ref} className="tabular">{count}{suffix}</span>;
 }
 
-/* ── Reveal: blur+fade+translate on scroll entry ─────────────── */
+/* ── Reveal: fade+translate on scroll entry (no blur — avoids repaint jank) */
 const springEase = [0.32, 0.72, 0, 1] as const;
 
 const Reveal = ({
-  children, delay = 0, className = '', as: Tag = 'div',
+  children, delay = 0, className = '',
 }: {
-  children: React.ReactNode; delay?: number; className?: string; as?: keyof JSX.IntrinsicElements;
+  children: React.ReactNode; delay?: number; className?: string;
 }) => (
   <motion.div
-    initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
-    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+    initial={{ opacity: 0, y: 22 }}
+    whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: '-8%' }}
-    transition={{ duration: 0.85, delay, ease: springEase }}
+    transition={{ duration: 0.7, delay, ease: springEase }}
     className={className}
   >
     {children}
@@ -75,11 +75,11 @@ const Reveal = ({
 /* ── Stagger container ────────────────────────────────────────── */
 const staggerContainer = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
 };
 const staggerItem = {
-  hidden: { opacity: 0, y: 24, filter: 'blur(6px)' },
-  show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.75, ease: springEase } },
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: springEase } },
 };
 
 /* ── Architecture flow diagram (SVG) ─────────────────────────── */
@@ -139,38 +139,47 @@ function Hero() {
         aria-hidden
       />
 
-      {/* Photo — right side, gradient mask */}
-      <motion.div
-        style={{ y: photoY }}
-        className="absolute inset-y-0 right-0 w-[55%] md:w-[48%] pointer-events-none"
+      {/* Photo — portrait card, right side */}
+      {/* Outer div handles vertical centering; inner motion.div handles parallax only */}
+      <div
+        className="absolute right-8 md:right-16 lg:right-24 inset-y-0 flex items-center pointer-events-none"
         aria-hidden
       >
-        <img
-          src="/profile.jpeg"
-          alt=""
-          className="h-full w-full object-cover object-top"
-          style={{
-            maskImage:
-              'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 20%, black 50%, black 80%, transparent 100%), ' +
-              'linear-gradient(to bottom, transparent 0%, black 12%, black 85%, transparent 100%)',
-            maskComposite: 'intersect',
-            WebkitMaskImage:
-              'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 20%, black 50%, black 80%, transparent 100%), ' +
-              'linear-gradient(to bottom, transparent 0%, black 12%, black 85%, transparent 100%)',
-            WebkitMaskComposite: 'source-in',
-            filter: 'grayscale(20%) brightness(0.88)',
-          }}
-        />
-        {/* Inner gradient over photo towards left */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(to right, #0C0B09 0%, rgba(12,11,9,0.7) 30%, rgba(12,11,9,0.1) 60%, transparent 100%)',
-          }}
-          aria-hidden
-        />
-      </motion.div>
+        <motion.div style={{ y: photoY }}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, delay: 0.2, ease: springEase }}
+          >
+            {/* Portrait frame with subtle ring border */}
+            <div
+              className="relative overflow-hidden"
+              style={{
+                width: 'clamp(200px, 26vw, 360px)',
+                aspectRatio: '3 / 4',
+                borderRadius: '1.75rem',
+                boxShadow: '0 0 0 1.5px rgba(255,255,255,0.2), 0 40px 100px rgba(0,0,0,0.75)',
+              }}
+            >
+              <img
+                src="/profile.jpeg"
+                alt="Gaurav Mahale"
+                className="h-full w-full object-cover object-top"
+                style={{ filter: 'brightness(0.95)' }}
+              />
+              {/* Subtle left-edge gradient fades portrait into dark bg */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'linear-gradient(to right, rgba(12,11,9,0.5) 0%, rgba(12,11,9,0.1) 35%, transparent 65%)',
+                }}
+                aria-hidden
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
 
       {/* Text content */}
       <motion.div
