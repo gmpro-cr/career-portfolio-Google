@@ -10,7 +10,6 @@ import {
   GithubLogo,
   LinkedinLogo,
   FileText,
-  MapPin,
   X,
 } from '@phosphor-icons/react';
 import { EXPERIENCES, PROJECTS, SKILL_DATA, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
@@ -290,33 +289,6 @@ function Hero() {
           </div>
         </div>
 
-        {/* Stats */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.75s forwards` }}>
-          <div className="mt-8 flex flex-wrap gap-x-10 gap-y-6">
-            {[
-              { value: 500, suffix: '+', label: 'Monthly Active Users' },
-              { value: 9, suffix: '+', label: 'Years in Finance & Credit' },
-              { value: 3, suffix: '', label: 'AI Products Shipped' },
-            ].map((s, i) => (
-              <div key={i}>
-                <p className="font-display font-light tabular" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: '#F5F0E8', lineHeight: 1 }}>
-                  <Counter to={s.value} suffix={s.suffix} />
-                </p>
-                <p className="mt-1 text-xs uppercase tracking-[0.2em]" style={{ color: 'rgba(245,240,232,0.4)' }}>
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Location */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.85s forwards` }}>
-          <div className="mt-4 flex items-center gap-2 text-xs" style={{ color: 'rgba(245,240,232,0.35)' }}>
-            <MapPin size={12} weight="light" />
-            <span>Pune, India · Open to remote &amp; hybrid</span>
-          </div>
-        </div>
       </div>
 
       {/* Scroll indicator */}
