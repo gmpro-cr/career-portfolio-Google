@@ -495,10 +495,21 @@ function SelectedWork() {
   const [openProject, setOpenProject] = useState<Project | null>(null);
   const handleOpen = useCallback((p: Project) => setOpenProject(p), []);
   const handleClose = useCallback(() => setOpenProject(null), []);
-  const [featured, ...rest] = PROJECTS;
+
+  /* Per-card dark accent backgrounds for projects without an image */
+  const accentBg = [
+    null, // AI Persona — uses project.image
+    'linear-gradient(145deg, #1A0D06 0%, #2E1609 55%, #1F1008 100%)', // AI Credit — espresso
+    'linear-gradient(145deg, #071422 0%, #10253D 55%, #0C1D30 100%)', // Job Discovery — slate
+  ];
+  const accentOrb = [
+    null,
+    'radial-gradient(ellipse 70% 90% at 88% 12%, rgba(185,90,25,0.30) 0%, transparent 65%)',
+    'radial-gradient(ellipse 70% 90% at 88% 12%, rgba(35,115,205,0.22) 0%, transparent 65%)',
+  ];
 
   return (
-    <section id="work" className="relative py-20 md:py-28 bg-paper">
+    <section id="work" className="relative py-20 md:py-32 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <Reveal><Eyebrow>Selected Work</Eyebrow></Reveal>
         <Reveal delay={0.06}>
@@ -508,121 +519,102 @@ function SelectedWork() {
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-[2fr_1fr] lg:items-start gap-5 min-w-0">
-          {/* Featured card — left column */}
-          <Reveal delay={0.08} className="flex flex-col">
-            <article className="bezel flex flex-col">
-              <div
-                className="bezel-core flex flex-col overflow-hidden"
-                style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
+        {/* Equal 3-column grid — grid stretch makes all cards same height */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
+          {PROJECTS.map((project, idx) => (
+            <Reveal key={idx} delay={0.06 + idx * 0.08} className="flex flex-col">
+              <article
+                className="bezel flex flex-col h-full group cursor-pointer"
+                onClick={() => handleOpen(project)}
               >
-                {featured.image && (
-                  <div className="relative flex-shrink-0" style={{ aspectRatio: '16 / 7' }}>
-                    <img
-                      src={featured.image}
-                      alt={featured.title}
-                      className="w-full h-full object-cover"
-                      style={{ filter: 'brightness(0.88)' }}
-                    />
+                <div
+                  className="bezel-core flex flex-col h-full overflow-hidden"
+                  style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
+                >
+                  {/* Top accent — fixed 180px, consistent across all cards */}
+                  <div className="relative flex-shrink-0 overflow-hidden" style={{ height: '180px' }}>
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.05]"
+                        style={{ filter: 'brightness(0.86)' }}
+                      />
+                    ) : (
+                      <>
+                        <div className="absolute inset-0" style={{ background: accentBg[idx]! }} />
+                        <div className="absolute inset-0" style={{ background: accentOrb[idx]! }} />
+                        <span
+                          className="absolute bottom-4 left-6 font-display font-light leading-none select-none pointer-events-none"
+                          style={{ fontSize: '4.5rem', color: 'rgba(255,255,255,0.06)' }}
+                          aria-hidden
+                        >
+                          0{idx + 1}
+                        </span>
+                      </>
+                    )}
+                    {/* Fade-to-card-background gradient */}
                     <div
                       className="absolute inset-0"
-                      style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(253,251,247,0.94) 100%)' }}
+                      style={{ background: 'linear-gradient(to bottom, transparent 45%, rgba(253,251,247,0.88) 100%)' }}
                       aria-hidden
                     />
-                    <div className="absolute top-4 right-4">
+                    {/* Metric badge */}
+                    <div className="absolute top-4 right-4 z-10">
                       <span
                         className="font-display italic text-sm font-medium border border-hairline text-ink px-3 py-1.5 rounded-full"
-                        style={{ background: 'rgba(253,251,247,0.88)' }}
+                        style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)' }}
                       >
-                        {featured.metrics}
+                        {project.metrics}
                       </span>
                     </div>
                   </div>
-                )}
-                <div className="p-6 md:p-8 flex flex-col">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Eyebrow>{featured.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
-                    <span className="font-display italic text-sm text-ink-muted">{featured.date}</span>
-                  </div>
-                  <h3 className="font-display font-light text-3xl md:text-4xl text-ink leading-tight tracking-tight">
-                    {featured.title}
-                  </h3>
-                  <p className="mt-4 text-base text-ink/70 leading-relaxed font-normal">{featured.description}</p>
-                  <div className="mt-6">
-                    {featured.outcomes && (
-                      <ul className="space-y-2.5">
-                        {featured.outcomes.slice(0, 2).map((o, i) => (
-                          <li key={i} className="flex gap-3 text-sm text-ink/85">
-                            <SealCheck size={14} weight="light" className="text-ink mt-0.5 flex-shrink-0" />
-                            <span>{o}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <div className="mt-5 flex flex-wrap gap-1.5">
-                      {featured.tech.slice(0, 7).map((t, i) => (
-                        <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-1">{t}</span>
+
+                  {/* Card body */}
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
+                      <span className="font-display italic text-xs text-ink-muted whitespace-nowrap">{project.date}</span>
+                    </div>
+                    <h3 className="font-display font-light text-[1.55rem] md:text-[1.65rem] text-ink leading-tight tracking-tight">
+                      {project.title}
+                    </h3>
+                    <p
+                      className="mt-3 text-sm text-ink/65 leading-relaxed font-normal"
+                      style={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical' as const,
+                        overflow: 'hidden',
+                      } as React.CSSProperties}
+                    >
+                      {project.description}
+                    </p>
+                    {/* Spacer — pushes tech pills + CTA to card bottom */}
+                    <div className="flex-1 min-h-[1rem]" />
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tech.slice(0, 4).map((t, i) => (
+                        <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-0.5">
+                          {t}
+                        </span>
                       ))}
-                      {featured.tech.length > 7 && (
-                        <span className="text-[11px] text-ink-muted px-2.5 py-1">+{featured.tech.length - 7} more</span>
+                      {project.tech.length > 4 && (
+                        <span className="text-[11px] text-ink-muted px-1.5 py-0.5">+{project.tech.length - 4}</span>
                       )}
                     </div>
-                    <div className="mt-6 pt-5 border-t border-hairline">
-                      <button
-                        onClick={() => handleOpen(featured)}
-                        className="group w-full flex items-center justify-between text-sm font-medium text-ink hover:opacity-70 transition-opacity duration-200"
-                      >
+                    <div className="mt-5 pt-4 border-t border-hairline">
+                      <div className="flex items-center justify-between text-sm font-medium text-ink">
                         <span>View case study</span>
-                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white transition-transform duration-200 group-hover:translate-x-0.5">
+                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px">
                           <ArrowRight size={13} weight="light" />
                         </span>
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          </Reveal>
-
-          {/* Right column — two stacked cards */}
-          <div className="flex flex-col gap-5">
-            {rest.map((project, idx) => (
-              <Reveal key={idx + 1} delay={0.12 + idx * 0.07} className="flex flex-col">
-                <article className="bezel flex flex-col">
-                  <div className="bezel-core p-6 md:p-7 flex flex-col">
-                    <div className="flex items-start justify-between gap-3 mb-5">
-                      <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
-                      <span className="font-display italic text-sm text-ink-muted whitespace-nowrap">{project.metrics}</span>
-                    </div>
-                    <h3 className="font-display font-light text-2xl md:text-[1.6rem] text-ink leading-tight tracking-tight">
-                      {project.title}
-                    </h3>
-                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-ink-muted/70">{project.date}</p>
-                    <p className="mt-4 text-sm text-ink/70 leading-relaxed font-normal">{project.description}</p>
-                    <div className="mt-5 flex flex-wrap gap-1.5">
-                      {project.tech.slice(0, 5).map((t, i) => (
-                        <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-1">{t}</span>
-                      ))}
-                      {project.tech.length > 5 && (
-                        <span className="text-[11px] text-ink-muted px-2.5 py-1">+{project.tech.length - 5} more</span>
-                      )}
-                    </div>
-                    <div className="mt-6 pt-5 border-t border-hairline">
-                      <button
-                        onClick={() => handleOpen(project)}
-                        className="group w-full flex items-center justify-between text-sm font-medium text-ink hover:opacity-70 transition-opacity duration-200"
-                      >
-                        <span>View case study</span>
-                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white transition-transform duration-200 group-hover:translate-x-0.5">
-                          <ArrowRight size={13} weight="light" />
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
 
