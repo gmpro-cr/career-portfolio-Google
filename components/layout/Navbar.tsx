@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const navLinks = [
   { href: '#work', label: 'Work' },
@@ -8,12 +8,18 @@ const navLinks = [
   { href: '#contact', label: 'Contact' },
 ];
 
+const EASE = 'cubic-bezier(0.32, 0.72, 0, 1)';
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [navVisible, setNavVisible] = useState(true);
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pastHeroRef = useRef(false);
 
   useEffect(() => {
     let raf = 0;
+
     const update = () => {
       const sections = navLinks.map(l => l.href.replace('#', ''));
       let current = '';
@@ -25,24 +31,42 @@ export default function Navbar() {
         }
       }
       setActiveSection(current);
+
+      // Past-hero check: if scrolled more than 80% of viewport height
+      const pastHero = window.scrollY > window.innerHeight * 0.8;
+      pastHeroRef.current = pastHero;
+
+      if (!pastHero) {
+        // Always visible in hero
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+        setNavVisible(true);
+      } else {
+        // Show on every scroll event, then hide after 1.5 s of inactivity
+        setNavVisible(true);
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+        idleTimer.current = setTimeout(() => {
+          if (pastHeroRef.current) setNavVisible(false);
+        }, 1500);
+      }
     };
+
     const onScroll = () => {
       if (raf) cancelAnimationFrame(raf);
       raf = requestAnimationFrame(update);
     };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     update();
     return () => {
       window.removeEventListener('scroll', onScroll);
       if (raf) cancelAnimationFrame(raf);
+      if (idleTimer.current) clearTimeout(idleTimer.current);
     };
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
   const go = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -55,7 +79,15 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none">
-        <div className="nav-island pointer-events-auto flex items-center gap-1 px-2 py-2 md:px-3">
+        <div
+          className="nav-island pointer-events-auto flex items-center gap-1 px-2 py-2 md:px-3"
+          style={{
+            opacity: navVisible ? 1 : 0,
+            transform: navVisible ? 'translateY(0) scale(1)' : 'translateY(-12px) scale(0.97)',
+            transition: `opacity 0.45s ${EASE}, transform 0.45s ${EASE}`,
+            pointerEvents: navVisible ? 'auto' : 'none',
+          }}
+        >
           <a
             href="#hero"
             onClick={(e) => go(e, '#hero')}
