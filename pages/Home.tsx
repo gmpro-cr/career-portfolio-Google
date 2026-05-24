@@ -145,7 +145,7 @@ function FlowDiagram({ steps }: { steps: { step: string }[] }) {
             <span className="flex-shrink-0 w-6 h-6 rounded-full bg-ink text-white text-[9px] font-semibold flex items-center justify-center tabular mt-0.5">
               {String(i + 1).padStart(2, '0')}
             </span>
-            <span className="text-sm text-ink/80 leading-relaxed">{s.step}</span>
+            <span className="text-sm text-ink/80 leading-relaxed text-justify hyphens-auto">{s.step}</span>
           </div>
           {i < steps.length - 1 && (
             <div
@@ -314,7 +314,7 @@ function CaseStudyOverview({ project }: { project: Project }) {
             {project.approach.map((item, i) => (
               <li key={i} className="flex gap-3 text-sm text-ink/85 leading-relaxed">
                 <span className="text-ink-muted tabular flex-shrink-0 pt-px font-medium">{String(i + 1).padStart(2, '0')}</span>
-                <span>{item}</span>
+                <span className="text-justify hyphens-auto">{item}</span>
               </li>
             ))}
           </ul>
@@ -339,7 +339,7 @@ function CaseStudyOverview({ project }: { project: Project }) {
             {project.outcomes.map((item, i) => (
               <li key={i} className="flex gap-3 text-sm text-ink/90">
                 <SealCheck size={15} weight="light" className="text-ink mt-0.5 flex-shrink-0" />
-                <span>{item}</span>
+                <span className="text-justify hyphens-auto">{item}</span>
               </li>
             ))}
           </ul>
@@ -677,7 +677,7 @@ function Trajectory() {
                     {exp.description.map((desc, idx) => (
                       <li key={idx} className="flex gap-3 text-base text-ink/75 font-normal leading-relaxed">
                         <span className="flex-shrink-0 mt-2.5 block w-4 h-px bg-ink-muted/50" aria-hidden />
-                        <span>{desc}</span>
+                        <span className="text-justify hyphens-auto">{desc}</span>
                       </li>
                     ))}
                   </ul>
