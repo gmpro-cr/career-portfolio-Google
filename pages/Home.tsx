@@ -224,7 +224,7 @@ function Hero() {
       </div>
 
       {/* Text — Framer Motion entrance only, no scroll link */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-28 pb-24">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 pt-28 pb-24">
 
         {/* Eyebrow */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.1s forwards` }}>
@@ -715,7 +715,7 @@ function Trajectory() {
         </Reveal>
 
         <div className="mt-20 relative">
-          <span className="hidden md:block absolute left-[26%] top-0 bottom-0 w-px bg-ink/15" aria-hidden />
+          <span className="hidden md:block absolute left-[24%] top-0 bottom-0 w-px bg-ink/15" aria-hidden />
           <StaggerList base={0} step={0.08} className="space-y-14 md:space-y-20">
             {EXPERIENCES.map((exp, i) => (
               <div key={i} className="grid md:grid-cols-12 gap-6 md:gap-10 relative">
@@ -725,7 +725,7 @@ function Trajectory() {
                     {exp.type}
                   </span>
                 </div>
-                <span className="hidden md:block absolute left-[26%] top-2 -translate-x-1/2 h-2.5 w-2.5 rounded-full bg-ink ring-4 ring-paper" aria-hidden />
+                <span className="hidden md:block absolute left-[24%] top-2 -translate-x-1/2 h-2.5 w-2.5 rounded-full bg-ink ring-4 ring-paper" aria-hidden />
                 <div className="md:col-span-9 md:pl-8">
                   <h3 className="font-display font-light text-2xl md:text-3xl text-ink leading-tight tracking-tight">{exp.role}</h3>
                   <p className="mt-1 text-sm font-medium text-ink-muted">{exp.company}</p>
