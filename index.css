@@ -122,7 +122,7 @@
 
   /* --- Floating fluid-island navbar pill --- */
   .nav-island {
-    @apply mx-auto mt-4 md:mt-6 max-w-fit rounded-full bg-white/80 backdrop-blur-xl border border-hairline shadow-lifted-sm transition-all duration-700 ease-spring;
+    @apply mx-auto mt-4 md:mt-6 max-w-fit rounded-full bg-white/55 backdrop-blur-xl border border-hairline shadow-lifted-sm transition-all duration-700 ease-spring;
   }
 
   /* --- Section rule (eyebrow underline) --- */
