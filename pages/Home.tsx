@@ -212,11 +212,6 @@ function Hero() {
               className="h-full w-full object-cover object-top scale-[1.12] origin-top"
               style={{ filter: 'brightness(1.02) contrast(1.08) saturate(1.06)' }}
             />
-            <div
-              className="absolute inset-0"
-              style={{ background: 'linear-gradient(to right, rgba(253,251,247,0.7) 0%, rgba(253,251,247,0.2) 35%, transparent 65%)' }}
-              aria-hidden
-            />
           </div>
         </motion.div>
       </div>
