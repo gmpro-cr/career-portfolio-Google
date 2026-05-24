@@ -223,7 +223,7 @@ function Hero() {
       </div>
 
       {/* Text — Framer Motion entrance only, no scroll link */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-24 pb-24">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-24">
 
         {/* Eyebrow */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.1s forwards` }}>
