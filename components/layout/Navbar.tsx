@@ -46,7 +46,7 @@ export default function Navbar() {
         if (idleTimer.current) clearTimeout(idleTimer.current);
         idleTimer.current = setTimeout(() => {
           if (pastHeroRef.current) setNavVisible(false);
-        }, 1500);
+        }, 200);
       }
     };
 
