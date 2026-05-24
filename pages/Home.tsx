@@ -194,8 +194,8 @@ function Hero() {
         aria-hidden
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.96, y: 80 }}
+          animate={{ opacity: 1, scale: 1, y: 60 }}
           transition={{ duration: 1.0, delay: 0.2, ease: springEase }}
         >
           <div
@@ -225,11 +225,6 @@ function Hero() {
       {/* Text — Framer Motion entrance only, no scroll link */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-24">
 
-        {/* Eyebrow */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.1s forwards` }}>
-          <Eyebrow light>Open to AI PM roles · Pune, India</Eyebrow>
-        </div>
-
         {/* Name — word slide */}
         <h1
           className="mt-8 font-display font-light leading-[0.92] tracking-[-0.03em]"
@@ -252,7 +247,7 @@ function Hero() {
         {/* Summary */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.55s forwards` }}>
           <p
-            className="mt-8 max-w-md text-base md:text-lg font-normal leading-relaxed"
+            className="mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed"
             style={{ color: 'rgba(245,240,232,0.65)' }}
           >
             AI Product Builder and Finance Domain Expert with 9+ years in banking. Independently designed,
