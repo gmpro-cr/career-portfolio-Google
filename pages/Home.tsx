@@ -224,7 +224,7 @@ function Hero() {
       </div>
 
       {/* Text — Framer Motion entrance only, no scroll link */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 pt-28 pb-24">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-24 pb-24">
 
         {/* Eyebrow */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.1s forwards` }}>
@@ -292,7 +292,7 @@ function Hero() {
 
         {/* Stats */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.75s forwards` }}>
-          <div className="mt-14 flex flex-wrap gap-x-10 gap-y-6">
+          <div className="mt-8 flex flex-wrap gap-x-10 gap-y-6">
             {[
               { value: 500, suffix: '+', label: 'Monthly Active Users' },
               { value: 9, suffix: '+', label: 'Years in Finance & Credit' },
@@ -312,7 +312,7 @@ function Hero() {
 
         {/* Location */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.85s forwards` }}>
-          <div className="mt-8 flex items-center gap-2 text-xs" style={{ color: 'rgba(245,240,232,0.35)' }}>
+          <div className="mt-4 flex items-center gap-2 text-xs" style={{ color: 'rgba(245,240,232,0.35)' }}>
             <MapPin size={12} weight="light" />
             <span>Pune, India · Open to remote &amp; hybrid</span>
           </div>
