@@ -523,6 +523,7 @@ function SelectedWork() {
   const [openProject, setOpenProject] = useState<Project | null>(null);
   const handleOpen = useCallback((p: Project) => setOpenProject(p), []);
   const handleClose = useCallback(() => setOpenProject(null), []);
+  const [featured, ...rest] = PROJECTS;
 
   return (
     <section id="work" className="relative py-20 md:py-28 bg-paper">
@@ -535,49 +536,50 @@ function SelectedWork() {
           </h2>
         </Reveal>
 
-        <StaggerList base={0.05} step={0.06} className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-5 min-w-0">
-          {PROJECTS.map((project, idx) =>
-            idx === 0 ? (
-              <article key={idx} className="bezel flex flex-col lg:col-span-2 lg:row-span-2">
-                <div
-                  className="bezel-core flex flex-col h-full overflow-hidden"
-                  style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
-                >
-                  {project.image && (
-                    <div className="relative flex-shrink-0" style={{ aspectRatio: '16 / 7' }}>
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                        style={{ filter: 'brightness(0.88)' }}
-                      />
-                      <div
-                        className="absolute inset-0"
-                        style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(253,251,247,0.94) 100%)' }}
-                        aria-hidden
-                      />
-                      <div className="absolute top-4 right-4">
-                        <span
-                          className="font-display italic text-sm font-medium border border-hairline text-ink px-3 py-1.5 rounded-full"
-                          style={{ background: 'rgba(253,251,247,0.88)' }}
-                        >
-                          {project.metrics}
-                        </span>
-                      </div>
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-5 min-w-0">
+          {/* Featured card — left column, stretches to match right column height */}
+          <Reveal delay={0.08} className="flex flex-col">
+            <article className="bezel flex flex-col h-full">
+              <div
+                className="bezel-core flex flex-col h-full overflow-hidden"
+                style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
+              >
+                {featured.image && (
+                  <div className="relative flex-shrink-0" style={{ aspectRatio: '16 / 7' }}>
+                    <img
+                      src={featured.image}
+                      alt={featured.title}
+                      className="w-full h-full object-cover"
+                      style={{ filter: 'brightness(0.88)' }}
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(253,251,247,0.94) 100%)' }}
+                      aria-hidden
+                    />
+                    <div className="absolute top-4 right-4">
+                      <span
+                        className="font-display italic text-sm font-medium border border-hairline text-ink px-3 py-1.5 rounded-full"
+                        style={{ background: 'rgba(253,251,247,0.88)' }}
+                      >
+                        {featured.metrics}
+                      </span>
                     </div>
-                  )}
-                  <div className="p-6 md:p-8 flex flex-col flex-1">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
-                      <span className="font-display italic text-sm text-ink-muted">{project.date}</span>
-                    </div>
-                    <h3 className="font-display font-light text-3xl md:text-4xl text-ink leading-tight tracking-tight">
-                      {project.title}
-                    </h3>
-                    <p className="mt-4 text-base text-ink/70 leading-relaxed font-normal flex-1">{project.description}</p>
-                    {project.outcomes && (
+                  </div>
+                )}
+                <div className="p-6 md:p-8 flex flex-col flex-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Eyebrow>{featured.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
+                    <span className="font-display italic text-sm text-ink-muted">{featured.date}</span>
+                  </div>
+                  <h3 className="font-display font-light text-3xl md:text-4xl text-ink leading-tight tracking-tight">
+                    {featured.title}
+                  </h3>
+                  <p className="mt-4 text-base text-ink/70 leading-relaxed font-normal">{featured.description}</p>
+                  <div className="mt-auto">
+                    {featured.outcomes && (
                       <ul className="mt-5 space-y-2.5">
-                        {project.outcomes.slice(0, 2).map((o, i) => (
+                        {featured.outcomes.slice(0, 2).map((o, i) => (
                           <li key={i} className="flex gap-3 text-sm text-ink/85">
                             <SealCheck size={14} weight="light" className="text-ink mt-0.5 flex-shrink-0" />
                             <span>{o}</span>
@@ -586,11 +588,51 @@ function SelectedWork() {
                       </ul>
                     )}
                     <div className="mt-5 flex flex-wrap gap-1.5">
-                      {project.tech.slice(0, 7).map((t, i) => (
+                      {featured.tech.slice(0, 7).map((t, i) => (
                         <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-1">{t}</span>
                       ))}
-                      {project.tech.length > 7 && (
-                        <span className="text-[11px] text-ink-muted px-2.5 py-1">+{project.tech.length - 7} more</span>
+                      {featured.tech.length > 7 && (
+                        <span className="text-[11px] text-ink-muted px-2.5 py-1">+{featured.tech.length - 7} more</span>
+                      )}
+                    </div>
+                    <div className="mt-6 pt-5 border-t border-hairline">
+                      <button
+                        onClick={() => handleOpen(featured)}
+                        className="group w-full flex items-center justify-between text-sm font-medium text-ink hover:opacity-70 transition-opacity duration-200"
+                      >
+                        <span>View case study</span>
+                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white transition-transform duration-200 group-hover:translate-x-0.5">
+                          <ArrowRight size={13} weight="light" />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+
+          {/* Right column — two stacked cards */}
+          <div className="flex flex-col gap-5">
+            {rest.map((project, idx) => (
+              <Reveal key={idx + 1} delay={0.12 + idx * 0.07} className="flex flex-col flex-1">
+                <article className="bezel flex flex-col flex-1">
+                  <div className="bezel-core p-6 md:p-7 flex flex-col h-full">
+                    <div className="flex items-start justify-between gap-3 mb-5">
+                      <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
+                      <span className="font-display italic text-sm text-ink-muted whitespace-nowrap">{project.metrics}</span>
+                    </div>
+                    <h3 className="font-display font-light text-2xl md:text-[1.6rem] text-ink leading-tight tracking-tight">
+                      {project.title}
+                    </h3>
+                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-ink-muted/70">{project.date}</p>
+                    <p className="mt-4 text-sm text-ink/70 leading-relaxed font-normal flex-1">{project.description}</p>
+                    <div className="mt-5 flex flex-wrap gap-1.5">
+                      {project.tech.slice(0, 5).map((t, i) => (
+                        <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-1">{t}</span>
+                      ))}
+                      {project.tech.length > 5 && (
+                        <span className="text-[11px] text-ink-muted px-2.5 py-1">+{project.tech.length - 5} more</span>
                       )}
                     </div>
                     <div className="mt-6 pt-5 border-t border-hairline">
@@ -605,44 +647,11 @@ function SelectedWork() {
                       </button>
                     </div>
                   </div>
-                </div>
-              </article>
-            ) : (
-              <article key={idx} className="bezel flex flex-col">
-                <div className="bezel-core p-6 md:p-7 flex flex-col h-full">
-                  <div className="flex items-start justify-between gap-3 mb-5">
-                    <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
-                    <span className="font-display italic text-sm text-ink-muted whitespace-nowrap">{project.metrics}</span>
-                  </div>
-                  <h3 className="font-display font-light text-2xl md:text-[1.6rem] text-ink leading-tight tracking-tight">
-                    {project.title}
-                  </h3>
-                  <p className="mt-1 text-xs uppercase tracking-[0.18em] text-ink-muted/70">{project.date}</p>
-                  <p className="mt-4 text-sm text-ink/70 leading-relaxed font-normal flex-1">{project.description}</p>
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {project.tech.slice(0, 5).map((t, i) => (
-                      <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-1">{t}</span>
-                    ))}
-                    {project.tech.length > 5 && (
-                      <span className="text-[11px] text-ink-muted px-2.5 py-1">+{project.tech.length - 5} more</span>
-                    )}
-                  </div>
-                  <div className="mt-6 pt-5 border-t border-hairline">
-                    <button
-                      onClick={() => handleOpen(project)}
-                      className="group w-full flex items-center justify-between text-sm font-medium text-ink hover:opacity-70 transition-opacity duration-200"
-                    >
-                      <span>View case study</span>
-                      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white transition-transform duration-200 group-hover:translate-x-0.5">
-                        <ArrowRight size={13} weight="light" />
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </article>
-            )
-          )}
-        </StaggerList>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
 
       <CaseStudyModal project={openProject} onClose={handleClose} />
@@ -801,7 +810,7 @@ function Toolkit() {
         <div className="mt-20">
           <p
             className="text-[10px] uppercase tracking-[0.2em] mb-8"
-            style={{ color: 'rgba(245,240,232,0.3)' }}
+            style={{ color: 'rgba(245,240,232,0.5)' }}
           >
             Proficiency · scored out of 100
           </p>
