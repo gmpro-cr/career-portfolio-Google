@@ -179,12 +179,11 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] flex items-center overflow-hidden"
-      style={{ background: '#0C0B09' }}
+      className="relative min-h-[100dvh] flex items-center overflow-hidden bg-paper"
     >
       <div
         className="pointer-events-none absolute inset-0"
-        style={{ background: 'radial-gradient(ellipse 80% 70% at 65% 50%, rgba(255,248,235,0.04) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(ellipse 80% 70% at 65% 50%, rgba(200,170,120,0.06) 0%, transparent 70%)' }}
         aria-hidden
       />
 
@@ -204,7 +203,7 @@ function Hero() {
               width: 'clamp(240px, 30vw, 440px)',
               aspectRatio: '3 / 4',
               borderRadius: '1.75rem',
-              boxShadow: '0 0 0 1.5px rgba(255,255,255,0.2), 0 40px 100px rgba(0,0,0,0.75)',
+              boxShadow: '0 0 0 1.5px rgba(26,20,16,0.08), 0 32px 80px rgba(26,20,16,0.12)',
             }}
           >
             <img
@@ -215,7 +214,7 @@ function Hero() {
             />
             <div
               className="absolute inset-0"
-              style={{ background: 'linear-gradient(to right, rgba(12,11,9,0.5) 0%, rgba(12,11,9,0.1) 35%, transparent 65%)' }}
+              style={{ background: 'linear-gradient(to right, rgba(253,251,247,0.7) 0%, rgba(253,251,247,0.2) 35%, transparent 65%)' }}
               aria-hidden
             />
           </div>
@@ -228,7 +227,7 @@ function Hero() {
         {/* Name — word slide */}
         <h1
           className="mt-8 font-display font-light leading-[0.92] tracking-[-0.03em]"
-          style={{ fontSize: 'clamp(3.5rem, 10vw, 9rem)', color: '#F5F0E8' }}
+          style={{ fontSize: 'clamp(3.5rem, 10vw, 9rem)', color: '#1A1410' }}
         >
           {words.map((word, wi) => (
             <motion.span key={wi} className="block overflow-hidden">
@@ -248,7 +247,7 @@ function Hero() {
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.55s forwards` }}>
           <p
             className="mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed text-justify hyphens-auto"
-            style={{ color: 'rgba(245,240,232,0.65)' }}
+            style={{ color: 'rgba(26,20,16,0.6)' }}
           >
             AI Product Builder and Finance Domain Expert with 9+ years in banking. Independently designed,
             built and shipped 3 LLM-based platforms. Experienced across the full product lifecycle: discovery,
@@ -262,10 +261,10 @@ function Hero() {
             <a
               href="#work"
               className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium transition-all duration-500"
-              style={{ background: '#F5F0E8', color: '#0C0B09' }}
+              style={{ background: '#1A1410', color: '#FDFBF7' }}
             >
               View my work
-              <span className="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-px">
+              <span className="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-px">
                 <ArrowDown size={14} />
               </span>
             </a>
@@ -273,11 +272,11 @@ function Hero() {
               href="/Gaurav_Mahale_Resume.pdf"
               download
               className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium border transition-all duration-500"
-              style={{ borderColor: 'rgba(245,240,232,0.2)', color: 'rgba(245,240,232,0.75)', background: 'transparent' }}
+              style={{ borderColor: 'rgba(26,20,16,0.18)', color: 'rgba(26,20,16,0.7)', background: 'transparent' }}
             >
               Download CV
               <span className="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-px"
-                style={{ background: 'rgba(245,240,232,0.1)' }}>
+                style={{ background: 'rgba(26,20,16,0.06)' }}>
                 <FileText size={14} />
               </span>
             </a>
@@ -290,7 +289,7 @@ function Hero() {
       <div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
         style={{
-          color: 'rgba(245,240,232,0.25)',
+          color: 'rgba(26,20,16,0.25)',
           opacity: 0,
           animation: `fadeIn 1s ease 1.4s forwards`,
         }}
@@ -494,13 +493,13 @@ function SelectedWork() {
   /* Per-card dark accent backgrounds for projects without an image */
   const accentBg = [
     null, // AI Persona — uses project.image
-    'linear-gradient(145deg, #1A0D06 0%, #2E1609 55%, #1F1008 100%)', // AI Credit — espresso
-    'linear-gradient(145deg, #071422 0%, #10253D 55%, #0C1D30 100%)', // Job Discovery — slate
+    'linear-gradient(145deg, #F7EEE3 0%, #F0E3D0 55%, #F4E9D8 100%)', // AI Credit — warm sand
+    'linear-gradient(145deg, #EBF0F7 0%, #DCE8F5 55%, #E4EDF7 100%)', // Job Discovery — cool slate
   ];
   const accentOrb = [
     null,
-    'radial-gradient(ellipse 70% 90% at 88% 12%, rgba(185,90,25,0.30) 0%, transparent 65%)',
-    'radial-gradient(ellipse 70% 90% at 88% 12%, rgba(35,115,205,0.22) 0%, transparent 65%)',
+    'radial-gradient(ellipse 70% 90% at 88% 12%, rgba(185,90,25,0.14) 0%, transparent 65%)',
+    'radial-gradient(ellipse 70% 90% at 88% 12%, rgba(35,115,205,0.12) 0%, transparent 65%)',
   ];
 
   return (
@@ -540,7 +539,7 @@ function SelectedWork() {
                         <div className="absolute inset-0" style={{ background: accentOrb[idx]! }} />
                         <span
                           className="absolute bottom-4 left-6 font-display font-light leading-none select-none pointer-events-none"
-                          style={{ fontSize: '4.5rem', color: 'rgba(255,255,255,0.06)' }}
+                          style={{ fontSize: '4.5rem', color: 'rgba(26,20,16,0.07)' }}
                           aria-hidden
                         >
                           0{idx + 1}
@@ -622,18 +621,12 @@ function SelectedWork() {
    ═══════════════════════════════════════════════════════════════ */
 function Thesis() {
   return (
-    <section id="thesis" className="relative py-20 md:py-28 overflow-hidden" style={{ background: '#1A1410' }}>
-      <div className="grain" aria-hidden />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{ background: 'radial-gradient(ellipse 60% 60% at 20% 50%, rgba(255,248,235,0.04) 0%, transparent 70%)' }}
-        aria-hidden
-      />
+    <section id="thesis" className="relative py-20 md:py-28 overflow-hidden bg-[#F0EBE3]">
       <div className="relative max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.08}>
           <h2
-            className="mt-10 font-display font-light leading-[1.05] tracking-tight max-w-4xl"
-            style={{ fontSize: 'clamp(1.75rem, 4vw, 3.25rem)', color: '#F5F0E8' }}
+            className="mt-10 font-display font-light leading-[1.05] tracking-tight max-w-4xl text-ink"
+            style={{ fontSize: 'clamp(1.75rem, 4vw, 3.25rem)' }}
           >
             "Pure domain depth, combined with the ability to actually build and ship
             working AI products, creates the highest-leverage solutions possible."
@@ -641,11 +634,11 @@ function Thesis() {
         </Reveal>
         <Reveal delay={0.15}>
           <div className="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-6">
-            <p className="leading-relaxed font-normal text-base" style={{ color: 'rgba(245,240,232,0.6)' }}>
+            <p className="leading-relaxed font-normal text-base" style={{ color: 'rgba(26,20,16,0.6)' }}>
               I build platforms on Next.js, Python, Supabase and frontier LLMs (Claude, Gemini, Groq).
               My technical edge is paired with rigorous product validation, prompt architectures, and structured evaluations.
             </p>
-            <p className="leading-relaxed font-normal text-base" style={{ color: 'rgba(245,240,232,0.6)' }}>
+            <p className="leading-relaxed font-normal text-base" style={{ color: 'rgba(26,20,16,0.6)' }}>
               Previously, I managed high-stakes portfolios exceeding ₹9,000 Cr and authored credit proposals equivalent
               to enterprise PRDs. I don&rsquo;t just write requirements — I validate ideas, architect prompts, and ship the MVP.
             </p>
@@ -749,47 +742,43 @@ const TOOLKIT_GROUPS = [
 
 function Toolkit() {
   return (
-    <section id="toolkit" className="relative py-20 md:py-28" style={{ background: '#0C0B09' }}>
-      <div className="grain" aria-hidden />
+    <section id="toolkit" className="relative py-20 md:py-28 bg-paper">
       <div className="relative max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
           <h2
-            className="mt-6 font-display font-light leading-[0.95] tracking-tight max-w-3xl"
-            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', color: '#F5F0E8' }}
+            className="mt-6 font-display font-light leading-[0.95] tracking-tight max-w-3xl text-ink"
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
           >
             How the work<br />
-            <em className="italic font-normal" style={{ color: 'rgba(245,240,232,0.5)' }}>actually gets done.</em>
+            <em className="italic font-normal text-ink-muted">actually gets done.</em>
           </h2>
         </Reveal>
 
         <div className="mt-20">
-          <p
-            className="text-[10px] uppercase tracking-[0.2em] mb-8"
-            style={{ color: 'rgba(245,240,232,0.5)' }}
-          >
+          <p className="text-[10px] uppercase tracking-[0.2em] mb-8 text-ink-muted">
             Proficiency · scored out of 100
           </p>
           <StaggerList base={0} step={0.05} className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-y-10">
             {SKILL_DATA.map((s) => (
               <div key={s.subject}>
-                <p className="font-display font-light tabular" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: '#F5F0E8', lineHeight: 1 }}>
+                <p className="font-display font-light tabular" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: '#1A1410', lineHeight: 1 }}>
                   <Counter to={s.A} />
                 </p>
-                <p className="text-sm mt-2 font-normal" style={{ color: 'rgba(245,240,232,0.65)' }}>{s.subject}</p>
+                <p className="text-sm mt-2 font-normal text-ink-muted">{s.subject}</p>
               </div>
             ))}
           </StaggerList>
         </div>
 
-        <StaggerList base={0} step={0.06} className="mt-20 grid md:grid-cols-3 gap-x-10 gap-y-12 border-t pt-16" style={{ borderColor: 'rgba(245,240,232,0.08)' } as React.CSSProperties}>
+        <StaggerList base={0} step={0.06} className="mt-20 grid md:grid-cols-3 gap-x-10 gap-y-12 border-t border-hairline pt-16">
           {TOOLKIT_GROUPS.map((group) => (
             <div key={group.label}>
-              <p className="text-[10px] uppercase tracking-[0.22em] font-medium mb-6" style={{ color: 'rgba(245,240,232,0.4)' }}>
+              <p className="text-[10px] uppercase tracking-[0.22em] font-medium mb-6 text-ink-muted">
                 {group.label}
               </p>
               <ul className="space-y-2.5">
                 {group.items.map(item => (
-                  <li key={item} className="font-display font-light text-xl md:text-2xl tracking-tight" style={{ color: '#F5F0E8' }}>
+                  <li key={item} className="font-display font-light text-xl md:text-2xl tracking-tight text-ink">
                     {item}
                   </li>
                 ))}

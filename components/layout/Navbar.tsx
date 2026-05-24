@@ -9,14 +9,12 @@ const navLinks = [
 ];
 
 const EASE = 'cubic-bezier(0.32, 0.72, 0, 1)';
-const DARK_SECTIONS = new Set(['hero', 'thesis', 'toolkit']);
 const ALL_SECTIONS = ['hero', 'work', 'thesis', 'trajectory', 'toolkit', 'contact'];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [navVisible, setNavVisible] = useState(true);
-  const [isDark, setIsDark] = useState(true); // hero is dark on load
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pastHeroRef = useRef(false);
 
@@ -31,14 +29,6 @@ export default function Navbar() {
         if (el && el.getBoundingClientRect().top <= 180) current = `#${id}`;
       }
       setActiveSection(current);
-
-      // Which section sits behind the navbar (top of viewport)
-      let topSection = 'hero';
-      for (const id of ALL_SECTIONS) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 60) topSection = id;
-      }
-      setIsDark(DARK_SECTIONS.has(topSection));
 
       // Navbar show/hide past hero
       const pastHero = window.scrollY > window.innerHeight * 0.8;
@@ -118,7 +108,7 @@ export default function Navbar() {
                   onClick={(e) => go(e, link.href)}
                   className="relative rounded-full px-3 py-1.5 text-sm transition-all duration-500 ease-spring"
                   style={{
-                    color: active || isDark ? '#1A1410' : '#78716C',
+                    color: active ? '#1A1410' : '#78716C',
                     transition: `color 0.4s ${EASE}`,
                   }}
                 >
