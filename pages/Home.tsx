@@ -536,12 +536,12 @@ function SelectedWork() {
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-5 min-w-0">
-          {/* Featured card — left column, stretches to match right column height */}
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-[2fr_1fr] lg:items-start gap-5 min-w-0">
+          {/* Featured card — left column */}
           <Reveal delay={0.08} className="flex flex-col">
-            <article className="bezel flex flex-col h-full">
+            <article className="bezel flex flex-col">
               <div
-                className="bezel-core flex flex-col h-full overflow-hidden"
+                className="bezel-core flex flex-col overflow-hidden"
                 style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
               >
                 {featured.image && (
@@ -567,7 +567,7 @@ function SelectedWork() {
                     </div>
                   </div>
                 )}
-                <div className="p-6 md:p-8 flex flex-col flex-1">
+                <div className="p-6 md:p-8 flex flex-col">
                   <div className="flex items-center gap-3 mb-4">
                     <Eyebrow>{featured.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
                     <span className="font-display italic text-sm text-ink-muted">{featured.date}</span>
@@ -576,9 +576,9 @@ function SelectedWork() {
                     {featured.title}
                   </h3>
                   <p className="mt-4 text-base text-ink/70 leading-relaxed font-normal">{featured.description}</p>
-                  <div className="mt-auto">
+                  <div className="mt-6">
                     {featured.outcomes && (
-                      <ul className="mt-5 space-y-2.5">
+                      <ul className="space-y-2.5">
                         {featured.outcomes.slice(0, 2).map((o, i) => (
                           <li key={i} className="flex gap-3 text-sm text-ink/85">
                             <SealCheck size={14} weight="light" className="text-ink mt-0.5 flex-shrink-0" />
@@ -615,9 +615,9 @@ function SelectedWork() {
           {/* Right column — two stacked cards */}
           <div className="flex flex-col gap-5">
             {rest.map((project, idx) => (
-              <Reveal key={idx + 1} delay={0.12 + idx * 0.07} className="flex flex-col flex-1">
-                <article className="bezel flex flex-col flex-1">
-                  <div className="bezel-core p-6 md:p-7 flex flex-col h-full">
+              <Reveal key={idx + 1} delay={0.12 + idx * 0.07} className="flex flex-col">
+                <article className="bezel flex flex-col">
+                  <div className="bezel-core p-6 md:p-7 flex flex-col">
                     <div className="flex items-start justify-between gap-3 mb-5">
                       <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
                       <span className="font-display italic text-sm text-ink-muted whitespace-nowrap">{project.metrics}</span>
@@ -626,7 +626,7 @@ function SelectedWork() {
                       {project.title}
                     </h3>
                     <p className="mt-1 text-xs uppercase tracking-[0.18em] text-ink-muted/70">{project.date}</p>
-                    <p className="mt-4 text-sm text-ink/70 leading-relaxed font-normal flex-1">{project.description}</p>
+                    <p className="mt-4 text-sm text-ink/70 leading-relaxed font-normal">{project.description}</p>
                     <div className="mt-5 flex flex-wrap gap-1.5">
                       {project.tech.slice(0, 5).map((t, i) => (
                         <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-1">{t}</span>
