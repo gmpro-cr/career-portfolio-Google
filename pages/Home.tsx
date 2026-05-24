@@ -506,7 +506,6 @@ function SelectedWork() {
   return (
     <section id="work" className="relative py-20 md:py-32 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <Reveal><Eyebrow>Selected Work</Eyebrow></Reveal>
         <Reveal delay={0.06}>
           <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
             Three products,<br />
@@ -631,7 +630,6 @@ function Thesis() {
         aria-hidden
       />
       <div className="relative max-w-6xl mx-auto px-6 md:px-12">
-        <Reveal><Eyebrow light>Thesis</Eyebrow></Reveal>
         <Reveal delay={0.08}>
           <h2
             className="mt-10 font-display font-light leading-[1.05] tracking-tight max-w-4xl"
@@ -665,7 +663,6 @@ function Trajectory() {
   return (
     <section id="trajectory" className="relative py-20 md:py-28 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <Reveal><Eyebrow>Trajectory</Eyebrow></Reveal>
         <Reveal delay={0.06}>
           <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
             Nine years<br />
@@ -755,7 +752,6 @@ function Toolkit() {
     <section id="toolkit" className="relative py-20 md:py-28" style={{ background: '#0C0B09' }}>
       <div className="grain" aria-hidden />
       <div className="relative max-w-6xl mx-auto px-6 md:px-12">
-        <Reveal><Eyebrow light>Toolkit</Eyebrow></Reveal>
         <Reveal delay={0.06}>
           <h2
             className="mt-6 font-display font-light leading-[0.95] tracking-tight max-w-3xl"
@@ -813,7 +809,6 @@ function Contact() {
   return (
     <section id="contact" className="relative py-20 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
-        <Reveal><Eyebrow>Contact</Eyebrow></Reveal>
         <Reveal delay={0.06}>
           <h2 className="mt-8 font-display font-light leading-[0.95] tracking-tight text-ink"
             style={{ fontSize: 'clamp(3rem, 8vw, 7rem)' }}>
