@@ -8,7 +8,8 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-white overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-paper overflow-x-hidden">
+      <a href="#work" className="skip-link">Skip to content</a>
       <Navbar />
       <main className="flex-1">
         {children}

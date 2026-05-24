@@ -21,19 +21,6 @@ export default {
                 'ink-muted': '#78716C', // stone-500
                 'hairline': '#E7E5E4',  // stone-200
                 'shell': '#FAFAF9',     // outer bezel shell
-
-                // Legacy aliases kept so any unmigrated component renders
-                'light-bg': '#FFFFFF',
-                'light-surface': '#FDFBF7',
-                'light-card': '#FFFFFF',
-                'light-text': '#1A1410',
-                'light-muted': '#78716C',
-                'accent': '#1A1410',
-                'accent-rose': '#f43f5e',
-                'accent-purple': '#a855f7',
-                'accent-emerald': '#10b981',
-                'accent-amber': '#f59e0b',
-                'accent-indigo': '#6366f1',
             },
             boxShadow: {
                 'bezel-inset': 'inset 0 1px 1px rgba(255, 255, 255, 0.6)',

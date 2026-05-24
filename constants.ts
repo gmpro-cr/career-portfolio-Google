@@ -181,11 +181,11 @@ export const PROJECTS: Project[] = [
 ];
 
 export const SKILL_DATA: SkillMetric[] = [
-  { subject: 'AI Product Strategy', A: 95, fullMark: 100 },
-  { subject: 'Prompt Engineering', A: 95, fullMark: 100 },
-  { subject: 'LLM Evaluation (Evals)', A: 90, fullMark: 100 },
-  { subject: 'Agile & Execution', A: 90, fullMark: 100 },
-  { subject: 'Technical Build (Python/JS)', A: 85, fullMark: 100 },
+  { subject: 'AI Product Strategy', A: 93, fullMark: 100 },
+  { subject: 'Prompt Engineering', A: 91, fullMark: 100 },
+  { subject: 'LLM Evaluation (Evals)', A: 87, fullMark: 100 },
+  { subject: 'Agile & Execution', A: 88, fullMark: 100 },
+  { subject: 'Technical Build (Python/JS)', A: 82, fullMark: 100 },
 ];
 
 export const EDUCATION_DATA: Education[] = [
