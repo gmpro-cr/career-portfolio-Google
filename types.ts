@@ -33,6 +33,7 @@ export interface Project {
     architecture: string;
     dataFlow: { step: string }[];
   };
+  reflection?: string;
 }
 
 export interface UserSegment {

@@ -298,77 +298,53 @@ function Hero() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CASE STUDY CONTENT
+   CASE STUDY PANEL — inline tabs, 4 PM-focused views
    ═══════════════════════════════════════════════════════════════ */
-function CaseStudyOverview({ project }: { project: Project }) {
+type CaseStudyTab = 'problem' | 'process' | 'outcomes' | 'reflection';
+
+const TAB_LABELS: { id: CaseStudyTab; label: string }[] = [
+  { id: 'problem',    label: 'Problem'    },
+  { id: 'process',    label: 'Process'    },
+  { id: 'outcomes',   label: 'Outcomes'   },
+  { id: 'reflection', label: 'Reflection' },
+];
+
+function ProblemTab({ project }: { project: Project }) {
   return (
-    <div className="space-y-8 max-w-2xl">
-      <div>
-        <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">Problem</p>
-        <p className="text-base text-ink leading-relaxed">{project.problem}</p>
+    <div className="max-w-3xl">
+      <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5">User Problem</p>
+      <p className="font-display font-light text-xl md:text-2xl text-ink leading-[1.45] tracking-tight mb-8">
+        &ldquo;{project.problem}&rdquo;
+      </p>
+      <div className="pt-6 border-t border-hairline">
+        <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">Context</p>
+        <p className="text-sm text-ink/70 leading-relaxed">{project.description}</p>
       </div>
-      {project.approach && (
-        <div>
-          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">Approach</p>
-          <ul className="space-y-3">
-            {project.approach.map((item, i) => (
-              <li key={i} className="flex gap-3 text-sm text-ink/85 leading-relaxed">
-                <span className="text-ink-muted tabular flex-shrink-0 pt-px font-medium">{String(i + 1).padStart(2, '0')}</span>
-                <span className="text-justify hyphens-auto">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {project.keyInsights && (
-        <div>
-          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">Key Insights</p>
-          <div className="space-y-2">
-            {project.keyInsights.map((item, i) => (
-              <div key={i} className="bezel">
-                <div className="bezel-core px-4 py-3 text-sm text-ink/85 leading-relaxed">{item}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      {project.outcomes && (
-        <div>
-          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">Outcomes</p>
-          <ul className="space-y-2.5">
-            {project.outcomes.map((item, i) => (
-              <li key={i} className="flex gap-3 text-sm text-ink/90">
-                <SealCheck size={15} weight="light" className="text-ink mt-0.5 flex-shrink-0" />
-                <span className="text-justify hyphens-auto">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }
 
-function CaseStudyTechnical({ project }: { project: Project }) {
-  if (!project.technicalDetails) return null;
-  const { architecture, dataFlow } = project.technicalDetails;
+function ProcessTab({ project }: { project: Project }) {
   return (
-    <div className="space-y-8 max-w-2xl">
+    <div className="grid md:grid-cols-2 gap-10 md:gap-14">
       <div>
-        <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">Architecture</p>
-        <p className="text-base text-ink leading-relaxed">{architecture}</p>
+        <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5">PM Approach</p>
+        <ul className="space-y-4">
+          {project.approach?.map((item, i) => (
+            <li key={i} className="flex gap-3 text-sm text-ink/85 leading-relaxed">
+              <span className="text-ink-muted tabular flex-shrink-0 pt-px font-medium text-xs">{String(i + 1).padStart(2, '0')}</span>
+              <span className="text-justify hyphens-auto">{item}</span>
+            </li>
+          ))}
+        </ul>
       </div>
       <div>
-        <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-4">Data Flow</p>
-        <FlowDiagram steps={dataFlow} />
-      </div>
-      <div>
-        <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">Full Tech Stack</p>
-        <div className="flex flex-wrap gap-1.5">
-          {project.tech.map((t, i) => (
-            <span key={i} className="text-xs font-medium bg-ink/5 border border-hairline text-ink px-3 py-1.5 rounded-full">
-              {t}
-            </span>
+        <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5">Key PM Decisions</p>
+        <div className="space-y-2.5">
+          {project.keyInsights?.map((item, i) => (
+            <div key={i} className="bezel">
+              <div className="bezel-core px-4 py-3.5 text-sm text-ink/85 leading-relaxed">{item}</div>
+            </div>
           ))}
         </div>
       </div>
@@ -376,120 +352,177 @@ function CaseStudyTechnical({ project }: { project: Project }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CASE STUDY MODAL — Framer Motion only for open/close
-   ═══════════════════════════════════════════════════════════════ */
-function CaseStudyModal({ project, onClose }: { project: Project | null; onClose: () => void }) {
-  const [activeTab, setActiveTab] = useState<'overview' | 'technical'>('overview');
+function OutcomesTab({ project }: { project: Project }) {
+  return (
+    <div className="grid md:grid-cols-2 gap-10 md:gap-14">
+      <div className="space-y-8">
+        <div>
+          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5">Measured Impact</p>
+          <ul className="space-y-3">
+            {project.outcomes?.map((item, i) => (
+              <li key={i} className="flex gap-3 text-sm text-ink/90 leading-relaxed">
+                <SealCheck size={15} weight="light" className="text-ink mt-0.5 flex-shrink-0" />
+                <span className="text-justify hyphens-auto">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="pt-6 border-t border-hairline">
+          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">Tech Stack</p>
+          <div className="flex flex-wrap gap-1.5">
+            {project.tech.map((t, i) => (
+              <span key={i} className="text-xs font-medium bg-ink/5 border border-hairline text-ink px-3 py-1.5 rounded-full">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div>
+        {project.technicalDetails && (
+          <>
+            <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5">How It Works</p>
+            <FlowDiagram steps={project.technicalDetails.dataFlow} />
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
-  useEffect(() => { setActiveTab('overview'); }, [project?.title]);
+function ReflectionTab({ project }: { project: Project }) {
+  return (
+    <div className="max-w-3xl">
+      <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5">What I&rsquo;d Do Differently</p>
+      <p className="text-base text-ink/80 leading-relaxed text-justify hyphens-auto">
+        {project.reflection}
+      </p>
+    </div>
+  );
+}
 
-  useEffect(() => {
-    if (!project) return;
-    document.body.style.overflow = 'hidden';
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', onKey);
-    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey); };
-  }, [project, onClose]);
+function CaseStudyPanel({ project, onClose }: { project: Project; onClose: () => void }) {
+  const [tab, setTab] = useState<CaseStudyTab>('problem');
+  useEffect(() => { setTab('problem'); }, [project.title]);
 
   return (
-    <AnimatePresence>
-      {project && (
-        <>
-          <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-black/55 backdrop-blur-sm"
-            onClick={onClose}
-          />
-          <motion.div
-            key="panel"
-            initial={{ opacity: 0, scale: 0.96, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.97, y: 12 }}
-            transition={{ duration: 0.28, ease: springEase }}
-            className="fixed inset-4 md:inset-8 lg:inset-x-[12%] lg:inset-y-[6%] z-50 bg-paper rounded-[2rem] shadow-2xl flex flex-col overflow-hidden"
-          >
-            {/* Header */}
-            <div className="flex items-start justify-between gap-6 px-8 md:px-10 pt-8 pb-6 border-b border-hairline flex-shrink-0">
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-wrap items-center gap-3">
-                  <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
-                  <span className="font-display italic text-sm text-ink-muted">{project.date}</span>
-                  {project.metrics && <span className="font-display italic text-sm text-ink font-medium">{project.metrics}</span>}
-                </div>
-                <h2 className="mt-3 font-display font-light text-3xl md:text-4xl text-ink leading-tight tracking-tight">
-                  {project.title}
-                </h2>
+    <motion.div
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: 'auto', opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: 0.42, ease: springEase }}
+      style={{ overflow: 'hidden' }}
+    >
+      <div className="mt-5 bezel" style={{ borderRadius: '2rem' }}>
+        <div
+          className="bezel-core"
+          style={{ borderRadius: 'calc(2rem - 0.375rem)', background: '#FDFBF7' }}
+        >
+          {/* Panel header */}
+          <div className="flex items-start justify-between gap-6 px-8 md:px-10 pt-8 pb-6 border-b border-hairline">
+            <div className="flex-1 min-w-0">
+              <div className="flex flex-wrap items-center gap-3 mb-3">
+                <Eyebrow>{project.category === 'build' ? 'Shipped Product' : 'Case Study'}</Eyebrow>
+                <span className="font-display italic text-sm text-ink-muted">{project.date}</span>
+                {project.metrics && (
+                  <span className="font-display italic text-sm font-semibold text-ink">{project.metrics}</span>
+                )}
               </div>
+              <h3 className="font-display font-light text-3xl md:text-4xl text-ink leading-tight tracking-tight">
+                {project.title}
+              </h3>
+            </div>
+            <button
+              onClick={onClose}
+              aria-label="Close case study"
+              className="flex-shrink-0 mt-1 h-10 w-10 rounded-full border border-hairline flex items-center justify-center text-ink-muted hover:text-ink hover:border-ink/30 transition-colors duration-200"
+            >
+              <X size={16} weight="light" />
+            </button>
+          </div>
+
+          {/* Tab bar */}
+          <div className="flex gap-1 px-8 md:px-10 py-4 border-b border-hairline">
+            {TAB_LABELS.map(({ id, label }) => (
               <button
-                onClick={onClose} aria-label="Close"
-                className="flex-shrink-0 mt-1 h-10 w-10 rounded-full border border-hairline flex items-center justify-center text-ink-muted hover:text-ink hover:border-ink/30 transition-colors duration-200"
+                key={id}
+                onClick={() => setTab(id)}
+                className={`px-5 py-2 rounded-full text-xs font-medium transition-colors duration-200 ${
+                  tab === id ? 'bg-ink text-white' : 'text-ink-muted hover:text-ink'
+                }`}
               >
-                <X size={16} weight="light" />
+                {label}
               </button>
-            </div>
+            ))}
+          </div>
 
-            {/* Tabs */}
-            <div className="flex gap-1 px-8 md:px-10 py-4 border-b border-hairline flex-shrink-0">
-              {(['overview', 'technical'] as const).map(tab => (
-                <button
-                  key={tab} onClick={() => setActiveTab(tab)}
-                  className={`px-5 py-2 rounded-full text-xs font-medium capitalize transition-colors duration-200 ${
-                    activeTab === tab ? 'bg-ink text-white' : 'text-ink-muted hover:text-ink'
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+          {/* Tab content — AnimatePresence for cross-fade */}
+          <div className="px-8 md:px-10 py-8">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={tab}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.18 }}
+              >
+                {tab === 'problem'    && <ProblemTab    project={project} />}
+                {tab === 'process'    && <ProcessTab    project={project} />}
+                {tab === 'outcomes'   && <OutcomesTab   project={project} />}
+                {tab === 'reflection' && <ReflectionTab project={project} />}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto px-8 md:px-10 py-8">
-              {activeTab === 'overview'
-                ? <CaseStudyOverview project={project} />
-                : <CaseStudyTechnical project={project} />
-              }
+          {/* Panel footer */}
+          {(project.link || project.githubUrl) && (
+            <div className="flex items-center gap-5 px-8 md:px-10 py-5 border-t border-hairline">
+              {project.link && (
+                <a href={project.link} target="_blank" rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-ink-muted transition-colors">
+                  Live site <ArrowUpRight size={13} weight="light" />
+                </a>
+              )}
+              {project.githubUrl && (
+                <a href={project.githubUrl} target="_blank" rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-ink transition-colors">
+                  <GithubLogo size={14} weight="light" /> View code
+                </a>
+              )}
             </div>
-
-            {/* Footer */}
-            {(project.link || project.githubUrl) && (
-              <div className="flex items-center gap-5 px-8 md:px-10 py-5 border-t border-hairline flex-shrink-0">
-                {project.link && (
-                  <a href={project.link} target="_blank" rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-ink-muted transition-colors">
-                    Live site <ArrowUpRight size={13} weight="light" />
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a href={project.githubUrl} target="_blank" rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-ink transition-colors">
-                    <GithubLogo size={14} weight="light" /> View code
-                  </a>
-                )}
-              </div>
-            )}
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+          )}
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SELECTED WORK
+   SELECTED WORK — inline expansion, no modal
    ═══════════════════════════════════════════════════════════════ */
 function SelectedWork() {
   const [openProject, setOpenProject] = useState<Project | null>(null);
-  const handleOpen = useCallback((p: Project) => setOpenProject(p), []);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  const handleToggle = useCallback((p: Project) => {
+    setOpenProject(prev => prev?.title === p.title ? null : p);
+  }, []);
+
   const handleClose = useCallback(() => setOpenProject(null), []);
 
-  /* Per-card dark accent backgrounds for projects without an image */
+  useEffect(() => {
+    if (openProject && panelRef.current) {
+      const id = setTimeout(() => {
+        panelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 160);
+      return () => clearTimeout(id);
+    }
+  }, [openProject?.title]);
+
   const accentBg = [
-    null, // AI Persona — uses project.image
-    'linear-gradient(145deg, #F7EEE3 0%, #F0E3D0 55%, #F4E9D8 100%)', // AI Credit — warm sand
-    'linear-gradient(145deg, #EBF0F7 0%, #DCE8F5 55%, #E4EDF7 100%)', // Job Discovery — cool slate
+    null,
+    'linear-gradient(145deg, #F7EEE3 0%, #F0E3D0 55%, #F4E9D8 100%)',
+    'linear-gradient(145deg, #EBF0F7 0%, #DCE8F5 55%, #E4EDF7 100%)',
   ];
   const accentOrb = [
     null,
@@ -501,112 +534,138 @@ function SelectedWork() {
     <section id="work" className="relative py-20 md:py-32 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
+          <Eyebrow>Selected Work</Eyebrow>
           <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
             Three products,<br />
             <em className="italic font-normal text-ink-muted">three problems solved.</em>
           </h2>
         </Reveal>
 
-        {/* Equal 3-column grid — grid stretch makes all cards same height */}
+        {/* 3-card grid */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
-          {PROJECTS.map((project, idx) => (
-            <Reveal key={idx} delay={0.06 + idx * 0.08} className="flex flex-col">
-              <article
-                className="bezel flex flex-col h-full group cursor-pointer"
-                onClick={() => handleOpen(project)}
-              >
-                <div
-                  className="bezel-core flex flex-col h-full overflow-hidden"
-                  style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
-                >
-                  {/* Top accent — fixed 180px, consistent across all cards */}
-                  <div className="relative flex-shrink-0 overflow-hidden" style={{ height: '180px' }}>
-                    {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.05]"
-                        style={{ filter: 'brightness(0.86)' }}
-                      />
-                    ) : (
-                      <>
-                        <div className="absolute inset-0" style={{ background: accentBg[idx]! }} />
-                        <div className="absolute inset-0" style={{ background: accentOrb[idx]! }} />
-                        <span
-                          className="absolute bottom-4 left-6 font-display font-light leading-none select-none pointer-events-none"
-                          style={{ fontSize: '4.5rem', color: 'rgba(26,20,16,0.07)' }}
-                          aria-hidden
-                        >
-                          0{idx + 1}
-                        </span>
-                      </>
-                    )}
-                    {/* Fade-to-card-background gradient */}
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: 'linear-gradient(to bottom, transparent 45%, rgba(253,251,247,0.88) 100%)' }}
-                      aria-hidden
-                    />
-                    {/* Metric badge */}
-                    <div className="absolute top-4 right-4 z-10">
-                      <span
-                        className="font-display italic text-sm font-medium border border-hairline text-ink px-3 py-1.5 rounded-full"
-                        style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)' }}
-                      >
-                        {project.metrics}
-                      </span>
-                    </div>
-                  </div>
+          {PROJECTS.map((project, idx) => {
+            const isActive = openProject?.title === project.title;
+            const isDimmed = openProject !== null && !isActive;
 
-                  {/* Card body */}
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
-                      <span className="font-display italic text-xs text-ink-muted whitespace-nowrap">{project.date}</span>
-                    </div>
-                    <h3 className="font-display font-light text-[1.55rem] md:text-[1.65rem] text-ink leading-tight tracking-tight">
-                      {project.title}
-                    </h3>
-                    <p
-                      className="mt-3 text-sm text-ink/65 leading-relaxed font-normal"
-                      style={{
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical' as const,
-                        overflow: 'hidden',
-                      } as React.CSSProperties}
-                    >
-                      {project.description}
-                    </p>
-                    {/* Spacer — pushes tech pills + CTA to card bottom */}
-                    <div className="flex-1 min-h-[1rem]" />
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tech.slice(0, 4).map((t, i) => (
-                        <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-0.5">
-                          {t}
-                        </span>
-                      ))}
-                      {project.tech.length > 4 && (
-                        <span className="text-[11px] text-ink-muted px-1.5 py-0.5">+{project.tech.length - 4}</span>
+            return (
+              <Reveal key={idx} delay={0.06 + idx * 0.08} className="flex flex-col">
+                <article
+                  className="bezel flex flex-col h-full group cursor-pointer"
+                  style={{
+                    opacity: isDimmed ? 0.52 : 1,
+                    transition: 'opacity 0.4s ease',
+                    boxShadow: isActive
+                      ? '0 0 0 2px rgba(26,20,16,0.75), 0 20px 48px -12px rgba(26,20,16,0.18)'
+                      : undefined,
+                  }}
+                  onClick={() => handleToggle(project)}
+                >
+                  <div
+                    className="bezel-core flex flex-col h-full overflow-hidden"
+                    style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
+                  >
+                    {/* Top accent */}
+                    <div className="relative flex-shrink-0 overflow-hidden" style={{ height: '180px' }}>
+                      {project.image ? (
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.05]"
+                          style={{ filter: 'brightness(0.86)' }}
+                        />
+                      ) : (
+                        <>
+                          <div className="absolute inset-0" style={{ background: accentBg[idx]! }} />
+                          <div className="absolute inset-0" style={{ background: accentOrb[idx]! }} />
+                          <span
+                            className="absolute bottom-4 left-6 font-display font-light leading-none select-none pointer-events-none"
+                            style={{ fontSize: '4.5rem', color: 'rgba(26,20,16,0.07)' }}
+                            aria-hidden
+                          >
+                            0{idx + 1}
+                          </span>
+                        </>
                       )}
-                    </div>
-                    <div className="mt-5 pt-4 border-t border-hairline">
-                      <div className="flex items-center justify-between text-sm font-medium text-ink">
-                        <span>View case study</span>
-                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px">
-                          <ArrowRight size={13} weight="light" />
+                      <div
+                        className="absolute inset-0"
+                        style={{ background: 'linear-gradient(to bottom, transparent 45%, rgba(253,251,247,0.88) 100%)' }}
+                        aria-hidden
+                      />
+                      <div className="absolute top-4 right-4 z-10">
+                        <span
+                          className="font-display italic text-sm font-medium border border-hairline text-ink px-3 py-1.5 rounded-full"
+                          style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)' }}
+                        >
+                          {project.metrics}
                         </span>
                       </div>
                     </div>
+
+                    {/* Card body */}
+                    <div className="p-6 flex flex-col flex-1">
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
+                        <span className="font-display italic text-xs text-ink-muted whitespace-nowrap">{project.date}</span>
+                      </div>
+                      <h3 className="font-display font-light text-[1.55rem] md:text-[1.65rem] text-ink leading-tight tracking-tight">
+                        {project.title}
+                      </h3>
+                      <p
+                        className="mt-3 text-sm text-ink/65 leading-relaxed font-normal"
+                        style={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical' as const,
+                          overflow: 'hidden',
+                        } as React.CSSProperties}
+                      >
+                        {project.description}
+                      </p>
+                      <div className="flex-1 min-h-[1rem]" />
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.tech.slice(0, 4).map((t, i) => (
+                          <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-0.5">
+                            {t}
+                          </span>
+                        ))}
+                        {project.tech.length > 4 && (
+                          <span className="text-[11px] text-ink-muted px-1.5 py-0.5">+{project.tech.length - 4}</span>
+                        )}
+                      </div>
+                      <div className="mt-5 pt-4 border-t border-hairline">
+                        <div className="flex items-center justify-between text-sm font-medium text-ink">
+                          <span>{isActive ? 'Close case study' : 'View case study'}</span>
+                          <span
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px"
+                          >
+                            {isActive
+                              ? <X size={13} weight="light" />
+                              : <ArrowRight size={13} weight="light" />
+                            }
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
+
+        {/* Inline expansion panel */}
+        <div ref={panelRef}>
+          <AnimatePresence>
+            {openProject && (
+              <CaseStudyPanel
+                key={openProject.title}
+                project={openProject}
+                onClose={handleClose}
+              />
+            )}
+          </AnimatePresence>
         </div>
       </div>
-
-      <CaseStudyModal project={openProject} onClose={handleClose} />
     </section>
   );
 }

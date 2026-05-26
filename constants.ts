@@ -99,6 +99,7 @@ export const PROJECTS: Project[] = [
         { step: "Response streamed to frontend; memory chunk persisted to Supabase" },
       ],
     },
+    reflection: "If I were starting over, I'd ship proactive AI-initiated interactions from week one, not month three. Our Mixpanel data made the impact obvious in retrospect — D7 retention lifted dramatically when the AI sent the first message — but I'd assumed the engagement burden sat with the user. The second thing I'd change: I'd have defined the 'aha' moment explicitly before writing a line of code. Users who experienced a single moment of unexpected-but-consistent character behaviour converted to 30-day actives at far higher rates; I discovered this pattern mid-build instead of designing the onboarding funnel around it from the start. What I'd build next: a creator-side tool that lets users publish their own personas, transforming the platform from a catalogue into a marketplace with network-effect dynamics.",
   },
   {
     title: "AI Credit Intelligence Platform",
@@ -138,6 +139,7 @@ export const PROJECTS: Project[] = [
         { step: "Credit Memo assembled and persisted; Excel + PDF export generated" },
       ],
     },
+    reflection: "The biggest product lesson here was that trust architecture precedes feature architecture. I assumed accuracy would be the adoption bottleneck; it turned out to be format familiarity. The moment we mirrored the exact Excel template that analysts already submitted to credit committees, resistance dropped sharply. I would have run format-discovery interviews in week one rather than week six. The second lesson: human-in-the-loop is not a compromise — it is the core value proposition in regulated environments. Analysts didn't want to delegate decisions to the AI; they wanted the AI to produce the draft so they could own the final output. That's a fundamentally different product contract, and I'd have designed the editing UI around that insight from the start rather than treating it as a late-stage UX polish decision.",
   },
   {
     title: "Automated Job Discovery Agent",
@@ -177,6 +179,7 @@ export const PROJECTS: Project[] = [
         { step: "Telegram Bot API delivers formatted daily digest to user" },
       ],
     },
+    reflection: "Self-use validation is a fast path to shipping but a slow path to scale. My scoring model was calibrated to my own profile and worked well for me and inconsistently for anyone else — a blind spot I only noticed when sharing it. If I were building for multiple users from day one, the first thing I'd redesign is the profile configuration: the current JSON config is too technical and creates a high setup cost that most people won't clear. I'd replace it with a conversational onboarding flow that builds the profile through questions. The second thing I'd add is a feedback loop — when a user applies to or dismisses a suggested role, the relevance model updates its weights. That feedback flywheel is what makes the tool compoundingly more accurate over time, and it's the difference between a personal script and a product with network value. I've since started building the multi-user version with both of these lessons designed in from the start.",
   }
 ];
 
