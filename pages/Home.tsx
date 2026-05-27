@@ -636,39 +636,6 @@ function SelectedWork() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   THESIS
-   ═══════════════════════════════════════════════════════════════ */
-function Thesis() {
-  return (
-    <section id="thesis" className="relative py-20 md:py-28 overflow-hidden bg-[#F0EBE3]">
-      <div className="relative max-w-6xl mx-auto px-6 md:px-12">
-        <Reveal delay={0.08}>
-          <h2
-            className="mt-10 font-display font-light leading-[1.05] tracking-tight max-w-4xl text-ink"
-            style={{ fontSize: 'clamp(1.75rem, 4vw, 3.25rem)' }}
-          >
-            "Pure domain depth, combined with the ability to actually build and ship
-            working AI products, creates the highest-leverage solutions possible."
-          </h2>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <div className="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-6">
-            <p className="leading-relaxed font-normal text-base" style={{ color: 'rgba(26,20,16,0.6)' }}>
-              I build platforms on Next.js, Python, Supabase and frontier LLMs (Claude, Gemini, Groq).
-              My technical edge is paired with rigorous product validation, prompt architectures, and structured evaluations.
-            </p>
-            <p className="leading-relaxed font-normal text-base" style={{ color: 'rgba(26,20,16,0.6)' }}>
-              Previously, I managed high-stakes portfolios exceeding ₹9,000 Cr and authored credit proposals equivalent
-              to enterprise PRDs. I don&rsquo;t just write requirements — I validate ideas, architect prompts, and ship the MVP.
-            </p>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════════
    TRAJECTORY
    ═══════════════════════════════════════════════════════════════ */
 function Trajectory() {
@@ -862,7 +829,6 @@ export default function Home() {
       <div className="font-sans text-ink overflow-x-hidden">
         <Hero />
         <SelectedWork />
-        <Thesis />
         <Trajectory />
         <Toolkit />
         <Contact />
