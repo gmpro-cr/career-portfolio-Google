@@ -12,7 +12,7 @@ import {
   FileText,
   X,
 } from '@phosphor-icons/react';
-import { EXPERIENCES, PROJECTS, SKILL_DATA, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
+import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 import { Project } from '../types';
 import XMark from '../components/XMark';
 
@@ -92,39 +92,6 @@ function StaggerList({
       )}
     </div>
   );
-}
-
-/* ── Animated counter (IntersectionObserver, no scroll link) ───── */
-function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting && !started.current) {
-          started.current = true;
-          obs.disconnect();
-          let start = 0;
-          const step = 16;
-          const increment = to / (1200 / step);
-          const timer = setInterval(() => {
-            start += increment;
-            if (start >= to) { setCount(to); clearInterval(timer); }
-            else setCount(Math.floor(start));
-          }, step);
-        }
-      },
-      { rootMargin: '-10%' }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [to]);
-
-  return <span ref={ref} className="tabular">{count}{suffix}</span>;
 }
 
 /* ── FlowDiagram: numbered boxes with CSS-stagger arrows ─────────  */
@@ -534,10 +501,8 @@ function SelectedWork() {
     <section id="work" className="relative py-20 md:py-32 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
-          <Eyebrow>Selected Work</Eyebrow>
           <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
-            Three products,<br />
-            <em className="italic font-normal text-ink-muted">three problems solved.</em>
+            Selected Work
           </h2>
         </Reveal>
 
@@ -808,23 +773,7 @@ function Toolkit() {
           </h2>
         </Reveal>
 
-        <div className="mt-20">
-          <p className="text-[10px] uppercase tracking-[0.2em] mb-8 text-ink-muted">
-            Proficiency · scored out of 100
-          </p>
-          <StaggerList base={0} step={0.05} className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-y-10">
-            {SKILL_DATA.map((s) => (
-              <div key={s.subject}>
-                <p className="font-display font-light tabular" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: '#1A1410', lineHeight: 1 }}>
-                  <Counter to={s.A} />
-                </p>
-                <p className="text-sm mt-2 font-normal text-ink-muted">{s.subject}</p>
-              </div>
-            ))}
-          </StaggerList>
-        </div>
-
-        <StaggerList base={0} step={0.06} className="mt-20 grid md:grid-cols-3 gap-x-10 gap-y-12 border-t border-hairline pt-16">
+        <StaggerList base={0} step={0.06} className="mt-20 grid md:grid-cols-3 gap-x-10 gap-y-12">
           {TOOLKIT_GROUPS.map((group) => (
             <div key={group.label}>
               <p className="text-[10px] uppercase tracking-[0.22em] font-medium mb-6 text-ink-muted">
