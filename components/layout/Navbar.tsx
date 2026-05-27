@@ -2,14 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const navLinks = [
   { href: '#work', label: 'Work' },
-  { href: '#thesis', label: 'Thesis' },
   { href: '#trajectory', label: 'Trajectory' },
   { href: '#toolkit', label: 'Toolkit' },
   { href: '#contact', label: 'Contact' },
 ];
 
 const EASE = 'cubic-bezier(0.32, 0.72, 0, 1)';
-const ALL_SECTIONS = ['hero', 'work', 'thesis', 'trajectory', 'toolkit', 'contact'];
+const ALL_SECTIONS = ['hero', 'work', 'trajectory', 'toolkit', 'contact'];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -121,18 +120,6 @@ export default function Navbar() {
             })}
           </div>
 
-          <a
-            href="mailto:mahalegauravk@gmail.com"
-            className="hidden md:inline-flex ml-1 items-center gap-1 rounded-full bg-ink text-white pl-4 pr-1.5 py-1.5 text-xs font-medium transition-all duration-700 ease-spring hover:-translate-y-px"
-          >
-            Get in touch
-            <span className="ml-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/15">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M5 12h14M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </a>
-
           {/* Mobile hamburger morph */}
           <button
             onClick={() => setIsOpen(v => !v)}
@@ -169,15 +156,6 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a
-            href="mailto:mahalegauravk@gmail.com"
-            style={{ transitionDelay: isOpen ? `${120 + navLinks.length * 60}ms` : '0ms' }}
-            className={`mt-8 text-sm text-ink-muted transition-all duration-700 ease-spring ${
-              isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}
-          >
-            mahalegauravk@gmail.com
-          </a>
         </div>
       </div>
     </>
