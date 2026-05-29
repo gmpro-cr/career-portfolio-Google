@@ -104,6 +104,7 @@ export const PROJECTS: Project[] = [
   {
     title: "AI Credit Intelligence Platform",
     date: "Dec 2025",
+    image: "/credit-platform.png",
     description: "Identified and solved a real enterprise bottleneck: CAM preparation takes analysts 4–6 hours due to manual extraction from annual reports. Scoped the MVP with Claude Code, mapped user journeys for relationship managers and credit analysts, and shipped a platform that reduces CAM prep time to under 1 hour.",
     tech: ["Python", "FastAPI", "Next.js 16", "Google Gemini API", "Claude API", "Supabase", "SQLite", "OpenPyXL", "PDFMiner", "GitHub"],
     metrics: "–80% time",
@@ -144,6 +145,7 @@ export const PROJECTS: Project[] = [
   {
     title: "Automated Job Discovery Agent",
     date: "Jan 2026",
+    image: "/job-agent.png",
     description: "Defined the product as a solution to a personal pain point: noise and inefficiency in manual job searching across fragmented portals. Designed the full UX — preference configuration, AI-driven relevance scoring (0–100), and a daily digest with matched roles and hiring manager LinkedIn details. Surfaces ~10 matched roles across 5+ portals with zero manual intervention.",
     tech: ["Python", "Flask", "Ollama / Mistral 7B", "Selenium", "SQLite", "APScheduler", "Telegram Bot API", "BeautifulSoup"],
     metrics: "100% automated",
