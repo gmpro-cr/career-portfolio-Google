@@ -10,6 +10,7 @@ export interface Experience {
 
 export interface Project {
   title: string;
+  slug: string;
   date: string;
   description: string;
   tech: string[];

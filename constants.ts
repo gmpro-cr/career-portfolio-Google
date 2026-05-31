@@ -62,6 +62,7 @@ export const EXPERIENCES: Experience[] = [
 export const PROJECTS: Project[] = [
   {
     title: "AI Persona Interaction Platform",
+    slug: "ai-persona-interaction-platform",
     date: "Oct 2025",
     description: "Conceived and launched a B2C AI product with 350+ personas. Defined product strategy, persona prompts, a freemium monetisation model (Razorpay), and go-to-market approach — treating each launch as a product sprint with defined KPIs for engagement and retention.",
     tech: ["Next.js", "Supabase", "Gemini 1.5 Flash", "Groq Llama 3.3", "Google OAuth", "Sarvam TTS", "Mixpanel", "Vercel"],
@@ -103,6 +104,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "AI Credit Intelligence Platform",
+    slug: "ai-credit-intelligence-platform",
     date: "Dec 2025",
     image: "/credit-platform.png",
     description: "Identified and solved a real enterprise bottleneck: CAM preparation takes analysts 4–6 hours due to manual extraction from annual reports. Scoped the MVP with Claude Code, mapped user journeys for relationship managers and credit analysts, and shipped a platform that reduces CAM prep time to under 1 hour.",
@@ -144,6 +146,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Automated Job Discovery Agent",
+    slug: "automated-job-discovery-agent",
     date: "Jan 2026",
     image: "/job-agent.png",
     description: "Defined the product as a solution to a personal pain point: noise and inefficiency in manual job searching across fragmented portals. Designed the full UX — preference configuration, AI-driven relevance scoring (0–100), and a daily digest with matched roles and hiring manager LinkedIn details. Surfaces ~10 matched roles across 5+ portals with zero manual intervention.",
