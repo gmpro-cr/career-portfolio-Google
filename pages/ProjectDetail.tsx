@@ -480,7 +480,7 @@ export default function ProjectDetail() {
       )}
 
       {/* ── Problem ──────────────────────────────────────────── */}
-      <section className="py-12 md:py-28 bg-[#F0EBE3]">
+      <section className="py-12 md:py-28 bg-paper border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
             <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5 md:mb-8">The Problem</p>
@@ -511,7 +511,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* ── PM Approach + Key Decisions (2-col) ──────────────── */}
-      <section className="py-12 md:py-28 bg-[#F8F5F0]">
+      <section className="py-12 md:py-28 bg-paper border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
             <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-16">
@@ -561,7 +561,7 @@ export default function ProjectDetail() {
 
       {/* ── Architecture / Data Pipeline ─────────────────────── */}
       {project.technicalDetails && (
-        <section className="py-12 md:py-28 bg-paper">
+        <section className="py-12 md:py-28 bg-paper border-t border-hairline">
           <div className="max-w-6xl mx-auto px-4 md:px-12">
             <Reveal delay={0.06}>
               <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-2">System Architecture</p>
@@ -578,7 +578,7 @@ export default function ProjectDetail() {
               <Reveal delay={0.12}>
                 <div className="space-y-6">
                   <div className="bezel">
-                    <div className="bezel-core p-6" style={{ background: '#F8F5F0', borderRadius: 'calc(1.5rem - 0.375rem)' }}>
+                    <div className="bezel-core p-6" style={{ background: '#FDFBF7', borderRadius: 'calc(1.5rem - 0.375rem)' }}>
                       <p className="text-[10px] uppercase tracking-[0.2em] text-ink-muted mb-3">PM Insight</p>
                       <p className="text-sm text-ink/80 leading-relaxed">
                         Separating deterministic extraction from LLM synthesis was the single most important architectural decision — it eliminated hallucinations on structured data while keeping the LLM focused solely on narrative reasoning.
@@ -601,7 +601,7 @@ export default function ProjectDetail() {
       )}
 
       {/* ── Outcomes / Metrics ───────────────────────────────── */}
-      <section className="py-12 md:py-28 bg-[#F0EBE3]">
+      <section className="py-12 md:py-28 bg-paper border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
             <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-2">Measured Impact</p>
@@ -627,7 +627,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* ── Competitive Analysis ─────────────────────────────── */}
-      <section className="py-12 md:py-28 bg-paper">
+      <section className="py-12 md:py-28 bg-paper border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
             <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-2">Competitive Landscape</p>
@@ -641,17 +641,20 @@ export default function ProjectDetail() {
 
       {/* ── Reflection ───────────────────────────────────────── */}
       {project.reflection && (
-        <section className="py-12 md:py-28 bg-[#1A1410]">
+        <section className="py-12 md:py-28 bg-paper border-t border-hairline">
           <div className="max-w-6xl mx-auto px-4 md:px-12">
             <Reveal delay={0.06}>
-              <p className="text-[10px] uppercase tracking-[0.22em] text-white/40 mb-8">Reflection</p>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-white/30 mb-4">What I'd do differently</p>
-              <p
-                className="font-display font-light text-white/85 leading-relaxed tracking-tight"
-                style={{ fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)' }}
-              >
-                {project.reflection}
-              </p>
+              <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5">Reflection</p>
+              <p className="text-[10px] uppercase tracking-[0.18em] text-ink-muted mb-4">What I&rsquo;d do differently</p>
+              <div className="flex gap-4 md:gap-6">
+                <div className="flex-shrink-0 w-1 rounded-full bg-ink/15 self-stretch" />
+                <p
+                  className="font-display font-light text-ink/80 leading-relaxed tracking-tight"
+                  style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}
+                >
+                  {project.reflection}
+                </p>
+              </div>
             </Reveal>
           </div>
         </section>
