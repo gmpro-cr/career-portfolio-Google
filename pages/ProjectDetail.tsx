@@ -167,7 +167,7 @@ function JourneyMap({ steps }: { steps: JourneyStep[] }) {
               </div>
               {/* Content */}
               <div className={`flex-1 ${i < steps.length - 1 ? 'pb-4' : ''}`}>
-                <div className="bezel">
+                <div className="bezel" style={{ background: '#FDFBF7' }}>
                   <div className="bezel-core px-4 py-3.5 flex flex-col gap-1.5" style={{ background: '#FDFBF7', borderRadius: 'calc(1.5rem - 0.375rem)' }}>
                     <p className="text-[9px] uppercase tracking-[0.2em] text-ink-muted font-medium">{step.phase}</p>
                     <p className="text-sm text-ink/80 leading-relaxed">{step.action}</p>
@@ -199,7 +199,7 @@ function JourneyMap({ steps }: { steps: JourneyStep[] }) {
               <div className="w-8 h-8 rounded-full bg-ink text-white text-xs font-semibold flex items-center justify-center mb-3 flex-shrink-0">
                 {String(i + 1).padStart(2, '0')}
               </div>
-              <div className="bezel w-full flex-1">
+              <div className="bezel w-full flex-1" style={{ background: '#FDFBF7' }}>
                 <div className="bezel-core p-4 flex flex-col gap-2 h-full" style={{ background: '#FDFBF7', borderRadius: 'calc(1.5rem - 0.375rem)' }}>
                   <p className="text-[9px] uppercase tracking-[0.2em] text-ink-muted font-medium">{step.phase}</p>
                   <p className="text-xs text-ink/80 leading-relaxed flex-1">{step.action}</p>
@@ -239,7 +239,7 @@ function PipelineDiagram({ steps }: { steps: { step: string }[] }) {
             transform: visible ? 'none' : 'translateX(-12px)',
             transition: `opacity 0.4s ${EASE_STR} ${i * 0.07}s, transform 0.4s ${EASE_STR} ${i * 0.07}s`,
           }}>
-            <div className="bezel">
+            <div className="bezel" style={{ background: '#FDFBF7' }}>
               <div className="bezel-core px-5 py-4 flex items-start gap-4" style={{ background: '#FDFBF7', borderRadius: 'calc(1.25rem - 0.375rem)' }}>
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-ink text-white text-[10px] font-semibold flex items-center justify-center">
                   {String(i + 1).padStart(2, '0')}
@@ -335,6 +335,7 @@ function MetricsRow({ metrics }: { metrics: MetricCard[] }) {
     <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-4">
       {metrics.map((m, i) => (
         <div key={i} className="bezel" style={{
+          background: '#FDFBF7',
           opacity: visible ? 1 : 0,
           transform: visible ? 'none' : 'translateY(16px)',
           transition: `opacity 0.5s ${EASE_STR} ${i * 0.07}s, transform 0.5s ${EASE_STR} ${i * 0.07}s`,
@@ -465,7 +466,7 @@ export default function ProjectDetail() {
       {project.image && (
         <div className="max-w-6xl mx-auto px-4 md:px-12 pb-10 md:pb-16">
           <Reveal delay={0.15}>
-            <div className="bezel" style={{ borderRadius: '1.5rem' }}>
+            <div className="bezel" style={{ background: '#FDFBF7', borderRadius: '1.5rem' }}>
               <div className="bezel-core overflow-hidden" style={{ borderRadius: 'calc(1.5rem - 0.375rem)' }}>
                 <img
                   src={project.image}
@@ -544,7 +545,7 @@ export default function ProjectDetail() {
                 {project.keyInsights?.map((item, i) => (
                   <React.Fragment key={i}>
                     <Reveal delay={0.06 + i * 0.06}>
-                      <div className="bezel">
+                      <div className="bezel" style={{ background: '#FDFBF7' }}>
                         <div className="bezel-core px-5 py-4 flex gap-3" style={{ background: '#FDFBF7', borderRadius: 'calc(1.5rem - 0.375rem)' }}>
                           <CheckCircle size={16} weight="light" className="flex-shrink-0 text-ink mt-0.5" />
                           <p className="text-sm text-ink/85 leading-relaxed">{item}</p>
@@ -577,7 +578,7 @@ export default function ProjectDetail() {
               {/* Architecture annotation */}
               <Reveal delay={0.12}>
                 <div className="space-y-6">
-                  <div className="bezel">
+                  <div className="bezel" style={{ background: '#FDFBF7' }}>
                     <div className="bezel-core p-6" style={{ background: '#FDFBF7', borderRadius: 'calc(1.5rem - 0.375rem)' }}>
                       <p className="text-[10px] uppercase tracking-[0.2em] text-ink-muted mb-3">PM Insight</p>
                       <p className="text-sm text-ink/80 leading-relaxed">

@@ -282,7 +282,7 @@ function SelectedWork() {
               <Link
                 to={`/project/${project.slug}`}
                 className="bezel flex flex-col h-full group"
-                style={{ textDecoration: 'none' }}
+                style={{ textDecoration: 'none', background: '#FDFBF7' }}
               >
                 <div
                   className="bezel-core flex flex-col h-full overflow-hidden"
