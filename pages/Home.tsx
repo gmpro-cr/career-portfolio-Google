@@ -267,7 +267,7 @@ function Hero() {
    ═══════════════════════════════════════════════════════════════ */
 function SelectedWork() {
   return (
-    <section id="work" className="relative py-24 md:py-36 bg-paper">
+    <section id="work" className="relative py-14 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
           <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
@@ -289,7 +289,7 @@ function SelectedWork() {
                   style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
                 >
                   {/* Screenshot image */}
-                  <div className="relative flex-shrink-0 overflow-hidden" style={{ height: '220px' }}>
+                  <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 'clamp(160px, 30vw, 220px)' }}>
                     {project.image && (
                       <img
                         src={project.image}
@@ -369,7 +369,7 @@ function SelectedWork() {
    ═══════════════════════════════════════════════════════════════ */
 function Trajectory() {
   return (
-    <section id="trajectory" className="relative py-20 md:py-28 bg-paper">
+    <section id="trajectory" className="relative py-14 md:py-28 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
           <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
@@ -457,7 +457,7 @@ const TOOLKIT_GROUPS = [
 
 function Toolkit() {
   return (
-    <section id="toolkit" className="relative py-20 md:py-28 bg-paper">
+    <section id="toolkit" className="relative py-14 md:py-28 bg-paper">
       <div className="relative max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
           <h2
@@ -495,7 +495,7 @@ function Toolkit() {
    ═══════════════════════════════════════════════════════════════ */
 function Contact() {
   return (
-    <section id="contact" className="relative py-20 md:py-36 bg-paper">
+    <section id="contact" className="relative py-14 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
         <Reveal delay={0.06}>
           <h2 className="mt-8 font-display font-light leading-[0.95] tracking-tight text-ink"

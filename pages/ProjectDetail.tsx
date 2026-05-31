@@ -145,25 +145,60 @@ const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
 function JourneyMap({ steps }: { steps: JourneyStep[] }) {
   const [ref, visible] = useReveal('-4%');
   return (
-    <div ref={ref} className="w-full overflow-x-auto pb-2">
-      <div className="flex items-stretch min-w-max md:min-w-0 gap-0">
+    <div ref={ref}>
+      {/* Mobile: vertical stack */}
+      <div className="flex flex-col gap-0 md:hidden">
         {steps.map((step, i) => (
           <React.Fragment key={i}>
             <div
-              className="flex flex-col items-center"
+              className="flex gap-4 items-stretch"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'none' : 'translateY(12px)',
+                transition: `opacity 0.45s ${EASE_STR} ${i * 0.07}s, transform 0.45s ${EASE_STR} ${i * 0.07}s`,
+              }}
+            >
+              {/* Step indicator + vertical line */}
+              <div className="flex flex-col items-center flex-shrink-0">
+                <div className="w-7 h-7 rounded-full bg-ink text-white text-[10px] font-semibold flex items-center justify-center flex-shrink-0">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                {i < steps.length - 1 && <div className="w-px flex-1 bg-ink/10 my-1" />}
+              </div>
+              {/* Content */}
+              <div className={`flex-1 ${i < steps.length - 1 ? 'pb-4' : ''}`}>
+                <div className="bezel">
+                  <div className="bezel-core px-4 py-3.5 flex flex-col gap-1.5" style={{ background: '#FDFBF7', borderRadius: 'calc(1.5rem - 0.375rem)' }}>
+                    <p className="text-[9px] uppercase tracking-[0.2em] text-ink-muted font-medium">{step.phase}</p>
+                    <p className="text-sm text-ink/80 leading-relaxed">{step.action}</p>
+                    <div className="pt-2 border-t border-hairline flex items-center gap-2">
+                      <p className="text-[9px] uppercase tracking-[0.18em] text-ink-muted">Feeling</p>
+                      <p className="text-xs font-medium text-ink">{step.emotion}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* Desktop: horizontal */}
+      <div className="hidden md:flex items-stretch gap-0">
+        {steps.map((step, i) => (
+          <React.Fragment key={i}>
+            <div
+              className="flex flex-col items-center flex-1"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? 'none' : 'translateY(16px)',
                 transition: `opacity 0.5s ${EASE_STR} ${i * 0.08}s, transform 0.5s ${EASE_STR} ${i * 0.08}s`,
-                minWidth: '140px',
-                flex: 1,
+                minWidth: 0,
               }}
             >
-              {/* Phase number */}
               <div className="w-8 h-8 rounded-full bg-ink text-white text-xs font-semibold flex items-center justify-center mb-3 flex-shrink-0">
                 {String(i + 1).padStart(2, '0')}
               </div>
-              {/* Card */}
               <div className="bezel w-full flex-1">
                 <div className="bezel-core p-4 flex flex-col gap-2 h-full" style={{ background: '#FDFBF7', borderRadius: 'calc(1.5rem - 0.375rem)' }}>
                   <p className="text-[9px] uppercase tracking-[0.2em] text-ink-muted font-medium">{step.phase}</p>
@@ -175,9 +210,8 @@ function JourneyMap({ steps }: { steps: JourneyStep[] }) {
                 </div>
               </div>
             </div>
-            {/* Arrow connector */}
             {i < steps.length - 1 && (
-              <div className="flex items-center flex-shrink-0 px-2" style={{ opacity: visible ? 1 : 0, transition: `opacity 0.3s ${EASE_STR} ${i * 0.08 + 0.15}s` }}>
+              <div className="flex items-start pt-11 flex-shrink-0 px-1.5" style={{ opacity: visible ? 1 : 0, transition: `opacity 0.3s ${EASE_STR} ${i * 0.08 + 0.15}s` }}>
                 <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
                   <path d="M0 5h14M10 1l4 4-4 4" stroke="rgba(26,20,16,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -238,8 +272,10 @@ function CompetitiveGrid({ columns, rows }: { columns: string[]; rows: Competito
   const [ref, visible] = useReveal('-4%');
   const ours = columns[0];
   return (
-    <div ref={ref} className="w-full overflow-x-auto">
-      <table className="w-full min-w-[560px] border-collapse" style={{ opacity: visible ? 1 : 0, transition: `opacity 0.5s ${EASE_STR} 0.1s` }}>
+    <div ref={ref}>
+      <p className="text-[10px] text-ink-muted mb-3 md:hidden">← Scroll to compare →</p>
+      <div className="w-full overflow-x-auto -mx-0 pb-2">
+      <table className="w-full min-w-[520px] border-collapse" style={{ opacity: visible ? 1 : 0, transition: `opacity 0.5s ${EASE_STR} 0.1s` }}>
         <thead>
           <tr>
             <th className="text-left text-[10px] uppercase tracking-[0.2em] text-ink-muted font-medium pb-4 pr-6 w-[38%]">Feature</th>
@@ -285,6 +321,7 @@ function CompetitiveGrid({ columns, rows }: { columns: string[]; rows: Competito
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
@@ -342,7 +379,7 @@ export default function ProjectDetail() {
     <div className="bg-paper min-h-screen">
 
       {/* ── Back nav bar ─────────────────────────────────────── */}
-      <div className="pt-28 pb-4 px-6 md:px-12 max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <div className="pt-20 md:pt-28 pb-4 px-4 md:px-12 max-w-6xl mx-auto flex items-center justify-between gap-4">
         <button
           onClick={() => navigate(-1)}
           className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors duration-200 group"
@@ -369,7 +406,7 @@ export default function ProjectDetail() {
       </div>
 
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
+      <section className="relative py-10 md:py-24 overflow-hidden">
         {/* Background image */}
         {project.image && (
           <>
@@ -385,13 +422,13 @@ export default function ProjectDetail() {
             <div className="absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/70 to-paper" />
           </>
         )}
-        <div className="relative max-w-6xl mx-auto px-6 md:px-12">
+        <div className="relative max-w-6xl mx-auto px-4 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
           >
-            <div className="flex flex-wrap items-center gap-3 mb-6">
+            <div className="flex flex-wrap items-center gap-2 mb-4 md:mb-6">
               <Eyebrow>{project.category === 'build' ? 'Shipped Product' : 'Case Study'}</Eyebrow>
               <span className="font-display italic text-sm text-ink-muted">{project.date}</span>
               {project.metrics && (
@@ -405,15 +442,15 @@ export default function ProjectDetail() {
             </div>
             <h1
               className="font-display font-light leading-[0.95] tracking-tight text-ink"
-              style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
+              style={{ fontSize: 'clamp(2rem, 6vw, 5.5rem)' }}
             >
               {project.title}
             </h1>
-            <p className="mt-6 max-w-2xl text-base md:text-lg text-ink/60 leading-relaxed font-normal">
+            <p className="mt-4 md:mt-6 max-w-2xl text-sm md:text-lg text-ink/60 leading-relaxed font-normal">
               {project.description}
             </p>
             {/* Tech stack pills */}
-            <div className="mt-8 flex flex-wrap gap-2">
+            <div className="mt-5 md:mt-8 flex flex-wrap gap-1.5 md:gap-2">
               {project.tech.map((t, i) => (
                 <span key={i} className="text-xs font-medium bg-ink/5 border border-hairline text-ink px-3 py-1.5 rounded-full">
                   {t}
@@ -426,15 +463,15 @@ export default function ProjectDetail() {
 
       {/* ── Hero screenshot ───────────────────────────────────── */}
       {project.image && (
-        <div className="max-w-6xl mx-auto px-6 md:px-12 pb-16">
+        <div className="max-w-6xl mx-auto px-4 md:px-12 pb-10 md:pb-16">
           <Reveal delay={0.15}>
-            <div className="bezel" style={{ borderRadius: '2rem' }}>
-              <div className="bezel-core overflow-hidden" style={{ borderRadius: 'calc(2rem - 0.375rem)' }}>
+            <div className="bezel" style={{ borderRadius: '1.5rem' }}>
+              <div className="bezel-core overflow-hidden" style={{ borderRadius: 'calc(1.5rem - 0.375rem)' }}>
                 <img
                   src={project.image}
                   alt={`${project.title} homepage`}
                   className="w-full object-cover object-top"
-                  style={{ maxHeight: '520px' }}
+                  style={{ maxHeight: 'clamp(200px, 40vw, 520px)' }}
                 />
               </div>
             </div>
@@ -443,11 +480,11 @@ export default function ProjectDetail() {
       )}
 
       {/* ── Problem ──────────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-[#F0EBE3]">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
+      <section className="py-12 md:py-28 bg-[#F0EBE3]">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
-            <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-8">The Problem</p>
-            <div className="flex gap-6">
+            <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5 md:mb-8">The Problem</p>
+            <div className="flex gap-4 md:gap-6">
               <div className="flex-shrink-0 w-1 rounded-full bg-ink/20 self-stretch" />
               <p
                 className="font-display font-light text-ink leading-[1.45] tracking-tight"
@@ -461,11 +498,11 @@ export default function ProjectDetail() {
       </section>
 
       {/* ── User Journey ─────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-paper">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
+      <section className="py-12 md:py-28 bg-paper">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
             <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-2">User Journey Map</p>
-            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-12">
+            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-12">
               How a user moves from <em className="italic font-normal text-ink-muted">first touch to retention.</em>
             </h2>
           </Reveal>
@@ -474,17 +511,17 @@ export default function ProjectDetail() {
       </section>
 
       {/* ── PM Approach + Key Decisions (2-col) ──────────────── */}
-      <section className="py-20 md:py-28 bg-[#F8F5F0]">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
+      <section className="py-12 md:py-28 bg-[#F8F5F0]">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
-            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-16">
+            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-16">
               PM Approach &amp; <em className="italic font-normal text-ink-muted">Key Decisions</em>
             </h2>
           </Reveal>
-          <div className="grid md:grid-cols-2 gap-12 md:gap-20">
+          <div className="grid md:grid-cols-2 gap-10 md:gap-20">
             {/* Left: numbered approach */}
             <div>
-              <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-8">Discovery → Ship → Iterate</p>
+              <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5 md:mb-8">Discovery → Ship → Iterate</p>
               <ul className="space-y-6">
                 {project.approach?.map((item, i) => (
                   <React.Fragment key={i}>
@@ -502,7 +539,7 @@ export default function ProjectDetail() {
             </div>
             {/* Right: key PM decisions */}
             <div>
-              <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-8">Critical Product Decisions</p>
+              <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5 md:mb-8">Critical Product Decisions</p>
               <div className="space-y-3">
                 {project.keyInsights?.map((item, i) => (
                   <React.Fragment key={i}>
@@ -524,18 +561,18 @@ export default function ProjectDetail() {
 
       {/* ── Architecture / Data Pipeline ─────────────────────── */}
       {project.technicalDetails && (
-        <section className="py-20 md:py-28 bg-paper">
-          <div className="max-w-6xl mx-auto px-6 md:px-12">
+        <section className="py-12 md:py-28 bg-paper">
+          <div className="max-w-6xl mx-auto px-4 md:px-12">
             <Reveal delay={0.06}>
               <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-2">System Architecture</p>
-              <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-4">
+              <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-4">
                 How it works — <em className="italic font-normal text-ink-muted">step by step.</em>
               </h2>
-              <p className="text-sm text-ink/60 leading-relaxed max-w-2xl mb-14">
+              <p className="text-sm text-ink/60 leading-relaxed max-w-2xl mb-8 md:mb-14">
                 {project.technicalDetails.architecture}
               </p>
             </Reveal>
-            <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+            <div className="grid md:grid-cols-2 gap-10 md:gap-20 items-start">
               <PipelineDiagram steps={project.technicalDetails.dataFlow} />
               {/* Architecture annotation */}
               <Reveal delay={0.12}>
@@ -564,11 +601,11 @@ export default function ProjectDetail() {
       )}
 
       {/* ── Outcomes / Metrics ───────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-[#F0EBE3]">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
+      <section className="py-12 md:py-28 bg-[#F0EBE3]">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
             <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-2">Measured Impact</p>
-            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-12">
+            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-12">
               Outcomes that <em className="italic font-normal text-ink-muted">actually moved the needle.</em>
             </h2>
           </Reveal>
@@ -590,11 +627,11 @@ export default function ProjectDetail() {
       </section>
 
       {/* ── Competitive Analysis ─────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-paper">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
+      <section className="py-12 md:py-28 bg-paper">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
             <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-2">Competitive Landscape</p>
-            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-14">
+            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-14">
               Where this product <em className="italic font-normal text-ink-muted">sits in the market.</em>
             </h2>
           </Reveal>
@@ -604,8 +641,8 @@ export default function ProjectDetail() {
 
       {/* ── Reflection ───────────────────────────────────────── */}
       {project.reflection && (
-        <section className="py-20 md:py-28 bg-[#1A1410]">
-          <div className="max-w-6xl mx-auto px-6 md:px-12">
+        <section className="py-12 md:py-28 bg-[#1A1410]">
+          <div className="max-w-6xl mx-auto px-4 md:px-12">
             <Reveal delay={0.06}>
               <p className="text-[10px] uppercase tracking-[0.22em] text-white/40 mb-8">Reflection</p>
               <p className="text-[10px] uppercase tracking-[0.18em] text-white/30 mb-4">What I'd do differently</p>
@@ -621,22 +658,22 @@ export default function ProjectDetail() {
       )}
 
       {/* ── Next Project ─────────────────────────────────────── */}
-      <section className="py-20 md:py-24 bg-paper border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
+      <section className="py-12 md:py-24 bg-paper border-t border-hairline">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal delay={0.06}>
             <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-6">Next Project</p>
             <Link
               to={`/project/${nextProject.slug}`}
-              className="group inline-flex items-center gap-4"
+              className="group flex items-center justify-between gap-4"
             >
-              <div>
-                <h3 className="font-display font-light text-3xl md:text-5xl text-ink leading-tight tracking-tight group-hover:text-ink-muted transition-colors duration-500">
+              <div className="min-w-0">
+                <h3 className="font-display font-light text-2xl md:text-5xl text-ink leading-tight tracking-tight group-hover:text-ink-muted transition-colors duration-500">
                   {nextProject.title}
                 </h3>
                 <p className="mt-2 text-sm text-ink-muted">{nextProject.date} · {nextProject.metrics}</p>
               </div>
-              <span className="flex-shrink-0 ml-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-px">
-                <ArrowRight size={18} weight="light" />
+              <span className="flex-shrink-0 inline-flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-px">
+                <ArrowRight size={16} weight="light" />
               </span>
             </Link>
           </Reveal>
