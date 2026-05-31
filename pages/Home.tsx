@@ -203,27 +203,15 @@ function Hero() {
           ))}
         </h1>
 
-        {/* Role tag */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.48s forwards` }}>
-          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.22em]" style={{ color: 'rgba(26,20,16,0.35)' }}>
-            AI Product Manager · Builder · Finance Domain Expert
-          </p>
-        </div>
-
         {/* Summary */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.55s forwards` }}>
           <p
-            className="mt-5 max-w-xl text-base md:text-xl font-normal leading-relaxed"
-            style={{ color: 'rgba(26,20,16,0.65)', letterSpacing: '-0.01em' }}
+            className="mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed text-justify hyphens-auto"
+            style={{ color: 'rgba(26,20,16,0.6)' }}
           >
-            I find the problems banks haven&rsquo;t solved —
-            then build AI products that solve them.
-          </p>
-          <p
-            className="mt-3 max-w-xl text-sm md:text-base font-normal leading-relaxed"
-            style={{ color: 'rgba(26,20,16,0.45)' }}
-          >
-            9 years in credit risk and banking. 3 LLM platforms shipped solo, from blank canvas to live users.
+            AI Product Builder and Finance Domain Expert with 9+ years in banking. Independently designed,
+            built and shipped 3 LLM-based platforms. Experienced across the full product lifecycle: discovery,
+            MVP scoping, prompt engineering, and iterative releases.
           </p>
         </div>
 
@@ -241,34 +229,17 @@ function Hero() {
               </span>
             </a>
             <a
-              href="mailto:mahalegauravk@gmail.com"
+              href="/Gaurav_Mahale_Resume.pdf"
+              download
               className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium border transition-all duration-500"
               style={{ borderColor: 'rgba(26,20,16,0.18)', color: 'rgba(26,20,16,0.7)', background: 'transparent' }}
             >
-              Let&rsquo;s talk
+              Download CV
               <span className="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-px"
                 style={{ background: 'rgba(26,20,16,0.06)' }}>
-                <ArrowRight size={14} />
+                <FileText size={14} />
               </span>
             </a>
-          </div>
-        </div>
-
-        {/* Proof chips */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.82s forwards` }}>
-          <div className="mt-8 flex flex-wrap items-center gap-2">
-            {[
-              'Yes Bank · HDFC Bank',
-              '3 LLM products live',
-              '500+ monthly active users',
-              'Pareto.AI evaluator',
-            ].map((chip, i) => (
-              <span key={i} className="inline-flex items-center gap-1.5 text-[11px] font-medium rounded-full px-3 py-1.5"
-                style={{ color: 'rgba(26,20,16,0.5)', border: '1px solid rgba(26,20,16,0.1)', background: 'rgba(26,20,16,0.02)' }}>
-                <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: 'rgba(26,20,16,0.3)' }} />
-                {chip}
-              </span>
-            ))}
           </div>
         </div>
 
@@ -292,33 +263,6 @@ function Hero() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PROOF STRIP — 4 key numbers between hero and work
-   ═══════════════════════════════════════════════════════════════ */
-function ProofStrip() {
-  const stats = [
-    { num: '9+',      label: 'Years in banking & credit',    sub: 'Yes Bank · HDFC Bank · Suraksha ARC' },
-    { num: '3',       label: 'LLM products shipped, solo',   sub: 'Idea → strategy → live users' },
-    { num: '500+',    label: 'Monthly active users',         sub: 'AI-Spirit — zero paid acquisition' },
-    { num: '₹500Cr+', label: 'Portfolios managed',           sub: 'Wholesale credit at Yes Bank' },
-  ];
-  return (
-    <section className="bg-paper" style={{ borderTop: '1px solid rgba(26,20,16,0.08)', borderBottom: '1px solid rgba(26,20,16,0.08)' }}>
-      <div className="max-w-6xl mx-auto px-6 md:px-12 py-10 md:py-14">
-        <StaggerList base={0} step={0.07} className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
-          {stats.map(s => (
-            <div key={s.num}>
-              <p className="font-display font-light text-3xl md:text-[2.5rem] text-ink tracking-tight leading-none">{s.num}</p>
-              <p className="mt-3 text-sm font-semibold text-ink">{s.label}</p>
-              <p className="mt-1 text-xs text-ink-muted leading-snug">{s.sub}</p>
-            </div>
-          ))}
-        </StaggerList>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════════
    SELECTED WORK — cards navigate to /project/:slug
    ═══════════════════════════════════════════════════════════════ */
 function SelectedWork() {
@@ -326,14 +270,9 @@ function SelectedWork() {
     <section id="work" className="relative py-14 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
-          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-4">Selected Work</p>
-          <h2 className="font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
-            Three problems.<br />
-            <em className="italic font-normal text-ink-muted">Three products shipped.</em>
+          <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
+            Selected Work
           </h2>
-          <p className="mt-6 max-w-lg text-sm md:text-base text-ink/55 leading-relaxed">
-            Each built solo — from problem discovery to live product — at the intersection of AI and financial services.
-          </p>
         </Reveal>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -376,27 +315,18 @@ function SelectedWork() {
 
                   {/* Card body */}
                   <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <Eyebrow>{project.category === 'build' ? 'Shipped Product' : 'Case Study'}</Eyebrow>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
                       <span className="font-display italic text-xs text-ink-muted whitespace-nowrap">{project.date}</span>
                     </div>
                     <h3 className="font-display font-light text-[1.55rem] md:text-[1.65rem] text-ink leading-tight tracking-tight">
                       {project.title}
                     </h3>
-                    {/* Impact metric — prominent */}
-                    <div className="mt-4 mb-4 py-3 border-y border-hairline flex items-baseline gap-2">
-                      <span className="font-display font-light text-2xl text-ink tracking-tight leading-none">{project.metrics}</span>
-                      <span className="text-xs text-ink-muted">
-                        {project.slug === 'ai-persona-interaction-platform' && 'monthly active users, organic'}
-                        {project.slug === 'ai-credit-intelligence-platform' && 'reduction in analyst prep time'}
-                        {project.slug === 'automated-job-discovery-agent' && 'top-of-funnel discovery automated'}
-                      </span>
-                    </div>
                     <p
-                      className="text-sm text-ink/60 leading-relaxed font-normal"
+                      className="mt-3 text-sm text-ink/65 leading-relaxed font-normal"
                       style={{
                         display: '-webkit-box',
-                        WebkitLineClamp: 2,
+                        WebkitLineClamp: 3,
                         WebkitBoxOrient: 'vertical' as const,
                         overflow: 'hidden',
                       } as React.CSSProperties}
@@ -416,7 +346,7 @@ function SelectedWork() {
                     </div>
                     <div className="mt-5 pt-4 border-t border-hairline">
                       <div className="flex items-center justify-between text-sm font-medium text-ink">
-                        <span>Read case study</span>
+                        <span>View case study</span>
                         <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px">
                           <ArrowRight size={13} weight="light" />
                         </span>
@@ -437,27 +367,15 @@ function SelectedWork() {
 /* ═══════════════════════════════════════════════════════════════
    TRAJECTORY
    ═══════════════════════════════════════════════════════════════ */
-
-const ROLE_HIGHLIGHTS: Record<string, string> = {
-  'Pareto.AI': 'Evaluating and fine-tuning LLMs on financial workflows against expert-authored benchmarks',
-  'Yes Bank Limited': '₹500Cr+ wholesale credit portfolio · authored 100+ Credit Appraisal Memorandums',
-  'HDFC Bank Limited': 'PowerBI dashboards tracking default probability across ₹200Cr+ portfolio in real time',
-  'Suraksha Asset Reconstruction Ltd.': 'Assessed a ₹9,000Cr IBC case — one of India\'s largest corporate stress resolutions',
-};
-
 function Trajectory() {
   return (
     <section id="trajectory" className="relative py-14 md:py-28 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
-          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-4">Career</p>
-          <h2 className="font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
-            Nine years building<br />
-            <em className="italic font-normal text-ink-muted">the rarest combination.</em>
+          <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
+            Nine years<br />
+            <em className="italic font-normal text-ink-muted">across two worlds.</em>
           </h2>
-          <p className="mt-6 max-w-lg text-sm md:text-base text-ink/55 leading-relaxed">
-            Deep banking domain expertise meets AI product thinking. Neither alone is enough — together, they&rsquo;re rare.
-          </p>
         </Reveal>
 
         <div className="mt-20 relative">
@@ -475,12 +393,6 @@ function Trajectory() {
                 <div className="md:col-span-9 md:pl-8">
                   <h3 className="font-display font-light text-2xl md:text-3xl text-ink leading-tight tracking-tight">{exp.role}</h3>
                   <p className="mt-1 text-sm font-medium text-ink-muted">{exp.company}</p>
-                  {/* Peak achievement highlight */}
-                  {ROLE_HIGHLIGHTS[exp.company] && (
-                    <p className="mt-3 text-sm font-medium text-ink/80 italic border-l-2 border-ink/20 pl-3">
-                      {ROLE_HIGHLIGHTS[exp.company]}
-                    </p>
-                  )}
                   <ul className="mt-5 space-y-3">
                     {exp.description.map((desc, idx) => (
                       <li key={idx} className="flex gap-3 text-base text-ink/75 font-normal leading-relaxed">
@@ -538,21 +450,9 @@ function Trajectory() {
    TOOLKIT
    ═══════════════════════════════════════════════════════════════ */
 const TOOLKIT_GROUPS = [
-  {
-    label: 'Build',
-    context: 'The full-stack I use to ship LLM products end-to-end',
-    items: ['Next.js', 'Python · FastAPI', 'TypeScript', 'Supabase', 'Vercel', 'Flask'],
-  },
-  {
-    label: 'Reason',
-    context: 'AI providers I route, evaluate, and fine-tune',
-    items: ['Claude API', 'Gemini 1.5 Flash', 'Groq · Llama 3.3', 'Ollama · Mistral 7B', 'OpenAI'],
-  },
-  {
-    label: 'Ship · Measure',
-    context: 'How I validate hypotheses and iterate on data',
-    items: ['LLM Evals', 'Prompt Architecture', 'Mixpanel', 'A/B Testing', 'PowerBI'],
-  },
+  { label: 'Build', items: ['Next.js', 'Python · FastAPI', 'TypeScript', 'Supabase', 'Vercel', 'Flask'] },
+  { label: 'Reason', items: ['Claude API', 'Gemini 1.5', 'Groq · Llama', 'Ollama · Mistral', 'OpenAI'] },
+  { label: 'Ship · Measure', items: ['LLM Evals', 'Prompt Architecture', 'Mixpanel', 'A/B Testing', 'PowerBI'] },
 ];
 
 function Toolkit() {
@@ -560,9 +460,8 @@ function Toolkit() {
     <section id="toolkit" className="relative py-14 md:py-28 bg-paper">
       <div className="relative max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
-          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-4">Toolkit</p>
           <h2
-            className="font-display font-light leading-[0.95] tracking-tight max-w-3xl text-ink"
+            className="mt-6 font-display font-light leading-[0.95] tracking-tight max-w-3xl text-ink"
             style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
           >
             How the work<br />
@@ -573,10 +472,9 @@ function Toolkit() {
         <StaggerList base={0} step={0.06} className="mt-20 grid md:grid-cols-3 gap-x-10 gap-y-12">
           {TOOLKIT_GROUPS.map((group) => (
             <div key={group.label}>
-              <p className="text-[10px] uppercase tracking-[0.22em] font-medium mb-1 text-ink-muted">
+              <p className="text-[10px] uppercase tracking-[0.22em] font-medium mb-6 text-ink-muted">
                 {group.label}
               </p>
-              <p className="text-xs text-ink/40 mb-6 leading-snug">{group.context}</p>
               <ul className="space-y-2.5">
                 {group.items.map(item => (
                   <li key={item} className="font-display font-light text-xl md:text-2xl tracking-tight text-ink">
@@ -612,18 +510,8 @@ function Contact() {
             regulated system — I&rsquo;m comfortable with all three.
           </p>
         </Reveal>
-        <Reveal delay={0.16}>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            {['AI Product Manager', 'LLM product teams', 'Series A–C startups', 'Fintech / RegTech'].map((tag, i) => (
-              <span key={i} className="text-[11px] font-medium rounded-full px-3 py-1.5"
-                style={{ color: 'rgba(26,20,16,0.45)', border: '1px solid rgba(26,20,16,0.1)', background: 'rgba(26,20,16,0.02)' }}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        </Reveal>
         <Reveal delay={0.2}>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="mailto:mahalegauravk@gmail.com" className="btn-pill">
               mahalegauravk@gmail.com
               <span className="btn-pill-icon"><PaperPlaneTilt size={14} weight="light" /></span>
@@ -669,7 +557,6 @@ export default function Home() {
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
         <Hero />
-        <ProofStrip />
         <SelectedWork />
         <Trajectory />
         <Toolkit />
