@@ -754,19 +754,8 @@ export default function ProjectDetail() {
       </div>
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="relative py-10 md:py-24 overflow-hidden">
-        {project.image && (
-          <>
-            <div className="absolute inset-0 pointer-events-none" style={{
-              backgroundImage: `url(${project.image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'top center',
-              filter: 'blur(0px) brightness(0.06) saturate(0.4)',
-            }} />
-            <div className="absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/70 to-paper" />
-          </>
-        )}
-        <div className="relative max-w-6xl mx-auto px-4 md:px-12">
+      <section className="py-10 md:py-24">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
