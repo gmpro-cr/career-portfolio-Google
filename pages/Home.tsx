@@ -184,18 +184,9 @@ function Hero() {
       {/* Text — Framer Motion entrance only, no scroll link */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-24">
 
-        {/* Context tag — Nicolas Backal / Sam Dickie greeting pattern */}
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.15, ease: springEase }}
-        >
-          <Eyebrow>Finance Domain Expert → AI Product Builder</Eyebrow>
-        </motion.div>
-
         {/* Name — word slide */}
         <h1
-          className="mt-6 font-display font-light leading-[0.92] tracking-[-0.03em]"
+          className="mt-8 font-display font-light leading-[0.92] tracking-[-0.03em]"
           style={{ fontSize: 'clamp(3.5rem, 10vw, 9rem)', color: '#1A1410' }}
         >
           {words.map((word, wi) => (
@@ -212,36 +203,20 @@ function Hero() {
           ))}
         </h1>
 
-        {/* Summary — Scott Hanford value-prop-first pattern */}
+        {/* Summary */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.55s forwards` }}>
           <p
-            className="mt-8 max-w-xl text-base md:text-lg font-normal leading-relaxed"
+            className="mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed text-justify hyphens-auto"
             style={{ color: 'rgba(26,20,16,0.6)' }}
           >
-            Finance domain expert turned AI product builder. I find the bottlenecks banks haven&rsquo;t automated
-            — then build the LLM products that solve them.
+            AI Product Builder and Finance Domain Expert with 9+ years in banking. Independently designed,
+            built and shipped 3 LLM-based platforms. Experienced across the full product lifecycle: discovery,
+            MVP scoping, prompt engineering, and iterative releases.
           </p>
         </div>
 
-        {/* Stats strip — Kane Sherwell "500+ products · 15+ years" pattern */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.62s forwards` }}>
-          <div className="mt-8 pt-7 border-t border-hairline flex items-start gap-8 md:gap-12 flex-wrap">
-            {[
-              { n: '9+',       label: 'years in banking' },
-              { n: '3',        label: 'LLM products shipped' },
-              { n: '500+',     label: 'monthly active users' },
-              { n: '₹500Cr+',  label: 'credit portfolios' },
-            ].map((s) => (
-              <div key={s.label}>
-                <p className="font-display font-light text-2xl md:text-3xl text-ink tracking-tight leading-none">{s.n}</p>
-                <p className="text-[11px] text-ink/40 mt-1.5 tracking-wide leading-none">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* CTAs */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.72s forwards` }}>
+        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.65s forwards` }}>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
               href="#work"
@@ -288,33 +263,6 @@ function Hero() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CAREER ARC — Scott Hanford "Currently / Previously" strip
-   3-column: Now · Before · Seeking — instant career story at a glance
-   ═══════════════════════════════════════════════════════════════ */
-function CareerArc() {
-  return (
-    <div className="bg-paper border-t border-b border-hairline">
-      <Reveal>
-        <div className="max-w-6xl mx-auto px-6 md:px-12 py-5 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-hairline gap-4 md:gap-0">
-          {[
-            { label: 'Now',     text: 'AI Product Builder · PM at Yes Bank · AI Evaluator at Pareto.AI' },
-            { label: 'Before',  text: 'HDFC Bank · Suraksha ARC · IIM Sirmaur (PGPM)' },
-            { label: 'Seeking', text: 'AI PM roles · LLM product teams · Series A–C · Fintech' },
-          ].map((item) => (
-            <div key={item.label} className="flex items-start gap-3 md:px-8 first:md:pl-0 last:md:pr-0">
-              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-ink/30 pt-0.5 w-14 flex-shrink-0">
-                {item.label}
-              </span>
-              <p className="text-sm text-ink/60 leading-relaxed">{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </Reveal>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════════
    SELECTED WORK — cards navigate to /project/:slug
    ═══════════════════════════════════════════════════════════════ */
 function SelectedWork() {
@@ -322,12 +270,9 @@ function SelectedWork() {
     <section id="work" className="relative py-14 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
-          <Eyebrow>Selected Work</Eyebrow>
           <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
-            Three problems.<br />
-            <em className="italic font-normal text-ink-muted">Three products shipped.</em>
+            Selected Work
           </h2>
-          <p className="mt-4 text-base text-ink/50 max-w-lg">Each built solo — from discovery to live product.</p>
         </Reveal>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -440,16 +385,9 @@ function Trajectory() {
               <div key={i} className="grid md:grid-cols-12 gap-6 md:gap-10 relative">
                 <div className="md:col-span-3">
                   <p className="font-display italic text-ink-muted text-base">{exp.period}</p>
-                  <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className={`eyebrow ${exp.type === 'AI' ? '!border-stone-300 !bg-stone-50 text-stone-600' : ''}`}>
-                      {exp.type}
-                    </span>
-                    {exp.period.includes('Present') && (
-                      <span className="eyebrow !border-emerald-200 !bg-emerald-50 !text-emerald-700">
-                        Current
-                      </span>
-                    )}
-                  </div>
+                  <span className={`mt-2 eyebrow ${exp.type === 'AI' ? '!border-stone-300 !bg-stone-50 text-stone-600' : ''}`}>
+                    {exp.type}
+                  </span>
                 </div>
                 <span className="hidden md:block absolute left-[24%] top-2 -translate-x-1/2 h-2.5 w-2.5 rounded-full bg-ink ring-4 ring-paper" aria-hidden />
                 <div className="md:col-span-9 md:pl-8">
@@ -567,16 +505,7 @@ function Contact() {
           </h2>
         </Reveal>
         <Reveal delay={0.12}>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-            {['AI PM roles', 'LLM product teams', 'Series A–C', 'Fintech / RegTech'].map(tag => (
-              <span key={tag}
-                className="text-[11px] font-medium text-ink/50 border border-hairline rounded-full px-3 py-1"
-                style={{ background: 'rgba(253,251,247,0.8)' }}>
-                {tag}
-              </span>
-            ))}
-          </div>
-          <p className="mt-6 max-w-xl mx-auto text-base md:text-lg text-ink/70 font-normal leading-relaxed">
+          <p className="mt-10 max-w-xl mx-auto text-base md:text-lg text-ink/70 font-normal leading-relaxed">
             Whether it&rsquo;s an AI PM role, scaling an LLM product, or navigating a complex
             regulated system — I&rsquo;m comfortable with all three.
           </p>
@@ -628,7 +557,6 @@ export default function Home() {
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
         <Hero />
-        <CareerArc />
         <SelectedWork />
         <Trajectory />
         <Toolkit />
