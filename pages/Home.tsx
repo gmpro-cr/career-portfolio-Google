@@ -232,7 +232,7 @@ function Hero() {
         {/* Summary */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.55s forwards` }}>
           <p
-            className="mt-5 lg:mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed text-center lg:text-justify lg:hyphens-auto"
+            className="mt-5 lg:mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed text-justify hyphens-auto"
             style={{ color: 'rgba(26,20,16,0.6)' }}
           >
             AI Product Builder and Finance Domain Expert with 9+ years in banking. Independently designed,
