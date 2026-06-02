@@ -184,6 +184,28 @@ function Hero() {
       {/* Text — Framer Motion entrance only, no scroll link */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-24">
 
+        {/* Mobile-only circular portrait */}
+        <motion.div
+          className="lg:hidden mb-8"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: springEase }}
+        >
+          <div
+            className="w-24 h-24 rounded-full overflow-hidden"
+            style={{
+              boxShadow: '0 0 0 2px rgba(26,20,16,0.08), 0 8px 24px rgba(26,20,16,0.12)',
+            }}
+          >
+            <img
+              src="/profile.jpeg"
+              alt="Gaurav Mahale"
+              className="w-full h-full object-cover object-top"
+              style={{ filter: 'brightness(1.02) contrast(1.08) saturate(1.06)' }}
+            />
+          </div>
+        </motion.div>
+
         {/* Name — word slide */}
         <h1
           className="mt-8 font-display font-light leading-[0.92] tracking-[-0.03em]"
