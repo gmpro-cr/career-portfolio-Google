@@ -186,15 +186,15 @@ function Hero() {
 
         {/* Mobile-only circular portrait */}
         <motion.div
-          className="lg:hidden mb-8"
+          className="lg:hidden mb-6 flex justify-center"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2, ease: springEase }}
         >
           <div
-            className="w-24 h-24 rounded-full overflow-hidden"
+            className="w-36 h-36 rounded-full overflow-hidden"
             style={{
-              boxShadow: '0 0 0 2px rgba(26,20,16,0.08), 0 8px 24px rgba(26,20,16,0.12)',
+              boxShadow: '0 0 0 2px rgba(26,20,16,0.08), 0 12px 32px rgba(26,20,16,0.14)',
             }}
           >
             <img
@@ -208,7 +208,7 @@ function Hero() {
 
         {/* Name — word slide */}
         <h1
-          className="mt-8 font-display font-light leading-[0.92] tracking-[-0.03em]"
+          className="mt-5 lg:mt-8 font-display font-light leading-[0.92] tracking-[-0.03em] text-center lg:text-left"
           style={{ fontSize: 'clamp(2.2rem, 9vw, 9rem)', color: '#1A1410' }}
         >
           {words.map((word, wi) => (
@@ -232,7 +232,7 @@ function Hero() {
         {/* Summary */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.55s forwards` }}>
           <p
-            className="mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed text-justify hyphens-auto"
+            className="mt-5 lg:mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed text-center lg:text-justify lg:hyphens-auto"
             style={{ color: 'rgba(26,20,16,0.6)' }}
           >
             AI Product Builder and Finance Domain Expert with 9+ years in banking. Independently designed,
@@ -243,7 +243,7 @@ function Hero() {
 
         {/* CTAs */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.65s forwards` }}>
-          <div className="mt-10 flex items-center gap-3">
+          <div className="mt-7 lg:mt-10 flex items-center justify-center lg:justify-start gap-3">
             <a
               href="#work"
               className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium transition-all duration-500 whitespace-nowrap"
