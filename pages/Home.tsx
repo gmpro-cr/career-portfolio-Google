@@ -186,7 +186,7 @@ function Hero() {
 
         {/* Mobile-only circular portrait */}
         <motion.div
-          className="lg:hidden mb-8"
+          className="lg:hidden mb-8 flex justify-center"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2, ease: springEase }}
@@ -209,10 +209,14 @@ function Hero() {
         {/* Name — word slide */}
         <h1
           className="mt-8 font-display font-light leading-[0.92] tracking-[-0.03em]"
-          style={{ fontSize: 'clamp(3.5rem, 10vw, 9rem)', color: '#1A1410' }}
+          style={{ fontSize: 'clamp(2.2rem, 9vw, 9rem)', color: '#1A1410' }}
         >
           {words.map((word, wi) => (
-            <motion.span key={wi} className="block overflow-hidden">
+            <motion.span
+              key={wi}
+              className="inline-block lg:block overflow-hidden"
+              style={wi === 0 ? { marginRight: '0.25em' } : undefined}
+            >
               <motion.span
                 className="block"
                 initial={{ y: '110%', opacity: 0 }}
