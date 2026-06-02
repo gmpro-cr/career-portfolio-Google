@@ -182,11 +182,11 @@ function Hero() {
       </div>
 
       {/* Text — Framer Motion entrance only, no scroll link */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-24">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-24">
 
         {/* Mobile-only circular portrait */}
         <motion.div
-          className="lg:hidden mb-8 flex justify-center"
+          className="lg:hidden mb-8"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2, ease: springEase }}
@@ -246,7 +246,7 @@ function Hero() {
           <div className="mt-10 flex items-center gap-3">
             <a
               href="#work"
-              className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium transition-all duration-500"
+              className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium transition-all duration-500 whitespace-nowrap"
               style={{ background: '#1A1410', color: '#FDFBF7' }}
             >
               View my work
@@ -257,7 +257,7 @@ function Hero() {
             <a
               href="/Gaurav_Mahale_Resume.pdf"
               download
-              className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium border transition-all duration-500"
+              className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium border transition-all duration-500 whitespace-nowrap"
               style={{ borderColor: 'rgba(26,20,16,0.18)', color: 'rgba(26,20,16,0.7)', background: 'transparent' }}
             >
               Download CV
