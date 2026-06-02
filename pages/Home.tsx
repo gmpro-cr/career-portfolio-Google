@@ -243,7 +243,7 @@ function Hero() {
 
         {/* CTAs */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.65s forwards` }}>
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="mt-10 flex items-center gap-3">
             <a
               href="#work"
               className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium transition-all duration-500"
