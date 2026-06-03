@@ -568,27 +568,27 @@ function Contact() {
 /* ═══════════════════════════════════════════════════════════════
    CLAUDE CODE WORKFLOW
    ═══════════════════════════════════════════════════════════════ */
-const CLAUDE_CARDS = [
+const CLAUDE_CAPABILITIES = [
   {
-    icon: <PuzzlePiece size={22} weight="light" className="text-ink" />,
+    icon: <PuzzlePiece size={20} weight="light" className="text-ink" />,
     title: 'Skills',
     description: 'Modular instruction sets that direct how Claude approaches design, debugging, and shipping — loaded per task, not per project.',
     tags: ['taste-skill', 'frontend-design', 'webapp-testing', 'brainstorming', 'code-review'],
   },
   {
-    icon: <PlugsConnected size={22} weight="light" className="text-ink" />,
+    icon: <PlugsConnected size={20} weight="light" className="text-ink" />,
     title: 'MCP Servers',
     description: 'Live connections to external systems so Claude acts directly — no copy-paste, no context switching.',
     tags: ['Playwright', 'GitHub', 'Vercel', 'Gmail', 'Canva', 'Render'],
   },
   {
-    icon: <Brain size={22} weight="light" className="text-ink" />,
+    icon: <Brain size={20} weight="light" className="text-ink" />,
     title: 'Memory',
     description: 'Project decisions, preferences, and architecture choices persist across every session — Claude picks up where we left off.',
     tags: ['Project context', 'Decisions', 'Preferences', 'Cross-session'],
   },
   {
-    icon: <Monitor size={22} weight="light" className="text-ink" />,
+    icon: <Monitor size={20} weight="light" className="text-ink" />,
     title: 'Browser Testing',
     description: 'Claude launches the app, takes screenshots at every breakpoint, and audits the UI before anything is pushed.',
     tags: ['Playwright scripts', 'Screenshot audits', 'Mobile & desktop', 'Visual QA'],
@@ -606,50 +606,60 @@ function ClaudeCodeWorkflow() {
             className="mt-6 font-display font-light leading-[0.95] tracking-tight text-ink"
             style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
           >
-            Claude Code<br />
-            <em className="italic font-normal text-ink-muted">is how I ship.</em>
+            How I use<br />
+            <em className="italic font-normal text-ink-muted">Claude Code.</em>
           </h2>
-          <p className="mt-5 max-w-xl text-base text-ink/60 leading-relaxed">
-            Not just a chat tool — an active part of every build, deploy, and audit.
-          </p>
         </Reveal>
 
-        <StaggerList base={0.06} step={0.09} className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {CLAUDE_CARDS.map((card) => (
-            <div key={card.title} className="bezel">
-              <div className="bezel-core p-7 flex flex-col h-full">
-
-                {/* Icon + title */}
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-hairline bg-paper flex-shrink-0">
-                    {card.icon}
-                  </span>
-                  <h3 className="font-display font-light text-xl text-ink tracking-tight">
-                    {card.title}
-                  </h3>
-                </div>
-
-                {/* Description */}
-                <p className="text-sm text-ink/65 leading-relaxed flex-1">
-                  {card.description}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mt-5 pt-4 border-t border-hairline">
-                  {card.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-0.5"
+        <Reveal delay={0.14}>
+          <div className="bezel mt-12">
+            <div className="bezel-core p-8 md:p-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+                {CLAUDE_CAPABILITIES.map((cap, i) => {
+                  const isRightCol = i % 2 === 1;
+                  const isLastRow = i >= CLAUDE_CAPABILITIES.length - 2;
+                  return (
+                    <div
+                      key={cap.title}
+                      className="flex flex-col gap-4 p-6"
+                      style={{
+                        borderRight: !isRightCol ? '1px solid var(--color-hairline, rgba(26,20,16,0.08))' : undefined,
+                        borderBottom: !isLastRow ? '1px solid var(--color-hairline, rgba(26,20,16,0.08))' : undefined,
+                      }}
                     >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                      {/* Icon + title */}
+                      <div className="flex items-center gap-3">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-hairline bg-paper flex-shrink-0">
+                          {cap.icon}
+                        </span>
+                        <h3 className="font-display font-light text-lg text-ink tracking-tight">
+                          {cap.title}
+                        </h3>
+                      </div>
 
+                      {/* Description */}
+                      <p className="text-sm text-ink/65 leading-relaxed">
+                        {cap.description}
+                      </p>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-hairline">
+                        {cap.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-0.5"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-          ))}
-        </StaggerList>
+          </div>
+        </Reveal>
 
       </div>
     </section>
