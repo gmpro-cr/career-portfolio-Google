@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -14,6 +14,7 @@ import {
   PlugsConnected,
   Brain,
   Monitor,
+  CaretDown,
 } from '@phosphor-icons/react';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 import XMark from '../components/XMark';
@@ -570,97 +571,172 @@ function Contact() {
    ═══════════════════════════════════════════════════════════════ */
 const CLAUDE_CAPABILITIES = [
   {
-    icon: <PuzzlePiece size={20} weight="light" className="text-ink" />,
+    icon: <PuzzlePiece size={20} weight="light" />,
     title: 'Skills',
     description: 'Modular instruction sets that direct how Claude approaches design, debugging, and shipping — loaded per task, not per project.',
     tags: ['taste-skill', 'frontend-design', 'webapp-testing', 'brainstorming', 'code-review'],
+    accent: {
+      bg: 'rgba(180,140,60,0.07)',
+      iconBg: 'rgba(180,140,60,0.14)',
+      tagBg: 'rgba(180,140,60,0.10)',
+      tagBorder: 'rgba(180,140,60,0.25)',
+      text: 'rgba(120,88,20,0.9)',
+      divider: 'rgba(180,140,60,0.18)',
+    },
   },
   {
-    icon: <PlugsConnected size={20} weight="light" className="text-ink" />,
+    icon: <PlugsConnected size={20} weight="light" />,
     title: 'MCP Servers',
     description: 'Live connections to external systems so Claude acts directly — no copy-paste, no context switching.',
     tags: ['Playwright', 'GitHub', 'Vercel', 'Gmail', 'Canva', 'Render'],
+    accent: {
+      bg: 'rgba(60,100,190,0.07)',
+      iconBg: 'rgba(60,100,190,0.14)',
+      tagBg: 'rgba(60,100,190,0.10)',
+      tagBorder: 'rgba(60,100,190,0.25)',
+      text: 'rgba(30,60,150,0.9)',
+      divider: 'rgba(60,100,190,0.18)',
+    },
   },
   {
-    icon: <Brain size={20} weight="light" className="text-ink" />,
+    icon: <Brain size={20} weight="light" />,
     title: 'Memory',
     description: 'Project decisions, preferences, and architecture choices persist across every session — Claude picks up where we left off.',
     tags: ['Project context', 'Decisions', 'Preferences', 'Cross-session'],
+    accent: {
+      bg: 'rgba(50,155,100,0.07)',
+      iconBg: 'rgba(50,155,100,0.14)',
+      tagBg: 'rgba(50,155,100,0.10)',
+      tagBorder: 'rgba(50,155,100,0.25)',
+      text: 'rgba(25,100,60,0.9)',
+      divider: 'rgba(50,155,100,0.18)',
+    },
   },
   {
-    icon: <Monitor size={20} weight="light" className="text-ink" />,
+    icon: <Monitor size={20} weight="light" />,
     title: 'Browser Testing',
     description: 'Claude launches the app, takes screenshots at every breakpoint, and audits the UI before anything is pushed.',
     tags: ['Playwright scripts', 'Screenshot audits', 'Mobile & desktop', 'Visual QA'],
+    accent: {
+      bg: 'rgba(150,75,175,0.07)',
+      iconBg: 'rgba(150,75,175,0.14)',
+      tagBg: 'rgba(150,75,175,0.10)',
+      tagBorder: 'rgba(150,75,175,0.25)',
+      text: 'rgba(100,40,130,0.9)',
+      divider: 'rgba(150,75,175,0.18)',
+    },
   },
 ];
 
 function ClaudeCodeWorkflow() {
+  const [open, setOpen] = useState(false);
+
   return (
     <section id="claude-code" className="relative py-14 md:py-28 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-
         <Reveal delay={0.06}>
           <Eyebrow>Built With</Eyebrow>
-          <h2
-            className="mt-6 font-display font-light leading-[0.95] tracking-tight text-ink"
-            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
-          >
-            How I use<br />
-            <em className="italic font-normal text-ink-muted">Claude Code.</em>
-          </h2>
         </Reveal>
 
-        <Reveal delay={0.14}>
-          <div className="bezel mt-12">
-            <div className="bezel-core p-8 md:p-10">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
-                {CLAUDE_CAPABILITIES.map((cap, i) => {
-                  const isRightCol = i % 2 === 1;
-                  const isLastRow = i >= CLAUDE_CAPABILITIES.length - 2;
-                  return (
-                    <div
-                      key={cap.title}
-                      className="flex flex-col gap-4 p-6"
-                      style={{
-                        borderRight: !isRightCol ? '1px solid var(--color-hairline, rgba(26,20,16,0.08))' : undefined,
-                        borderBottom: !isLastRow ? '1px solid var(--color-hairline, rgba(26,20,16,0.08))' : undefined,
-                      }}
-                    >
-                      {/* Icon + title */}
-                      <div className="flex items-center gap-3">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-hairline bg-paper flex-shrink-0">
-                          {cap.icon}
-                        </span>
-                        <h3 className="font-display font-light text-lg text-ink tracking-tight">
-                          {cap.title}
-                        </h3>
-                      </div>
+        <Reveal delay={0.12}>
+          <div
+            className="mt-8 bezel cursor-pointer select-none"
+            onClick={() => setOpen(o => !o)}
+          >
+            <div className="bezel-core">
 
-                      {/* Description */}
-                      <p className="text-sm text-ink/65 leading-relaxed">
-                        {cap.description}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-hairline">
-                        {cap.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-0.5"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
+              {/* Card header — always visible */}
+              <div className="flex items-center justify-between px-7 py-6 md:px-8 md:py-7">
+                <div>
+                  <h2 className="font-display font-light text-2xl md:text-3xl text-ink tracking-tight">
+                    How I use Claude Code
+                  </h2>
+                  <p className="mt-1.5 text-sm text-ink/45">
+                    Skills · MCP Servers · Memory · Browser Testing
+                  </p>
+                </div>
+                <motion.span
+                  animate={{ rotate: open ? 180 : 0 }}
+                  transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
+                  className="flex-shrink-0 ml-4 flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-paper text-ink-muted"
+                >
+                  <CaretDown size={14} weight="light" />
+                </motion.span>
               </div>
+
+              {/* Expandable grid */}
+              <AnimatePresence initial={false}>
+                {open && (
+                  <motion.div
+                    key="expand"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <div className="border-t border-hairline grid grid-cols-1 sm:grid-cols-2">
+                      {CLAUDE_CAPABILITIES.map((cap, i) => {
+                        const isRightCol = i % 2 === 1;
+                        const isLastRow = i >= CLAUDE_CAPABILITIES.length - 2;
+                        return (
+                          <div
+                            key={cap.title}
+                            className="flex flex-col gap-4 p-6 md:p-7"
+                            style={{
+                              background: cap.accent.bg,
+                              borderRight: !isRightCol ? '1px solid rgba(26,20,16,0.08)' : undefined,
+                              borderBottom: !isLastRow ? '1px solid rgba(26,20,16,0.08)' : undefined,
+                            }}
+                          >
+                            {/* Icon + title */}
+                            <div className="flex items-center gap-3">
+                              <span
+                                className="flex h-9 w-9 items-center justify-center rounded-xl flex-shrink-0"
+                                style={{ background: cap.accent.iconBg, color: cap.accent.text }}
+                              >
+                                {cap.icon}
+                              </span>
+                              <h3 className="font-display font-light text-lg text-ink tracking-tight">
+                                {cap.title}
+                              </h3>
+                            </div>
+
+                            {/* Description */}
+                            <p className="text-sm text-ink/65 leading-relaxed">
+                              {cap.description}
+                            </p>
+
+                            {/* Tags */}
+                            <div
+                              className="flex flex-wrap gap-1.5 mt-auto pt-3 border-t"
+                              style={{ borderColor: cap.accent.divider }}
+                            >
+                              {cap.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="text-[11px] tracking-wide rounded-full px-2.5 py-0.5"
+                                  style={{
+                                    background: cap.accent.tagBg,
+                                    border: `1px solid ${cap.accent.tagBorder}`,
+                                    color: cap.accent.text,
+                                  }}
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
             </div>
           </div>
         </Reveal>
-
       </div>
     </section>
   );
