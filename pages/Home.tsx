@@ -10,6 +10,10 @@ import {
   GithubLogo,
   LinkedinLogo,
   FileText,
+  PuzzlePiece,
+  PlugsConnected,
+  Brain,
+  Monitor,
 } from '@phosphor-icons/react';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 import XMark from '../components/XMark';
@@ -562,6 +566,97 @@ function Contact() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   CLAUDE CODE WORKFLOW
+   ═══════════════════════════════════════════════════════════════ */
+const CLAUDE_CARDS = [
+  {
+    icon: <PuzzlePiece size={22} weight="light" className="text-ink" />,
+    title: 'Skills',
+    description: 'Modular instruction sets that direct how Claude approaches design, debugging, and shipping — loaded per task, not per project.',
+    tags: ['taste-skill', 'frontend-design', 'webapp-testing', 'brainstorming', 'code-review'],
+  },
+  {
+    icon: <PlugsConnected size={22} weight="light" className="text-ink" />,
+    title: 'MCP Servers',
+    description: 'Live connections to external systems so Claude acts directly — no copy-paste, no context switching.',
+    tags: ['Playwright', 'GitHub', 'Vercel', 'Gmail', 'Canva', 'Render'],
+  },
+  {
+    icon: <Brain size={22} weight="light" className="text-ink" />,
+    title: 'Memory',
+    description: 'Project decisions, preferences, and architecture choices persist across every session — Claude picks up where we left off.',
+    tags: ['Project context', 'Decisions', 'Preferences', 'Cross-session'],
+  },
+  {
+    icon: <Monitor size={22} weight="light" className="text-ink" />,
+    title: 'Browser Testing',
+    description: 'Claude launches the app, takes screenshots at every breakpoint, and audits the UI before anything is pushed.',
+    tags: ['Playwright scripts', 'Screenshot audits', 'Mobile & desktop', 'Visual QA'],
+  },
+];
+
+function ClaudeCodeWorkflow() {
+  return (
+    <section id="claude-code" className="relative py-14 md:py-28 bg-paper">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
+
+        <Reveal delay={0.06}>
+          <Eyebrow>Built With</Eyebrow>
+          <h2
+            className="mt-6 font-display font-light leading-[0.95] tracking-tight text-ink"
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
+          >
+            Claude Code<br />
+            <em className="italic font-normal text-ink-muted">is how I ship.</em>
+          </h2>
+          <p className="mt-5 max-w-xl text-base text-ink/60 leading-relaxed">
+            Not just a chat tool — an active part of every build, deploy, and audit.
+          </p>
+        </Reveal>
+
+        <StaggerList base={0.06} step={0.09} className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {CLAUDE_CARDS.map((card) => (
+            <div key={card.title} className="bezel">
+              <div className="bezel-core p-7 flex flex-col h-full">
+
+                {/* Icon + title */}
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-hairline bg-paper flex-shrink-0">
+                    {card.icon}
+                  </span>
+                  <h3 className="font-display font-light text-xl text-ink tracking-tight">
+                    {card.title}
+                  </h3>
+                </div>
+
+                {/* Description */}
+                <p className="text-sm text-ink/65 leading-relaxed flex-1">
+                  {card.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mt-5 pt-4 border-t border-hairline">
+                  {card.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-0.5"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+              </div>
+            </div>
+          ))}
+        </StaggerList>
+
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
    PAGE ROOT + CSS keyframes
    ═══════════════════════════════════════════════════════════════ */
 export default function Home() {
@@ -586,6 +681,7 @@ export default function Home() {
         <SelectedWork />
         <Trajectory />
         <Toolkit />
+        <ClaudeCodeWorkflow />
         <Contact />
       </div>
     </>
