@@ -423,6 +423,39 @@ function JourneyMap({ steps }: { steps: JourneyStep[] }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   DIAGRAM: Compact Mini Pipeline (hero — no scroll reveal needed)
+   ═══════════════════════════════════════════════════════════════ */
+function MiniPipeline({ steps }: { steps: { step: string }[] }) {
+  return (
+    <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-1.5">
+      {steps.map((s, i) => {
+        const c = getPipelineColor(s.step, i);
+        return (
+          <div key={i} style={{
+            background: c.bg,
+            border: `1px solid ${c.border}50`,
+            borderRadius: '0.875rem',
+            padding: '8px 12px',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 8,
+          }}>
+            <span style={{
+              width: 20, height: 20, borderRadius: '50%',
+              background: c.num, color: 'white',
+              fontSize: '8px', fontWeight: 700,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0, marginTop: 1,
+            }}>{String(i + 1).padStart(2, '0')}</span>
+            <span style={{ fontSize: '11px', color: c.text, lineHeight: 1.4, flex: 1 }}>{s.step}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
    DIAGRAM: Colorful Data Pipeline
    ═══════════════════════════════════════════════════════════════ */
 function PipelineDiagram({ steps }: { steps: { step: string }[] }) {
@@ -780,6 +813,12 @@ export default function ProjectDetail() {
             <p className="mt-4 md:mt-6 max-w-2xl text-sm md:text-lg text-ink/60 leading-relaxed">
               {project.description}
             </p>
+            {project.technicalDetails?.dataFlow && project.technicalDetails.dataFlow.length > 0 && (
+              <div className="mt-6 md:mt-8 max-w-3xl">
+                <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">How it works</p>
+                <MiniPipeline steps={project.technicalDetails.dataFlow} />
+              </div>
+            )}
             <div className="mt-5 md:mt-8 flex flex-wrap gap-1.5 md:gap-2">
               {project.tech.map((t, i) => (
                 <span key={i} className="text-xs font-medium bg-ink/5 border border-hairline text-ink px-3 py-1.5 rounded-full">{t}</span>
