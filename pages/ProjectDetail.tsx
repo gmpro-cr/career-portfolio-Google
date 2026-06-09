@@ -1048,19 +1048,6 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      {/* ── Competitive Analysis ─────────────────────────────────── */}
-      <section className="py-12 md:py-28 bg-paper border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal delay={0.06}>
-            <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-2">Competitive Landscape</p>
-            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-14">
-              Where this product <em className="italic font-normal text-ink-muted">sits in the market.</em>
-            </h2>
-          </Reveal>
-          <CompetitiveGrid columns={extras.competitors.columns} rows={extras.competitors.rows} />
-        </div>
-      </section>
-
       {/* ── Reflection ───────────────────────────────────────────── */}
       {project.reflection && (
         <section className="py-12 md:py-28 bg-paper border-t border-hairline">
