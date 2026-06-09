@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "emoji-guard": "node scripts/no-emoji-guard.mjs",
+    "verify": "npm run emoji-guard && npm run typecheck && npm run build",
+    "preview:ci": "npm run build && npm run preview"
   },
   "dependencies": {
     "@google/genai": "^1.37.0",

@@ -124,7 +124,7 @@ const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
       { phase: 'Convert',   action: 'Upgrades to premium (Razorpay ₹199/mo) for unlimited conversations and exclusive personas',        emotion: 'Loyal'      },
     ],
 
-    pmInsight: "Prompt architecture is a product feature, not a config detail. The system prompt that maintains character fidelity across 50+ turns is as important to retention as the UI. We ran quantified persona-drift evals — treating character consistency as a KPI, not a vibe — and iterated the prompts like A/B test variants until D7 retention lifted. The single biggest unlock: when the AI initiates the conversation on session 2 rather than waiting for the user.",
+    pmInsight: "North Star Metric: Messages Sent Per Day — deliberately chosen because it captures functional value delivery, engagement depth, and retention in a single number. PMF signal identified through Mixpanel cohort data: users who have 5+ conversations with 2+ different personas in their first week are retained at 3x the D30 rate of single-persona users. That insight drove a full onboarding redesign to expose users to 3+ personas before the end of session 1. The second unlock: when the AI initiates the conversation on session 2 rather than waiting for the user — D7 retention lifted significantly. Both discoveries came from data, mid-build, when I should have designed for them from day one.",
 
     roadmap: [
       {
@@ -161,24 +161,25 @@ const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     ],
 
     competitors: {
-      columns: ['AI Spirit', 'Character.AI', 'Replika', 'Chai'],
+      columns: ['AI Spirit', 'Character.AI', 'Replika', 'Crushon.AI'],
       rows: [
         { feature: 'Persistent cross-session memory',          values: [true,  false, true,  false] },
-        { feature: '350+ distinct curated personas',           values: [true,  true,  false, true ] },
+        { feature: '370+ distinct curated personas',           values: [true,  true,  false, false] },
+        { feature: 'India-first personas (Hinglish, Indian icons)', values: [true, false, false, false] },
         { feature: 'Voice synthesis (Sarvam TTS)',             values: [true,  false, true,  false] },
-        { feature: 'Persona fidelity evals (scored)',          values: [true,  false, false, false] },
+        { feature: 'Quantified persona fidelity evals',        values: [true,  false, false, false] },
         { feature: 'Real-time news awareness',                 values: [true,  false, false, false] },
         { feature: 'Custom persona creation',                  values: [true,  true,  false, false] },
-        { feature: 'Indian market & pricing (Razorpay)',       values: [true,  false, false, false] },
         { feature: 'Proactive AI-initiated messages',          values: [true,  false, true,  false] },
+        { feature: 'India payment integration (Razorpay)',     values: [true,  false, false, false] },
       ],
     },
 
     metrics: [
-      { value: '500+', label: 'Monthly Active Users',      sub: 'Organic retention — zero paid acquisition spend' },
-      { value: '50+',  label: 'Turns per conversation',    sub: 'Consistent persona tone maintained end-to-end' },
+      { value: '500+', label: 'Monthly Active Users',      sub: 'Organic — zero paid acquisition; DAU/MAU ~10%' },
       { value: '3×',   label: 'D7 retention lift',         sub: 'When AI initiates message on session 2 vs waiting' },
-      { value: '350+', label: 'Curated AI personas',       sub: 'Business · Spiritual · Entertainment · Fitness · Historical' },
+      { value: '370+', label: 'Curated AI personas',       sub: '40 categories — Business · Spiritual · Entertainment · Companion · Anime' },
+      { value: '5',    label: 'User segments mapped',      sub: 'Priya (career) · Arjun (self-improvement) · Sneha (spiritual) · Rohan (entertainment) · Meera (companion)' },
     ],
   },
 
@@ -203,7 +204,7 @@ const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
       { phase: 'Export',     action: 'Downloads bank-format Excel (OpenPyXL) + PDF in one click. Matches committee templates exactly', emotion: 'Confident'   },
     ],
 
-    pmInsight: "Trust architecture precedes feature architecture in regulated environments. My first assumption was that accuracy would be the adoption bottleneck. It wasn't — format familiarity was. The moment we mirrored the exact Excel template analysts already submitted to credit committees, resistance dropped overnight. The second insight: human-in-the-loop is not a compromise — it is the core value proposition. Analysts didn't want to delegate decisions to AI; they wanted AI to produce the draft so they could own the final output. That's a fundamentally different product contract.",
+    pmInsight: "Trust architecture precedes feature architecture in regulated environments. My first assumption was that accuracy would be the adoption bottleneck. It wasn't — format familiarity was. The moment we mirrored the exact Excel template analysts already submitted to credit committees, resistance dropped overnight. Second: the Karpathy-style research loop with self-scoring (stops at 85% knowledge completeness) was a PM decision as much as a technical one — it meant the AI never delivered a shallow summary when more data was findable, without running forever. Third: per-section confidence scoring (High/Medium/Low) transformed the HITL editor from a 'check everything' workflow to a 'review the uncertain sections' workflow — drastically cutting review time.",
 
     roadmap: [
       {
@@ -236,28 +237,28 @@ const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
       { label: 'Frontend',    color: '#3B82F6', bg: '#EFF6FF', nodes: ['Next.js 16 on Vercel', 'shadcn/ui + Radix', 'HITL Editor (CamNoteEditor)', 'Section locking UI', 'Export controls'] },
       { label: 'API Server',  color: '#8B5CF6', bg: '#F5F3FF', nodes: ['Express 5 (TypeScript)', 'Cases CRUD (Supabase)', 'Proxies to Python engine', 'Auth middleware', 'Version history'] },
       { label: 'AI Engine',   color: '#10B981', bg: '#ECFDF5', nodes: ['FastAPI (Python 3.13)', 'PDFMiner extraction', 'Rule-based ratio parser', 'Karpathy research loop', 'Gemini API · Claude API (cross-validation)'] },
-      { label: 'Data Layer',  color: '#F97316', bg: '#FFF7ED', nodes: ['Supabase Postgres', 'SQLite (local dev)', 'cases · memo_sections · risk_flags', 'OpenPyXL (Excel)', 'PDF renderer'] },
+      { label: 'Data Layer',  color: '#F97316', bg: '#FFF7ED', nodes: ['Supabase Postgres', 'SQLite (local dev)', 'Screener.in · Yahoo Finance · BSE filings', 'OpenPyXL (Excel)', 'PDF renderer'] },
     ],
 
     competitors: {
       columns: ['CreditGuard AI', 'Manual Process', 'Generic LLM (ChatGPT)', 'Legacy Tools'],
       rows: [
-        { feature: 'CAM preparation time',             values: ['< 1 hour', '4–6 hours',    '1–2 hours',  '2–3 hours'] },
-        { feature: 'Bank-format Excel output',         values: [true,        true,            false,         false] },
-        { feature: 'PDF export',                       values: [true,        false,           false,         'Partial'] },
-        { feature: 'Deterministic math (no hallucinations)', values: [true,  true,            false,         true] },
-        { feature: 'Autonomous web research',          values: [true,        false,           false,         false] },
-        { feature: 'Human-in-the-loop editor',         values: [true,        true,            false,         false] },
-        { feature: 'Dual LLM cross-validation',        values: [true,        false,           false,         false] },
-        { feature: 'Confidence scoring per section',   values: [true,        false,           false,         false] },
+        { feature: 'CAM preparation time',                   values: ['< 1 hour',  '4–6 hours', '1–2 hours',  '2–3 hours'] },
+        { feature: 'Bank-format Excel output',               values: [true,         true,         false,         false] },
+        { feature: 'Screener.in + Yahoo Finance + BSE data', values: [true,         false,        false,         'Partial'] },
+        { feature: 'Deterministic math (no hallucinations)', values: [true,         true,         false,         true] },
+        { feature: 'Autonomous web research (self-scoring)', values: [true,         false,        false,         false] },
+        { feature: '10 auto-detected risk flags',            values: [true,         false,        false,         false] },
+        { feature: 'Human-in-the-loop editor',               values: [true,         true,         false,         false] },
+        { feature: 'Per-section confidence scoring',         values: [true,         false,        false,         false] },
       ],
     },
 
     metrics: [
-      { value: '–80%', label: 'CAM prep time',         sub: '4–6 hours reduced to under 1 hour per analyst' },
-      { value: '12',   label: 'CAM sections auto-built', sub: 'End-to-end from raw annual report PDF input' },
-      { value: '2',    label: 'LLMs cross-validating',  sub: 'Gemini generates · Claude flags inconsistencies' },
-      { value: '2',    label: 'Export formats',         sub: 'Excel (OpenPyXL) + PDF in bank report standards' },
+      { value: '–80%', label: 'CAM prep time',          sub: '4–6 hours reduced to under 1 hour per analyst per proposal' },
+      { value: '10',   label: 'Auto-detected risk flags', sub: 'e.g. profits not backed by operating cash flow, surging leverage' },
+      { value: '85%',  label: 'Research completeness threshold', sub: 'AI self-scores and keeps searching until it hits this bar' },
+      { value: '3',    label: 'Confidence levels per section', sub: 'High / Medium / Low — analysts review uncertain sections only' },
     ],
   },
 
@@ -281,7 +282,7 @@ const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
       { phase: 'Deliver',    action: 'Telegram digest arrives: top 10 roles with score, match reasoning, and hiring manager LinkedIn. 5-minute review vs 2-hour browse', emotion: 'Delighted'   },
     ],
 
-    pmInsight: "Self-use is the fastest path to a first version but the slowest path to a second. My scoring model was perfectly calibrated to my profile — and broke for everyone else. The multi-user rewrite taught me: an onboarding flow that asks questions beats a JSON config file. The second missing feature: when a user applies to or dismisses a role, the relevance model should update its weights. That feedback flywheel is what separates a personal script from a product with compounding accuracy. Both are now designed into the current rebuild.",
+    pmInsight: "The 65-point relevance threshold is the product's most important parameter — and it is a product decision, not a config setting. Too low and the digest is noise. Too high and real opportunities are missed. I calibrated it empirically over 3 months of self-use with 7,413 catalogued jobs as ground truth. The second insight: self-use is the fastest path to a first version but the slowest path to a second. My scoring model was perfectly calibrated to my profile and broke for others. The multi-user rewrite taught me: conversational onboarding (ask questions, build the profile) beats a JSON config file that most people won't fill out correctly. The feedback flywheel — when a user applies to or dismisses a role, the relevance model updates its weights — is what separates a personal script from a product with compounding accuracy. Both are now designed into the current rebuild.",
 
     roadmap: [
       {
@@ -321,22 +322,22 @@ const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     competitors: {
       columns: ['Job Agent', 'Manual Search', 'Naukri Alerts', 'LinkedIn EasyApply'],
       rows: [
-        { feature: 'Daily active search time',              values: ['5 min',  '2 hours', '30 min', '45 min'] },
-        { feature: 'AI relevance scoring (0–100)',          values: [true,     false,     false,    false] },
-        { feature: 'Multi-portal coverage (6 portals)',     values: [true,     false,     true,     false] },
-        { feature: 'Hiring manager details appended',       values: [true,     false,     false,    false] },
-        { feature: 'Push notification (Telegram)',          values: [true,     false,     true,     false] },
-        { feature: 'Zero manual browsing needed',           values: [true,     false,     false,    false] },
-        { feature: 'Feedback loop (apply → model learns)',  values: [true,     false,     false,    false] },
-        { feature: 'AI-written PRD per applied role',       values: [true,     false,     false,    false] },
+        { feature: 'Daily active search time',                   values: ['5 min',  '2 hours', '30 min', '45 min'] },
+        { feature: 'AI semantic scoring (0–100, ≥65 threshold)', values: [true,     false,     false,    false] },
+        { feature: 'Multi-portal coverage (6 portals)',          values: [true,     false,     true,     false] },
+        { feature: 'Deduplication (fingerprint-based)',          values: [true,     false,     false,    false] },
+        { feature: 'Hiring manager details (Apollo enrichment)', values: [true,     false,     false,    false] },
+        { feature: 'Push notification (Telegram)',               values: [true,     false,     true,     false] },
+        { feature: 'Zero manual browsing needed',                values: [true,     false,     false,    false] },
+        { feature: 'Feedback loop (apply → model learns)',       values: [true,     false,     false,    false] },
       ],
     },
 
     metrics: [
-      { value: '100%', label: 'Discovery automated',   sub: 'Zero manual browsing across 6 portals daily' },
-      { value: '~10',  label: 'Matched roles per day', sub: 'With hiring manager LinkedIn details appended' },
-      { value: '–2h',  label: 'Daily time saved',      sub: 'From 2-hour browse to 5-minute digest review' },
-      { value: '₹0',   label: 'API cost (local LLM)',  sub: 'Ollama + Mistral 7B — fully offline, no cloud billing' },
+      { value: '7,413', label: 'Jobs catalogued',       sub: 'Deduplicated via portal + company + role + location fingerprint' },
+      { value: '65',    label: 'Relevance threshold',   sub: 'Jobs scoring ≥65 reach the digest; below threshold stored but excluded' },
+      { value: '~10',   label: 'Matched roles per day', sub: 'From 200–500 raw listings per run; with hiring manager details' },
+      { value: '–2h',   label: 'Daily time saved',      sub: 'From 2-hour manual browse to 5-minute digest review' },
     ],
   },
 };
