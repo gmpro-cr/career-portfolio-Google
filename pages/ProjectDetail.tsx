@@ -811,11 +811,11 @@ export default function ProjectDetail() {
             >
               {project.title}
             </h1>
-            <p className="mt-4 md:mt-6 max-w-2xl text-sm md:text-lg text-ink/60 leading-relaxed">
+            <p className="mt-4 md:mt-6 text-sm md:text-lg text-ink/60 leading-relaxed">
               {project.description}
             </p>
             {project.technicalDetails?.dataFlow && project.technicalDetails.dataFlow.length > 0 && (
-              <div className="mt-6 md:mt-8 max-w-3xl">
+              <div className="mt-6 md:mt-8">
                 <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">How it works</p>
                 <MiniPipeline steps={project.technicalDetails.dataFlow} />
               </div>
