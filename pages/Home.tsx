@@ -16,8 +16,39 @@ import {
   Monitor,
   CaretDown,
 } from '@phosphor-icons/react';
-import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
+import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA, getTheme } from '../constants';
+import type { ProjectTheme } from '../types';
 import XMark from '../components/XMark';
+
+/* ── Mini flow diagram for project cards ─────────────────────────── */
+const CardFlow = ({ steps, theme }: { steps: string[]; theme: ProjectTheme }) => (
+  <div className="flex items-center flex-wrap gap-y-1.5">
+    {steps.map((step, i) => (
+      <React.Fragment key={i}>
+        <span
+          style={{
+            background: theme.accentBg,
+            border: `1px solid ${theme.accentBorder}40`,
+            color: theme.accentDark,
+            fontSize: '10px',
+            fontWeight: 600,
+            letterSpacing: '0.02em',
+            padding: '3px 9px',
+            borderRadius: '9999px',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {step}
+        </span>
+        {i < steps.length - 1 && (
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden className="mx-0.5 flex-shrink-0">
+            <path d="M0 4h9M6 1l3 3-3 3" stroke={theme.accent} strokeOpacity="0.5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        )}
+      </React.Fragment>
+    ))}
+  </div>
+);
 
 /* ── Eyebrow pill ───────────────────────────────────────────────── */
 const Eyebrow = ({ children, light = false }: { children: React.ReactNode; light?: boolean }) => (
@@ -306,8 +337,10 @@ function SelectedWork() {
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
-          {PROJECTS.map((project, idx) => (
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-5">
+          {PROJECTS.map((project, idx) => {
+            const theme = getTheme(project.slug);
+            return (
             <React.Fragment key={idx}>
             <Reveal delay={0.06 + idx * 0.08} className="flex flex-col">
               <Link
@@ -321,6 +354,12 @@ function SelectedWork() {
                 >
                   {/* Screenshot image */}
                   <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 'clamp(160px, 30vw, 220px)' }}>
+                    {/* Themed backdrop (also the fallback when no screenshot) */}
+                    <div
+                      className="absolute inset-0"
+                      style={{ background: `linear-gradient(135deg, ${theme.accentBg} 0%, #FDFBF7 70%)` }}
+                      aria-hidden
+                    />
                     {project.image && (
                       <img
                         src={project.image}
@@ -334,10 +373,12 @@ function SelectedWork() {
                       style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(253,251,247,0.95) 100%)' }}
                       aria-hidden
                     />
+                    {/* Accent top rule */}
+                    <div className="absolute top-0 left-0 right-0 h-1 z-10" style={{ background: theme.accent, opacity: 0.85 }} aria-hidden />
                     <div className="absolute top-4 right-4 z-10">
                       <span
-                        className="font-display italic text-sm font-medium border border-hairline text-ink px-3 py-1.5 rounded-full"
-                        style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)' }}
+                        className="font-display italic text-sm font-medium px-3 py-1.5 rounded-full"
+                        style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)', border: `1px solid ${theme.accentBorder}55`, color: theme.accentDark }}
                       >
                         {project.metrics}
                       </span>
@@ -375,10 +416,16 @@ function SelectedWork() {
                         <span className="text-[11px] text-ink-muted px-1.5 py-0.5">+{project.tech.length - 4}</span>
                       )}
                     </div>
+                    {project.cardFlow && (
+                      <div className="mt-5">
+                        <p className="text-[9px] uppercase tracking-[0.2em] text-ink-muted mb-2">How it works</p>
+                        <CardFlow steps={project.cardFlow} theme={theme} />
+                      </div>
+                    )}
                     <div className="mt-5 pt-4 border-t border-hairline">
                       <div className="flex items-center justify-between text-sm font-medium text-ink">
                         <span>View case study</span>
-                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px">
+                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px" style={{ background: theme.accent }}>
                           <ArrowRight size={13} weight="light" />
                         </span>
                       </div>
@@ -388,7 +435,8 @@ function SelectedWork() {
               </Link>
             </Reveal>
             </React.Fragment>
-          ))}
+          );
+          })}
         </div>
       </div>
     </section>
