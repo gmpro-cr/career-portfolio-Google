@@ -5,7 +5,8 @@ import {
   ArrowLeft, ArrowRight, ArrowUpRight, GithubLogo, CheckCircle,
   Lightbulb, User, ChartLine, Rocket, Wrench, Clock,
 } from '@phosphor-icons/react';
-import { PROJECTS } from '../constants';
+import { PROJECTS, getTheme } from '../constants';
+import type { ProjectTheme } from '../types';
 
 /* ─── Scroll-reveal hook ─────────────────────────────────────── */
 const EASE_STR = 'cubic-bezier(0.32, 0.72, 0, 1)';
@@ -42,42 +43,12 @@ const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <span className="eyebrow">{children}</span>
 );
 
-/* ─── Color palettes ─────────────────────────────────────────── */
-const PHASE_COLORS = [
-  { bg: '#F5F3FF', border: '#8B5CF6', text: '#6D28D9', dot: '#8B5CF6' }, // violet
-  { bg: '#EFF6FF', border: '#3B82F6', text: '#1D4ED8', dot: '#3B82F6' }, // blue
-  { bg: '#FFFBEB', border: '#F59E0B', text: '#92400E', dot: '#F59E0B' }, // amber
-  { bg: '#ECFDF5', border: '#10B981', text: '#065F46', dot: '#10B981' }, // emerald
-  { bg: '#FFF1F2', border: '#F43F5E', text: '#9F1239', dot: '#F43F5E' }, // rose
-];
-
+/* ─── Status colors (roadmap — semantic, shared across projects) ─ */
 const STATUS_COLORS = {
   shipped:  { label: 'Shipped',  bg: '#ECFDF5', border: '#10B981', text: '#065F46', dot: '#10B981' },
   building: { label: 'In Progress', bg: '#EFF6FF', border: '#3B82F6', text: '#1D4ED8', dot: '#3B82F6' },
   planned:  { label: 'Planned',  bg: '#F9FAFB', border: '#D1D5DB', text: '#6B7280', dot: '#9CA3AF' },
 };
-
-function getPipelineColor(step: string, idx: number) {
-  const s = step.toLowerCase();
-  if (s.match(/upload|trigger|received|request|start/))
-    return { bg: '#EFF6FF', border: '#3B82F6', text: '#1D4ED8', num: '#3B82F6' };
-  if (s.match(/extract|parse|scrape|pdfminer|selenium|beautifu|raw text|html|table/))
-    return { bg: '#FFFBEB', border: '#F59E0B', text: '#92400E', num: '#F59E0B' };
-  if (s.match(/llm|gemini|claude|ollama|mistral|groq|generat|synthesise|synthesize|score|commentary|narrative|draft|ai agent|researcher/))
-    return { bg: '#F5F3FF', border: '#8B5CF6', text: '#6D28D9', num: '#8B5CF6' };
-  if (s.match(/supabase|sqlite|database|persist|stored|neon|blob|memory|db|saves/))
-    return { bg: '#FFF7ED', border: '#F97316', text: '#9A3412', num: '#F97316' };
-  if (s.match(/export|telegram|deliver|stream|response|excel|pdf|assembled|digest|output|download/))
-    return { bg: '#ECFDF5', border: '#10B981', text: '#065F46', num: '#10B981' };
-  const fallbacks = [
-    { bg: '#EFF6FF', border: '#3B82F6', text: '#1D4ED8', num: '#3B82F6' },
-    { bg: '#FFFBEB', border: '#F59E0B', text: '#92400E', num: '#F59E0B' },
-    { bg: '#F5F3FF', border: '#8B5CF6', text: '#6D28D9', num: '#8B5CF6' },
-    { bg: '#FFF7ED', border: '#F97316', text: '#9A3412', num: '#F97316' },
-    { bg: '#ECFDF5', border: '#10B981', text: '#065F46', num: '#10B981' },
-  ];
-  return fallbacks[idx % fallbacks.length];
-}
 
 /* ═══════════════════════════════════════════════════════════════
    DATA TYPES
@@ -340,19 +311,98 @@ const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
       { value: '–2h',   label: 'Daily time saved',      sub: 'From 2-hour manual browse to 5-minute digest review' },
     ],
   },
+
+  /* ─── AI Engineering Field Guide ──────────────────────────── */
+  'ai-engineering-field-guide': {
+    problemStatement: 'Dense technical books are read once and forgotten. "AI Engineering" is the canonical text for building on foundation models — but 535 pages of linear PDF is impossible to search semantically and gives you no way to ask "where does the book cover X?". The knowledge is locked in a format that does not match how people actually reference it.',
+
+    discovery: "I read \"AI Engineering\" cover-to-cover while building my own LLM products and kept flipping back to find the one paragraph on evals, or RAG chunking, or inference optimisation. The PDF couldn't help me — no search that understood meaning, no deep links, no way to ask it a question. I realised the most useful thing wasn't a summary; it was making the book itself queryable and navigable. That gap — between owning the knowledge and being able to reach it on demand — was the product.",
+
+    userPersona: {
+      name: 'AI builders & PMs learning to ship on foundation models',
+      role: 'Engineers, AI PMs, and founders using the book as an ongoing reference, not a one-time read',
+      painPoint: '"I read the book months ago. Now I\'m building a RAG system and I know the answer is in there somewhere — but I don\'t want to re-skim 80 pages to find the chunking trade-offs. I want to ask the book and get the answer with the chapter it came from."',
+    },
+
+    journey: [
+      { phase: 'Land',     action: 'Arrives at the field guide — a reading map of all 10 chapters with an overview of what each covers', emotion: 'Oriented'  },
+      { phase: 'Explore',  action: 'Opens a chapter: sections, key concepts, terms, and interactive diagrams render from structured data', emotion: 'Engaged'   },
+      { phase: 'Search',   action: 'Hits Cmd+K to jump straight to a concept across all chapters — client-side, instant', emotion: 'In flow'   },
+      { phase: 'Ask',      action: '"Ask the book" — types a real question; RAG retrieves relevant chunks and answers with chapter citations', emotion: 'Trusting'  },
+      { phase: 'Return',   action: 'Comes back days later; localStorage read-progress resumes exactly where they left off', emotion: 'Hooked'    },
+    ],
+
+    pmInsight: "The defining product decision was treating this as a reference tool, not a summary. A summary is read once; a reference is returned to — so I optimised for retrieval, not for prose. That drove three choices: (1) content as pure data so any chapter is a one-line edit and the whole site re-targets to another book for free; (2) RAG answers grounded strictly in retrieved chunks with forced chapter citations, because verifiability is what makes a reader trust an AI answer over re-reading the source; (3) full book text kept server-side only, so the client stays tiny and the source stays private. Retrieval quality — not generation — is where trust is won or lost.",
+
+    roadmap: [
+      {
+        phase: 'Content Engine',
+        status: 'shipped',
+        quarter: 'Jun 2026',
+        items: ['Full 535-page book read + distilled', 'All 10 chapters as structured data', 'Reusable Diagram component (9 types)', '29 interactive + descriptive diagrams', 'Overview + reading map'],
+      },
+      {
+        phase: 'Reference Tooling',
+        status: 'shipped',
+        quarter: 'Jun 2026',
+        items: ['Hash-routed deep links (#/chapter/N/section)', 'Client-side Cmd+K search', 'localStorage read-progress', 'Collapsible desktop sidebar', 'Editorial design (Fraunces + Geist)'],
+      },
+      {
+        phase: 'Ask the Book (RAG)',
+        status: 'shipped',
+        quarter: 'Jun 2026',
+        items: ['1,325 server-side book chunks', 'TF-IDF lexical retrieval (Vercel function)', 'Gemini 2.0 Flash grounded generation', 'Chapter citations on every answer', 'Graceful fallback without API key'],
+      },
+      {
+        phase: 'General Reading Tool',
+        status: 'planned',
+        quarter: 'Q4 2026',
+        items: ['Hybrid retrieval (embeddings + TF-IDF)', 'Upload-your-own-PDF support', 'Per-reader highlights + notes', 'Multi-book library', 'Shareable answer links'],
+      },
+    ],
+
+    architecture: [
+      { label: 'Frontend',   color: '#3B82F6', bg: '#EFF6FF', nodes: ['React 19 + Vite SPA', 'Hash routing + deep links', 'Cmd+K search', 'Diagram component (9 types)', 'localStorage progress'] },
+      { label: 'Content',    color: '#0EA5E9', bg: '#F0F9FF', nodes: ['ch01–ch10.ts (structured data)', 'book.ts (overview / map)', 'Generic render templates', 'Declarative diagram data'] },
+      { label: 'RAG API',    color: '#6366F1', bg: '#EEF2FF', nodes: ['Vercel serverless (api/chat.ts)', 'TF-IDF lexical retrieval', 'Gemini 2.0 Flash', 'Chapter-cited answers'] },
+      { label: 'Data',       color: '#64748B', bg: '#F8FAFC', nodes: ['_book-chunks.json (1,325 chunks)', 'Server-side only (never bundled)', 'GEMINI_API_KEY env', 'Vercel auto-deploy'] },
+    ],
+
+    competitors: {
+      columns: ['Field Guide', 'Raw PDF', 'ChatGPT + paste', 'Generic notes app'],
+      rows: [
+        { feature: 'Semantic "ask the book" with citations',  values: [true,  false, 'Partial', false] },
+        { feature: 'Grounded in the actual book text',         values: [true,  true,  false,    false] },
+        { feature: 'Interactive diagrams per concept',         values: [true,  false, false,    false] },
+        { feature: 'Cmd+K cross-chapter search',               values: [true,  'Partial', false, true] },
+        { feature: 'Deep-linkable sections',                   values: [true,  false, false,    'Partial'] },
+        { feature: 'Read-progress that resumes',               values: [true,  false, false,    false] },
+        { feature: 'Source text kept private (server-side)',   values: [true,  true,  false,    true] },
+        { feature: 'Re-targetable to any book (data-driven)',  values: [true,  false, false,    false] },
+      ],
+    },
+
+    metrics: [
+      { value: '10',     label: 'Chapters distilled',     sub: 'Full 535-page book read cover-to-cover, then structured into data' },
+      { value: '29',     label: 'Interactive diagrams',   sub: 'From one reusable component with 9 visual types' },
+      { value: '1,325',  label: 'RAG book chunks',        sub: 'Server-side only — never shipped in the client bundle' },
+      { value: '100%',   label: 'Answers cited',          sub: 'Every "Ask the book" response grounded with its source chapter' },
+    ],
+  },
 };
 
 /* ═══════════════════════════════════════════════════════════════
    DIAGRAM: Colorful User Journey Map
    ═══════════════════════════════════════════════════════════════ */
-function JourneyMap({ steps }: { steps: JourneyStep[] }) {
+function JourneyMap({ steps, theme }: { steps: JourneyStep[]; theme: ProjectTheme }) {
   const [ref, visible] = useReveal('-4%');
+  const ramp = theme.ramp;
   return (
     <div ref={ref}>
       {/* Mobile: vertical stack */}
       <div className="flex flex-col gap-0 md:hidden">
         {steps.map((step, i) => {
-          const c = PHASE_COLORS[i % PHASE_COLORS.length];
+          const c = ramp[i % ramp.length];
           return (
             <React.Fragment key={i}>
               <div className="flex gap-4 items-stretch" style={{
@@ -386,7 +436,7 @@ function JourneyMap({ steps }: { steps: JourneyStep[] }) {
       {/* Desktop: horizontal */}
       <div className="hidden md:flex items-stretch gap-0">
         {steps.map((step, i) => {
-          const c = PHASE_COLORS[i % PHASE_COLORS.length];
+          const c = ramp[i % ramp.length];
           return (
             <React.Fragment key={i}>
               <div className="flex flex-col items-center flex-1" style={{
@@ -426,29 +476,30 @@ function JourneyMap({ steps }: { steps: JourneyStep[] }) {
 /* ═══════════════════════════════════════════════════════════════
    DIAGRAM: Compact Mini Pipeline (hero — no scroll reveal needed)
    ═══════════════════════════════════════════════════════════════ */
-function MiniPipeline({ steps }: { steps: { step: string }[] }) {
+function MiniPipeline({ steps, theme }: { steps: { step: string }[]; theme: ProjectTheme }) {
   return (
-    <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-1.5">
+    <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-2.5">
       {steps.map((s, i) => {
-        const c = getPipelineColor(s.step, i);
+        const r = theme.ramp[i % theme.ramp.length];
+        const c = { bg: r.bg, border: r.border, text: r.text, num: r.dot };
         return (
           <div key={i} style={{
             background: c.bg,
             border: `1px solid ${c.border}50`,
-            borderRadius: '0.875rem',
-            padding: '8px 12px',
+            borderRadius: '1.125rem',
+            padding: '14px 18px',
             display: 'flex',
             alignItems: 'flex-start',
-            gap: 8,
+            gap: 12,
           }}>
             <span style={{
-              width: 20, height: 20, borderRadius: '50%',
+              width: 28, height: 28, borderRadius: '50%',
               background: c.num, color: 'white',
-              fontSize: '8px', fontWeight: 700,
+              fontSize: '10px', fontWeight: 700,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0, marginTop: 1,
             }}>{String(i + 1).padStart(2, '0')}</span>
-            <span style={{ fontSize: '11px', color: c.text, lineHeight: 1.4, flex: 1 }}>{s.step}</span>
+            <span style={{ fontSize: '13px', color: c.text, lineHeight: 1.45, flex: 1 }}>{s.step}</span>
           </div>
         );
       })}
@@ -459,12 +510,13 @@ function MiniPipeline({ steps }: { steps: { step: string }[] }) {
 /* ═══════════════════════════════════════════════════════════════
    DIAGRAM: Colorful Data Pipeline
    ═══════════════════════════════════════════════════════════════ */
-function PipelineDiagram({ steps }: { steps: { step: string }[] }) {
+function PipelineDiagram({ steps, theme }: { steps: { step: string }[]; theme: ProjectTheme }) {
   const [ref, visible] = useReveal('-4%');
   return (
     <div ref={ref} className="space-y-0">
       {steps.map((s, i) => {
-        const c = getPipelineColor(s.step, i);
+        const r = theme.ramp[i % theme.ramp.length];
+        const c = { bg: r.bg, border: r.border, text: r.text, num: r.dot };
         return (
           <React.Fragment key={i}>
             <div style={{
@@ -500,56 +552,71 @@ function PipelineDiagram({ steps }: { steps: { step: string }[] }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   DIAGRAM: Architecture Layers
+   DIAGRAM: System Architecture Schematic (themed boxes + connectors)
    ═══════════════════════════════════════════════════════════════ */
-function ArchitectureFlow({ layers }: { layers: ArchLayer[] }) {
+function SystemDiagram({ layers, theme }: { layers: ArchLayer[]; theme: ProjectTheme }) {
   const [ref, visible] = useReveal('-4%');
   return (
-    <div ref={ref} className="space-y-2 md:space-y-3">
-      {layers.map((layer, li) => (
-        <React.Fragment key={li}>
-          <div style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'none' : 'translateX(-10px)',
-            transition: `opacity 0.45s ${EASE_STR} ${li * 0.09}s, transform 0.45s ${EASE_STR} ${li * 0.09}s`,
-          }}>
-            <div className="flex items-start gap-3 md:gap-4">
-              <div className="flex-shrink-0 w-20 md:w-24 text-right pt-1.5">
-                <span style={{ color: layer.color, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.18em', fontWeight: 700, lineHeight: 1.2, display: 'block' }}>
-                  {layer.label}
-                </span>
-              </div>
-              <div className="flex-shrink-0 w-px self-stretch" style={{ background: `${layer.color}40`, minHeight: 32 }} />
-              <div className="flex flex-wrap gap-1.5 flex-1 pb-1">
-                {layer.nodes.map((node, ni) => (
-                  <span key={ni} style={{
-                    background: layer.bg,
-                    border: `1px solid ${layer.color}50`,
-                    color: layer.color,
-                    fontSize: '11px',
-                    fontWeight: 500,
-                    padding: '4px 12px',
-                    borderRadius: '9999px',
-                    whiteSpace: 'nowrap',
-                  }}>{node}</span>
-                ))}
+    <div ref={ref} className="space-y-0">
+      {layers.map((layer, li) => {
+        const c = theme.ramp[li % theme.ramp.length];
+        return (
+          <React.Fragment key={li}>
+            {/* Layer band */}
+            <div style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'none' : 'translateY(10px)',
+              transition: `opacity 0.45s ${EASE_STR} ${li * 0.1}s, transform 0.45s ${EASE_STR} ${li * 0.1}s`,
+            }}>
+              <div style={{
+                background: c.bg,
+                border: `1px solid ${c.border}55`,
+                borderRadius: '1rem',
+                padding: '12px 14px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 10,
+              }}>
+                {/* Band label */}
+                <div className="flex items-center gap-2">
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: c.dot, flexShrink: 0 }} />
+                  <span style={{ color: c.text, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 700 }}>
+                    {layer.label}
+                  </span>
+                </div>
+                {/* Node boxes */}
+                <div className="flex flex-wrap gap-2">
+                  {layer.nodes.map((node, ni) => (
+                    <span key={ni} style={{
+                      background: '#FFFFFF',
+                      border: `1px solid ${c.border}55`,
+                      color: c.text,
+                      fontSize: '11px',
+                      fontWeight: 500,
+                      padding: '6px 12px',
+                      borderRadius: '0.6rem',
+                      boxShadow: `0 1px 2px ${c.border}1A`,
+                      whiteSpace: 'nowrap',
+                    }}>{node}</span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-          {li < layers.length - 1 && (
-            <div className="pl-[5.5rem] md:pl-[6.5rem]" style={{
-              opacity: visible ? 1 : 0,
-              transition: `opacity 0.3s ${EASE_STR} ${li * 0.09 + 0.12}s`,
-            }}>
-              <div className="ml-3 md:ml-4">
-                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden>
-                  <path d="M6 1v10M2 8l4 4 4-4" stroke={layer.color} strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Connector between bands */}
+            {li < layers.length - 1 && (
+              <div className="flex flex-col items-center" style={{
+                opacity: visible ? 1 : 0,
+                transition: `opacity 0.3s ${EASE_STR} ${li * 0.1 + 0.14}s`,
+              }} aria-hidden>
+                <div style={{ width: 1.5, height: 14, background: `${c.border}66` }} />
+                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style={{ marginTop: -1 }}>
+                  <path d="M6 8L0.804 0.5H11.196L6 8Z" fill={c.border} fillOpacity="0.55" />
                 </svg>
               </div>
-            </div>
-          )}
-        </React.Fragment>
-      ))}
+            )}
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 }
@@ -700,18 +767,13 @@ function CompetitiveGrid({ columns, rows }: { columns: string[]; rows: Competito
 /* ═══════════════════════════════════════════════════════════════
    DIAGRAM: Outcome Metrics
    ═══════════════════════════════════════════════════════════════ */
-function MetricsRow({ metrics }: { metrics: MetricCard[] }) {
+function MetricsRow({ metrics, theme }: { metrics: MetricCard[]; theme: ProjectTheme }) {
   const [ref, visible] = useReveal();
-  const METRIC_COLORS = [
-    { bg: '#F5F3FF', border: '#8B5CF6', accent: '#6D28D9' },
-    { bg: '#ECFDF5', border: '#10B981', accent: '#065F46' },
-    { bg: '#EFF6FF', border: '#3B82F6', accent: '#1D4ED8' },
-    { bg: '#FFFBEB', border: '#F59E0B', accent: '#92400E' },
-  ];
   return (
     <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
       {metrics.map((m, i) => {
-        const c = METRIC_COLORS[i % METRIC_COLORS.length];
+        const r = theme.ramp[i % theme.ramp.length];
+        const c = { bg: r.bg, border: r.border, accent: r.text };
         return (
           <div key={i} style={{
             background: c.bg,
@@ -740,6 +802,7 @@ export default function ProjectDetail() {
   const navigate   = useNavigate();
   const project    = PROJECTS.find(p => p.slug === slug);
   const extras     = slug ? PROJECT_EXTRAS[slug] : undefined;
+  const theme      = getTheme(slug ?? '');
 
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
@@ -799,8 +862,8 @@ export default function ProjectDetail() {
               <Eyebrow>{project.category === 'build' ? 'Shipped Product' : 'Case Study'}</Eyebrow>
               <span className="font-display italic text-sm text-ink-muted">{project.date}</span>
               {project.metrics && (
-                <span className="font-display italic text-sm font-semibold px-3 py-1 rounded-full border border-hairline text-ink"
-                  style={{ background: 'rgba(253,251,247,0.9)' }}>
+                <span className="font-display italic text-sm font-semibold px-3 py-1 rounded-full"
+                  style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}55`, color: theme.accentDark }}>
                   {project.metrics}
                 </span>
               )}
@@ -817,7 +880,7 @@ export default function ProjectDetail() {
             {project.technicalDetails?.dataFlow && project.technicalDetails.dataFlow.length > 0 && (
               <div className="mt-6 md:mt-8">
                 <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-3">How it works</p>
-                <MiniPipeline steps={project.technicalDetails.dataFlow} />
+                <MiniPipeline steps={project.technicalDetails.dataFlow} theme={theme} />
               </div>
             )}
             <div className="mt-5 md:mt-8 flex flex-wrap gap-1.5 md:gap-2">
@@ -853,7 +916,7 @@ export default function ProjectDetail() {
           <Reveal delay={0.06}>
             <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-5 md:mb-8">The Problem</p>
             <div className="flex gap-4 md:gap-6">
-              <div className="flex-shrink-0 w-1 rounded-full bg-ink/20 self-stretch" />
+              <div className="flex-shrink-0 w-1 rounded-full self-stretch" style={{ background: theme.accent }} />
               <p className="font-display font-light text-ink leading-[1.45] tracking-tight"
                 style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>
                 &ldquo;{extras.problemStatement}&rdquo;
@@ -881,11 +944,11 @@ export default function ProjectDetail() {
                 <User size={14} weight="light" className="text-ink-muted" />
                 <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Archetypal User</p>
               </div>
-              <div style={{ background: '#F5F3FF', border: '1px solid #8B5CF650', borderRadius: '1.25rem', padding: '20px' }}>
+              <div style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}50`, borderRadius: '1.25rem', padding: '20px' }}>
                 <p style={{ fontSize: '13px', fontWeight: 700, color: '#1A1410', marginBottom: 4 }}>{extras.userPersona.name}</p>
-                <p style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.16em', color: '#6D28D9', fontWeight: 600, marginBottom: 12, opacity: 0.8 }}>{extras.userPersona.role}</p>
-                <div style={{ paddingTop: 12, borderTop: '1px solid #8B5CF630' }}>
-                  <p style={{ fontSize: '12px', color: '#4C1D95', lineHeight: 1.6, fontStyle: 'italic' }}>{extras.userPersona.painPoint}</p>
+                <p style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.16em', color: theme.accentDark, fontWeight: 600, marginBottom: 12, opacity: 0.85 }}>{extras.userPersona.role}</p>
+                <div style={{ paddingTop: 12, borderTop: `1px solid ${theme.accentBorder}30` }}>
+                  <p style={{ fontSize: '12px', color: theme.accentDark, lineHeight: 1.6, fontStyle: 'italic' }}>{extras.userPersona.painPoint}</p>
                 </div>
               </div>
             </Reveal>
@@ -905,7 +968,7 @@ export default function ProjectDetail() {
               From first touch to <em className="italic font-normal text-ink-muted">loyal retention.</em>
             </h2>
           </Reveal>
-          <JourneyMap steps={extras.journey} />
+          <JourneyMap steps={extras.journey} theme={theme} />
         </div>
       </section>
 
@@ -927,7 +990,7 @@ export default function ProjectDetail() {
                       <li className="flex gap-4">
                         <span style={{
                           width: 28, height: 28, borderRadius: '50%',
-                          background: PHASE_COLORS[i % PHASE_COLORS.length].dot,
+                          background: theme.ramp[i % theme.ramp.length].dot,
                           color: 'white', fontSize: '10px', fontWeight: 700,
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           flexShrink: 0, marginTop: 2,
@@ -949,7 +1012,7 @@ export default function ProjectDetail() {
                     <Reveal delay={0.06 + i * 0.06}>
                       <div style={{
                         background: '#FDFBF7',
-                        border: `1px solid ${PHASE_COLORS[i % PHASE_COLORS.length].border}50`,
+                        border: `1px solid ${theme.ramp[i % theme.ramp.length].border}50`,
                         borderRadius: '1.25rem',
                         padding: '14px 18px',
                         display: 'flex',
@@ -957,7 +1020,7 @@ export default function ProjectDetail() {
                         alignItems: 'flex-start',
                       }}>
                         <CheckCircle size={16} weight="fill"
-                          style={{ color: PHASE_COLORS[i % PHASE_COLORS.length].dot, flexShrink: 0, marginTop: 1 }} />
+                          style={{ color: theme.ramp[i % theme.ramp.length].dot, flexShrink: 0, marginTop: 1 }} />
                         <p className="text-sm text-ink/85 leading-relaxed">{item}</p>
                       </div>
                     </Reveal>
@@ -985,19 +1048,19 @@ export default function ProjectDetail() {
             </p>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
-            <ArchitectureFlow layers={extras.architecture} />
+            <SystemDiagram layers={extras.architecture} theme={theme} />
             <div className="space-y-4 md:space-y-6">
               {/* PM Insight */}
               <Reveal delay={0.1}>
-                <div style={{ background: '#F5F3FF', border: '1px solid #8B5CF640', borderRadius: '1.25rem', padding: '20px 22px' }}>
-                  <p style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: '#6D28D9', fontWeight: 700, marginBottom: 10 }}>PM Insight</p>
+                <div style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}40`, borderRadius: '1.25rem', padding: '20px 22px' }}>
+                  <p style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: theme.accentDark, fontWeight: 700, marginBottom: 10 }}>PM Insight</p>
                   <p className="text-sm text-ink/80 leading-relaxed">{extras.pmInsight}</p>
                 </div>
               </Reveal>
               {/* Data pipeline */}
               <Reveal delay={0.14}>
                 <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-4">Data Flow</p>
-                <PipelineDiagram steps={project.technicalDetails?.dataFlow ?? []} />
+                <PipelineDiagram steps={project.technicalDetails?.dataFlow ?? []} theme={theme} />
               </Reveal>
             </div>
           </div>
@@ -1032,7 +1095,7 @@ export default function ProjectDetail() {
               Outcomes that <em className="italic font-normal text-ink-muted">actually moved the needle.</em>
             </h2>
           </Reveal>
-          <MetricsRow metrics={extras.metrics} />
+          <MetricsRow metrics={extras.metrics} theme={theme} />
           {project.outcomes && (
             <Reveal delay={0.1}>
               <ul className="mt-10 md:mt-12 space-y-4 max-w-2xl">

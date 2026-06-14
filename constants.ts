@@ -1,4 +1,68 @@
-import { Experience, Project, SkillMetric, Education, Certification, TechItem } from './types';
+import { Experience, Project, SkillMetric, Education, Certification, TechItem, ProjectTheme } from './types';
+
+/* ═══════════════════════════════════════════════════════════════
+   PER-PROJECT THEMES — each project owns a distinct color identity.
+   Shared by Home cards and ProjectDetail diagrams.
+   ═══════════════════════════════════════════════════════════════ */
+export const THEMES: Record<string, ProjectTheme> = {
+  // Persona — violet / indigo
+  'ai-persona-interaction-platform': {
+    accent: '#8B5CF6', accentDark: '#6D28D9', accentBg: '#F5F3FF', accentBorder: '#8B5CF6',
+    ramp: [
+      { bg: '#EEF2FF', border: '#6366F1', text: '#4338CA', dot: '#6366F1' }, // indigo
+      { bg: '#F5F3FF', border: '#8B5CF6', text: '#6D28D9', dot: '#8B5CF6' }, // violet
+      { bg: '#FAF5FF', border: '#A855F7', text: '#7E22CE', dot: '#A855F7' }, // purple
+      { bg: '#FDF4FF', border: '#D946EF', text: '#A21CAF', dot: '#D946EF' }, // fuchsia
+      { bg: '#EFF6FF', border: '#3B82F6', text: '#1D4ED8', dot: '#3B82F6' }, // blue
+    ],
+  },
+  // Credit — emerald / teal
+  'ai-credit-intelligence-platform': {
+    accent: '#10B981', accentDark: '#065F46', accentBg: '#ECFDF5', accentBorder: '#10B981',
+    ramp: [
+      { bg: '#F0FDFA', border: '#14B8A6', text: '#0F766E', dot: '#14B8A6' }, // teal
+      { bg: '#ECFDF5', border: '#10B981', text: '#065F46', dot: '#10B981' }, // emerald
+      { bg: '#F0FDF4', border: '#22C55E', text: '#15803D', dot: '#22C55E' }, // green
+      { bg: '#ECFEFF', border: '#06B6D4', text: '#0E7490', dot: '#06B6D4' }, // cyan
+      { bg: '#F7FEE7', border: '#84CC16', text: '#4D7C0F', dot: '#84CC16' }, // lime
+    ],
+  },
+  // Job Agent — amber / orange
+  'automated-job-discovery-agent': {
+    accent: '#F59E0B', accentDark: '#92400E', accentBg: '#FFFBEB', accentBorder: '#F59E0B',
+    ramp: [
+      { bg: '#FFFBEB', border: '#F59E0B', text: '#92400E', dot: '#F59E0B' }, // amber
+      { bg: '#FFF7ED', border: '#F97316', text: '#9A3412', dot: '#F97316' }, // orange
+      { bg: '#FEF2F2', border: '#EF4444', text: '#B91C1C', dot: '#EF4444' }, // red
+      { bg: '#FEFCE8', border: '#EAB308', text: '#A16207', dot: '#EAB308' }, // yellow
+      { bg: '#FFF1F2', border: '#F43F5E', text: '#9F1239', dot: '#F43F5E' }, // rose
+    ],
+  },
+  // AI Engineering — blue / slate
+  'ai-engineering-field-guide': {
+    accent: '#3B82F6', accentDark: '#1D4ED8', accentBg: '#EFF6FF', accentBorder: '#3B82F6',
+    ramp: [
+      { bg: '#EFF6FF', border: '#3B82F6', text: '#1D4ED8', dot: '#3B82F6' }, // blue
+      { bg: '#F0F9FF', border: '#0EA5E9', text: '#0369A1', dot: '#0EA5E9' }, // sky
+      { bg: '#EEF2FF', border: '#6366F1', text: '#4338CA', dot: '#6366F1' }, // indigo
+      { bg: '#ECFEFF', border: '#06B6D4', text: '#0E7490', dot: '#06B6D4' }, // cyan
+      { bg: '#F8FAFC', border: '#64748B', text: '#334155', dot: '#64748B' }, // slate
+    ],
+  },
+};
+
+export const FALLBACK_THEME: ProjectTheme = {
+  accent: '#8B5CF6', accentDark: '#6D28D9', accentBg: '#F5F3FF', accentBorder: '#8B5CF6',
+  ramp: [
+    { bg: '#F5F3FF', border: '#8B5CF6', text: '#6D28D9', dot: '#8B5CF6' },
+    { bg: '#EFF6FF', border: '#3B82F6', text: '#1D4ED8', dot: '#3B82F6' },
+    { bg: '#FFFBEB', border: '#F59E0B', text: '#92400E', dot: '#F59E0B' },
+    { bg: '#ECFDF5', border: '#10B981', text: '#065F46', dot: '#10B981' },
+    { bg: '#FFF1F2', border: '#F43F5E', text: '#9F1239', dot: '#F43F5E' },
+  ],
+};
+
+export const getTheme = (slug: string): ProjectTheme => THEMES[slug] ?? FALLBACK_THEME;
 
 export const RESUME_CONTEXT = `
 Gaurav Mahale — AI Product Builder | Finance Domain Expert
@@ -69,6 +133,7 @@ export const PROJECTS: Project[] = [
     metrics: "500+ MAU",
     link: "https://ai-spirit.in",
     image: "/ai-spirit.png",
+    cardFlow: ["Browse", "Chat", "Remember", "Retain"],
     category: 'build',
     flowType: 'persona',
     problem: "Generic AI chatbots fail at long-term engagement because they lack character consistency and memory. Users crave authentic, persistent relationships, but foundational models inherently drift from their system prompts during extended multi-turn conversations — destroying immersion and user trust.",
@@ -107,6 +172,7 @@ export const PROJECTS: Project[] = [
     slug: "ai-credit-intelligence-platform",
     date: "Dec 2025",
     image: "/credit-platform.png",
+    cardFlow: ["Upload", "Extract", "Research", "Export"],
     description: "Identified and solved a real enterprise bottleneck: CAM preparation takes analysts 4–6 hours due to manual extraction from annual reports. Scoped the MVP using 9 years of lived experience writing CAMs at Yes Bank and HDFC. Built a two-stage pipeline: a deterministic Python engine (PDFMiner + Screener.in + Yahoo Finance + BSE annual reports) followed by a Karpathy-style autonomous research loop that self-scores its own knowledge completeness (threshold: 85%) before passing structured JSON to the LLM for narrative synthesis.",
     tech: ["Python", "FastAPI", "Next.js 16", "Google Gemini API", "Claude API", "Supabase", "SQLite", "OpenPyXL", "PDFMiner", "GitHub"],
     metrics: "–80% time",
@@ -149,6 +215,7 @@ export const PROJECTS: Project[] = [
     slug: "automated-job-discovery-agent",
     date: "Jan 2026",
     image: "/job-agent.png",
+    cardFlow: ["Scrape", "Score", "Filter", "Deliver"],
     description: "Defined the product as a solution to a personal pain point: 2 hours of daily manual searching across fragmented portals. Built a 6-portal scraper (LinkedIn, Naukri, Indeed, HiringCafe, Wellfound, IIMJobs) that runs twice daily via APScheduler, semantically scores each listing 0–100 against a candidate profile using Ollama (Mistral 7B, fully local — zero API cost), and delivers the top matches as a Telegram digest. Database currently holds 7,413 catalogued jobs with deduplication via portal + company + role + location fingerprint.",
     tech: ["Python", "Flask", "Ollama / Mistral 7B", "Selenium", "SQLite", "APScheduler", "Telegram Bot API", "BeautifulSoup"],
     metrics: "100% automated",
@@ -185,6 +252,50 @@ export const PROJECTS: Project[] = [
       ],
     },
     reflection: "Self-use validation is a fast path to shipping but a slow path to scale. My scoring model was calibrated to my own profile and worked well for me and inconsistently for anyone else — a blind spot I only noticed when sharing it. If I were building for multiple users from day one, the first thing I'd redesign is the profile configuration: the current JSON config is too technical and creates a high setup cost that most people won't clear. I'd replace it with a conversational onboarding flow that builds the profile through questions. The second thing I'd add is a feedback loop — when a user applies to or dismisses a suggested role, the relevance model updates its weights. That feedback flywheel is what makes the tool compoundingly more accurate over time, and it's the difference between a personal script and a product with network value. I've since started building the multi-user version with both of these lessons designed in from the start.",
+  },
+  {
+    title: "AI Engineering Field Guide",
+    slug: "ai-engineering-field-guide",
+    date: "Jun 2026",
+    image: "/ai-engineering.png",
+    description: "Read Chip Huyen's 535-page 'AI Engineering' (O'Reilly, 2025) cover-to-cover and distilled all 10 chapters into a data-driven companion site — sections, key concepts, terms, takeaways, and cross-chapter connections. Built 29 interactive + descriptive diagrams from a single reusable component, client-side Cmd+K search, and localStorage read-progress. The centrepiece is an 'Ask the book' RAG chatbot: a Vercel serverless function runs TF-IDF lexical retrieval over 1,325 server-side chunks of the full book text, then Gemini 2.0 Flash generates a grounded, chapter-cited answer.",
+    tech: ["React 19", "Vite", "Tailwind v4", "TypeScript", "Gemini 2.0 Flash", "TF-IDF RAG", "Vercel", "Framer Motion"],
+    metrics: "RAG-powered",
+    link: "https://ai-engineering-guide-livid.vercel.app",
+    cardFlow: ["Read", "Distill", "Retrieve", "Cite"],
+    category: 'build',
+    flowType: 'book',
+    githubUrl: "https://github.com/gmpro-cr",
+    problem: "Dense technical books are read once and forgotten. 'AI Engineering' is the canonical text for building on top of foundation models, but 535 pages of linear PDF is hard to revisit, impossible to search semantically, and gives you no way to ask 'where does the book talk about X?'. The knowledge is locked in a format that doesn't match how people actually reference it.",
+    approach: [
+      "Read the full 535-page book and made an explicit content-vs-template separation: every chapter is pure data (src/data/chapters/ch01–ch10.ts — sections, key concepts, terms, takeaways, connections) and generic UI templates render it. Improving content never touches UI; the structure scales to any book.",
+      "Designed one reusable Diagram component with 9 visual types (pipeline, loop, comparison, slider, venn, pyramid, bars, flow, curve) so the 29 diagrams across chapters stay visually consistent and are authored declaratively in each chapter's data — not hand-built per page.",
+      "Built the RAG retrieval layer deliberately server-side: 1,325 chunks of full book text live only in api/_book-chunks.json and never enter the client bundle. TF-IDF lexical retrieval runs in a Vercel serverless function, keeping the client light and the source text private.",
+      "Grounded every chatbot answer in retrieved chunks and forced chapter citations via Gemini 2.0 Flash — so 'Ask the book' answers from the book, with provenance, rather than hallucinating from the model's general training.",
+      "Added zero-friction navigation primitives a reference tool needs: hash-routed deep links (#/chapter/N/section), client-side Cmd+K search, collapsible sidebar, and localStorage read-progress — so returning readers resume exactly where they left off.",
+    ],
+    keyInsights: [
+      "Separating content (data) from presentation (templates) is the highest-leverage architectural decision for a knowledge product. It turned 'improve a chapter' from an engineering task into a data edit, and makes the whole site re-targetable to another book without UI work.",
+      "RAG quality is a retrieval problem before it's a generation problem. Forcing chapter citations and grounding strictly in retrieved chunks did more for answer trust than any prompt tuning — users can verify, so they believe.",
+      "Keeping the full book corpus server-side (never in the client bundle) is both a respect-the-source decision and a performance one: the client stays tiny while the function holds the heavy text.",
+    ],
+    outcomes: [
+      "All 10 chapters distilled and shipped with 29 interactive/descriptive diagrams from one reusable component.",
+      "'Ask the book' answers grounded in 1,325 retrieved chunks with chapter citations — graceful fallback when the API key is absent.",
+      "Live and auto-deploying on Vercel (GitHub-connected); Cmd+K search and read-progress make it a genuine reference tool, not a one-time read.",
+    ],
+    technicalDetails: {
+      architecture: "A React 19 + Vite SPA renders chapter data through generic templates and a single reusable Diagram component. Navigation is hash-routed with client-side Cmd+K search and localStorage progress. The 'Ask the book' feature calls a Vercel serverless function (api/chat.ts) that performs TF-IDF lexical retrieval over 1,325 full-text chunks (api/_book-chunks.json, server-side only), then passes the top chunks to Gemini 2.0 Flash to generate a grounded, chapter-cited answer.",
+      dataFlow: [
+        { step: "Reader asks a question in the 'Ask the book' widget" },
+        { step: "Question POSTed to Vercel serverless function api/chat.ts" },
+        { step: "TF-IDF retrieves top chunks from 1,325 server-side book chunks" },
+        { step: "Retrieved chunks + question assembled into a grounded prompt" },
+        { step: "Gemini 2.0 Flash generates an answer with chapter citations" },
+        { step: "Answer streamed back to the client with its source chapters" },
+      ],
+    },
+    reflection: "If I were starting over, I'd invest earlier in chunking strategy — TF-IDF lexical retrieval is fast and private but it misses paraphrased questions where the vocabulary doesn't overlap the text; a hybrid with embeddings would lift recall on conceptual queries. I'd also have designed the diagram schema before writing chapter content, not alongside it — a few diagrams had to be reshaped once the component's 9 types stabilised. The biggest validation: the content/template split paid for itself the first time I wanted to revise a chapter and realised it was a one-line data change. The natural next build is letting a reader upload their own PDF and get the same distilled, searchable, ask-anything treatment — turning a single-book companion into a general reading tool.",
   }
 ];
 

@@ -18,10 +18,11 @@ export interface Project {
   githubUrl?: string;
   metrics?: string;
   image?: string;
+  cardFlow?: string[];
 
   // Enhanced case study fields
   category: 'build' | 'case-study';
-  flowType?: 'persona' | 'credit' | 'job';
+  flowType?: 'persona' | 'credit' | 'job' | 'book';
   problem?: string;
   approach?: string[];
   keyInsights?: string[];
@@ -35,6 +36,21 @@ export interface Project {
     dataFlow: { step: string }[];
   };
   reflection?: string;
+}
+
+export interface RampColor {
+  bg: string;
+  border: string;
+  text: string;
+  dot: string;
+}
+
+export interface ProjectTheme {
+  accent: string;        // primary solid color
+  accentDark: string;    // readable text on light surfaces
+  accentBg: string;      // light tinted surface
+  accentBorder: string;  // border color (solid)
+  ramp: RampColor[];     // coordinated palette for multi-step diagrams
 }
 
 export interface UserSegment {
