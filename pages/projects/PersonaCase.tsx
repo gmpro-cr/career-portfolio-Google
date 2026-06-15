@@ -1,9 +1,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChartLine, Lightbulb, User, Rocket, Clock } from '@phosphor-icons/react';
+import { ChartLine, Lightbulb, User, Clock } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, Pill, MetricsRow, CompetitiveGrid, RoadmapTimeline } from './kit';
+import { Reveal, SectionLabel, Pill, MetricsRow, CompetitiveGrid, RoadmapTimeline, LifecycleSpine } from './kit';
 import { RadialMap, Flowchart, Funnel, type FlowNode } from './diagrams';
+
+const LIFECYCLE = [
+  { stage: 'Idea', detail: 'People were "talking to" Elon or Naval via ChatGPT and YouTube — real admiration with no product to close the loop into dialogue.' },
+  { stage: 'Discovery', detail: 'User interviews surfaced a genuine parasocial need; a 10-item JTBD map resolved into five distinct segments.' },
+  { stage: 'Validation', detail: 'A guest-mode prototype showed multi-persona users retained 3x — a clear PMF signal in Mixpanel cohorts.' },
+  { stage: 'MVP scope', detail: '350+ personas, guest mode, an LLM router and a freemium paywall; voice and custom personas deferred to v2.' },
+  { stage: 'Build', detail: 'Next.js with Supabase memory, a persona-eval drift scorer, and a Gemini / Groq routing layer.' },
+  { stage: 'Ship / deploy', detail: 'Launched on Vercel at ai-spirit.in after a production-readiness audit that closed six critical issues.' },
+  { stage: 'Measure', detail: 'North Star: messages per day. Tracked D7 / D30 cohorts, conversion, and personas per user.' },
+  { stage: 'Iterate', detail: 'Proactive session-2 messages lifted D7 retention 3x; onboarding redesigned to expose 3+ personas in session one.' },
+];
 
 const MEMORY_LOOP: FlowNode[] = [
   { id: 'msg', label: 'User sends a message', type: 'start', forwardLabel: 'inbound' },
@@ -36,7 +47,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
                   {project.metrics && <Pill theme={theme}>{project.metrics}</Pill>}
                 </div>
                 <h1 className="font-display font-light leading-[0.95] tracking-tight text-ink" style={{ fontSize: 'clamp(2rem, 5.5vw, 4.5rem)' }}>{project.title}</h1>
-                <p className="mt-4 md:mt-6 text-sm md:text-base text-ink/60 leading-relaxed">{project.description}</p>
+                <p className="mt-4 md:mt-6 text-sm md:text-base text-ink/75 leading-relaxed">{project.description}</p>
                 <div className="mt-5 flex flex-wrap gap-1.5">
                   {project.tech.map((t, i) => <span key={i} className="text-xs font-medium bg-ink/5 border border-hairline text-ink px-3 py-1.5 rounded-full">{t}</span>)}
                 </div>
@@ -67,6 +78,16 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
         </div>
       </section>
 
+      {/* ── Lifecycle: idea to deployment ────────────────────────── */}
+      <section className="py-12 md:py-20 border-t border-hairline">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
+          <Reveal><SectionLabel theme={theme}>from idea to deployment</SectionLabel>
+            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">How a parasocial hunch <em className="italic font-normal text-ink-muted">became a shipped product.</em></h2>
+          </Reveal>
+          <LifecycleSpine stages={LIFECYCLE} theme={theme} />
+        </div>
+      </section>
+
       {/* ── Persona constellation ────────────────────────────────── */}
       <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
         <div className="max-w-6xl mx-auto px-4 md:px-12">
@@ -74,7 +95,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
             <div>
               <SectionLabel theme={theme}>Persona Catalogue</SectionLabel>
               <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-4">One hub, <em className="italic font-normal text-ink-muted">forty worlds.</em></h2>
-              <p className="text-sm text-ink/65 leading-relaxed">370+ curated personas fan out from a single product surface across 40 categories. India-first by design — Chanakya, Sadhguru, Shah Rukh Khan, Osho — characters Western platforms don&rsquo;t serve. The breadth is the moat: discovery across categories is what drives the multi-persona habit that retains.</p>
+              <p className="text-sm text-ink/75 leading-relaxed">370+ curated personas fan out from a single product surface across 40 categories. India-first by design — Chanakya, Sadhguru, Shah Rukh Khan, Osho — characters Western platforms don&rsquo;t serve. The breadth is the moat: discovery across categories is what drives the multi-persona habit that retains.</p>
             </div>
             <RadialMap theme={theme} center="AI Spirit" nodes={['Business', 'Spiritual', 'Entertainment', 'Companion', 'Fitness', 'Anime']} />
           </div>
@@ -88,7 +109,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
             <div>
               <SectionLabel theme={theme}>How a reply is built</SectionLabel>
               <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-4">The conversation <em className="italic font-normal text-ink-muted">memory loop.</em></h2>
-              <p className="text-sm text-ink/65 leading-relaxed mb-6">Every message runs the same closed loop. The persona eval is the gate: if a draft reply drifts out of character, it is re-routed before it ever reaches the user. Memory is written back on every turn, so context compounds across sessions.</p>
+              <p className="text-sm text-ink/75 leading-relaxed mb-6">Every message runs the same closed loop. The persona eval is the gate: if a draft reply drifts out of character, it is re-routed before it ever reaches the user. Memory is written back on every turn, so context compounds across sessions.</p>
               <div style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}40`, borderRadius: '1.25rem', padding: '18px 20px' }}>
                 <p style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: theme.accentDark, fontWeight: 700, marginBottom: 8 }}>PM Insight</p>
                 <p className="text-sm text-ink/80 leading-relaxed">{extras.pmInsight}</p>
@@ -114,7 +135,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12 grid md:grid-cols-2 gap-10 md:gap-20">
           <Reveal>
             <div className="flex items-center gap-2 mb-4"><Lightbulb size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">How I Found This Problem</p></div>
-            <p className="text-sm text-ink/75 leading-relaxed">{extras.discovery}</p>
+            <p className="text-sm text-ink/75 leading-relaxed dropcap">{extras.discovery}</p>
           </Reveal>
           <Reveal delay={0.1}>
             <div className="flex items-center gap-2 mb-4"><User size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Archetypal User</p></div>
@@ -138,7 +159,7 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
     <>
       <section className="py-12 md:py-24 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}><span className="inline-flex items-center gap-1.5"><ChartLine size={13} weight="light" /> Measured Impact</span></SectionLabel>
+          <Reveal>
             <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-12">Outcomes that <em className="italic font-normal text-ink-muted">moved the needle.</em></h2>
           </Reveal>
           <MetricsRow metrics={extras.metrics} theme={theme} />
@@ -147,8 +168,8 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
 
       <section className="py-12 md:py-24 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}><span className="inline-flex items-center gap-1.5"><Rocket size={13} weight="light" /> Product Roadmap</span></SectionLabel>
-            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-12">From MVP to <em className="italic font-normal text-ink-muted">platform-scale.</em></h2>
+          <Reveal>
+            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-12">The roadmap, <em className="italic font-normal text-ink-muted">from MVP to platform-scale.</em></h2>
           </Reveal>
           <RoadmapTimeline phases={extras.roadmap} />
         </div>
@@ -156,7 +177,7 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
 
       <section className="py-12 md:py-24 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>Competitive Landscape</SectionLabel>
+          <Reveal>
             <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-12">Where it <em className="italic font-normal text-ink-muted">wins.</em></h2>
           </Reveal>
           <CompetitiveGrid columns={extras.competitors.columns} rows={extras.competitors.rows} theme={theme} />

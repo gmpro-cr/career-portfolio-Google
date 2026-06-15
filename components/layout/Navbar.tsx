@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Monogram } from '../Wordmark';
 
 const navLinks = [
   { href: '#work',       label: 'Work'       },
@@ -59,6 +60,11 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (isOpen) {
+      const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setIsOpen(false); };
+      window.addEventListener('keydown', onKey);
+      return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
+    }
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
@@ -95,10 +101,12 @@ export default function Navbar() {
           <a
             href="/"
             onClick={e => { e.preventDefault(); navigate('/'); setIsOpen(false); }}
-            className="px-4 text-sm font-medium tracking-tight hover:opacity-70 transition-opacity duration-500"
-            style={{ color: '#1A1410', transition: `color 0.4s ${EASE}, opacity 0.5s` }}
+            aria-label="Gaurav Mahale — home"
+            className="inline-flex items-center gap-2.5 pl-2 pr-1 hover:opacity-70 transition-opacity duration-500"
+            style={{ transition: `opacity 0.5s ${EASE}` }}
           >
-            Gaurav Mahale
+            <Monogram size={28} />
+            <span className="text-sm font-medium tracking-tight" style={{ color: '#1A1410' }}>Gaurav Mahale</span>
           </a>
 
           <span className="hidden md:inline-block h-4 w-px bg-hairline mx-1" aria-hidden />
