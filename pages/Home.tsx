@@ -379,8 +379,6 @@ function SelectedWork() {
                       style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(253,251,247,0.95) 100%)' }}
                       aria-hidden
                     />
-                    {/* Accent top rule */}
-                    <div className="absolute top-0 left-0 right-0 h-1 z-10" style={{ background: theme.accent, opacity: 0.85 }} aria-hidden />
                     <div className="absolute top-4 right-4 z-10">
                       <span
                         className="font-display italic text-sm font-medium px-3 py-1.5 rounded-full"
