@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Monogram } from '../Wordmark';
 
 const navLinks = [
   { href: '#work',       label: 'Work'       },
@@ -102,11 +101,10 @@ export default function Navbar() {
             href="/"
             onClick={e => { e.preventDefault(); navigate('/'); setIsOpen(false); }}
             aria-label="Gaurav Mahale — home"
-            className="inline-flex items-center gap-2.5 pl-2 pr-1 hover:opacity-70 transition-opacity duration-500"
-            style={{ transition: `opacity 0.5s ${EASE}` }}
+            className="px-4 text-sm font-medium tracking-tight hover:opacity-70 transition-opacity duration-500"
+            style={{ color: '#1A1410', transition: `opacity 0.5s ${EASE}` }}
           >
-            <Monogram size={28} />
-            <span className="text-sm font-medium tracking-tight" style={{ color: '#1A1410' }}>Gaurav Mahale</span>
+            Gaurav Mahale
           </a>
 
           <span className="hidden md:inline-block h-4 w-px bg-hairline mx-1" aria-hidden />
