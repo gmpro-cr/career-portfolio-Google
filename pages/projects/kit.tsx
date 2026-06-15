@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import type { ProjectTheme } from '../../types';
+import { motion } from 'framer-motion';
+import type { Project, ProjectTheme } from '../../types';
 import type { MetricCard, CompetitorRow, RoadmapPhase } from './caseData';
 
 /* ─── Shared easing + scroll-reveal ──────────────────────────── */
@@ -50,6 +51,49 @@ export const Pill = ({ children, theme }: { children: React.ReactNode; theme: Pr
     fontSize: '11px', fontWeight: 600, padding: '4px 12px', borderRadius: '9999px', whiteSpace: 'nowrap',
   }}>{children}</span>
 );
+
+/* ─── Case hero: themed wash + deployed-site screenshot ───────── */
+export function CaseHero({ project, theme }: { project: Project; theme: ProjectTheme }) {
+  return (
+    <section className="pt-4 pb-10 md:pb-16" style={{ background: `linear-gradient(180deg, ${theme.accentBg} 0%, transparent 58%)` }}>
+      <div className="max-w-6xl mx-auto px-4 md:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+          className="grid lg:grid-cols-[1.02fr_1fr] gap-8 lg:gap-14 items-center"
+        >
+          <div>
+            <div className="flex flex-wrap items-center gap-2 mb-5">
+              <span className="eyebrow">{project.category === 'build' ? 'Shipped Product' : 'Case Study'}</span>
+              <span className="font-display italic text-sm text-ink-muted">{project.date}</span>
+              {project.metrics && <Pill theme={theme}>{project.metrics}</Pill>}
+            </div>
+            <h1 className="font-display font-light leading-[0.95] tracking-tight text-ink" style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5rem)' }}>{project.title}</h1>
+            <p className="mt-5 md:mt-6 text-base md:text-lg text-ink/75 leading-relaxed">{project.description}</p>
+            <div className="mt-6 flex flex-wrap gap-1.5">
+              {project.tech.map((t, i) => (
+                <span key={i} className="text-xs font-medium bg-ink/5 border border-hairline text-ink px-3 py-1.5 rounded-full">{t}</span>
+              ))}
+            </div>
+          </div>
+          {project.image && (
+            <div className="bezel" style={{ background: theme.accentBg }}>
+              <div className="bezel-core overflow-hidden" style={{ borderRadius: 'calc(2rem - 0.375rem)' }}>
+                <img
+                  src={project.image}
+                  alt={`${project.title}, the deployed product`}
+                  className="w-full object-cover object-top"
+                  style={{ aspectRatio: '16 / 10', maxHeight: 460 }}
+                />
+              </div>
+            </div>
+          )}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
 
 /* ─── Lifecycle spine: idea -> deployment, one line per stage ──── */
 export function LifecycleSpine({ stages, theme }: { stages: { stage: string; detail: string }[]; theme: ProjectTheme }) {

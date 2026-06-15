@@ -27,26 +27,26 @@ export const THEMES: Record<string, ProjectTheme> = {
       { bg: '#F7FEE7', border: '#84CC16', text: '#4D7C0F', dot: '#84CC16' }, // lime
     ],
   },
-  // Job Agent — amber / orange
+  // Job Agent — royal blue (matches the deployed product)
   'automated-job-discovery-agent': {
-    accent: '#F59E0B', accentDark: '#92400E', accentBg: '#FFFBEB', accentBorder: '#F59E0B',
+    accent: '#2563EB', accentDark: '#1E40AF', accentBg: '#EFF4FF', accentBorder: '#2563EB',
     ramp: [
-      { bg: '#FFFBEB', border: '#F59E0B', text: '#92400E', dot: '#F59E0B' }, // amber
-      { bg: '#FFF7ED', border: '#F97316', text: '#9A3412', dot: '#F97316' }, // orange
-      { bg: '#FEF2F2', border: '#EF4444', text: '#B91C1C', dot: '#EF4444' }, // red
-      { bg: '#FEFCE8', border: '#EAB308', text: '#A16207', dot: '#EAB308' }, // yellow
-      { bg: '#FFF1F2', border: '#F43F5E', text: '#9F1239', dot: '#F43F5E' }, // rose
-    ],
-  },
-  // AI Engineering — blue / slate
-  'ai-engineering-field-guide': {
-    accent: '#3B82F6', accentDark: '#1D4ED8', accentBg: '#EFF6FF', accentBorder: '#3B82F6',
-    ramp: [
+      { bg: '#EFF4FF', border: '#2563EB', text: '#1E40AF', dot: '#2563EB' }, // royal blue
       { bg: '#EFF6FF', border: '#3B82F6', text: '#1D4ED8', dot: '#3B82F6' }, // blue
       { bg: '#F0F9FF', border: '#0EA5E9', text: '#0369A1', dot: '#0EA5E9' }, // sky
       { bg: '#EEF2FF', border: '#6366F1', text: '#4338CA', dot: '#6366F1' }, // indigo
       { bg: '#ECFEFF', border: '#06B6D4', text: '#0E7490', dot: '#06B6D4' }, // cyan
-      { bg: '#F8FAFC', border: '#64748B', text: '#334155', dot: '#64748B' }, // slate
+    ],
+  },
+  // AI Engineering — slate / indigo (engineering, blueprint feel)
+  'ai-engineering-field-guide': {
+    accent: '#475569', accentDark: '#334155', accentBg: '#F1F5F9', accentBorder: '#475569',
+    ramp: [
+      { bg: '#F1F5F9', border: '#475569', text: '#334155', dot: '#475569' }, // slate
+      { bg: '#EEF2FF', border: '#6366F1', text: '#4338CA', dot: '#6366F1' }, // indigo
+      { bg: '#F8FAFC', border: '#64748B', text: '#334155', dot: '#64748B' }, // slate-light
+      { bg: '#EEF4FF', border: '#4F46E5', text: '#3730A3', dot: '#4F46E5' }, // indigo deep
+      { bg: '#F0F9FF', border: '#0EA5E9', text: '#0369A1', dot: '#0EA5E9' }, // sky pop
     ],
   },
 };
