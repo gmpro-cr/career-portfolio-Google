@@ -2,9 +2,20 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Lightbulb, User, Wrench } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, Pill } from './kit';
+import { Reveal, SectionLabel, Pill, LifecycleSpine } from './kit';
 import { Swimlane, Flowchart, type FlowNode } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
+
+const LIFECYCLE = [
+  { stage: 'Idea', detail: 'Nine years writing Credit Appraisal Memos made the waste obvious: the 4-6 hours went to extraction, not judgment.' },
+  { stage: 'Discovery', detail: 'Mapped the analyst journey end to end; the bottleneck was mechanical parsing plus scattered web research.' },
+  { stage: 'Validation', detail: 'Format familiarity, not accuracy, turned out to be the adoption blocker once output mirrored the committee template.' },
+  { stage: 'MVP scope', detail: 'PDF to ratios to an 8-section CAM, with a hard split between deterministic math and LLM narrative.' },
+  { stage: 'Build', detail: 'FastAPI + PDFMiner engine, a Karpathy research loop (>=85%), Gemini drafting and Claude cross-validation.' },
+  { stage: 'Ship / deploy', detail: 'Next.js 16 HITL editor with bank-format Excel / PDF export; Supabase-backed cases, deploy prepped.' },
+  { stage: 'Measure', detail: 'CAM prep time, 10 auto-detected risk flags, per-section confidence, and research-completeness scoring.' },
+  { stage: 'Iterate', detail: 'Confidence scoring shifted review to the uncertain sections; version history and team accounts are next.' },
+];
 
 const RESEARCH_LOOP: FlowNode[] = [
   { id: 'seed', label: 'Seed: borrower name + sector', type: 'start', forwardLabel: 'begin' },
@@ -27,7 +38,7 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
               {project.metrics && <Pill theme={theme}>{project.metrics}</Pill>}
             </div>
             <h1 className="font-display font-light leading-[0.95] tracking-tight text-ink" style={{ fontSize: 'clamp(2rem, 5.5vw, 4.75rem)' }}>{project.title}</h1>
-            <p className="mt-4 md:mt-6 text-sm md:text-lg text-ink/60 leading-relaxed max-w-3xl">{project.description}</p>
+            <p className="mt-4 md:mt-6 text-sm md:text-lg text-ink/75 leading-relaxed max-w-3xl">{project.description}</p>
             {/* time-saving ledger strip */}
             <div className="mt-7 grid grid-cols-3 gap-px rounded-2xl overflow-hidden" style={{ border: `1px solid ${theme.accentBorder}40` }}>
               {[{ k: 'Before', v: '4–6 hrs', s: 'manual extraction' }, { k: 'After', v: '< 1 hr', s: 'AI-assisted CAM' }, { k: 'Saved', v: '–80%', s: 'per proposal' }].map((c, i) => (
@@ -57,12 +68,22 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
         </div>
       </section>
 
+      {/* ── Lifecycle: idea to deployment ────────────────────────── */}
+      <section className="py-12 md:py-20 border-t border-hairline">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
+          <Reveal><SectionLabel theme={theme}>from idea to deployment</SectionLabel>
+            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">From a nine-year pain point <em className="italic font-normal text-ink-muted">to a shipped tool.</em></h2>
+          </Reveal>
+          <LifecycleSpine stages={LIFECYCLE} theme={theme} />
+        </div>
+      </section>
+
       {/* ── Two-stage swimlane (signature) ───────────────────────── */}
       <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal><SectionLabel theme={theme} icon={<Wrench size={13} weight="light" />}>Two-Stage Pipeline</SectionLabel>
             <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-3">Math is deterministic. <em className="italic font-normal text-ink-muted">Narrative is generative.</em></h2>
-            <p className="text-sm text-ink/65 leading-relaxed max-w-2xl mb-8 md:mb-10">The strict separation is the whole design: the Python engine owns every number so the LLM never touches arithmetic — it only writes the story from pre-verified JSON. That one decision solved ~90% of accuracy issues.</p>
+            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-10">The strict separation is the whole design: the Python engine owns every number so the LLM never touches arithmetic — it only writes the story from pre-verified JSON. That one decision solved ~90% of accuracy issues.</p>
           </Reveal>
           <Swimlane
             theme={theme}
@@ -82,7 +103,7 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
             <div>
               <SectionLabel theme={theme}>Autonomous Research</SectionLabel>
               <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-4">A research loop that <em className="italic font-normal text-ink-muted">knows when it&rsquo;s done.</em></h2>
-              <p className="text-sm text-ink/65 leading-relaxed mb-6">A Karpathy-style agent self-scores its own knowledge completeness and keeps searching until it crosses 85%. Setting that threshold was a product decision: low enough to terminate, high enough that the AI never ships a shallow summary when more was findable.</p>
+              <p className="text-sm text-ink/75 leading-relaxed mb-6">A Karpathy-style agent self-scores its own knowledge completeness and keeps searching until it crosses 85%. Setting that threshold was a product decision: low enough to terminate, high enough that the AI never ships a shallow summary when more was findable.</p>
               <div style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}40`, borderRadius: '1.25rem', padding: '18px 20px' }}>
                 <p style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: theme.accentDark, fontWeight: 700, marginBottom: 8 }}>PM Insight</p>
                 <p className="text-sm text-ink/80 leading-relaxed">{extras.pmInsight}</p>
@@ -98,7 +119,7 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12 grid md:grid-cols-2 gap-10 md:gap-20">
           <Reveal>
             <div className="flex items-center gap-2 mb-4"><Lightbulb size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">How I Found This Problem</p></div>
-            <p className="text-sm text-ink/75 leading-relaxed">{extras.discovery}</p>
+            <p className="text-sm text-ink/75 leading-relaxed dropcap">{extras.discovery}</p>
           </Reveal>
           <Reveal delay={0.1}>
             <div className="flex items-center gap-2 mb-4"><User size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Archetypal User</p></div>

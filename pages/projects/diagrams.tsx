@@ -175,6 +175,31 @@ export function Sequence({ actors, messages, theme }: {
   const ROW = 60;
   return (
     <div ref={ref}>
+      {/* Mobile: vertical step list (lifelines are unreadable on narrow screens) */}
+      <div className="sm:hidden flex flex-col gap-2">
+        {messages.map((m, mi) => {
+          const r = theme.ramp[mi % theme.ramp.length];
+          return (
+            <div key={mi} style={{
+              background: r.bg, border: `1px solid ${r.border}55`, borderRadius: '0.8rem', padding: '10px 12px',
+              opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(8px)',
+              transition: `opacity 0.4s ${EASE_STR} ${mi * 0.06}s, transform 0.4s ${EASE_STR} ${mi * 0.06}s`,
+            }}>
+              <div className="flex items-center gap-1.5" style={{ marginBottom: 3 }}>
+                <span style={{ fontSize: '9.5px', fontWeight: 700, color: r.text }}>{actors[m.from]}</span>
+                <svg width="13" height="8" viewBox="0 0 13 8" fill="none" aria-hidden><path d="M0 4h9M8 1l3 3-3 3" stroke={r.border} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                <span style={{ fontSize: '9.5px', fontWeight: 700, color: r.text }}>{actors[m.to]}</span>
+              </div>
+              <p style={{ fontSize: '12px', color: '#3A332E', lineHeight: 1.4 }}>
+                {m.label}{m.note && <span style={{ color: '#A8A29E' }}> · {m.note}</span>}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Desktop / tablet: lifeline sequence */}
+      <div className="hidden sm:block">
       {/* actor headers */}
       <div className="grid mb-2" style={{ gridTemplateColumns: `repeat(${n}, 1fr)`, gap: 4 }}>
         {actors.map((a, i) => {
@@ -220,6 +245,7 @@ export function Sequence({ actors, messages, theme }: {
             </div>
           );
         })}
+      </div>
       </div>
     </div>
   );

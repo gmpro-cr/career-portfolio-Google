@@ -36,10 +36,10 @@ export function Reveal({ children, delay = 0, className = '' }: { children: Reac
 /* ─── Section eyebrow / label ────────────────────────────────── */
 export function SectionLabel({ children, theme, icon }: { children: React.ReactNode; theme?: ProjectTheme; icon?: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-2 mb-3">
-      {icon && <span style={{ color: theme?.accent }}>{icon}</span>}
-      <span style={{ width: 18, height: 1, background: theme ? theme.accent : '#A8A29E', display: 'inline-block' }} />
-      <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">{children}</p>
+    <div className="flex items-center gap-2.5 mb-4">
+      <span aria-hidden style={{ width: '1.75rem', height: 1, background: theme ? theme.accent : 'rgba(26,20,16,0.3)', display: 'inline-block', flexShrink: 0 }} />
+      {icon && <span style={{ color: theme?.accent, display: 'inline-flex' }}>{icon}</span>}
+      <span className="font-display italic text-ink-muted" style={{ fontSize: '0.95rem', lineHeight: 1.2 }}>{children}</span>
     </div>
   );
 }
@@ -50,6 +50,28 @@ export const Pill = ({ children, theme }: { children: React.ReactNode; theme: Pr
     fontSize: '11px', fontWeight: 600, padding: '4px 12px', borderRadius: '9999px', whiteSpace: 'nowrap',
   }}>{children}</span>
 );
+
+/* ─── Lifecycle spine: idea -> deployment, one line per stage ──── */
+export function LifecycleSpine({ stages, theme }: { stages: { stage: string; detail: string }[]; theme: ProjectTheme }) {
+  const [ref, visible] = useReveal('-4%');
+  return (
+    <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-9">
+      {stages.map((s, i) => (
+        <div key={i} style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'none' : 'translateY(14px)',
+          transition: `opacity 0.5s ${EASE_STR} ${i * 0.06}s, transform 0.5s ${EASE_STR} ${i * 0.06}s`,
+        }}>
+          <div className="flex items-baseline gap-2.5" style={{ borderTop: '1px solid rgba(26,20,16,0.16)', paddingTop: 12 }}>
+            <span className="font-display italic oldstyle" style={{ fontSize: '1.05rem', color: theme.accent, lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</span>
+            <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#1A1410', letterSpacing: '0.01em' }}>{s.stage}</span>
+          </div>
+          <p className="mt-2.5 text-[13px] text-ink/75 leading-relaxed">{s.detail}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 /* ─── Status colors (roadmap — semantic) ─────────────────────── */
 export const STATUS_COLORS = {

@@ -146,7 +146,7 @@ function FlowDiagram({ steps }: { steps: { step: string }[] }) {
             <span className="flex-shrink-0 w-6 h-6 rounded-full bg-ink text-white text-[9px] font-semibold flex items-center justify-center tabular mt-0.5">
               {String(i + 1).padStart(2, '0')}
             </span>
-            <span className="text-sm text-ink/80 leading-relaxed text-justify hyphens-auto">{s.step}</span>
+            <span className="text-sm text-ink/80 leading-relaxed">{s.step}</span>
           </div>
           {i < steps.length - 1 && (
             <div
@@ -245,7 +245,7 @@ function Hero() {
         {/* Name — word slide */}
         <h1
           className="mt-5 lg:mt-8 font-display font-light leading-[0.92] tracking-[-0.03em] text-center lg:text-left"
-          style={{ fontSize: 'clamp(2.2rem, 9vw, 9rem)', color: '#1A1410' }}
+          style={{ fontSize: 'clamp(2.4rem, 8vw, 6rem)', color: '#1A1410' }}
         >
           {words.map((word, wi) => (
             <motion.span
@@ -268,8 +268,8 @@ function Hero() {
         {/* Summary */}
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.55s forwards` }}>
           <p
-            className="mt-5 lg:mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed text-justify hyphens-auto"
-            style={{ color: 'rgba(26,20,16,0.6)' }}
+            className="mt-5 lg:mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed"
+            style={{ color: 'rgba(26,20,16,0.74)' }}
           >
             AI Product Builder and Finance Domain Expert with 9+ years in banking. Independently designed,
             built and shipped 3 LLM-based platforms. Experienced across the full product lifecycle: discovery,
@@ -316,7 +316,7 @@ function Hero() {
           animation: `fadeIn 1s ease 1.4s forwards`,
         }}
       >
-        <div style={{ animation: 'bounce 2s ease-in-out infinite' }}>
+        <div style={{ animation: 'scrollcue 2.4s cubic-bezier(0.33,0,0.2,1) infinite' }}>
           <ArrowDown size={16} weight="light" />
         </div>
       </div>
@@ -332,12 +332,18 @@ function SelectedWork() {
     <section id="work" className="relative py-14 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <Reveal delay={0.06}>
-          <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
-            Selected Work
-          </h2>
+          <div className="flex items-end justify-between gap-6 border-b border-ink/15 pb-6">
+            <div>
+              <span className="font-display italic text-ink-muted" style={{ fontSize: '0.95rem' }}>selected work</span>
+              <h2 className="mt-2 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
+                Four products, <em className="italic font-normal text-ink-muted">end to end.</em>
+              </h2>
+            </div>
+            <span className="hidden md:block font-display italic text-ink-muted oldstyle whitespace-nowrap" style={{ fontSize: '1.15rem' }}>04 / 04</span>
+          </div>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-5">
           {PROJECTS.map((project, idx) => {
             const theme = getTheme(project.slug);
             return (
@@ -395,7 +401,7 @@ function SelectedWork() {
                       {project.title}
                     </h3>
                     <p
-                      className="mt-3 text-sm text-ink/65 leading-relaxed font-normal"
+                      className="mt-3 text-sm text-ink/75 leading-relaxed font-normal"
                       style={{
                         display: '-webkit-box',
                         WebkitLineClamp: 3,
@@ -418,7 +424,7 @@ function SelectedWork() {
                     </div>
                     {project.cardFlow && (
                       <div className="mt-5">
-                        <p className="text-[9px] uppercase tracking-[0.2em] text-ink-muted mb-2">How it works</p>
+                        <p className="font-display italic text-ink-muted mb-2" style={{ fontSize: '12px' }}>how it works</p>
                         <CardFlow steps={project.cardFlow} theme={theme} />
                       </div>
                     )}
@@ -476,7 +482,7 @@ function Trajectory() {
                     {exp.description.map((desc, idx) => (
                       <li key={idx} className="flex gap-3 text-base text-ink/75 font-normal leading-relaxed">
                         <span className="flex-shrink-0 mt-2.5 block w-4 h-px bg-ink-muted/50" aria-hidden />
-                        <span className="text-justify hyphens-auto">{desc}</span>
+                        <span>{desc}</span>
                       </li>
                     ))}
                   </ul>
@@ -551,7 +557,7 @@ function Toolkit() {
         <StaggerList base={0} step={0.06} className="mt-20 grid md:grid-cols-3 gap-x-10 gap-y-12">
           {TOOLKIT_GROUPS.map((group) => (
             <div key={group.label}>
-              <p className="text-[10px] uppercase tracking-[0.22em] font-medium mb-6 text-ink-muted">
+              <p className="font-display italic mb-6 text-ink-muted" style={{ fontSize: '1rem' }}>
                 {group.label}
               </p>
               <ul className="space-y-2.5">
@@ -578,7 +584,7 @@ function Contact() {
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
         <Reveal delay={0.06}>
           <h2 className="mt-8 font-display font-light leading-[0.95] tracking-tight text-ink"
-            style={{ fontSize: 'clamp(3rem, 8vw, 7rem)' }}>
+            style={{ fontSize: 'clamp(2.6rem, 7vw, 5rem)' }}>
             Let&rsquo;s build<br />
             <em className="italic font-normal text-ink-muted">something real.</em>
           </h2>
@@ -751,7 +757,7 @@ function ClaudeCodeWorkflow() {
                             </div>
 
                             {/* Description */}
-                            <p className="text-sm text-ink/65 leading-relaxed">
+                            <p className="text-sm text-ink/75 leading-relaxed">
                               {cap.description}
                             </p>
 
@@ -805,9 +811,13 @@ export default function Home() {
           from { opacity: 0; }
           to   { opacity: 1; }
         }
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); }
-          50%       { transform: translateY(6px); }
+        @keyframes scrollcue {
+          0%       { transform: translateY(0); opacity: 0.35; }
+          50%      { transform: translateY(7px); opacity: 1; }
+          100%     { transform: translateY(0); opacity: 0.35; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="scrollcue"] { animation: none !important; }
         }
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
