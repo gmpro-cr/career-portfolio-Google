@@ -1,7 +1,7 @@
 import React from 'react';
 import { Lightbulb, User, ChartLine } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, LifecycleSpine, CaseHero, ProblemStatement, ResultBand } from './kit';
+import { Reveal, SectionLabel, LifecycleSpine, CaseHero } from './kit';
 import { RadialMap, Funnel } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
 
@@ -29,24 +29,15 @@ export default function JobAgentCase({ project, extras, theme }: CaseProps) {
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      {/* ── Result band (dark, signature differentiator) ─────────── */}
-      <ResultBand
-        theme={theme}
-        eyebrow="The result"
-        before="2 hours every morning"
-        after="A 5-minute digest"
-        caption="Top-of-funnel filtering — the daily scroll through hundreds of irrelevant listings — became a single relevance-ranked digest delivered to Telegram."
-        stats={[
-          { value: '7,413', label: 'Jobs catalogued as ground truth' },
-          { value: '65', label: 'Relevance threshold — the key product lever' },
-          { value: '~10/day', label: 'Matched roles delivered' },
-        ]}
-      />
-
       {/* ── Problem ──────────────────────────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <ProblemStatement label="The Noise Problem" theme={theme}>{extras.problemStatement}</ProblemStatement>
+          <Reveal><SectionLabel theme={theme}>The Noise Problem</SectionLabel>
+            <div className="flex gap-4 md:gap-6">
+              <div className="flex-shrink-0 w-1 rounded-full self-stretch" style={{ background: theme.accent }} />
+              <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
