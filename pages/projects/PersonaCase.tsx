@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChartLine, Lightbulb, User, Clock } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, MetricsRow, RoadmapTimeline, LifecycleSpine, CaseHero } from './kit';
+import { Reveal, SectionLabel, MetricsRow, RoadmapTimeline, LifecycleSpine, CaseHero, ProblemStatement, ResultBand } from './kit';
 import { RadialMap, Flowchart, Funnel, type FlowNode } from './diagrams';
 
 const LIFECYCLE = [
@@ -40,12 +40,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
       {/* ── Problem ──────────────────────────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>The Problem</SectionLabel>
-            <div className="flex gap-4 md:gap-6">
-              <div className="flex-shrink-0 w-1 rounded-full self-stretch" style={{ background: theme.accent }} />
-              <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
-            </div>
-          </Reveal>
+          <ProblemStatement label="The Problem" theme={theme}>{extras.problemStatement}</ProblemStatement>
         </div>
       </section>
 
@@ -90,6 +85,19 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
           </div>
         </div>
       </section>
+
+      {/* ── Result band (dark, mid-page — varies the rhythm) ─────── */}
+      <ResultBand
+        theme={theme}
+        eyebrow="The result"
+        after="500+ users, zero paid"
+        caption="Growth came entirely from organic retention loops, not acquisition spend. The unlock was behavioural: users who met 2+ personas in their first week retained at 3× the rate of single-persona users."
+        stats={[
+          { value: '370+', label: 'Curated personas · 40 categories' },
+          { value: '3×', label: 'D7 retention when the AI initiates' },
+          { value: '5', label: 'User segments mapped' },
+        ]}
+      />
 
       {/* ── Retention funnel ─────────────────────────────────────── */}
       <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
@@ -152,10 +160,7 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
             <Reveal>
               <div className="flex items-center gap-2 mb-5"><Clock size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Reflection</p></div>
               <p className="text-[10px] uppercase tracking-[0.18em] text-ink-muted mb-4">What I&rsquo;d do differently</p>
-              <div className="flex gap-4 md:gap-6">
-                <div className="flex-shrink-0 w-1 rounded-full self-stretch" style={{ background: `${theme.accent}66` }} />
-                <p className="font-display font-light text-ink/80 leading-relaxed tracking-tight" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
-              </div>
+              <p className="font-display font-light text-ink/85 leading-relaxed tracking-tight max-w-3xl" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
             </Reveal>
           </div>
         </section>

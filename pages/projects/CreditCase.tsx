@@ -1,7 +1,7 @@
 import React from 'react';
 import { Lightbulb, User, Wrench } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, LifecycleSpine, CaseHero } from './kit';
+import { Reveal, SectionLabel, LifecycleSpine, CaseHero, ProblemStatement, ResultBand } from './kit';
 import { Swimlane, Flowchart, type FlowNode } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
 
@@ -30,29 +30,28 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      {/* ── Problem ──────────────────────────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline">
+      {/* ── Result band (dark, signature differentiator) ─────────── */}
+      <ResultBand
+        theme={theme}
+        eyebrow="The result"
+        before="4–6 hours"
+        after="Under 1 hour"
+        caption="CAM preparation — the bottleneck that capped how many proposals an analyst could evaluate in a day — collapsed from a half-day of manual extraction into a single reviewed draft."
+        stats={[
+          { value: '–80%', label: 'CAM prep time per proposal' },
+          { value: '10', label: 'Risk flags auto-detected' },
+          { value: '85%', label: 'Research-completeness threshold' },
+        ]}
+      />
+
+      {/* ── Problem (follows the dark band — no top rule) ────────── */}
+      <section className="py-12 md:py-20">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>The Bottleneck</SectionLabel>
-            <div className="flex gap-4 md:gap-6">
-              <div className="flex-shrink-0 w-1 rounded-full self-stretch" style={{ background: theme.accent }} />
-              <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
-            </div>
-          </Reveal>
+          <ProblemStatement label="The Bottleneck" theme={theme}>{extras.problemStatement}</ProblemStatement>
         </div>
       </section>
 
-      {/* ── Lifecycle: idea to deployment ────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>from idea to deployment</SectionLabel>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">From a nine-year pain point <em className="italic font-normal text-ink-muted">to a shipped tool.</em></h2>
-          </Reveal>
-          <LifecycleSpine stages={LIFECYCLE} theme={theme} />
-        </div>
-      </section>
-
-      {/* ── Two-stage swimlane (signature) ───────────────────────── */}
+      {/* ── Two-stage swimlane (signature, pulled up as centerpiece) ─ */}
       <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal><SectionLabel theme={theme} icon={<Wrench size={13} weight="light" />}>Two-Stage Pipeline</SectionLabel>
@@ -85,6 +84,16 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
             </div>
             <Flowchart nodes={RESEARCH_LOOP} theme={theme} />
           </div>
+        </div>
+      </section>
+
+      {/* ── Lifecycle: idea to deployment (moved after the how) ──── */}
+      <section className="py-12 md:py-20 border-t border-hairline">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
+          <Reveal><SectionLabel theme={theme}>from idea to deployment</SectionLabel>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">From a nine-year pain point <em className="italic font-normal text-ink-muted">to a shipped tool.</em></h2>
+          </Reveal>
+          <LifecycleSpine stages={LIFECYCLE} theme={theme} />
         </div>
       </section>
 

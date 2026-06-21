@@ -328,6 +328,8 @@ function Hero() {
    SELECTED WORK — cards navigate to /project/:slug
    ═══════════════════════════════════════════════════════════════ */
 function SelectedWork() {
+  const [featured, ...rest] = PROJECTS;
+  const fTheme = getTheme(featured.slug);
   return (
     <section id="work" className="relative py-14 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
@@ -343,102 +345,126 @@ function SelectedWork() {
           </div>
         </Reveal>
 
-        <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-5">
-          {PROJECTS.map((project, idx) => {
+        {/* ── Featured lead project — wide, visual-led ─────────────── */}
+        <Reveal delay={0.12} className="mt-12 md:mt-14">
+          <Link
+            to={`/project/${featured.slug}`}
+            className="bezel group block"
+            style={{ textDecoration: 'none', background: '#FDFBF7' }}
+          >
+            <div
+              className="bezel-core overflow-hidden grid lg:grid-cols-[1.15fr_1fr]"
+              style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
+            >
+              {/* Large product visual */}
+              <div className="relative overflow-hidden" style={{ minHeight: 'clamp(210px, 33vw, 380px)' }}>
+                <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${fTheme.accentBg} 0%, #FDFBF7 78%)` }} aria-hidden />
+                {featured.image && (
+                  <img
+                    src={featured.image}
+                    alt={`${featured.title}, the deployed product`}
+                    className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+                    style={{ filter: 'brightness(0.9) saturate(0.96)' }}
+                  />
+                )}
+                {/* feather toward content on desktop, toward bottom on mobile */}
+                <div className="absolute inset-0 hidden lg:block" style={{ background: 'linear-gradient(105deg, transparent 52%, rgba(253,251,247,0.92) 100%)' }} aria-hidden />
+                <div className="absolute inset-0 lg:hidden" style={{ background: 'linear-gradient(to bottom, transparent 45%, rgba(253,251,247,0.94) 100%)' }} aria-hidden />
+              </div>
+
+              {/* Content */}
+              <div className="p-7 md:p-10 flex flex-col">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <span className="eyebrow" style={{ borderColor: `${fTheme.accentBorder}55`, color: fTheme.accentDark, background: fTheme.accentBg }}>
+                    Featured · {featured.category === 'build' ? 'Shipped' : 'Case Study'}
+                  </span>
+                  <span className="font-display italic text-sm text-ink-muted whitespace-nowrap">{featured.date}</span>
+                </div>
+                <h3 className="font-display font-light text-3xl md:text-[2.6rem] leading-[1.03] tracking-tight text-ink">
+                  {featured.title}
+                </h3>
+                {featured.metrics && (
+                  <p className="mt-3 font-display italic text-lg md:text-xl" style={{ color: fTheme.accentDark }}>{featured.metrics}</p>
+                )}
+                <p
+                  className="mt-4 text-[15px] text-ink/80 leading-relaxed"
+                  style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as const, overflow: 'hidden' } as React.CSSProperties}
+                >
+                  {featured.description}
+                </p>
+                {featured.cardFlow && (
+                  <div className="mt-6"><CardFlow steps={featured.cardFlow} theme={fTheme} /></div>
+                )}
+                <div className="flex-1 min-h-[1.25rem]" />
+                <div className="mt-6 pt-5 border-t border-hairline flex items-center justify-between">
+                  <span className="text-sm font-medium text-ink">Read the case study</span>
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px" style={{ background: fTheme.accent }}>
+                    <ArrowRight size={14} weight="light" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </Reveal>
+
+        {/* ── Remaining three — tighter, aligned, lighter ──────────── */}
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-5">
+          {rest.map((project, idx) => {
             const theme = getTheme(project.slug);
+            const lead = project.description.split('. ')[0].replace(/\.$/, '') + '.';
             return (
-            <React.Fragment key={idx}>
-            <Reveal delay={0.06 + idx * 0.08} className="flex flex-col">
+            <Reveal key={project.slug} delay={0.06 + idx * 0.08} className="flex">
               <Link
                 to={`/project/${project.slug}`}
-                className="bezel flex flex-col h-full group"
+                className="bezel group flex w-full"
                 style={{ textDecoration: 'none', background: '#FDFBF7' }}
               >
                 <div
-                  className="bezel-core flex flex-col h-full overflow-hidden"
+                  className="bezel-core flex flex-col w-full overflow-hidden"
                   style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
                 >
-                  {/* Screenshot image */}
-                  <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 'clamp(160px, 30vw, 220px)' }}>
-                    {/* Themed backdrop (also the fallback when no screenshot) */}
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: `linear-gradient(135deg, ${theme.accentBg} 0%, #FDFBF7 70%)` }}
-                      aria-hidden
-                    />
+                  <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 'clamp(128px, 17vw, 158px)' }}>
+                    <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${theme.accentBg} 0%, #FDFBF7 82%)` }} aria-hidden />
                     {project.image && (
                       <img
                         src={project.image}
                         alt={project.title}
                         className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
-                        style={{ filter: 'brightness(0.88) saturate(0.95)' }}
+                        style={{ filter: 'brightness(0.9) saturate(0.95)' }}
                       />
                     )}
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(253,251,247,0.95) 100%)' }}
-                      aria-hidden
-                    />
-                    <div className="absolute top-4 right-4 z-10">
-                      <span
-                        className="font-display italic text-sm font-medium px-3 py-1.5 rounded-full"
-                        style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)', border: `1px solid ${theme.accentBorder}55`, color: theme.accentDark }}
-                      >
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 38%, rgba(253,251,247,0.92) 100%)' }} aria-hidden />
+                    {project.metrics && (
+                      <span className="absolute top-3 left-3 font-display italic text-xs px-2.5 py-1 rounded-full" style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)', border: `1px solid ${theme.accentBorder}55`, color: theme.accentDark }}>
                         {project.metrics}
                       </span>
-                    </div>
-                  </div>
-
-                  {/* Card body */}
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
-                      <span className="font-display italic text-xs text-ink-muted whitespace-nowrap">{project.date}</span>
-                    </div>
-                    <h3 className="font-display font-light text-[1.55rem] md:text-[1.65rem] text-ink leading-tight tracking-tight">
-                      {project.title}
-                    </h3>
-                    <p
-                      className="mt-3 text-sm text-ink/75 leading-relaxed font-normal"
-                      style={{
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical' as const,
-                        overflow: 'hidden',
-                      } as React.CSSProperties}
-                    >
-                      {project.description}
-                    </p>
-                    <div className="flex-1 min-h-[1rem]" />
-                    <div className="flex flex-wrap gap-1.5 mt-4">
-                      {project.tech.slice(0, 4).map((t, i) => (
-                        <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-0.5">
-                          {t}
-                        </span>
-                      ))}
-                      {project.tech.length > 4 && (
-                        <span className="text-[11px] text-ink-muted px-1.5 py-0.5">+{project.tech.length - 4}</span>
-                      )}
-                    </div>
-                    {project.cardFlow && (
-                      <div className="mt-5">
-                        <p className="font-display italic text-ink-muted mb-2" style={{ fontSize: '12px' }}>how it works</p>
-                        <CardFlow steps={project.cardFlow} theme={theme} />
-                      </div>
                     )}
-                    <div className="mt-5 pt-4 border-t border-hairline">
-                      <div className="flex items-center justify-between text-sm font-medium text-ink">
-                        <span>View case study</span>
-                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px" style={{ background: theme.accent }}>
-                          <ArrowRight size={13} weight="light" />
-                        </span>
-                      </div>
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <span className="font-display italic text-xs text-ink-muted">{project.date}</span>
+                    <h3 className="mt-1 font-display font-light text-xl text-ink leading-snug tracking-tight">{project.title}</h3>
+                    <p
+                      className="mt-2 text-[13px] text-ink/75 leading-relaxed"
+                      style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as const, overflow: 'hidden' } as React.CSSProperties}
+                    >
+                      {lead}
+                    </p>
+                    <div className="flex-1 min-h-[0.75rem]" />
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {project.tech.slice(0, 3).map((t, i) => (
+                        <span key={i} className="text-[10px] tracking-wide text-ink-muted border border-hairline rounded-full px-2 py-0.5">{t}</span>
+                      ))}
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-sm font-medium text-ink">
+                      <span>View case study</span>
+                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5" style={{ background: theme.accent }}>
+                        <ArrowRight size={12} weight="light" />
+                      </span>
                     </div>
                   </div>
                 </div>
               </Link>
             </Reveal>
-            </React.Fragment>
           );
           })}
         </div>

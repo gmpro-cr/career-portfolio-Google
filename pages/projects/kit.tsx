@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { ArrowRight } from '@phosphor-icons/react';
 import type { Project, ProjectTheme } from '../../types';
 import type { MetricCard, CompetitorRow, RoadmapPhase } from './caseData';
 
@@ -51,6 +52,85 @@ export const Pill = ({ children, theme }: { children: React.ReactNode; theme: Pr
     fontSize: '11px', fontWeight: 600, padding: '4px 12px', borderRadius: '9999px', whiteSpace: 'nowrap',
   }}>{children}</span>
 );
+
+/* ─── Problem statement: tinted editorial panel, oversized serif ──
+   Replaces the old colored side-stripe (a banned accent pattern) with a
+   themed panel + decorative quote mark. The per-project accent supplies
+   the variety so the four case pages no longer read identically. */
+export function ProblemStatement({ label, theme, children }: { label: string; theme: ProjectTheme; children: React.ReactNode }) {
+  return (
+    <Reveal>
+      <SectionLabel theme={theme}>{label}</SectionLabel>
+      <div
+        className="relative overflow-hidden px-6 py-8 md:px-11 md:py-12"
+        style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}33`, borderRadius: '1.5rem' }}
+      >
+        <span
+          aria-hidden
+          className="font-display select-none"
+          style={{ position: 'absolute', top: '-0.32em', left: '0.06em', fontSize: 'clamp(6rem, 14vw, 11rem)', lineHeight: 1, fontStyle: 'italic', color: theme.accent, opacity: 0.13 }}
+        >&ldquo;</span>
+        <p
+          className="relative font-display font-light text-ink leading-[1.4] tracking-tight"
+          style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}
+        >{children}</p>
+      </div>
+    </Reveal>
+  );
+}
+
+/* ─── Result band: dark full-bleed before/after headline ─────────
+   A single dark editorial moment in an otherwise all-cream site —
+   the strongest per-page differentiator. before -> after, themed
+   accent arrow, optional supporting stat chips. */
+export function ResultBand({
+  theme, eyebrow, before, after, caption, stats = [],
+}: {
+  theme: ProjectTheme;
+  eyebrow: string;
+  before?: string;
+  after: string;
+  caption: string;
+  stats?: { value: string; label: string }[];
+}) {
+  const [ref, visible] = useReveal('-8%');
+  return (
+    <section style={{ background: '#1A1410' }}>
+      <div ref={ref} className="max-w-6xl mx-auto px-4 md:px-12 py-16 md:py-24">
+        <div className="flex items-center gap-2.5 mb-8" style={{ opacity: visible ? 1 : 0, transition: `opacity 0.5s ${EASE_STR}` }}>
+          <span aria-hidden style={{ width: '1.75rem', height: 1, background: theme.accent, display: 'inline-block' }} />
+          <span className="font-display italic" style={{ color: '#D6D3D1', fontSize: '0.95rem' }}>{eyebrow}</span>
+        </div>
+
+        <div
+          className="flex flex-wrap items-baseline gap-x-6 gap-y-2 md:gap-x-9"
+          style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(16px)', transition: `opacity 0.6s ${EASE_STR} 0.05s, transform 0.6s ${EASE_STR} 0.05s` }}
+        >
+          {before && (
+            <>
+              <span className="font-display font-light tracking-tight" style={{ color: 'rgba(255,255,255,0.42)', fontSize: 'clamp(1.9rem, 5vw, 3.4rem)', lineHeight: 1, textDecoration: 'line-through', textDecorationColor: 'rgba(255,255,255,0.28)', textDecorationThickness: '2px' }}>{before}</span>
+              <ArrowRight size={30} weight="light" style={{ color: theme.accent, flexShrink: 0 }} aria-hidden />
+            </>
+          )}
+          <span className="font-display font-light tracking-tight" style={{ color: '#FFFFFF', fontSize: before ? 'clamp(2.6rem, 8vw, 5rem)' : 'clamp(2.4rem, 7vw, 4.6rem)', lineHeight: 1.02 }}>{after}</span>
+        </div>
+
+        <p className="mt-7 max-w-2xl leading-relaxed" style={{ color: 'rgba(255,255,255,0.72)', fontSize: '15px', opacity: visible ? 1 : 0, transition: `opacity 0.6s ${EASE_STR} 0.15s` }}>{caption}</p>
+
+        {stats.length > 0 && (
+          <div className="mt-11 grid grid-cols-3 gap-5 md:gap-10 max-w-2xl" style={{ borderTop: '1px solid rgba(255,255,255,0.12)', paddingTop: 28 }}>
+            {stats.map((s, i) => (
+              <div key={i} style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(12px)', transition: `opacity 0.5s ${EASE_STR} ${0.25 + i * 0.08}s, transform 0.5s ${EASE_STR} ${0.25 + i * 0.08}s` }}>
+                <p className="font-display font-light tracking-tight" style={{ color: theme.accent, fontSize: 'clamp(1.5rem, 3.5vw, 2rem)', lineHeight: 1 }}>{s.value}</p>
+                <p className="mt-2" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '11.5px', lineHeight: 1.45 }}>{s.label}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
 
 /* ─── Case hero: themed wash + deployed-site screenshot ───────── */
 export function CaseHero({ project, theme }: { project: Project; theme: ProjectTheme }) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Lightbulb, User, Wrench } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, LifecycleSpine, CaseHero } from './kit';
+import { Reveal, SectionLabel, LifecycleSpine, CaseHero, ProblemStatement, ResultBand } from './kit';
 import { RadialMap, Sequence } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
 
@@ -38,15 +38,24 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
+      {/* ── Result band (dark, signature differentiator) ─────────── */}
+      <ResultBand
+        theme={theme}
+        eyebrow="The result"
+        before="A 535-page PDF"
+        after="Ask it anything"
+        caption="A linear, unsearchable reference became a queryable companion — every answer grounded in the book itself and cited back to its source chapter."
+        stats={[
+          { value: '1,325', label: 'RAG chunks, server-side only' },
+          { value: '100%', label: 'Answers cited to a chapter' },
+          { value: '10', label: 'Chapters as structured data' },
+        ]}
+      />
+
       {/* ── Problem ──────────────────────────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>The Problem</SectionLabel>
-            <div className="flex gap-4 md:gap-6">
-              <div className="flex-shrink-0 w-1 rounded-full self-stretch" style={{ background: theme.accent }} />
-              <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
-            </div>
-          </Reveal>
+          <ProblemStatement label="The Problem" theme={theme}>{extras.problemStatement}</ProblemStatement>
         </div>
       </section>
 
