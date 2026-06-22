@@ -1,7 +1,6 @@
 import React from 'react';
 import { LinkedinLogo, GithubLogo, ArrowUp } from '@phosphor-icons/react';
 import XMark from '../XMark';
-import { Monogram } from '../Wordmark';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -13,7 +12,6 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-10 py-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3 text-center md:text-left">
-            <Monogram size={40} />
             <div>
               <p className="font-display font-light text-xl text-ink leading-tight">
                 Gaurav Mahale
