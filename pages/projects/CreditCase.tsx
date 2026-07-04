@@ -34,10 +34,7 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal><SectionLabel theme={theme}>The Bottleneck</SectionLabel>
-            <div className="flex gap-4 md:gap-6">
-              <div className="flex-shrink-0 w-1 rounded-full self-stretch" style={{ background: theme.accent }} />
-              <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
-            </div>
+            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
           </Reveal>
         </div>
       </section>

@@ -1,20 +1,33 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Gaurav Mahale — AI Product Portfolio
 
-# Run and deploy your AI Studio app
+Personal portfolio for AI Product Management roles: four LLM products designed, built, and shipped end to end, presented as PM case studies (problem, discovery, North Star, roadmap, outcomes, reflection).
 
-This contains everything you need to run your app locally.
+**Live:** https://career-portfolio-google.vercel.app
 
-View your app in AI Studio: https://ai.studio/apps/drive/1LqV2Tj-F2glO62yQ28Oy8lzAzRM9kurs
+## Stack
 
-## Run Locally
+- React 19 + Vite 6 + TypeScript
+- Tailwind CSS v4 (editorial system: Fraunces display + Geist body, double-bezel cards)
+- Framer Motion + CSS keyframes for entrance motion
+- React Router (SPA, rewrites configured in `vercel.json`)
 
-**Prerequisites:**  Node.js
+## Structure
 
+```
+constants.ts            project data, experience, themes (one color identity per project)
+pages/Home.tsx          hero, work grid, trajectory, toolkit, contact
+pages/ProjectDetail.tsx routes /project/:slug to a bespoke case layout
+pages/projects/         per-case pages, shared kit (hero, metrics, roadmap), diagrams
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Case-study content lives in `constants.ts` and `pages/projects/caseData.ts`; the components are templates over that data.
+
+## Run locally
+
+```bash
+npm install
+npm run dev     # http://localhost:5173
+npm run build   # production build to dist/
+```
+
+Deployed on Vercel; pushes to `main` auto-deploy.

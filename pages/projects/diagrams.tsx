@@ -9,7 +9,12 @@ export function Funnel({ stages, theme }: { stages: { label: string; value: stri
   const [ref, visible] = useReveal('-6%');
   const n = stages.length;
   return (
-    <div ref={ref} className="flex flex-col items-center">
+    <div
+      ref={ref}
+      className="flex flex-col items-center"
+      role="img"
+      aria-label={`Funnel: ${stages.map(s => `${s.label} — ${s.value}`).join('; ')}`}
+    >
       {stages.map((s, i) => {
         const r = theme.ramp[i % theme.ramp.length];
         const width = 100 - (i * (42 / Math.max(1, n - 1)));
@@ -191,7 +196,7 @@ export function Sequence({ actors, messages, theme }: {
                 <span style={{ fontSize: '9.5px', fontWeight: 700, color: r.text }}>{actors[m.to]}</span>
               </div>
               <p style={{ fontSize: '12px', color: '#3A332E', lineHeight: 1.4 }}>
-                {m.label}{m.note && <span style={{ color: '#A8A29E' }}> · {m.note}</span>}
+                {m.label}{m.note && <span style={{ color: '#78716C' }}> · {m.note}</span>}
               </p>
             </div>
           );
@@ -231,7 +236,7 @@ export function Sequence({ actors, messages, theme }: {
               {/* label */}
               <div style={{ position: 'absolute', top: y - 22, left: `${left}%`, width: `${width}%`, textAlign: 'center', padding: '0 6px' }}>
                 <span style={{ fontSize: '10.5px', fontWeight: 600, color: '#44403C' }}>{m.label}</span>
-                {m.note && <span style={{ display: 'block', fontSize: '9px', color: '#A8A29E', marginTop: 1 }}>{m.note}</span>}
+                {m.note && <span style={{ display: 'block', fontSize: '9px', color: '#78716C', marginTop: 1 }}>{m.note}</span>}
               </div>
               {/* line */}
               <div style={{ position: 'absolute', top: y, left: `${left}%`, width: `${width}%`, height: 2, background: theme.accent, opacity: 0.55, borderRadius: 2 }} />
@@ -320,8 +325,8 @@ export function RadialMap({ center, nodes, links, theme }: {
     return { x: cx + R * Math.cos(ang), y: cy + R * Math.sin(ang) };
   });
   return (
-    <div ref={ref} className="w-full">
-      <svg viewBox={`0 0 ${size} ${size}`} className="w-full h-auto" style={{ maxWidth: 480, margin: '0 auto', display: 'block' }}>
+    <div ref={ref} className="w-full" role="img" aria-label={`Radial map: ${center} connects to ${nodes.join(', ')}`}>
+      <svg viewBox={`0 0 ${size} ${size}`} className="w-full h-auto" style={{ maxWidth: 480, margin: '0 auto', display: 'block' }} aria-hidden>
         {/* spokes */}
         {pts.map((p, i) => (
           <line key={`s${i}`} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke={theme.accent} strokeOpacity={visible ? 0.28 : 0} strokeWidth="1.2"

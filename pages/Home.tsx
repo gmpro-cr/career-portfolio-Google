@@ -67,12 +67,25 @@ function useOnceVisible(margin = '-6%') {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Content must never stay hidden when the reveal can't run:
+    // no IO support, reduced motion, or a hidden tab (headless renderers,
+    // link-preview bots, background tabs where rAF/IO are paused).
+    if (
+      typeof IntersectionObserver === 'undefined' ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      setVisible(true);
+      return;
+    }
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
       { rootMargin: margin }
     );
     obs.observe(el);
-    return () => obs.disconnect();
+    const fallback = document.visibilityState === 'hidden'
+      ? window.setTimeout(() => setVisible(true), 300)
+      : undefined;
+    return () => { obs.disconnect(); if (fallback) clearTimeout(fallback); };
   }, [margin]);
   return [ref, visible] as const;
 }
@@ -172,8 +185,6 @@ function FlowDiagram({ steps }: { steps: { step: string }[] }) {
 /* ═══════════════════════════════════════════════════════════════
    HERO — Framer Motion only for entrance (runs once)
    ═══════════════════════════════════════════════════════════════ */
-const springEase = [0.32, 0.72, 0, 1] as const;
-
 function Hero() {
   const words = ['Gaurav', 'Mahale'];
 
@@ -193,11 +204,7 @@ function Hero() {
         className="hidden lg:flex absolute right-8 md:right-16 lg:right-24 inset-y-0 items-center pointer-events-none"
         aria-hidden
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 80 }}
-          animate={{ opacity: 1, scale: 1, y: 60 }}
-          transition={{ duration: 1.0, delay: 0.2, ease: springEase }}
-        >
+        <div style={{ opacity: 0, animation: `heroPortrait 1s ${EASE} 0.2s forwards` }}>
           <div
             className="relative overflow-hidden"
             style={{
@@ -214,18 +221,16 @@ function Hero() {
               style={{ filter: 'brightness(1.02) contrast(1.08) saturate(1.06)' }}
             />
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Text — Framer Motion entrance only, no scroll link */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-24">
 
         {/* Mobile-only circular portrait */}
-        <motion.div
+        <div
           className="lg:hidden mb-6 flex justify-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: springEase }}
+          style={{ opacity: 0, animation: `popIn 0.7s ${EASE} 0.2s forwards` }}
         >
           <div
             className="w-36 h-36 rounded-full overflow-hidden"
@@ -240,7 +245,7 @@ function Hero() {
               style={{ filter: 'brightness(1.02) contrast(1.08) saturate(1.06)' }}
             />
           </div>
-        </motion.div>
+        </div>
 
         {/* Name — word slide */}
         <h1
@@ -248,20 +253,22 @@ function Hero() {
           style={{ fontSize: 'clamp(2.4rem, 8vw, 6rem)', color: '#1A1410' }}
         >
           {words.map((word, wi) => (
-            <motion.span
+            <span
               key={wi}
               className="inline-block lg:block overflow-hidden"
               style={wi === 0 ? { marginRight: '0.25em' } : undefined}
             >
-              <motion.span
+              <span
                 className="block"
-                initial={{ y: '110%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                transition={{ duration: 0.85, delay: 0.3 + wi * 0.1, ease: springEase }}
+                style={{
+                  opacity: 0,
+                  transform: 'translateY(110%)',
+                  animation: `wordUp 0.85s ${EASE} ${0.3 + wi * 0.1}s forwards`,
+                }}
               >
                 {word}
-              </motion.span>
-            </motion.span>
+              </span>
+            </span>
           ))}
         </h1>
 
@@ -272,7 +279,7 @@ function Hero() {
             style={{ color: 'rgba(26,20,16,0.74)' }}
           >
             AI Product Builder and Finance Domain Expert with 9+ years in banking. Independently designed,
-            built and shipped 3 LLM-based platforms. Experienced across the full product lifecycle: discovery,
+            built and shipped 4 LLM products end to end. Experienced across the full product lifecycle: discovery,
             MVP scoping, prompt engineering, and iterative releases.
           </p>
         </div>
@@ -407,7 +414,7 @@ function SelectedWork() {
                         overflow: 'hidden',
                       } as React.CSSProperties}
                     >
-                      {project.description}
+                      {project.cardSummary ?? project.description}
                     </p>
                     <div className="flex-1 min-h-[1rem]" />
                     <div className="flex flex-wrap gap-1.5 mt-4">
@@ -534,7 +541,7 @@ function Trajectory() {
    ═══════════════════════════════════════════════════════════════ */
 const TOOLKIT_GROUPS = [
   { label: 'Build', items: ['Next.js', 'Python · FastAPI', 'TypeScript', 'Supabase', 'Vercel', 'Flask'] },
-  { label: 'Reason', items: ['Claude API', 'Gemini 1.5', 'Groq · Llama', 'Ollama · Mistral', 'OpenAI'] },
+  { label: 'Reason', items: ['Claude API', 'Gemini 1.5 / 2.0', 'Groq · Llama', 'Ollama · Mistral'] },
   { label: 'Ship · Measure', items: ['LLM Evals', 'Prompt Architecture', 'Mixpanel', 'A/B Testing', 'PowerBI'] },
 ];
 
@@ -703,7 +710,7 @@ function ClaudeCodeWorkflow() {
                   <h2 className="font-display font-light text-2xl md:text-3xl text-ink tracking-tight">
                     How I use Claude Code
                   </h2>
-                  <p className="mt-1.5 text-sm text-ink/45">
+                  <p className="mt-1.5 text-sm text-ink/60">
                     Skills · MCP Servers · Memory · Browser Testing
                   </p>
                 </div>
@@ -809,13 +816,22 @@ export default function Home() {
           from { opacity: 0; }
           to   { opacity: 1; }
         }
+        @keyframes wordUp {
+          from { opacity: 0; transform: translateY(110%); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroPortrait {
+          from { opacity: 0; transform: translateY(80px) scale(0.96); }
+          to   { opacity: 1; transform: translateY(60px) scale(1); }
+        }
+        @keyframes popIn {
+          from { opacity: 0; transform: scale(0.9); }
+          to   { opacity: 1; transform: scale(1); }
+        }
         @keyframes scrollcue {
           0%       { transform: translateY(0); opacity: 0.35; }
           50%      { transform: translateY(7px); opacity: 1; }
           100%     { transform: translateY(0); opacity: 0.35; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          [style*="scrollcue"] { animation: none !important; }
         }
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">

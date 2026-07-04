@@ -13,6 +13,8 @@ export interface Project {
   slug: string;
   date: string;
   description: string;
+  /** Outcome-first one-liner for the home work grid; falls back to description */
+  cardSummary?: string;
   tech: string[];
   link?: string;
   githubUrl?: string;

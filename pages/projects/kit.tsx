@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import type { Project, ProjectTheme } from '../../types';
 import type { MetricCard, CompetitorRow, RoadmapPhase } from './caseData';
 
@@ -11,12 +10,24 @@ export function useReveal(margin = '-5%') {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const el = ref.current; if (!el) return;
+    // Never leave content hidden when the reveal can't run (no IO,
+    // reduced motion, or a hidden tab / headless renderer).
+    if (
+      typeof IntersectionObserver === 'undefined' ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      setVisible(true);
+      return;
+    }
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
       { rootMargin: margin }
     );
     obs.observe(el);
-    return () => obs.disconnect();
+    const fallback = document.visibilityState === 'hidden'
+      ? window.setTimeout(() => setVisible(true), 300)
+      : undefined;
+    return () => { obs.disconnect(); if (fallback) clearTimeout(fallback); };
   }, [margin]);
   return [ref, visible] as const;
 }
@@ -57,11 +68,9 @@ export function CaseHero({ project, theme }: { project: Project; theme: ProjectT
   return (
     <section className="pt-4 pb-10 md:pb-16" style={{ background: `linear-gradient(180deg, ${theme.accentBg} 0%, transparent 58%)` }}>
       <div className="max-w-6xl mx-auto px-4 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+        <div
           className="grid lg:grid-cols-[1.02fr_1fr] gap-8 lg:gap-14 items-center"
+          style={{ opacity: 0, animation: `fadeUp 0.7s ${EASE_STR} 0.05s forwards` }}
         >
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-5">
@@ -89,7 +98,7 @@ export function CaseHero({ project, theme }: { project: Project; theme: ProjectT
               </div>
             </div>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

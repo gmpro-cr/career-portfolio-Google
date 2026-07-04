@@ -1,4 +1,4 @@
-import { Experience, Project, SkillMetric, Education, Certification, TechItem, ProjectTheme } from './types';
+import { Experience, Project, Education, Certification, ProjectTheme } from './types';
 
 /* ═══════════════════════════════════════════════════════════════
    PER-PROJECT THEMES — each project owns a distinct color identity.
@@ -70,7 +70,7 @@ Location: Pune, India. Open to hybrid/remote roles. Contact: mahalegauravk@gmail
 LinkedIn: https://www.linkedin.com/in/mahalegauravk
 
 Summary: AI Product Builder and Finance Domain Expert with 9+ years in banking, credit risk, and portfolio management.
-Independently designed, built, and shipped 3 LLM-based platforms using Claude, Cursor and Groq API.
+Independently designed, built, and shipped 4 LLM-based products using Claude, Cursor and Groq API.
 Experienced across the full product lifecycle: problem discovery, MVP scoping, prompt engineering, stakeholder alignment, and iterative releases.
 Seeking AI Product Management roles where finance expertise and practical AI-building experience combine to create transformative products.
 `;
@@ -128,7 +128,8 @@ export const PROJECTS: Project[] = [
     title: "AI Persona Interaction Platform",
     slug: "ai-persona-interaction-platform",
     date: "Oct 2025",
-    description: "Conceived and launched a B2C AI product with 370+ personas across 40 categories. Applied a 10-item JTBD framework to identify five distinct user segments (career professionals, self-improvement seekers, spiritual explorers, entertainment/pop-culture fans, companion seekers) — each with different WTP, session frequency, and retention drivers. Defined North Star Metric as Messages Sent Per Day, ran a formal production readiness audit before launch, and shipped a freemium monetisation model (Razorpay) targeting ₹10K MRR.",
+    description: "Conceived and launched a B2C AI product with 350+ personas across 40 categories. Applied a 10-item JTBD framework to identify five distinct user segments (career professionals, self-improvement seekers, spiritual explorers, entertainment/pop-culture fans, companion seekers) — each with different WTP, session frequency, and retention drivers. Defined North Star Metric as Messages Sent Per Day, ran a formal production readiness audit before launch, and shipped a freemium monetisation model (Razorpay) targeting ₹10K MRR.",
+    cardSummary: "Found the gap between admiring someone and talking to them, chose Messages Sent Per Day as the North Star, and redesigned onboarding around a 3× retention signal from Mixpanel cohorts. Now at 500+ MAU with zero paid acquisition.",
     tech: ["Next.js", "Supabase", "Gemini 1.5 Flash", "Groq Llama 3.3", "Google OAuth", "Sarvam TTS", "Mixpanel", "Vercel"],
     metrics: "500+ MAU",
     link: "https://ai-spirit.in",
@@ -142,7 +143,7 @@ export const PROJECTS: Project[] = [
       "Set 'Messages Sent Per Day' as the North Star Metric — deliberately chosen because it captures functional value delivery, engagement depth, and retention signal in a single number. Supporting metrics: messages/session > 5, sessions/user/week > 2, unique personas/user > 3.",
       "Designed a prompt architecture with dynamic memory injection via Supabase — long-term context retrieval to maintain persona fidelity. Ran quantified persona-adherence evals, treating character consistency as a KPI iterated like an A/B test variant, not a vibe.",
       "Ran a pre-launch production readiness audit: identified and resolved 6 critical issues (rate limiting, API key rotation, connection pooling, error monitoring via Sentry, performance monitoring, content moderation) before going live.",
-      "India-first positioning as a deliberate defensibility strategy: 40 categories include culturally specific personas (Chanakya, Sadhguru, Shah Rukh Khan, Osho) unavailable on Western platforms. Competitive moat: India-first + 370+ personas + emotional engagement categories that Character.AI and Replika don't serve.",
+      "India-first positioning as a deliberate defensibility strategy: 40 categories include culturally specific personas (Chanakya, Sadhguru, Shah Rukh Khan, Osho) unavailable on Western platforms. Competitive moat: India-first + 350+ personas + emotional engagement categories that Character.AI and Replika don't serve.",
     ],
     keyInsights: [
       "PMF signal identified through data: users who have 5+ conversations with 2+ different personas in their first week are retained at 3x the rate of single-persona users. Redesigned onboarding to expose users to 3+ personas before the end of session 1.",
@@ -151,8 +152,8 @@ export const PROJECTS: Project[] = [
     ],
     outcomes: [
       "Grown to 500+ Monthly Active Users (DAU/MAU ~10%) driven by organic retention loops — zero paid acquisition.",
-      "370+ personas across 40 categories; maintained consistent persona tone across 50+ turn conversations.",
-      "Shipped freemium monetisation (Razorpay ₹499/mo) with OKR target: 3% free → paid conversion, ₹10K MRR.",
+      "350+ personas across 40 categories; maintained consistent persona tone across 50+ turn conversations.",
+      "Shipped freemium monetisation (Razorpay ₹249/mo) with OKR target: 3% free → paid conversion, ₹10K MRR.",
     ],
     technicalDetails: {
       architecture: "Next.js frontend on Vercel communicates with Supabase (PostgreSQL) for user state and long-term memory retrieval. API routes fan out to a LLM router that selects Gemini 1.5 Flash (for speed) or Groq Llama 3.3 70B (for depth) depending on the persona context. Persona responses are evaluated by a lightweight eval layer before delivery.",
@@ -173,12 +174,12 @@ export const PROJECTS: Project[] = [
     date: "Dec 2025",
     image: "/credit-platform.png",
     cardFlow: ["Upload", "Extract", "Research", "Export"],
+    cardSummary: "Nine years of writing credit memos located the real bottleneck: extraction, not judgment. A deterministic Python engine does the math, the LLM only writes narrative — cutting CAM preparation from 4–6 hours to under 1.",
     description: "Identified and solved a real enterprise bottleneck: CAM preparation takes analysts 4–6 hours due to manual extraction from annual reports. Scoped the MVP using 9 years of lived experience writing CAMs at Yes Bank and HDFC. Built a two-stage pipeline: a deterministic Python engine (PDFMiner + Screener.in + Yahoo Finance + BSE annual reports) followed by a Karpathy-style autonomous research loop that self-scores its own knowledge completeness (threshold: 85%) before passing structured JSON to the LLM for narrative synthesis.",
     tech: ["Python", "FastAPI", "Next.js 16", "Google Gemini API", "Claude API", "Supabase", "SQLite", "OpenPyXL", "PDFMiner", "GitHub"],
     metrics: "–80% time",
     category: 'build',
     flowType: 'credit',
-    githubUrl: "https://github.com/gmpro-cr",
     problem: "Senior analysts spend 4–6 hours manually scrubbing 100+ page annual reports for data extraction and subjective risk synthesis. This low-leverage bottleneck is prone to human error and restricts the volume of transactions that can be evaluated per analyst per day.",
     approach: [
       "Mapped the end-to-end journey of a credit analyst to identify the exact bottleneck: not judgment (which takes minutes) but mechanical extraction — 40 pages of ratio calculations that Python can do in 4 seconds, and 30 tabs of web research that an AI agent can synthesise in under a minute.",
@@ -216,12 +217,13 @@ export const PROJECTS: Project[] = [
     date: "Jan 2026",
     image: "/job-agent.png",
     cardFlow: ["Scrape", "Score", "Filter", "Deliver"],
+    cardSummary: "Two hours of daily portal-browsing became a 5-minute Telegram digest: six portals scraped, every listing scored 0–100 by a local LLM, only matches above a calibrated 65-point threshold delivered. Now live as a multi-user product.",
     description: "Defined the product as a solution to a personal pain point: 2 hours of daily manual searching across fragmented portals. Built a 6-portal scraper (LinkedIn, Naukri, Indeed, HiringCafe, Wellfound, IIMJobs) that runs twice daily via APScheduler, semantically scores each listing 0–100 against a candidate profile using Ollama (Mistral 7B, fully local — zero API cost), and delivers the top matches as a Telegram digest. Database currently holds 7,413 catalogued jobs with deduplication via portal + company + role + location fingerprint.",
     tech: ["Python", "Flask", "Ollama / Mistral 7B", "Selenium", "SQLite", "APScheduler", "Telegram Bot API", "BeautifulSoup"],
-    metrics: "100% automated",
+    metrics: "2h → 5min daily",
     category: 'build',
     flowType: 'job',
-    githubUrl: "https://github.com/gmpro-cr",
+    link: "https://job-search-agent-green.vercel.app",
     problem: "Job hunting is a high-noise, low-signal data problem. Portals are flooded with irrelevant listings, forcing candidates to manually filter hundreds of results daily — an inefficient, demoralising process that scales inversely with the quality of roles available.",
     approach: [
       "Engineered a resilient Selenium + BeautifulSoup scraping pipeline across 6 portals (LinkedIn, Naukri, Indeed, HiringCafe, Wellfound, IIMJobs), each requiring different anti-scrape handling, session management, and pagination logic. Results cached for 12 hours to avoid hammering the same portal twice.",
@@ -241,13 +243,13 @@ export const PROJECTS: Project[] = [
       "Reduced daily search time from 2 hours to a 5-minute digest review.",
     ],
     technicalDetails: {
-      architecture: "APScheduler triggers the pipeline daily at a configured time. Selenium (headless Chrome) scrapes job listings from Naukri, LinkedIn, and Foundit with BeautifulSoup parsing. Raw listings are stored in SQLite. Ollama (Mistral 7B, running locally) scores each listing against the candidate profile JSON (0–100). Scores above the threshold are formatted into a digest and delivered via Telegram Bot API. A Flask web app provides a settings dashboard and digest history viewer.",
+      architecture: "APScheduler triggers the pipeline twice daily. Selenium (headless Chrome) scrapes job listings from six portals — LinkedIn, Naukri, Indeed, HiringCafe, Wellfound, IIMJobs — with BeautifulSoup parsing. Raw listings are stored in SQLite. Ollama (Mistral 7B, running locally) scores each listing against the candidate profile JSON (0–100). Scores at or above the 65-point threshold are formatted into a digest and delivered via Telegram Bot API. A Flask web app provides a settings dashboard and digest history viewer.",
       dataFlow: [
-        { step: "APScheduler triggers daily scrape at configured time" },
-        { step: "Selenium scrapes Naukri, LinkedIn, Foundit job listings" },
-        { step: "BeautifulSoup parses raw HTML; listings stored in SQLite" },
+        { step: "APScheduler triggers the scrape twice daily" },
+        { step: "Selenium scrapes 6 portals: LinkedIn, Naukri, Indeed, HiringCafe, Wellfound, IIMJobs" },
+        { step: "BeautifulSoup parses raw HTML; listings deduplicated and stored in SQLite" },
         { step: "Ollama (Mistral 7B, local) scores each listing 0–100 vs profile" },
-        { step: "Jobs scoring >70 selected; hiring manager details appended" },
+        { step: "Jobs scoring ≥65 selected; hiring manager details appended" },
         { step: "Telegram Bot API delivers formatted daily digest to user" },
       ],
     },
@@ -260,12 +262,12 @@ export const PROJECTS: Project[] = [
     image: "/ai-engineering.png",
     description: "Read Chip Huyen's 535-page 'AI Engineering' (O'Reilly, 2025) cover-to-cover and distilled all 10 chapters into a data-driven companion site — sections, key concepts, terms, takeaways, and cross-chapter connections. Built 29 interactive + descriptive diagrams from a single reusable component, client-side Cmd+K search, and localStorage read-progress. The centrepiece is an 'Ask the book' RAG chatbot: a Vercel serverless function runs TF-IDF lexical retrieval over 1,325 server-side chunks of the full book text, then Gemini 2.0 Flash generates a grounded, chapter-cited answer.",
     tech: ["React 19", "Vite", "Tailwind v4", "TypeScript", "Gemini 2.0 Flash", "TF-IDF RAG", "Vercel", "Framer Motion"],
-    metrics: "RAG-powered",
+    metrics: "10 chapters live",
     link: "https://ai-engineering-guide-livid.vercel.app",
     cardFlow: ["Read", "Distill", "Retrieve", "Cite"],
+    cardSummary: "A 535-page book turned into a reference product: all 10 chapters distilled into structured data, 29 diagrams from one reusable component, and an 'Ask the book' RAG that answers with chapter citations.",
     category: 'build',
     flowType: 'book',
-    githubUrl: "https://github.com/gmpro-cr",
     problem: "Dense technical books are read once and forgotten. 'AI Engineering' is the canonical text for building on top of foundation models, but 535 pages of linear PDF is hard to revisit, impossible to search semantically, and gives you no way to ask 'where does the book talk about X?'. The knowledge is locked in a format that doesn't match how people actually reference it.",
     approach: [
       "Read the full 535-page book and made an explicit content-vs-template separation: every chapter is pure data (src/data/chapters/ch01–ch10.ts — sections, key concepts, terms, takeaways, connections) and generic UI templates render it. Improving content never touches UI; the structure scales to any book.",
@@ -297,14 +299,6 @@ export const PROJECTS: Project[] = [
     },
     reflection: "If I were starting over, I'd invest earlier in chunking strategy — TF-IDF lexical retrieval is fast and private but it misses paraphrased questions where the vocabulary doesn't overlap the text; a hybrid with embeddings would lift recall on conceptual queries. I'd also have designed the diagram schema before writing chapter content, not alongside it — a few diagrams had to be reshaped once the component's 9 types stabilised. The biggest validation: the content/template split paid for itself the first time I wanted to revise a chapter and realised it was a one-line data change. The natural next build is letting a reader upload their own PDF and get the same distilled, searchable, ask-anything treatment — turning a single-book companion into a general reading tool.",
   }
-];
-
-export const SKILL_DATA: SkillMetric[] = [
-  { subject: 'AI Product Strategy', A: 93, fullMark: 100 },
-  { subject: 'Prompt Engineering', A: 91, fullMark: 100 },
-  { subject: 'LLM Evaluation (Evals)', A: 87, fullMark: 100 },
-  { subject: 'Agile & Execution', A: 88, fullMark: 100 },
-  { subject: 'Technical Build (Python/JS)', A: 82, fullMark: 100 },
 ];
 
 export const EDUCATION_DATA: Education[] = [
@@ -341,23 +335,4 @@ export const CERTIFICATIONS_DATA: Certification[] = [
     year: "May 2025",
     id: "CRT-03"
   }
-];
-
-export const TECH_STACK: TechItem[] = [
-  { id: "LLM", name: "LLM Evaluation & Evals", category: "AI Skills", price: "250.00", change: "+25.2%" },
-  { id: "PRMPT", name: "Prompt Architecture", category: "AI Skills", price: "248.50", change: "+14.1%" },
-  { id: "RAG", name: "RAG & Vector DBs", category: "AI Skills", price: "180.20", change: "+11.5%" },
-  { id: "PRD", name: "PRD & Product Strategy", category: "PM Skills", price: "160.40", change: "+8.4%" },
-  { id: "API", name: "API & Backend Integrations", category: "Tech", price: "135.10", change: "+5.2%" },
-  { id: "PYTH", name: "Python / FastAPI", category: "Tech", price: "128.50", change: "+6.1%" },
-  { id: "NXT", name: "Next.js / TypeScript", category: "Tech", price: "118.45", change: "+4.4%" }
-];
-
-export const STOCK_TICKER_ITEMS = [
-  "GMHL: AI BUILDER",
-  "DOMAIN: FINANCE + AI PM",
-  "FOCUS: LLM EVALS · RAG",
-  "STACK: NEXT.JS · PYTHON · PROMPT",
-  "TRAINING: PARETO.AI",
-  "RATING: STRONG BUY"
 ];

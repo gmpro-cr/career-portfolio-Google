@@ -6,7 +6,7 @@ import { RadialMap, Flowchart, Funnel, type FlowNode } from './diagrams';
 
 const LIFECYCLE = [
   { stage: 'Idea', detail: 'People were "talking to" Elon or Naval via ChatGPT and YouTube — real admiration with no product to close the loop into dialogue.' },
-  { stage: 'Discovery', detail: 'User interviews surfaced a genuine parasocial need; a 10-item JTBD map resolved into five distinct segments.' },
+  { stage: 'Discovery', detail: 'Early-user conversations surfaced a genuine parasocial need; a 10-item JTBD map resolved into five distinct segments.' },
   { stage: 'Validation', detail: 'A guest-mode prototype showed multi-persona users retained 3x — a clear PMF signal in Mixpanel cohorts.' },
   { stage: 'MVP scope', detail: '350+ personas, guest mode, an LLM router and a freemium paywall; voice and custom personas deferred to v2.' },
   { stage: 'Build', detail: 'Next.js with Supabase memory, a persona-eval drift scorer, and a Gemini / Groq routing layer.' },
@@ -25,10 +25,10 @@ const MEMORY_LOOP: FlowNode[] = [
 ];
 
 const RETENTION = [
-  { label: 'Discover — browse 370+ personas', value: '100%', sub: 'Guest mode, zero signup friction' },
+  { label: 'Discover — browse 350+ personas', value: '100%', sub: 'Guest mode, zero signup friction' },
   { label: 'Engage — first in-character moment', value: '~60%', sub: 'The "aha": unexpected-but-consistent reply' },
   { label: 'Habit — 2+ personas in week 1', value: '3× D30', sub: 'Multi-persona users retain 3× single-persona' },
-  { label: 'Convert — premium (Razorpay)', value: '₹10K MRR', sub: 'OKR target at 3% free → paid' },
+  { label: 'Convert — premium (Razorpay ₹249/mo)', value: '₹10K MRR', sub: 'OKR target, not yet an outcome — at 3% free → paid' },
 ];
 
 export default function PersonaCase({ project, extras, theme }: CaseProps) {
@@ -41,10 +41,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal><SectionLabel theme={theme}>The Problem</SectionLabel>
-            <div className="flex gap-4 md:gap-6">
-              <div className="flex-shrink-0 w-1 rounded-full self-stretch" style={{ background: theme.accent }} />
-              <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
-            </div>
+            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
           </Reveal>
         </div>
       </section>
@@ -66,9 +63,12 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
             <div>
               <SectionLabel theme={theme}>Persona Catalogue</SectionLabel>
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">One hub, <em className="italic font-normal text-ink-muted">forty worlds.</em></h2>
-              <p className="text-sm text-ink/75 leading-relaxed">370+ curated personas fan out from a single product surface across 40 categories. India-first by design — Chanakya, Sadhguru, Shah Rukh Khan, Osho — characters Western platforms don&rsquo;t serve. The breadth is the moat: discovery across categories is what drives the multi-persona habit that retains.</p>
+              <p className="text-sm text-ink/75 leading-relaxed">350+ curated personas fan out from a single product surface across 40 categories. India-first by design — Chanakya, Sadhguru, Shah Rukh Khan, Osho — characters Western platforms don&rsquo;t serve. The breadth is the moat: discovery across categories is what drives the multi-persona habit that retains.</p>
             </div>
-            <RadialMap theme={theme} center="AI Spirit" nodes={['Business', 'Spiritual', 'Entertainment', 'Companion', 'Fitness', 'Anime']} />
+            <div>
+              <RadialMap theme={theme} center="AI Spirit" nodes={['Business', 'Spiritual', 'Entertainment', 'Companion', 'Fitness', 'Anime']} />
+              <p className="mt-3 text-center text-[11px] text-ink-muted">Six flagship categories shown, of 40 in the catalogue.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -131,7 +131,7 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
       <section className="py-12 md:py-24 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12">Outcomes that <em className="italic font-normal text-ink-muted">moved the needle.</em></h2>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12">{extras.outcomesTitle.lead} <em className="italic font-normal text-ink-muted">{extras.outcomesTitle.italic}</em></h2>
           </Reveal>
           <MetricsRow metrics={extras.metrics} theme={theme} />
         </div>
@@ -140,7 +140,7 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
       <section className="py-12 md:py-24 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12">The roadmap, <em className="italic font-normal text-ink-muted">from MVP to platform-scale.</em></h2>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12">{extras.roadmapTitle.lead} <em className="italic font-normal text-ink-muted">{extras.roadmapTitle.italic}</em></h2>
           </Reveal>
           <RoadmapTimeline phases={extras.roadmap} />
         </div>
@@ -152,10 +152,7 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
             <Reveal>
               <div className="flex items-center gap-2 mb-5"><Clock size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Reflection</p></div>
               <p className="text-[10px] uppercase tracking-[0.18em] text-ink-muted mb-4">What I&rsquo;d do differently</p>
-              <div className="flex gap-4 md:gap-6">
-                <div className="flex-shrink-0 w-1 rounded-full self-stretch" style={{ background: `${theme.accent}66` }} />
-                <p className="font-display font-light text-ink/80 leading-relaxed tracking-tight" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
-              </div>
+              <p className="font-display font-light text-ink/80 leading-relaxed tracking-tight max-w-4xl" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
             </Reveal>
           </div>
         </section>

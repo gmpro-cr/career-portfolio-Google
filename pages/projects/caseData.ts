@@ -9,7 +9,12 @@ export interface MetricCard { value: string; label: string; sub: string }
 export interface RoadmapPhase { phase: string; status: 'shipped' | 'building' | 'planned'; quarter?: string; items: string[] }
 export interface ArchLayer { label: string; color: string; bg: string; nodes: string[] }
 
+export interface CaseTitle { lead: string; italic: string }
+
 export interface ProjectExtra {
+  /** Per-case section headlines so the four cases don't share one template voice */
+  outcomesTitle: CaseTitle;
+  roadmapTitle: CaseTitle;
   journey: JourneyStep[];
   competitors: { columns: string[]; rows: CompetitorRow[] };
   metrics: MetricCard[];
@@ -30,13 +35,15 @@ export interface CaseProps {
 export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
 
   'ai-persona-interaction-platform': {
+    outcomesTitle: { lead: 'What 500 users', italic: 'taught the product.' },
+    roadmapTitle: { lead: 'From catalogue', italic: 'to marketplace.' },
     problemStatement: 'Generic AI chatbots fail at long-term engagement because they lack character consistency and memory. Users crave authentic, persistent relationships with figures they admire — but foundational models drift from their system prompts during extended conversations, destroying immersion and user trust.',
 
     discovery: "While building side projects I kept watching people switch between ChatGPT and YouTube — trying to \"talk to\" Elon, Naval, or Sadhguru. ChatGPT answered as itself. YouTube was one-way. The parasocial relationship — feeling close to someone you'll never actually meet — was deeply real. But there was no product that closed the loop from admiration to actual dialogue. That gap was the product.",
 
     userPersona: {
       name: 'Priya, 28 · Marketing Manager, Mumbai',
-      role: 'Primary user archetype identified through user interviews',
+      role: 'Primary user archetype from early-user conversations and Mixpanel cohorts',
       painPoint: '"I\'ve watched every Elon Musk interview. I follow Naval on Twitter. But I can\'t actually ask them about my specific situation — whether to leave my stable job for a startup. I just want 20 minutes with someone whose thinking I trust."',
     },
 
@@ -45,15 +52,15 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
       { phase: 'Onboard',   action: 'Starts first conversation with chosen persona. Guest mode — zero friction, no signup required',      emotion: 'Cautious'   },
       { phase: 'Engage',    action: 'AI recalls context from earlier in the conversation. First moment of unexpected-but-consistent character', emotion: 'Surprised'  },
       { phase: 'Habit',     action: 'Persona initiates a check-in next session — "Last time you were thinking about the startup…"',    emotion: 'Attached'   },
-      { phase: 'Convert',   action: 'Upgrades to premium (Razorpay ₹199/mo) for unlimited conversations and exclusive personas',        emotion: 'Loyal'      },
+      { phase: 'Convert',   action: 'Upgrades to premium (Razorpay ₹249/mo) for unlimited conversations and exclusive personas',        emotion: 'Loyal'      },
     ],
 
     pmInsight: "North Star Metric: Messages Sent Per Day — deliberately chosen because it captures functional value delivery, engagement depth, and retention in a single number. PMF signal identified through Mixpanel cohort data: users who have 5+ conversations with 2+ different personas in their first week are retained at 3x the D30 rate of single-persona users. That insight drove a full onboarding redesign to expose users to 3+ personas before the end of session 1. The second unlock: when the AI initiates the conversation on session 2 rather than waiting for the user — D7 retention lifted significantly. Both discoveries came from data, mid-build, when I should have designed for them from day one.",
 
     roadmap: [
-      { phase: 'Foundation',  status: 'shipped', quarter: 'Oct 2025', items: ['350+ curated personas across 6 categories', 'Guest mode — no signup required', 'Google OAuth (2 clicks to start)', 'Gemini 1.5 Flash + Groq Llama 3.3 LLM router', 'Mobile-responsive UI', 'Freemium paywall (Razorpay)'] },
+      { phase: 'Foundation',  status: 'shipped', quarter: 'Oct 2025', items: ['350+ curated personas across 6 launch categories (now 40)', 'Guest mode — no signup required', 'Google OAuth (2 clicks to start)', 'Gemini 1.5 Flash + Groq Llama 3.3 LLM router', 'Mobile-responsive UI', 'Freemium paywall (Razorpay)'] },
       { phase: 'Engagement',  status: 'shipped', quarter: 'Nov 2025', items: ['Sarvam TTS voice synthesis', 'Cross-session memory via Supabase', 'Real-time news injection (all personas aware of today\'s date + headlines)', 'Custom persona creation', 'Mixpanel analytics + A/B testing on onboarding'] },
-      { phase: 'Monetisation', status: 'building', quarter: 'Q2 2026', items: ['Tiered subscriptions (₹199/₹499/mo)', 'Exclusive premium personas', 'Conversation history + search', 'Persona recommendations by mood'] },
+      { phase: 'Monetisation', status: 'building', quarter: 'Q2 2026', items: ['Premium tier live at ₹249/mo; annual + higher tiers next', 'Exclusive premium personas', 'Conversation history + search', 'Persona recommendations by mood'] },
       { phase: 'Scale', status: 'planned', quarter: 'Q4 2026', items: ['Creator persona marketplace', 'Persona debates (multi-AI conversation)', 'iOS + Android apps', '100+ Hindi/regional language personas', 'Enterprise white-label licensing'] },
     ],
 
@@ -68,7 +75,7 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
       columns: ['AI Spirit', 'Character.AI', 'Replika', 'Crushon.AI'],
       rows: [
         { feature: 'Persistent cross-session memory',          values: [true,  false, true,  false] },
-        { feature: '370+ distinct curated personas',           values: [true,  true,  false, false] },
+        { feature: '350+ distinct curated personas',           values: [true,  true,  false, false] },
         { feature: 'India-first personas (Hinglish, Indian icons)', values: [true, false, false, false] },
         { feature: 'Voice synthesis (Sarvam TTS)',             values: [true,  false, true,  false] },
         { feature: 'Quantified persona fidelity evals',        values: [true,  false, false, false] },
@@ -82,12 +89,14 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     metrics: [
       { value: '500+', label: 'Monthly Active Users',      sub: 'Organic — zero paid acquisition; DAU/MAU ~10%' },
       { value: '3×',   label: 'D7 retention lift',         sub: 'When AI initiates message on session 2 vs waiting' },
-      { value: '370+', label: 'Curated AI personas',       sub: '40 categories — Business · Spiritual · Entertainment · Companion · Anime' },
+      { value: '350+', label: 'Curated AI personas',       sub: '40 categories — Business · Spiritual · Entertainment · Companion · Anime' },
       { value: '5',    label: 'User segments mapped',      sub: 'Priya (career) · Arjun (self-improvement) · Sneha (spiritual) · Rohan (entertainment) · Meera (companion)' },
     ],
   },
 
   'ai-credit-intelligence-platform': {
+    outcomesTitle: { lead: 'Hours returned', italic: 'to judgment.' },
+    roadmapTitle: { lead: 'From one analyst', italic: 'to a platform.' },
     problemStatement: 'Senior credit analysts spend 4–6 hours manually scrubbing 100+ page annual reports for data extraction and subjective risk synthesis. This low-leverage bottleneck is prone to human error and restricts the volume of transactions that can be evaluated per analyst per day — every hour spent extracting is an hour not spent thinking.',
 
     discovery: "After 9 years writing Credit Appraisal Memorandums at Yes Bank and HDFC, I knew exactly where the 4–6 hours went: not in judgment, but in extraction. Forty pages of ratio calculations that Python could do in 4 seconds. Thirty tabs of company research that an AI agent could synthesise in a minute. The bottleneck wasn't intelligence — it was mechanical labour. That was the product.",
@@ -146,6 +155,8 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
   },
 
   'automated-job-discovery-agent': {
+    outcomesTitle: { lead: 'The search that', italic: 'runs itself.' },
+    roadmapTitle: { lead: 'From personal script', italic: 'to product.' },
     problemStatement: 'Job hunting is a high-noise, low-signal data problem. Portals are flooded with irrelevant listings — "Senior Product Manager" roles that are actually customer support, or Bangalore jobs that are listed in Mumbai. Manual filtering consumes 2+ hours every morning with no compounding value.',
 
     discovery: "I was spending 2 hours every morning clicking through Naukri and LinkedIn. Same irrelevant listings, same filters, same frustration. I built a Python script to automate the scraping. Then added scoring via Ollama. Then a Telegram notification so I wouldn't even need to check a dashboard. Three weeks later I had a product. The pivot to multi-user came when 5 friends asked for the same thing — that's when I knew it wasn't just a personal script.",
@@ -204,6 +215,8 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
   },
 
   'ai-engineering-field-guide': {
+    outcomesTitle: { lead: 'A book you', italic: 'can ask.' },
+    roadmapTitle: { lead: 'From one book', italic: 'to any book.' },
     problemStatement: 'Dense technical books are read once and forgotten. "AI Engineering" is the canonical text for building on foundation models — but 535 pages of linear PDF is impossible to search semantically and gives you no way to ask "where does the book cover X?". The knowledge is locked in a format that does not match how people actually reference it.',
 
     discovery: "I read \"AI Engineering\" cover-to-cover while building my own LLM products and kept flipping back to find the one paragraph on evals, or RAG chunking, or inference optimisation. The PDF couldn't help me — no search that understood meaning, no deep links, no way to ask it a question. I realised the most useful thing wasn't a summary; it was making the book itself queryable and navigable. That gap — between owning the knowledge and being able to reach it on demand — was the product.",
