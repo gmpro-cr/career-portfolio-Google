@@ -272,4 +272,120 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
       { value: '100%',   label: 'Answers cited',          sub: 'Every "Ask the book" response grounded with its source chapter' },
     ],
   },
+
+  'pyquest-learn-python-by-writing-it': {
+    outcomesTitle: { lead: 'Type first,', italic: 'install never.' },
+    roadmapTitle: { lead: 'From exercises', italic: 'to programmers.' },
+    problemStatement: 'Most "learn Python" resources are passive — videos where the learner watches someone else code — and the active alternatives demand an install-and-configure gauntlet that kills beginners before their first print(). The missing product: an environment where writing and running real code is the very first interaction, not the reward after an hour of setup.',
+
+    discovery: "Watching friends try to start Python, the pattern was identical: enthusiasm, then a wall of installers, PATH errors, and editor choices — and most never wrote a line. The insight wasn't that people need better lessons; it's that the first ten minutes decide everything. When I found Pyodide could run genuine CPython inside a browser tab, the product became obvious: collapse time-to-first-run to a single click, then keep people typing with game mechanics.",
+
+    userPersona: {
+      name: 'Asha, 24 · Analyst who wants to automate her spreadsheets',
+      role: 'Complete beginners and returners who stalled at environment setup',
+      painPoint: '"Every Python tutorial starts with installing things. I once spent an evening on an installer error and never got to the actual code. I just want to type something and see it run — today, on the laptop I already have."',
+    },
+
+    journey: [
+      { phase: 'Land',      action: 'Opens PyQuest — a code editor with runnable starter code is the hero, not a syllabus. Pyodide loads quietly in the background', emotion: 'Curious'   },
+      { phase: 'First run', action: 'Types a change, hits Run — real CPython executes in the tab and output appears. No install, no signup', emotion: 'Hooked'    },
+      { phase: 'Progress',  action: 'Clears exercises, earns XP, watches level titles climb from Hatchling upward. Progress saves to localStorage automatically', emotion: 'Motivated' },
+      { phase: 'Boss fight', action: 'Hits a Firewall — a checkpoint challenge gating the next stage that forces recall of everything so far', emotion: 'Challenged' },
+      { phase: 'Return',    action: 'Comes back days later on the same device; the trail resumes exactly where she left off, XP intact', emotion: 'Committed'  },
+    ],
+
+    pmInsight: "Time-to-first-run is the whole funnel for a learning tool — every second between landing and successfully executing code is leakage. That single metric drove the three defining decisions: Pyodide over a fake interpreter (real errors teach real Python), static-site-only over accounts-and-backend (zero signup friction, zero marginal cost per learner), and background runtime loading with an honest status line so a heavyweight WASM download never blocks the first lesson. The game layer — XP, levels, Firewall bosses — isn't decoration; it's spaced retrieval disguised as play, and it's what turns a first run into a second session.",
+
+    roadmap: [
+      { phase: 'Core Course', status: 'shipped', quarter: 'Jul 2026', items: ['20 stages / 56 exercises across 3 tracks', 'Pyodide runtime — real CPython in the tab', 'Output + assertion checker per exercise', 'XP, level titles, Firewall checkpoints', 'localStorage progress'] },
+      { phase: 'Ship & Distribute', status: 'shipped', quarter: 'Jul 2026', items: ['Fully static deploy on Vercel CDN', 'GitHub auto-deploy on push', 'Background runtime loading with status line', 'Works offline after first load'] },
+      { phase: 'Instrumentation', status: 'building', quarter: 'Q3 2026', items: ['Aggregate, privacy-respecting drop-off telemetry', 'Per-exercise difficulty calibration', 'Hint system for the hardest cliffs'] },
+      { phase: 'Projects Tier', status: 'planned', quarter: 'Q4 2026', items: ['Multi-file in-browser projects', 'Shareable completed-project links', 'Community challenge stages', 'Certificates of completion'] },
+    ],
+
+    architecture: [
+      { label: 'Frontend',  color: '#F59E0B', bg: '#FFFBEB', nodes: ['Static HTML/CSS/JS', 'Code editor + Run button', 'Journey trail UI', 'XP + level system'] },
+      { label: 'Runtime',   color: '#F97316', bg: '#FFF7ED', nodes: ['Pyodide — CPython on WASM', 'Lazy background load', 'In-tab sandboxed execution', 'stdout + exception capture'] },
+      { label: 'Curriculum', color: '#EAB308', bg: '#FEFCE8', nodes: ['20 stages / 56 exercises', '3 tracks (beginner → expert)', 'Assertion checkers', 'Firewall boss challenges'] },
+      { label: 'Data',      color: '#0EA5E9', bg: '#F0F9FF', nodes: ['localStorage progress + XP', 'No accounts, no server', 'Vercel CDN + auto-deploy'] },
+    ],
+
+    competitors: {
+      columns: ['PyQuest', 'Video courses', 'Codecademy-style', 'Local install + book'],
+      rows: [
+        { feature: 'Time to first running code',        values: ['seconds', 'never in-lesson', 'minutes + signup', 'hours'] },
+        { feature: 'Real CPython (not a lookalike)',    values: [true,  false, 'Partial', true] },
+        { feature: 'Zero install',                      values: [true,  true,  true,  false] },
+        { feature: 'Zero account required',             values: [true,  false, false, true] },
+        { feature: 'Game progression (XP, bosses)',     values: [true,  false, 'Partial', false] },
+        { feature: 'Works offline after first load',    values: [true,  false, false, true] },
+        { feature: 'Free at any scale (static)',        values: [true,  false, false, true] },
+      ],
+    },
+
+    metrics: [
+      { value: '56',  label: 'Exercises live',        sub: '20 stages across 3 tracks — first print() to classes, generators, decorators' },
+      { value: '0',   label: 'Installs or accounts',  sub: 'Real CPython via Pyodide/WASM runs in the tab itself' },
+      { value: '~1s', label: 'To first code run',     sub: 'Runtime lazy-loads in the background while the learner reads stage one' },
+      { value: '₹0',  label: 'Cost per learner',      sub: 'Fully static — every additional learner is free to serve' },
+    ],
+  },
+
+  'sqlquest-learn-sql-on-real-postgres': {
+    outcomesTitle: { lead: 'Real rows,', italic: 'real engine.' },
+    roadmapTitle: { lead: 'From guided drills', italic: 'to open questions.' },
+    problemStatement: 'SQL tutorials mostly fake it: canned result tables, toy interpreters that accept only the blessed answer, or hosted sandboxes gated behind signup. Learners never touch a real engine — never see a genuine query plan, a NULL surprise, or an honest error message — so the skill fails to transfer to the first day of a real job.',
+
+    discovery: "After shipping PyQuest I kept asking: which other skill is taught almost entirely through fakes? SQL was the standout — I'd spent nine years in banking watching analysts learn it badly from canned-table tutorials, then flounder against a production database. PGlite had just made full PostgreSQL 18 bootable inside a browser tab. The product wrote itself: the first SQL course where the database is not simulated, one URL, no account, and the deepest curriculum I could test-gate.",
+
+    userPersona: {
+      name: 'Rohit, 26 · Operations analyst moving into data',
+      role: 'Analysts and career-switchers who need job-transferable SQL, not tutorial SQL',
+      painPoint: '"I finished two SQL tutorials and still froze the first time I ran a query at work — the error messages, the NULLs, the query plan, none of it looked like the tutorial. I want to practise on the real thing before it counts."',
+    },
+
+    journey: [
+      { phase: 'Land',    action: 'Opens SQLQuest — "a full PostgreSQL 18 runs inside this browser tab." One click starts the database', emotion: 'Skeptical'  },
+      { phase: 'Query',   action: 'Types a first SELECT against seeded tables; real rows come back from a real engine', emotion: 'Convinced'  },
+      { phase: 'Stumble', action: 'Hits a genuine Postgres error, a NULL three-valued-logic surprise — and learns what tutorials skip', emotion: 'Learning'   },
+      { phase: 'Deepen',  action: 'Progresses through joins into window frames, CTE recursion, EXPLAIN plans, row-level security', emotion: 'Confident'  },
+      { phase: 'Return',  action: 'Resumes on mobile during a commute — same URL, no account, progress intact', emotion: 'Committed'  },
+    ],
+
+    pmInsight: "Two decisions defined the product. First, authenticity as differentiation: 'real Postgres in your tab' is a one-line pitch no canned-results competitor can match without rebuilding on WASM — the engine choice is the moat. Second, curriculum-as-code: a 204-test suite replays every exercise (seed, solution, checker) against the actual engine before any deploy, which turned content editing from an editorial hope into a build gate. The subtler call was the checker contract — comparing result rows rather than query text — so any semantically correct SQL passes. That freedom to find your own path to the answer is where learner confidence actually comes from, and it's invisible in a feature list.",
+
+    roadmap: [
+      { phase: 'Foundations', status: 'shipped', quarter: 'Jul 2026', items: ['PGlite — PostgreSQL 18 in the tab', '34 stages / 148 exercises across 3 tiers', 'Row-level result checker (any correct SQL passes)', '"Green Bar" phosphor-terminal identity'] },
+      { phase: 'Quality Gate', status: 'shipped', quarter: 'Jul 2026', items: ['204-test suite against the live engine', 'Tests gate every deploy', 'Cache-busted asset versioning', 'GitHub auto-deploy on push'] },
+      { phase: 'Reach', status: 'shipped', quarter: 'Jul 2026', items: ['Mobile-friendly layout', 'Accessible tabs + aria-live result announcements', 'Vercel Web Analytics', 'No-account, one-URL distribution'] },
+      { phase: 'Capstone Tier', status: 'planned', quarter: 'Q4 2026', items: ['Shared-dataset analytical capstones', 'Open questions instead of guided drills', 'EXPLAIN-plan reading challenges', 'Shareable solved-query links'] },
+    ],
+
+    architecture: [
+      { label: 'Frontend',   color: '#16A34A', bg: '#F0FDF4', nodes: ['Static JS app ("Green Bar" UI)', 'SQL editor + result table', 'Accessible tabs (aria-live)', 'Mobile layout'] },
+      { label: 'Engine',     color: '#059669', bg: '#ECFDF5', nodes: ['PGlite — Postgres 18 on WASM', 'Boots in-tab on demand', 'Per-stage seed SQL', 'Real errors, real EXPLAIN'] },
+      { label: 'Curriculum', color: '#65A30D', bg: '#F7FEE7', nodes: ['34 stages / 148 exercises', 'Declarative exercise data', 'Row-comparison checkers', 'Foundations → Composition tiers'] },
+      { label: 'Quality',    color: '#475569', bg: '#F8FAFC', nodes: ['204-test Node suite', 'Every exercise replayed in CI', 'Vercel deploy + Web Analytics'] },
+    ],
+
+    competitors: {
+      columns: ['SQLQuest', 'W3Schools-style', 'Hosted sandboxes', 'Local Postgres'],
+      rows: [
+        { feature: 'Real PostgreSQL engine',            values: [true,  false, true,  true] },
+        { feature: 'Zero signup / zero install',        values: [true,  true,  false, false] },
+        { feature: 'Query plans, RLS, window frames',   values: [true,  false, 'Partial', true] },
+        { feature: 'Any correct query passes',          values: [true,  false, 'Partial', 'n/a'] },
+        { feature: 'Exercise suite tested in CI',       values: [true,  false, false, false] },
+        { feature: 'Works on a phone',                  values: [true,  true,  'Partial', false] },
+        { feature: 'Free at any scale (static)',        values: [true,  true,  false, true] },
+      ],
+    },
+
+    metrics: [
+      { value: '148', label: 'Exercises live',        sub: '34 stages — first SELECT to window frames, recursion, and row-level security' },
+      { value: '204', label: 'Tests green',           sub: 'Every exercise replayed against the real engine before each deploy' },
+      { value: '18',  label: 'Postgres major version', sub: 'Genuine PostgreSQL via PGlite/WASM — not a simulator' },
+      { value: '0',   label: 'Accounts required',     sub: 'One URL on any device; progress persists locally' },
+    ],
+  },
 };

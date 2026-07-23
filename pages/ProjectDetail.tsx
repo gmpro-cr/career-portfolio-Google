@@ -7,6 +7,8 @@ import PersonaCase from './projects/PersonaCase';
 import CreditCase from './projects/CreditCase';
 import JobAgentCase from './projects/JobAgentCase';
 import AIEngineeringCase from './projects/AIEngineeringCase';
+import PyQuestCase from './projects/PyQuestCase';
+import SQLQuestCase from './projects/SQLQuestCase';
 
 /* Each project gets its own bespoke case-study layout. */
 const CASE_COMPONENTS: Record<string, React.ComponentType<CaseProps>> = {
@@ -14,6 +16,8 @@ const CASE_COMPONENTS: Record<string, React.ComponentType<CaseProps>> = {
   'ai-credit-intelligence-platform': CreditCase,
   'automated-job-discovery-agent': JobAgentCase,
   'ai-engineering-field-guide': AIEngineeringCase,
+  'pyquest-learn-python-by-writing-it': PyQuestCase,
+  'sqlquest-learn-sql-on-real-postgres': SQLQuestCase,
 };
 
 export default function ProjectDetail() {

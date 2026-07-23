@@ -247,6 +247,16 @@ function Hero() {
           </div>
         </div>
 
+        {/* Role line */}
+        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.25s forwards` }}>
+          <p
+            className="font-display italic text-center lg:text-left"
+            style={{ fontSize: 'clamp(1rem, 2vw, 1.3rem)', color: 'rgba(26,20,16,0.55)' }}
+          >
+            AI Product Builder&ensp;&middot;&ensp;Finance Domain Expert
+          </p>
+        </div>
+
         {/* Name — word slide */}
         <h1
           className="mt-5 lg:mt-8 font-display font-light leading-[0.92] tracking-[-0.03em] text-center lg:text-left"
@@ -278,9 +288,9 @@ function Hero() {
             className="mt-5 lg:mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed"
             style={{ color: 'rgba(26,20,16,0.74)' }}
           >
-            AI Product Builder and Finance Domain Expert with 9+ years in banking. Independently designed,
-            built and shipped 4 LLM products end to end. Experienced across the full product lifecycle: discovery,
-            MVP scoping, prompt engineering, and iterative releases.
+            Nine years in banking and credit risk; now independently designing, building and shipping
+            products end to end &mdash; four LLM platforms and two browser-native learning tools, all live.
+            Experienced across the full lifecycle: discovery, MVP scoping, prompt engineering, and iterative releases.
           </p>
         </div>
 
@@ -309,6 +319,31 @@ function Hero() {
                 <FileText size={14} />
               </span>
             </a>
+          </div>
+        </div>
+
+        {/* Editorial stat strip */}
+        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.8s forwards` }}>
+          <div className="mt-10 lg:mt-14 flex items-stretch justify-center lg:justify-start">
+            {[
+              { value: '09', unit: 'yrs', label: 'banking & credit risk' },
+              { value: '06', unit: '', label: 'products shipped, all live' },
+              { value: '500', unit: '+', label: 'users on the flagship' },
+            ].map((s, i) => (
+              <div
+                key={s.label}
+                className={`flex flex-col ${i > 0 ? 'pl-6 md:pl-8 ml-6 md:ml-8' : ''}`}
+                style={i > 0 ? { borderLeft: '1px solid rgba(26,20,16,0.12)' } : undefined}
+              >
+                <span className="font-display font-light oldstyle" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)', color: '#1A1410', lineHeight: 1 }}>
+                  {s.value}
+                  {s.unit && <em className="italic font-normal" style={{ fontSize: '0.55em', color: 'rgba(26,20,16,0.5)' }}>{s.unit}</em>}
+                </span>
+                <span className="mt-1.5 text-[10px] uppercase tracking-[0.16em]" style={{ color: 'rgba(26,20,16,0.45)' }}>
+                  {s.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -343,10 +378,10 @@ function SelectedWork() {
             <div>
               <span className="font-display italic text-ink-muted" style={{ fontSize: '0.95rem' }}>selected work</span>
               <h2 className="mt-2 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
-                Four products, <em className="italic font-normal text-ink-muted">end to end.</em>
+                Six products, <em className="italic font-normal text-ink-muted">end to end.</em>
               </h2>
             </div>
-            <span className="hidden md:block font-display italic text-ink-muted oldstyle whitespace-nowrap" style={{ fontSize: '1.15rem' }}>04 / 04</span>
+            <span className="hidden md:block font-display italic text-ink-muted oldstyle whitespace-nowrap" style={{ fontSize: '1.15rem' }}>06 / 06</span>
           </div>
         </Reveal>
 
@@ -386,6 +421,14 @@ function SelectedWork() {
                       style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(253,251,247,0.95) 100%)' }}
                       aria-hidden
                     />
+                    <div className="absolute top-4 left-4 z-10">
+                      <span
+                        className="font-display italic oldstyle text-sm px-2.5 py-1 rounded-full"
+                        style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)', border: '1px solid rgba(26,20,16,0.12)', color: 'rgba(26,20,16,0.55)' }}
+                      >
+                        {String(idx + 1).padStart(2, '0')}
+                      </span>
+                    </div>
                     <div className="absolute top-4 right-4 z-10">
                       <span
                         className="font-display italic text-sm font-medium px-3 py-1.5 rounded-full"
@@ -540,7 +583,7 @@ function Trajectory() {
    TOOLKIT
    ═══════════════════════════════════════════════════════════════ */
 const TOOLKIT_GROUPS = [
-  { label: 'Build', items: ['Next.js', 'Python · FastAPI', 'TypeScript', 'Supabase', 'Vercel', 'Flask'] },
+  { label: 'Build', items: ['Next.js · React', 'Python · FastAPI', 'TypeScript', 'Postgres · PGlite', 'Pyodide · WASM', 'Supabase · Vercel'] },
   { label: 'Reason', items: ['Claude API', 'Gemini 1.5 / 2.0', 'Groq · Llama', 'Ollama · Mistral'] },
   { label: 'Ship · Measure', items: ['LLM Evals', 'Prompt Architecture', 'Mixpanel', 'A/B Testing', 'PowerBI'] },
 ];

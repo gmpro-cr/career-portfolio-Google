@@ -49,6 +49,28 @@ export const THEMES: Record<string, ProjectTheme> = {
       { bg: '#F0F9FF', border: '#0EA5E9', text: '#0369A1', dot: '#0EA5E9' }, // sky pop
     ],
   },
+  // PyQuest — amber / gold (matches the product's warm parchment-and-arcade feel)
+  'pyquest-learn-python-by-writing-it': {
+    accent: '#D97706', accentDark: '#92400E', accentBg: '#FFFBEB', accentBorder: '#D97706',
+    ramp: [
+      { bg: '#FFFBEB', border: '#F59E0B', text: '#92400E', dot: '#F59E0B' }, // amber
+      { bg: '#FFF7ED', border: '#F97316', text: '#9A3412', dot: '#F97316' }, // orange
+      { bg: '#FEFCE8', border: '#EAB308', text: '#854D0E', dot: '#EAB308' }, // yellow
+      { bg: '#FFF1F2', border: '#F43F5E', text: '#9F1239', dot: '#F43F5E' }, // rose pop
+      { bg: '#F0F9FF', border: '#0EA5E9', text: '#0369A1', dot: '#0EA5E9' }, // sky counter
+    ],
+  },
+  // SQLQuest — deep terminal green (matches the product's "Green Bar" phosphor identity)
+  'sqlquest-learn-sql-on-real-postgres': {
+    accent: '#16A34A', accentDark: '#14532D', accentBg: '#F0FDF4', accentBorder: '#16A34A',
+    ramp: [
+      { bg: '#F0FDF4', border: '#16A34A', text: '#14532D', dot: '#16A34A' }, // green
+      { bg: '#ECFDF5', border: '#059669', text: '#064E3B', dot: '#059669' }, // deep emerald
+      { bg: '#F7FEE7', border: '#65A30D', text: '#3F6212', dot: '#65A30D' }, // lime-dark
+      { bg: '#F0FDFA', border: '#0D9488', text: '#134E4A', dot: '#0D9488' }, // teal-dark
+      { bg: '#F8FAFC', border: '#475569', text: '#334155', dot: '#475569' }, // slate counter
+    ],
+  },
 };
 
 export const FALLBACK_THEME: ProjectTheme = {
@@ -70,7 +92,7 @@ Location: Pune, India. Open to hybrid/remote roles. Contact: mahalegauravk@gmail
 LinkedIn: https://www.linkedin.com/in/mahalegauravk
 
 Summary: AI Product Builder and Finance Domain Expert with 9+ years in banking, credit risk, and portfolio management.
-Independently designed, built, and shipped 4 LLM-based products using Claude, Cursor and Groq API.
+Independently designed, built, and shipped 6 products — 4 LLM-based platforms and 2 browser-native learning tools (PyQuest, SQLQuest) — using Claude, Cursor and Groq API.
 Experienced across the full product lifecycle: problem discovery, MVP scoping, prompt engineering, stakeholder alignment, and iterative releases.
 Seeking AI Product Management roles where finance expertise and practical AI-building experience combine to create transformative products.
 `;
@@ -298,6 +320,94 @@ export const PROJECTS: Project[] = [
       ],
     },
     reflection: "If I were starting over, I'd invest earlier in chunking strategy — TF-IDF lexical retrieval is fast and private but it misses paraphrased questions where the vocabulary doesn't overlap the text; a hybrid with embeddings would lift recall on conceptual queries. I'd also have designed the diagram schema before writing chapter content, not alongside it — a few diagrams had to be reshaped once the component's 9 types stabilised. The biggest validation: the content/template split paid for itself the first time I wanted to revise a chapter and realised it was a one-line data change. The natural next build is letting a reader upload their own PDF and get the same distilled, searchable, ask-anything treatment — turning a single-book companion into a general reading tool.",
+  },
+  {
+    title: "PyQuest — Learn Python by Writing It",
+    slug: "pyquest-learn-python-by-writing-it",
+    date: "Jul 2026",
+    image: "/pyquest.png",
+    description: "A gamified Python course where real Python runs in the browser tab — no signup, no install, no backend. Pyodide (CPython compiled to WebAssembly) executes every learner's code client-side, so the first print() works seconds after landing. 20 stages and 56 exercises across 3 tracks (beginner to expert), with XP, level titles, and 'Firewall' checkpoint challenges that gate progression the way a game gates levels. Deployed as a fully static site: zero servers, zero cost per learner, infinitely cacheable.",
+    cardSummary: "Learn-to-code sites make you watch; PyQuest makes you type. Real CPython (via Pyodide/WASM) runs in the browser tab itself — 20 stages, 56 exercises, XP and Firewall bosses, zero installs, zero backend, zero cost per learner.",
+    tech: ["Python", "Pyodide (WASM)", "Vanilla JS", "CSS", "localStorage", "Vercel"],
+    metrics: "56 exercises",
+    link: "https://pyquest-one.vercel.app",
+    cardFlow: ["Read", "Type", "Run", "Level up"],
+    category: 'build',
+    flowType: 'python',
+    problem: "Most 'learn Python' resources are passive — videos and articles where the learner watches someone else code. The alternatives demand setup (install Python, pick an editor, fight PATH errors) that kills beginners before their first print(). The gap: a zero-friction environment where writing and running real code is the very first interaction, not the reward after an hour of configuration.",
+    approach: [
+      "Chose Pyodide — CPython compiled to WebAssembly — so learners run genuine Python, not a lookalike interpreter. Error messages, f-strings, generators, decorators: everything behaves exactly as it will on their own machine later.",
+      "Shipped the whole product as a static site. No accounts, no server, no database — progress lives in localStorage. That decision makes each additional learner literally free and removes every signup-wall drop-off from the funnel.",
+      "Designed progression as a game: XP per exercise, level titles (Hatchling upward), and 'Firewall' boss challenges after each stage that must be passed to advance — spaced retrieval disguised as play.",
+      "Structured 20 stages / 56 exercises into 3 tracks so the same product serves a first-day beginner and someone brushing up on classes and generators — sequencing is the curriculum, tracks are the difficulty dial.",
+      "Kept the runtime honest about loading: Pyodide is a heavyweight download, so it loads in the background with a visible status ('Python loads with your first lesson') while the learner reads stage one — perceived latency near zero.",
+    ],
+    keyInsights: [
+      "Time-to-first-run is the single conversion metric that matters for a learning tool. Every second between landing and successfully running code is funnel leakage; PyQuest collapses it to one click.",
+      "Real toolchains beat simplified ones even for beginners. A fake interpreter teaches a fake language; Pyodide means the error a learner sees in the browser is the same error they'll see in a terminal next month.",
+      "Static-site economics change what's worth building: with zero marginal cost per user, a free education product needs no monetisation plan to be sustainable — it only needs to stay cheap.",
+    ],
+    outcomes: [
+      "20 stages, 56 exercises, and 3 tracks live — from first print() to classes, generators, and decorators — all runnable in the browser.",
+      "Zero-install, zero-account onboarding: real Python executes seconds after page load, with progress persisted locally.",
+      "Fully static deployment on Vercel with GitHub auto-deploy — no servers to run, no per-learner cost.",
+    ],
+    technicalDetails: {
+      architecture: "A fully static site: HTML/CSS/JS served from Vercel's CDN. Pyodide (CPython 3.x compiled to WebAssembly) is lazy-loaded in the background on first visit and cached by the browser. Exercises define expected outputs and assertion checks; learner code executes in the Pyodide runtime sandboxed inside the tab, stdout is captured and compared, and XP/progress state is written to localStorage. No network calls after initial load — the whole course works offline.",
+      dataFlow: [
+        { step: "Learner opens a stage; exercise prompt and starter code render instantly" },
+        { step: "Pyodide (CPython → WASM) finishes lazy-loading in the background" },
+        { step: "Learner edits code and hits Run" },
+        { step: "Code executes in-tab; stdout and exceptions are captured" },
+        { step: "Checker compares output against the exercise's assertions" },
+        { step: "Pass: XP awarded, progress saved to localStorage, next node unlocks" },
+      ],
+    },
+    reflection: "The lesson I keep re-learning: distribution constraints are design gifts. Committing to 'no backend, ever' forced every feature through a filter — could it work as static files? — and the product got simpler and faster each time the answer had to be yes. What I'd do differently: instrument earlier. localStorage-only progress means I have no aggregate view of where learners actually quit; even privacy-respecting, aggregate-only telemetry from day one would have told me which of the 56 exercises is the real difficulty cliff. Next: an in-browser 'projects' tier where learners build something multi-file, because exercises teach syntax but projects create programmers.",
+  },
+  {
+    title: "SQLQuest — Real Postgres in the Browser",
+    slug: "sqlquest-learn-sql-on-real-postgres",
+    date: "Jul 2026",
+    image: "/sqlquest.png",
+    description: "An interactive SQL course where a full PostgreSQL 18 database boots inside the browser tab via PGlite (Postgres compiled to WebAssembly). 34 stages and 148 exercises take a learner from their first SELECT to window frames, query plans, CTE recursion, and row-level security — every concept typed, run, and answered with real rows from a real engine. No account, no install, no server. Verified by a 204-test suite that runs every exercise against the actual engine before each deploy.",
+    cardSummary: "Not a SQL simulator — the real thing: PostgreSQL 18 boots inside the browser tab via PGlite. 34 stages and 148 exercises from SELECT to window frames and query plans, backed by a 204-test suite that runs every exercise against the live engine.",
+    tech: ["PostgreSQL 18", "PGlite (WASM)", "JavaScript", "Node test suite", "Vercel", "Web Analytics"],
+    metrics: "148 exercises",
+    link: "https://sqlquest-nine.vercel.app",
+    cardFlow: ["Write SQL", "Run", "Rows back", "Advance"],
+    category: 'build',
+    flowType: 'sql',
+    problem: "SQL tutorials mostly fake it: canned result tables, toy interpreters that accept only the blessed answer, or hosted sandboxes that need signup and still time out. Learners never touch a real engine — so they never see a real query plan, a real NULL surprise, or a real error message — and the skill doesn't transfer to the job.",
+    approach: [
+      "Built on PGlite — genuine PostgreSQL 18 compiled to WebAssembly — so every lesson runs against the same engine learners will use at work. NULL three-valued logic, window frames, EXPLAIN plans: all real, because the database is.",
+      "Scoped an ambitious curriculum deliberately: 34 stages / 148 exercises across Foundations, Aggregation & Joins, and Composition tiers — going far past most courses into materialized views, recursion, query plans, and row-level security.",
+      "Treated the exercises themselves as a tested product surface: a 204-test suite executes every exercise's setup, solution, and checker against the actual engine, so a curriculum edit can't silently break a lesson. All 204 green before any deploy.",
+      "Designed the 'Green Bar' identity around the phosphor-terminal heritage of databases — stark type, terminal green, tabular rows — so the product looks like the discipline it teaches.",
+      "Made reach a feature: mobile-friendly layout, accessible tabs with aria-live result announcements, and a no-account model — the whole course is one URL away on any device.",
+    ],
+    keyInsights: [
+      "Authenticity is a moat in education products. 'Real Postgres in your tab' is a one-line pitch no canned-results competitor can copy without rebuilding on WASM — the engine choice is the differentiation.",
+      "Curriculum is code: once every exercise runs in CI against the real engine, content quality stops being an editorial hope and becomes a build gate. The 204-test suite caught breakages no human proofread would.",
+      "The checker design shapes learning more than the lesson text. Comparing result rows (not query strings) means any correct SQL passes — learners are free to find their own path to the answer, which is how confidence actually forms.",
+    ],
+    outcomes: [
+      "34 stages and 148 exercises live — from first SELECT through window functions, CTE recursion, EXPLAIN, and row-level security — on real PostgreSQL 18.",
+      "204-test suite green across every exercise; content changes are gated by tests against the live engine before deploy.",
+      "Zero-account, mobile-friendly, screen-reader-accessible product live on Vercel with Web Analytics measuring real usage.",
+    ],
+    technicalDetails: {
+      architecture: "A static site that boots PGlite — PostgreSQL 18 compiled to WebAssembly — inside the browser tab on demand. Each stage ships declarative exercise data: seed SQL, prompt, and a row-level checker. The learner's query runs against the in-tab Postgres instance; result rows are rendered and compared to the expected relation (order-insensitive where appropriate), so any semantically correct query passes. A Node test suite (204 tests) replays every exercise against the same engine in CI. Progress persists locally; Vercel serves the static bundle with cache-busted assets and Web Analytics.",
+      dataFlow: [
+        { step: "Learner opens SQLQuest; static bundle loads from Vercel CDN" },
+        { step: "PGlite boots PostgreSQL 18 in the tab; stage seed SQL creates tables" },
+        { step: "Learner writes a query and runs it" },
+        { step: "Real Postgres executes it; rows (or the real error) come back" },
+        { step: "Checker compares result rows to the expected relation" },
+        { step: "Pass: XP awarded, progress stored, next stage unlocks" },
+      ],
+    },
+    reflection: "SQLQuest confirmed a thesis PyQuest suggested: the WASM-ization of real engines is a product unlock for education, not just an engineering trick — the moment the real tool runs client-side, the whole cost-and-friction structure of teaching it collapses. What I'd do differently: I'd design the checker contract before writing a single exercise. Retrofitting row-comparison semantics (ordering, NULLs, float tolerance) across early exercises cost more than building the 148 exercises themselves. And I'd ship the test suite from exercise one — the 204 tests transformed content editing from nervous to fearless, which is precisely when curriculum quality started compounding. Next: a shared-dataset capstone tier where learners answer open analytical questions instead of guided exercises.",
   }
 ];
 
