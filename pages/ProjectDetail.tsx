@@ -77,7 +77,7 @@ export default function ProjectDetail() {
           <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-6">Next Project</p>
           <Link to={`/project/${nextProject.slug}`} className="group flex items-center justify-between gap-4">
             <div className="min-w-0">
-              <h3 className="font-display font-light text-2xl md:text-5xl text-ink leading-tight tracking-tight group-hover:text-ink-muted transition-colors duration-500">{nextProject.title}</h3>
+              <h3 className="font-display font-light text-2xl md:text-5xl text-ink leading-tight tracking-tight group-hover:text-ink-muted group-hover:translate-x-2 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">{nextProject.title}</h3>
               <p className="mt-2 text-sm text-ink-muted">{nextProject.date} · {nextProject.metrics}</p>
             </div>
             <span className="flex-shrink-0 inline-flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-px">

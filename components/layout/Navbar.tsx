@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 const navLinks = [
   { href: '#work',       label: 'Work'       },
@@ -84,8 +85,17 @@ export default function Navbar() {
     }
   };
 
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
+
   return (
     <>
+      {/* Reading-progress hairline */}
+      <motion.div
+        aria-hidden
+        className="fixed inset-x-0 top-0 z-50 h-[2px] origin-left"
+        style={{ scaleX: progress, background: 'rgba(26,20,16,0.55)' }}
+      />
       <nav className="fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none">
         <div
           className="nav-island pointer-events-auto flex items-center gap-1 px-2 py-2 md:px-3"

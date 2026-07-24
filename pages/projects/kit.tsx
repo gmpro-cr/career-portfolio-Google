@@ -37,8 +37,9 @@ export function Reveal({ children, delay = 0, className = '' }: { children: Reac
   return (
     <div ref={ref} className={className} style={{
       opacity: visible ? 1 : 0,
-      transform: visible ? 'none' : 'translateY(20px)',
-      transition: `opacity 0.6s ${EASE_STR} ${delay}s, transform 0.6s ${EASE_STR} ${delay}s`,
+      transform: visible ? 'none' : 'translateY(22px)',
+      filter: visible ? 'none' : 'blur(8px)',
+      transition: `opacity 0.7s ${EASE_STR} ${delay}s, transform 0.7s ${EASE_STR} ${delay}s, filter 0.7s ${EASE_STR} ${delay}s`,
     }}>
       {children}
     </div>
@@ -88,12 +89,15 @@ export function CaseHero({ project, theme }: { project: Project; theme: ProjectT
           </div>
           {project.image && (
             <div className="bezel" style={{ background: theme.accentBg }}>
-              <div className="bezel-core overflow-hidden" style={{ borderRadius: 'calc(2rem - 0.375rem)' }}>
+              <div
+                className="bezel-core overflow-hidden"
+                style={{ borderRadius: 'calc(2rem - 0.375rem)', animation: `wipeIn 1.2s ${EASE_STR} 0.35s both` }}
+              >
                 <img
                   src={project.image}
                   alt={`${project.title}, the deployed product`}
                   className="w-full object-cover object-top"
-                  style={{ aspectRatio: '16 / 10', maxHeight: 460 }}
+                  style={{ aspectRatio: '16 / 10', maxHeight: 460, animation: `heroImgSettle 1.6s ${EASE_STR} 0.35s both` }}
                 />
               </div>
             </div>

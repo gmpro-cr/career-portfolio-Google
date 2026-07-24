@@ -30,7 +30,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-500 ease-spring"
+              className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-500 ease-spring hover:-translate-y-0.5"
             >
               <LinkedinLogo size={16} weight="light" />
             </a>
@@ -39,7 +39,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-500 ease-spring"
+              className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-500 ease-spring hover:-translate-y-0.5"
             >
               <GithubLogo size={16} weight="light" />
             </a>
@@ -48,7 +48,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X"
-              className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-500 ease-spring"
+              className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-500 ease-spring hover:-translate-y-0.5"
             >
               <XMark size={14} />
             </a>
@@ -59,7 +59,7 @@ export default function Footer() {
             <button
               onClick={scrollToTop}
               aria-label="Back to top"
-              className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-500 ease-spring"
+              className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-500 ease-spring hover:-translate-y-0.5"
             >
               <ArrowUp size={14} weight="light" />
             </button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -105,15 +105,112 @@ const Reveal = ({
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? 'none' : 'translateY(16px)',
-        transition: `opacity 0.5s ${EASE} ${delay}s, transform 0.5s ${EASE} ${delay}s`,
-        willChange: visible ? 'auto' : 'opacity, transform',
+        transform: visible ? 'none' : 'translateY(18px)',
+        filter: visible ? 'none' : 'blur(8px)',
+        transition: `opacity 0.65s ${EASE} ${delay}s, transform 0.65s ${EASE} ${delay}s, filter 0.65s ${EASE} ${delay}s`,
+        willChange: visible ? 'auto' : 'opacity, transform, filter',
       }}
     >
       {children}
     </div>
   );
 };
+
+/* ── Masked line reveal — each line rises out of an overflow clip ── */
+function MaskLines({
+  lines, as: Tag = 'h2', className = '', style, base = 0.05, step = 0.09,
+}: {
+  lines: React.ReactNode[]; as?: 'h1' | 'h2' | 'p'; className?: string; style?: React.CSSProperties; base?: number; step?: number;
+}) {
+  const [ref, visible] = useOnceVisible();
+  return (
+    <div ref={ref}>
+      <Tag className={className} style={style}>
+        {lines.map((line, i) => (
+          <span key={i} className="block overflow-hidden">
+            <span
+              className="block"
+              style={{
+                transform: visible ? 'none' : 'translateY(112%)',
+                transition: `transform 0.9s ${EASE} ${base + i * step}s`,
+              }}
+            >
+              {line}
+            </span>
+          </span>
+        ))}
+      </Tag>
+    </div>
+  );
+}
+
+/* ── Count-up numeral — settles on the real value once visible ──── */
+function CountUp({ target, pad = 0, suffix }: { target: number; pad?: number; suffix?: React.ReactNode }) {
+  const [ref, visible] = useOnceVisible();
+  const reduced = useReducedMotion();
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!visible) return;
+    if (reduced) { setValue(target); return; }
+    const t0 = performance.now();
+    const dur = 1100;
+    let raf = 0;
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 4);
+      setValue(Math.round(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [visible, reduced, target]);
+  return (
+    <span ref={ref as React.Ref<HTMLSpanElement>} className="tabular">
+      {String(value).padStart(pad || String(target).length, '0')}
+      {suffix}
+    </span>
+  );
+}
+
+/* ── Keyword marquee — hairline-bound editorial ticker ──────────── */
+const MARQUEE_ITEMS = [
+  'Credit Risk', 'LLM Products', 'RAG & Evals', 'Prompt Architecture', 'Product Discovery',
+  'Retention Loops', 'WASM Runtimes', 'North Star Metrics', 'Human-in-the-Loop', 'Freemium Monetisation',
+];
+
+function Marquee() {
+  const items = (
+    <>
+      {MARQUEE_ITEMS.map(item => (
+        <span key={item} className="flex items-center gap-8 md:gap-12 shrink-0">
+          <span className="text-[10.5px] uppercase tracking-[0.28em] whitespace-nowrap" style={{ color: 'rgba(26,20,16,0.42)' }}>
+            {item}
+          </span>
+          <svg width="7" height="7" viewBox="0 0 7 7" aria-hidden className="shrink-0">
+            <path d="M3.5 0L7 3.5 3.5 7 0 3.5Z" fill="rgba(26,20,16,0.22)" />
+          </svg>
+        </span>
+      ))}
+    </>
+  );
+  return (
+    <div
+      className="relative overflow-hidden border-y border-hairline bg-white/50 py-4"
+      aria-hidden
+    >
+      <div
+        className="flex items-center w-max"
+        style={{ animation: 'marqueeX 40s linear infinite' }}
+      >
+        <div className="flex items-center gap-8 md:gap-12 pr-8 md:pr-12">{items}</div>
+        <div className="flex items-center gap-8 md:gap-12 pr-8 md:pr-12">{items}</div>
+      </div>
+      {/* Edge fades */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-24" style={{ background: 'linear-gradient(to right, #FDFBF7, transparent)' }} />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-24" style={{ background: 'linear-gradient(to left, #FDFBF7, transparent)' }} />
+    </div>
+  );
+}
 
 /* ── Stagger list — each child gets an incremental CSS delay ─────  */
 function StaggerList({
@@ -130,9 +227,10 @@ function StaggerList({
               style: {
                 ...(child.props as { style?: React.CSSProperties }).style,
                 opacity: visible ? 1 : 0,
-                transform: visible ? 'none' : 'translateY(14px)',
-                transition: `opacity 0.45s ${EASE} ${base + i * step}s, transform 0.45s ${EASE} ${base + i * step}s`,
-                willChange: visible ? 'auto' : 'opacity, transform',
+                transform: visible ? 'none' : 'translateY(16px)',
+                filter: visible ? 'none' : 'blur(6px)',
+                transition: `opacity 0.55s ${EASE} ${base + i * step}s, transform 0.55s ${EASE} ${base + i * step}s, filter 0.55s ${EASE} ${base + i * step}s`,
+                willChange: visible ? 'auto' : 'opacity, transform, filter',
               },
             })
           : child
@@ -188,10 +286,27 @@ function FlowDiagram({ steps }: { steps: { step: string }[] }) {
 function Hero() {
   const words = ['Gaurav', 'Mahale'];
 
+  /* Pointer-tilt physics for the portrait — springed, desktop only */
+  const reduced = useReducedMotion();
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-4.5, 4.5]), { stiffness: 60, damping: 14 });
+  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [3.5, -3.5]), { stiffness: 60, damping: 14 });
+
+  const onMove = (e: React.PointerEvent<HTMLElement>) => {
+    if (reduced || e.pointerType !== 'mouse') return;
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  };
+  const onLeave = () => { mx.set(0); my.set(0); };
+
   return (
     <section
       id="hero"
       className="relative min-h-[100dvh] flex items-center overflow-hidden bg-paper"
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
     >
       <div
         className="pointer-events-none absolute inset-0"
@@ -204,23 +319,29 @@ function Hero() {
         className="hidden lg:flex absolute right-8 md:right-16 lg:right-24 inset-y-0 items-center pointer-events-none"
         aria-hidden
       >
-        <div style={{ opacity: 0, animation: `heroPortrait 1s ${EASE} 0.2s forwards` }}>
-          <div
+        <div style={{ opacity: 0, animation: `heroPortrait 1s ${EASE} 0.2s forwards`, perspective: '1200px' }}>
+          <motion.div
             className="relative overflow-hidden"
             style={{
               width: 'clamp(240px, 30vw, 440px)',
               aspectRatio: '3 / 4',
               borderRadius: '1.75rem',
               boxShadow: '0 0 0 1.5px rgba(26,20,16,0.08), 0 32px 80px rgba(26,20,16,0.12)',
+              rotateX,
+              rotateY,
+              transformStyle: 'preserve-3d',
             }}
           >
             <img
               src="/profile.jpeg"
               alt="Gaurav Mahale"
               className="h-full w-full object-cover object-top scale-[1.12] origin-top"
-              style={{ filter: 'brightness(1.02) contrast(1.08) saturate(1.06)' }}
+              style={{
+                filter: 'brightness(1.02) contrast(1.08) saturate(1.06)',
+                animation: 'kenBurns 20s ease-in-out infinite alternate',
+              }}
             />
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -326,17 +447,17 @@ function Hero() {
         <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.8s forwards` }}>
           <div className="mt-10 lg:mt-14 flex items-stretch justify-center lg:justify-start">
             {[
-              { value: '09', unit: 'yrs', label: 'banking & credit risk' },
-              { value: '06', unit: '', label: 'products shipped, all live' },
-              { value: '500', unit: '+', label: 'users on the flagship' },
+              { target: 9, pad: 2, unit: 'yrs', label: 'banking & credit risk' },
+              { target: 6, pad: 2, unit: '', label: 'products shipped, all live' },
+              { target: 500, pad: 0, unit: '+', label: 'users on the flagship' },
             ].map((s, i) => (
               <div
                 key={s.label}
                 className={`flex flex-col ${i > 0 ? 'pl-6 md:pl-8 ml-6 md:ml-8' : ''}`}
                 style={i > 0 ? { borderLeft: '1px solid rgba(26,20,16,0.12)' } : undefined}
               >
-                <span className="font-display font-light oldstyle" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)', color: '#1A1410', lineHeight: 1 }}>
-                  {s.value}
+                <span className="font-display font-light" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)', color: '#1A1410', lineHeight: 1 }}>
+                  <CountUp target={s.target} pad={s.pad} />
                   {s.unit && <em className="italic font-normal" style={{ fontSize: '0.55em', color: 'rgba(26,20,16,0.5)' }}>{s.unit}</em>}
                 </span>
                 <span className="mt-1.5 text-[10px] uppercase tracking-[0.16em]" style={{ color: 'rgba(26,20,16,0.45)' }}>
@@ -373,17 +494,20 @@ function SelectedWork() {
   return (
     <section id="work" className="relative py-14 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <Reveal delay={0.06}>
-          <div className="flex items-end justify-between gap-6 border-b border-ink/15 pb-6">
-            <div>
+        <div className="flex items-end justify-between gap-6 border-b border-ink/15 pb-6">
+          <div>
+            <Reveal delay={0.02}>
               <span className="font-display italic text-ink-muted" style={{ fontSize: '0.95rem' }}>selected work</span>
-              <h2 className="mt-2 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
-                Six products, <em className="italic font-normal text-ink-muted">end to end.</em>
-              </h2>
-            </div>
-            <span className="hidden md:block font-display italic text-ink-muted oldstyle whitespace-nowrap" style={{ fontSize: '1.15rem' }}>06 / 06</span>
+            </Reveal>
+            <MaskLines
+              className="mt-2 font-display font-light text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink"
+              lines={['Six products,', <em key="i" className="italic font-normal text-ink-muted">end to end.</em>]}
+            />
           </div>
-        </Reveal>
+          <Reveal delay={0.25}>
+            <span className="hidden md:block font-display italic text-ink-muted oldstyle whitespace-nowrap" style={{ fontSize: '1.15rem' }}>06 / 06</span>
+          </Reveal>
+        </div>
 
         <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-5">
           {PROJECTS.map((project, idx) => {
@@ -393,8 +517,8 @@ function SelectedWork() {
             <Reveal delay={0.06 + idx * 0.08} className="flex flex-col">
               <Link
                 to={`/project/${project.slug}`}
-                className="bezel flex flex-col h-full group"
-                style={{ textDecoration: 'none', background: '#FDFBF7' }}
+                className="bezel work-card flex flex-col h-full group"
+                style={{ textDecoration: 'none', background: '#FDFBF7', ['--wc' as string]: theme.accent } as React.CSSProperties}
               >
                 <div
                   className="bezel-core flex flex-col h-full overflow-hidden"
@@ -421,6 +545,7 @@ function SelectedWork() {
                       style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(253,251,247,0.95) 100%)' }}
                       aria-hidden
                     />
+                    <div className="sheen" aria-hidden />
                     <div className="absolute top-4 left-4 z-10">
                       <span
                         className="font-display italic oldstyle text-sm px-2.5 py-1 rounded-full"
@@ -500,19 +625,34 @@ function SelectedWork() {
 /* ═══════════════════════════════════════════════════════════════
    TRAJECTORY
    ═══════════════════════════════════════════════════════════════ */
+/* The timeline spine draws itself as the section enters view */
+function TimelineRule() {
+  const [ref, visible] = useOnceVisible('-8%');
+  return (
+    <span
+      ref={ref as React.Ref<HTMLSpanElement>}
+      className="hidden md:block absolute left-[24%] top-0 bottom-0 w-px bg-ink/15"
+      style={{
+        transform: visible ? 'scaleY(1)' : 'scaleY(0)',
+        transformOrigin: 'top',
+        transition: `transform 1.8s ${EASE} 0.15s`,
+      }}
+      aria-hidden
+    />
+  );
+}
+
 function Trajectory() {
   return (
     <section id="trajectory" className="relative py-14 md:py-28 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <Reveal delay={0.06}>
-          <h2 className="mt-6 font-display font-light text-4xl md:text-6xl leading-[0.95] tracking-tight text-ink">
-            Nine years<br />
-            <em className="italic font-normal text-ink-muted">across two worlds.</em>
-          </h2>
-        </Reveal>
+        <MaskLines
+          className="mt-6 font-display font-light text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink"
+          lines={['Nine years', <em key="i" className="italic font-normal text-ink-muted">across two worlds.</em>]}
+        />
 
         <div className="mt-20 relative">
-          <span className="hidden md:block absolute left-[24%] top-0 bottom-0 w-px bg-ink/15" aria-hidden />
+          <TimelineRule />
           <StaggerList base={0} step={0.08} className="space-y-14 md:space-y-20">
             {EXPERIENCES.map((exp, i) => (
               <div key={i} className="grid md:grid-cols-12 gap-6 md:gap-10 relative">
@@ -592,15 +732,11 @@ function Toolkit() {
   return (
     <section id="toolkit" className="relative py-14 md:py-28 bg-paper">
       <div className="relative max-w-6xl mx-auto px-6 md:px-12">
-        <Reveal delay={0.06}>
-          <h2
-            className="mt-6 font-display font-light leading-[0.95] tracking-tight max-w-3xl text-ink"
-            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
-          >
-            How the work<br />
-            <em className="italic font-normal text-ink-muted">actually gets done.</em>
-          </h2>
-        </Reveal>
+        <MaskLines
+          className="mt-6 font-display font-light leading-[1.02] tracking-tight max-w-3xl text-ink"
+          style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
+          lines={['How the work', <em key="i" className="italic font-normal text-ink-muted">actually gets done.</em>]}
+        />
 
         <StaggerList base={0} step={0.06} className="mt-20 grid md:grid-cols-3 gap-x-10 gap-y-12">
           {TOOLKIT_GROUPS.map((group) => (
@@ -610,7 +746,7 @@ function Toolkit() {
               </p>
               <ul className="space-y-2.5">
                 {group.items.map(item => (
-                  <li key={item} className="font-display font-light text-xl md:text-2xl tracking-tight text-ink">
+                  <li key={item} className="tk-item font-display font-light text-xl md:text-2xl tracking-tight text-ink">
                     {item}
                   </li>
                 ))}
@@ -626,17 +762,34 @@ function Toolkit() {
 /* ═══════════════════════════════════════════════════════════════
    CONTACT
    ═══════════════════════════════════════════════════════════════ */
+/* ── Magnetic pill — leans toward the cursor, springs back ──────── */
+function MagneticLink({ href, className, children }: { href: string; className?: string; children: React.ReactNode }) {
+  const reduced = useReducedMotion();
+  const x = useSpring(useMotionValue(0), { stiffness: 180, damping: 16 });
+  const y = useSpring(useMotionValue(0), { stiffness: 180, damping: 16 });
+  const onMove = (e: React.PointerEvent<HTMLAnchorElement>) => {
+    if (reduced || e.pointerType !== 'mouse') return;
+    const r = e.currentTarget.getBoundingClientRect();
+    x.set(((e.clientX - r.left) / r.width - 0.5) * 14);
+    y.set(((e.clientY - r.top) / r.height - 0.5) * 10);
+  };
+  const onLeave = () => { x.set(0); y.set(0); };
+  return (
+    <motion.a href={href} className={className} style={{ x, y }} onPointerMove={onMove} onPointerLeave={onLeave}>
+      {children}
+    </motion.a>
+  );
+}
+
 function Contact() {
   return (
     <section id="contact" className="relative py-14 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
-        <Reveal delay={0.06}>
-          <h2 className="mt-8 font-display font-light leading-[0.95] tracking-tight text-ink"
-            style={{ fontSize: 'clamp(2.6rem, 7vw, 5rem)' }}>
-            Let&rsquo;s build<br />
-            <em className="italic font-normal text-ink-muted">something real.</em>
-          </h2>
-        </Reveal>
+        <MaskLines
+          className="mt-8 font-display font-light leading-[1.02] tracking-tight text-ink"
+          style={{ fontSize: 'clamp(2.6rem, 7vw, 5rem)' }}
+          lines={['Let’s build', <em key="i" className="italic font-normal text-ink-muted">something real.</em>]}
+        />
         <Reveal delay={0.12}>
           <p className="mt-10 max-w-xl mx-auto text-base md:text-lg text-ink/70 font-normal leading-relaxed">
             Whether it&rsquo;s an AI PM role, scaling an LLM product, or navigating a complex
@@ -645,10 +798,10 @@ function Contact() {
         </Reveal>
         <Reveal delay={0.2}>
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="mailto:mahalegauravk@gmail.com" className="btn-pill">
+            <MagneticLink href="mailto:mahalegauravk@gmail.com" className="btn-pill">
               mahalegauravk@gmail.com
               <span className="btn-pill-icon"><PaperPlaneTilt size={14} weight="light" /></span>
-            </a>
+            </MagneticLink>
             <div className="flex gap-2">
               {[
                 { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinLogo size={18} weight="light" /> },
@@ -879,6 +1032,7 @@ export default function Home() {
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
         <Hero />
+        <Marquee />
         <SelectedWork />
         <Trajectory />
         <Toolkit />
