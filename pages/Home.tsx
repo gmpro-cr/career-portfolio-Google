@@ -144,74 +144,6 @@ function MaskLines({
   );
 }
 
-/* ── Count-up numeral — settles on the real value once visible ──── */
-function CountUp({ target, pad = 0, suffix }: { target: number; pad?: number; suffix?: React.ReactNode }) {
-  const [ref, visible] = useOnceVisible();
-  const reduced = useReducedMotion();
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!visible) return;
-    if (reduced) { setValue(target); return; }
-    const t0 = performance.now();
-    const dur = 1100;
-    let raf = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - t0) / dur);
-      const eased = 1 - Math.pow(1 - p, 4);
-      setValue(Math.round(target * eased));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [visible, reduced, target]);
-  return (
-    <span ref={ref as React.Ref<HTMLSpanElement>} className="tabular">
-      {String(value).padStart(pad || String(target).length, '0')}
-      {suffix}
-    </span>
-  );
-}
-
-/* ── Keyword marquee — hairline-bound editorial ticker ──────────── */
-const MARQUEE_ITEMS = [
-  'Credit Risk', 'LLM Products', 'RAG & Evals', 'Prompt Architecture', 'Product Discovery',
-  'Retention Loops', 'WASM Runtimes', 'North Star Metrics', 'Human-in-the-Loop', 'Freemium Monetisation',
-];
-
-function Marquee() {
-  const items = (
-    <>
-      {MARQUEE_ITEMS.map(item => (
-        <span key={item} className="flex items-center gap-8 md:gap-12 shrink-0">
-          <span className="text-[10.5px] uppercase tracking-[0.28em] whitespace-nowrap" style={{ color: 'rgba(26,20,16,0.42)' }}>
-            {item}
-          </span>
-          <svg width="7" height="7" viewBox="0 0 7 7" aria-hidden className="shrink-0">
-            <path d="M3.5 0L7 3.5 3.5 7 0 3.5Z" fill="rgba(26,20,16,0.22)" />
-          </svg>
-        </span>
-      ))}
-    </>
-  );
-  return (
-    <div
-      className="relative overflow-hidden border-y border-hairline bg-white/50 py-4"
-      aria-hidden
-    >
-      <div
-        className="flex items-center w-max"
-        style={{ animation: 'marqueeX 40s linear infinite' }}
-      >
-        <div className="flex items-center gap-8 md:gap-12 pr-8 md:pr-12">{items}</div>
-        <div className="flex items-center gap-8 md:gap-12 pr-8 md:pr-12">{items}</div>
-      </div>
-      {/* Edge fades */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-24" style={{ background: 'linear-gradient(to right, #FDFBF7, transparent)' }} />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24" style={{ background: 'linear-gradient(to left, #FDFBF7, transparent)' }} />
-    </div>
-  );
-}
-
 /* ── Stagger list — each child gets an incremental CSS delay ─────  */
 function StaggerList({
   children, base = 0, step = 0.05, className = '', style,
@@ -440,31 +372,6 @@ function Hero() {
                 <FileText size={14} />
               </span>
             </a>
-          </div>
-        </div>
-
-        {/* Editorial stat strip */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.8s forwards` }}>
-          <div className="mt-10 lg:mt-14 flex items-stretch justify-center lg:justify-start">
-            {[
-              { target: 9, pad: 2, unit: 'yrs', label: 'banking & credit risk' },
-              { target: 6, pad: 2, unit: '', label: 'products shipped, all live' },
-              { target: 500, pad: 0, unit: '+', label: 'users on the flagship' },
-            ].map((s, i) => (
-              <div
-                key={s.label}
-                className={`flex flex-col ${i > 0 ? 'pl-6 md:pl-8 ml-6 md:ml-8' : ''}`}
-                style={i > 0 ? { borderLeft: '1px solid rgba(26,20,16,0.12)' } : undefined}
-              >
-                <span className="font-display font-light" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)', color: '#1A1410', lineHeight: 1 }}>
-                  <CountUp target={s.target} pad={s.pad} />
-                  {s.unit && <em className="italic font-normal" style={{ fontSize: '0.55em', color: 'rgba(26,20,16,0.5)' }}>{s.unit}</em>}
-                </span>
-                <span className="mt-1.5 text-[10px] uppercase tracking-[0.16em]" style={{ color: 'rgba(26,20,16,0.45)' }}>
-                  {s.label}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
 
@@ -1032,7 +939,6 @@ export default function Home() {
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
         <Hero />
-        <Marquee />
         <SelectedWork />
         <Trajectory />
         <Toolkit />
