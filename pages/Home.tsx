@@ -269,7 +269,7 @@ function Hero() {
               alt="Gaurav Mahale"
               className="h-full w-full object-cover object-top scale-[1.12] origin-top"
               style={{
-                filter: 'brightness(1.02) contrast(1.08) saturate(1.06)',
+                filter: 'grayscale(1) brightness(1.02) contrast(1.12)',
                 animation: 'kenBurns 20s ease-in-out infinite alternate',
               }}
             />
@@ -295,7 +295,7 @@ function Hero() {
               src="/profile.jpeg"
               alt="Gaurav Mahale"
               className="w-full h-full object-cover object-top"
-              style={{ filter: 'brightness(1.02) contrast(1.08) saturate(1.06)' }}
+              style={{ filter: 'grayscale(1) brightness(1.02) contrast(1.12)' }}
             />
           </div>
         </div>
