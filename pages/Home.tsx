@@ -253,24 +253,23 @@ function Hero() {
       >
         <div style={{ opacity: 0, animation: `heroPortrait 1s ${EASE} 0.2s forwards`, perspective: '1200px' }}>
           <motion.div
-            className="relative overflow-hidden"
+            className="relative"
             style={{
-              width: 'clamp(240px, 30vw, 440px)',
-              aspectRatio: '3 / 4',
-              borderRadius: '1.75rem',
-              boxShadow: '0 0 0 1.5px rgba(26,20,16,0.08), 0 32px 80px rgba(26,20,16,0.12)',
+              width: 'clamp(260px, 32vw, 460px)',
               rotateX,
               rotateY,
               transformStyle: 'preserve-3d',
             }}
           >
+            {/* Cut-out subject on transparency — the paper background reads
+                straight through, so there is no card edge to break the page. */}
             <img
-              src="/profile.jpeg"
+              src="/profile-cutout.png"
               alt="Gaurav Mahale"
-              className="h-full w-full object-cover object-top scale-[1.12] origin-top"
+              className="w-full h-auto object-contain"
               style={{
-                filter: 'grayscale(1) brightness(1.02) contrast(1.12)',
-                animation: 'kenBurns 20s ease-in-out infinite alternate',
+                filter:
+                  'grayscale(1) brightness(1.02) contrast(1.12) drop-shadow(0 26px 40px rgba(26,20,16,0.16))',
               }}
             />
           </motion.div>
@@ -288,11 +287,12 @@ function Hero() {
           <div
             className="w-36 h-36 rounded-full overflow-hidden"
             style={{
+              background: '#FDFBF7',
               boxShadow: '0 0 0 2px rgba(26,20,16,0.08), 0 12px 32px rgba(26,20,16,0.14)',
             }}
           >
             <img
-              src="/profile.jpeg"
+              src="/profile-cutout.png"
               alt="Gaurav Mahale"
               className="w-full h-full object-cover object-top"
               style={{ filter: 'grayscale(1) brightness(1.02) contrast(1.12)' }}
