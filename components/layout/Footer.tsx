@@ -1,6 +1,7 @@
 import React from 'react';
 import { LinkedinLogo, GithubLogo, ArrowUp } from '@phosphor-icons/react';
 import XMark from '../XMark';
+import VisitorCount from '../VisitorCount';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -53,6 +54,7 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-4 text-xs text-ink-muted">
+            <VisitorCount />
             <span className="tabular">© {new Date().getFullYear()}</span>
             <button
               onClick={scrollToTop}
