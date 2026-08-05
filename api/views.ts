@@ -3,20 +3,24 @@ import { Redis } from '@upstash/redis';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 /**
- * Distinct-visitor counter.
+ * Distinct-device counter.
  *
- * Identity is sha256(ip + user-agent + salt), handed straight to a Redis
- * HyperLogLog. HLL keeps only probabilistic registers — the hash is discarded
- * and never written anywhere — so there is no visitor identifier at rest to
- * leak, and the count cannot be reversed into a visitor list. Cost is ~0.8%
- * error on the total, which is well inside the precision anyone reads a
- * portfolio counter at.
+ * Identity is a random id the browser mints once and keeps in localStorage —
+ * not an IP, which identifies a network rather than a device (the same phone
+ * on wifi and on mobile data is one device but two IPs; two laptops behind one
+ * router can be two devices on one IP).
  *
- * POST → count this request, then return the total.
- * GET  → return the total only.
+ * The id is hashed with a server-side salt and handed to a Redis HyperLogLog,
+ * which keeps only probabilistic registers. The hash is discarded and never
+ * written, so there is no device identifier at rest and the count cannot be
+ * reversed into a visitor list. A HyperLogLog also only ever grows — there is
+ * no decrement, so the total cannot regress.
  *
- * Never surfaces an error to the page: if Redis is unreachable or unset, it
- * answers 204 and the UI simply renders nothing.
+ * POST { id } → count this device, then return the total.
+ * GET          → return the total only.
+ *
+ * Never surfaces an error to the page: on any failure it answers 204 and the
+ * UI renders nothing rather than a zero.
  */
 
 // Preview and dev deploys share the same Redis instance, so they get their own
@@ -26,15 +30,35 @@ const KEY =
     ? 'portfolio:visitors'
     : `portfolio:visitors:${process.env.VERCEL_ENV || 'dev'}`;
 
-function visitorHash(req: VercelRequest): string {
+// A client-supplied id is inherently forgeable, so cap counting POSTs per IP
+// per hour. A normal visitor sends exactly one, ever; going over the cap only
+// skips the PFADD, the count is still returned, so nothing visibly breaks.
+const RATE_LIMIT = 10;
+const RATE_WINDOW_SECONDS = 3600;
+
+/** Device ids we minted are UUIDs; accept only that shape. */
+function isValidId(id: unknown): id is string {
+  return typeof id === 'string' && /^[a-zA-Z0-9-]{8,64}$/.test(id);
+}
+
+function clientIp(req: VercelRequest): string {
   const forwarded = req.headers['x-forwarded-for'];
-  const ip = (Array.isArray(forwarded) ? forwarded[0] : forwarded || '')
+  return (Array.isArray(forwarded) ? forwarded[0] : forwarded || '')
     .split(',')[0]
     .trim();
-  const ua = req.headers['user-agent'] || '';
-  const salt = process.env.VISITOR_SALT || '';
+}
 
-  return crypto.createHash('sha256').update(`${ip}|${ua}|${salt}`).digest('hex');
+function hash(value: string): string {
+  const salt = process.env.VISITOR_SALT || '';
+  return crypto.createHash('sha256').update(`${value}|${salt}`).digest('hex');
+}
+
+/** True when this IP still has budget to register a new device. */
+async function withinRateLimit(redis: Redis, req: VercelRequest): Promise<boolean> {
+  const key = `portfolio:rate:${hash(clientIp(req)).slice(0, 32)}`;
+  const hits = await redis.incr(key);
+  if (hits === 1) await redis.expire(key, RATE_WINDOW_SECONDS);
+  return hits <= RATE_LIMIT;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -51,19 +75,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const redis = Redis.fromEnv();
 
     if (req.method === 'POST') {
-      await redis.pfadd(KEY, visitorHash(req));
+      const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+      const id = body?.id;
+
+      if (isValidId(id) && (await withinRateLimit(redis, req))) {
+        await redis.pfadd(KEY, hash(id));
+      }
     }
 
     const count = await redis.pfcount(KEY);
 
-    // Let the CDN absorb the reads; a portfolio counter does not need to be
-    // to-the-second accurate, and this keeps us far inside the free tier.
-    res.setHeader(
-      'Cache-Control',
-      req.method === 'POST'
-        ? 'no-store'
-        : 'public, s-maxage=60, stale-while-revalidate=300',
-    );
+    // Deliberately uncached. A single PFCOUNT is cheap, and edge-caching the
+    // read is what previously let a returning visitor be served an older,
+    // lower number — the count appearing to reset.
+    res.setHeader('Cache-Control', 'no-store');
 
     return res.status(200).json({ count });
   } catch {

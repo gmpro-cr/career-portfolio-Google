@@ -1,43 +1,84 @@
 import React, { useEffect, useState } from 'react';
 
-/* ── Distinct visitor count ───────────────────────────────────────
-   Counts once per browser session; every other mount just reads. The
-   server dedupes properly by hashed IP, so the session guard is only
-   there to keep writes off the free-tier command budget.
+/* ── Distinct device count ────────────────────────────────────────
+   The browser mints a random id once and keeps it; the server folds it
+   into a HyperLogLog. So the number is unique devices, and because an
+   HLL only ever grows it accumulates and cannot fall.
 
-   Renders nothing until a real number arrives — a cold endpoint should
-   leave no empty affordance sitting in the footer. */
+   Two guarantees on the display side: it never renders 0, and it never
+   renders lower than this device has already seen. */
 
-const SESSION_KEY = 'gm:counted';
+const ID_KEY = 'gm:device';
+const COUNTED_KEY = 'gm:counted';
+const HIGH_KEY = 'gm:high';
+
+/** localStorage throws in some privacy modes — never let that break a render. */
+function readStore(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function writeStore(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    /* ignore */
+  }
+}
+
+function deviceId(): string {
+  const existing = readStore(ID_KEY);
+  if (existing) return existing;
+
+  const minted =
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID()
+      : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 14)}`;
+
+  writeStore(ID_KEY, minted);
+  return minted;
+}
 
 export default function VisitorCount() {
-  const [count, setCount] = useState<number | null>(null);
+  // Seed from the highest figure this device has seen, so a slow or failed
+  // request can never make the number appear to drop.
+  const [count, setCount] = useState<number | null>(() => {
+    const stored = Number(readStore(HIGH_KEY));
+    return Number.isFinite(stored) && stored > 0 ? stored : null;
+  });
 
   useEffect(() => {
     let cancelled = false;
 
-    // sessionStorage throws in some privacy modes; a failure here should
-    // only mean "count it again", never a broken render.
-    let counted = false;
-    try {
-      counted = sessionStorage.getItem(SESSION_KEY) === '1';
-    } catch {
-      /* ignore */
-    }
+    const id = deviceId();
+    const alreadyCounted = readStore(COUNTED_KEY) === '1';
 
-    fetch('/api/views', { method: counted ? 'GET' : 'POST' })
+    const request = alreadyCounted
+      ? fetch('/api/views')
+      : fetch('/api/views', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id }),
+        });
+
+    request
       .then(r => (r.ok ? r.json() : null))
       .then(data => {
         if (cancelled || !data || typeof data.count !== 'number') return;
-        setCount(data.count);
-        try {
-          sessionStorage.setItem(SESSION_KEY, '1');
-        } catch {
-          /* ignore */
-        }
+
+        writeStore(COUNTED_KEY, '1');
+
+        setCount(previous => {
+          const next = Math.max(data.count, previous ?? 0);
+          if (next > 0) writeStore(HIGH_KEY, String(next));
+          return next;
+        });
       })
       .catch(() => {
-        /* endpoint down or not provisioned — stay silent */
+        /* endpoint down — keep whatever we already had, show nothing if none */
       });
 
     return () => {
@@ -45,12 +86,13 @@ export default function VisitorCount() {
     };
   }, []);
 
-  if (count === null) return null;
+  // Never render a zero.
+  if (count === null || count < 1) return null;
 
   return (
     <span
       className="inline-flex items-baseline gap-1.5 rounded-full border border-hairline bg-white px-3 py-1.5"
-      title="Distinct visitors, counted without cookies or third-party analytics"
+      title="Distinct devices, counted without cookies or third-party analytics"
     >
       <span className="tabular text-ink" style={{ fontSize: '0.8rem', fontWeight: 500 }}>
         {count.toLocaleString('en-IN')}
