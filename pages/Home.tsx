@@ -291,10 +291,13 @@ function Hero() {
               boxShadow: '0 0 0 2px rgba(26,20,16,0.08), 0 12px 32px rgba(26,20,16,0.14)',
             }}
           >
+            {/* Its own square crop, framed on the head. The hero cutout is
+                composed for a full-torso portrait and sits off-centre, so
+                centring it in a circle pushes the face to one side. */}
             <img
-              src="/profile-cutout.png"
+              src="/profile-avatar.png"
               alt="Gaurav Mahale"
-              className="w-full h-full object-cover object-top"
+              className="w-full h-full object-cover"
               style={{ filter: 'grayscale(1) brightness(1.02) contrast(1.12)' }}
             />
           </div>
