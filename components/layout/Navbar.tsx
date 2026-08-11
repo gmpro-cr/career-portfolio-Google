@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
 const navLinks = [
-  { href: '#work',       label: 'Work'       },
+  { href: '#work',       label: 'Projects'   },
   { href: '#trajectory', label: 'Trajectory' },
   { href: '#contact',    label: 'Contact'    },
 ];

@@ -353,7 +353,7 @@ function Hero() {
               className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium transition-all duration-500 whitespace-nowrap"
               style={{ background: '#1A1410', color: '#FDFBF7' }}
             >
-              View my work
+              View my projects
               <span className="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-px">
                 <ArrowDown size={14} />
               </span>
@@ -402,7 +402,7 @@ function SelectedWork() {
         <div className="flex items-end justify-between gap-6 border-b border-ink/15 pb-6">
           <div>
             <Reveal delay={0.02}>
-              <span className="font-display italic text-ink-muted" style={{ fontSize: '0.95rem' }}>selected work</span>
+              <span className="font-display italic text-ink-muted" style={{ fontSize: '0.95rem' }}>selected projects</span>
             </Reveal>
             <MaskLines
               className="mt-2 font-display font-light text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink"
