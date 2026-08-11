@@ -5,12 +5,11 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 const navLinks = [
   { href: '#work',       label: 'Work'       },
   { href: '#trajectory', label: 'Trajectory' },
-  { href: '#toolkit',    label: 'Toolkit'    },
   { href: '#contact',    label: 'Contact'    },
 ];
 
 const EASE = 'cubic-bezier(0.32, 0.72, 0, 1)';
-const ALL_SECTIONS = ['hero', 'work', 'trajectory', 'toolkit', 'contact'];
+const ALL_SECTIONS = ['hero', 'work', 'trajectory', 'contact'];
 
 export default function Navbar() {
   const [isOpen, setIsOpen]         = useState(false);
