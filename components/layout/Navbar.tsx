@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
 const navLinks = [
@@ -17,14 +17,10 @@ export default function Navbar() {
   const [navVisible, setNavVisible] = useState(true);
   const idleTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pastHeroRef = useRef(false);
-  const location   = useLocation();
   const navigate   = useNavigate();
-  const isProjectPage = location.pathname.startsWith('/project/');
 
-  /* ── scroll tracking (home only) ─────────────────────────── */
+  /* ── scroll tracking ──────────────────────────────────────── */
   useEffect(() => {
-    if (isProjectPage) { setNavVisible(true); return; }
-
     let raf = 0;
     const update = () => {
       let current = '';
@@ -55,7 +51,7 @@ export default function Navbar() {
       if (raf) cancelAnimationFrame(raf);
       if (idleTimer.current) clearTimeout(idleTimer.current);
     };
-  }, [isProjectPage]);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -71,17 +67,8 @@ export default function Navbar() {
   const go = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setIsOpen(false);
-    if (isProjectPage) {
-      // Navigate home then scroll to section
-      navigate('/');
-      setTimeout(() => {
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 120);
-    } else {
-      const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   const { scrollYProgress } = useScroll();
@@ -121,7 +108,7 @@ export default function Navbar() {
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(link => {
-              const active = !isProjectPage && activeSection === link.href;
+              const active = activeSection === link.href;
               return (
                 <a
                   key={link.href}

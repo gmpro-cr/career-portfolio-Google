@@ -1,19 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import {
   ArrowRight,
   ArrowDown,
+  ArrowUpRight,
   GraduationCap,
   SealCheck,
   PaperPlaneTilt,
   GithubLogo,
   LinkedinLogo,
   FileText,
+  X,
+  CaretDown,
 } from '@phosphor-icons/react';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA, getTheme } from '../constants';
 import type { ProjectTheme } from '../types';
 import XMark from '../components/XMark';
+import { PROJECT_EXTRAS, type CaseProps } from './projects/caseData';
+import PersonaCase from './projects/PersonaCase';
+import CreditCase from './projects/CreditCase';
+import JobAgentCase from './projects/JobAgentCase';
+import AIEngineeringCase from './projects/AIEngineeringCase';
+import PyQuestCase from './projects/PyQuestCase';
+import SQLQuestCase from './projects/SQLQuestCase';
+
+/* Each project gets its own bespoke case-study layout. */
+const CASE_COMPONENTS: Record<string, React.ComponentType<CaseProps>> = {
+  'ai-persona-interaction-platform': PersonaCase,
+  'ai-credit-intelligence-platform': CreditCase,
+  'automated-job-discovery-agent': JobAgentCase,
+  'ai-engineering-field-guide': AIEngineeringCase,
+  'pyquest-learn-python-by-writing-it': PyQuestCase,
+  'sqlquest-learn-sql-on-real-postgres': SQLQuestCase,
+};
 
 /* ── Mini flow diagram for project cards ─────────────────────────── */
 const CardFlow = ({ steps, theme }: { steps: string[]; theme: ProjectTheme }) => (
@@ -393,9 +413,130 @@ function Hero() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SELECTED WORK — cards navigate to /project/:slug
+   ExpandedCase — the full case study, mounted in place under the grid
+   ═══════════════════════════════════════════════════════════════ */
+function ExpandedCase({
+  slug, closing, onClose, onNext,
+}: { slug: string; closing: boolean; onClose: () => void; onNext: () => void }) {
+  const project = PROJECTS.find(p => p.slug === slug);
+  const extras = PROJECT_EXTRAS[slug];
+  const CaseBody = CASE_COMPONENTS[slug];
+  const theme = getTheme(slug);
+  if (!project || !extras || !CaseBody) return null;
+
+  const currentIdx = PROJECTS.findIndex(p => p.slug === slug);
+  const nextProject = PROJECTS[(currentIdx + 1) % PROJECTS.length];
+
+  return (
+    <div
+      style={{
+        opacity: closing ? 0 : 1,
+        transform: closing ? 'translateY(12px)' : 'none',
+        transition: `opacity 0.35s ${EASE}, transform 0.35s ${EASE}`,
+      }}
+      className="mt-10 md:mt-14 overflow-hidden rounded-[2rem] border border-hairline bg-paper"
+    >
+      {/* Close bar */}
+      <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-4 md:px-12 py-4 bg-paper/95 backdrop-blur border-b border-hairline">
+        <p className="font-display italic text-sm text-ink-muted truncate">{project.title}</p>
+        <div className="flex items-center gap-3 flex-shrink-0">
+          {project.link && (
+            <a href={project.link} target="_blank" rel="noreferrer" className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-ink-muted transition-colors">
+              Live site <ArrowUpRight size={13} weight="light" />
+            </a>
+          )}
+          {project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noreferrer" className="hidden sm:inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-ink transition-colors">
+              <GithubLogo size={14} weight="light" /> GitHub
+            </a>
+          )}
+          <button
+            onClick={onClose}
+            aria-label="Collapse case study"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200"
+          >
+            <X size={14} weight="light" />
+          </button>
+        </div>
+      </div>
+
+      <CaseBody project={project} extras={extras} theme={theme} />
+
+      {/* Next project */}
+      <div className="py-10 md:py-16 border-t border-hairline">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
+          <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-6">Next Project</p>
+          <button onClick={onNext} className="group flex items-center justify-between gap-4 w-full text-left">
+            <div className="min-w-0">
+              <h3 className="font-display font-light text-2xl md:text-5xl text-ink leading-tight tracking-tight group-hover:text-ink-muted group-hover:translate-x-2 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">{nextProject.title}</h3>
+              <p className="mt-2 text-sm text-ink-muted">{nextProject.date} · {nextProject.metrics}</p>
+            </div>
+            <span className="flex-shrink-0 inline-flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-px">
+              <ArrowRight size={16} weight="light" />
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SELECTED WORK — cards expand their case study in place
    ═══════════════════════════════════════════════════════════════ */
 function SelectedWork() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  // openSlug drives the cards' own highlighted/"Collapse" state (instant).
+  // mountedSlug is what's actually in the DOM — it lags behind on close so
+  // the panel can fade out via plain CSS transition before being removed.
+  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const [mountedSlug, setMountedSlug] = useState<string | null>(null);
+  const [closing, setClosing] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const didAutoOpen = useRef(false);
+
+  const openProject = (slug: string) => {
+    if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; }
+    setOpenSlug(slug);
+    setMountedSlug(slug);
+    setClosing(false);
+  };
+
+  const closeProject = () => {
+    setOpenSlug(null);
+    setClosing(true);
+    closeTimer.current = setTimeout(() => {
+      setMountedSlug(null);
+      setClosing(false);
+    }, 350);
+  };
+
+  useEffect(() => {
+    if (didAutoOpen.current) return;
+    const requested = searchParams.get('project');
+    if (requested && CASE_COMPONENTS[requested]) {
+      didAutoOpen.current = true;
+      openProject(requested);
+      const next = new URLSearchParams(searchParams);
+      next.delete('project');
+      setSearchParams(next, { replace: true });
+
+      // Instant, not smooth: this is a page-load landing position (like a
+      // native #anchor jump), not a click-triggered scroll — and Chromium
+      // silently drops smooth-scroll animation requests on a backgrounded
+      // tab (e.g. a link opened via middle-click), where instant scrolls
+      // still apply immediately.
+      setTimeout(() => {
+        document.getElementById('work')?.scrollIntoView({ behavior: 'instant' });
+      }, 150);
+    }
+  }, [searchParams, setSearchParams]);
+
+  const toggle = (slug: string) => {
+    if (openSlug === slug) closeProject();
+    else openProject(slug);
+  };
+
   return (
     <section id="work" className="relative py-14 md:py-36 bg-paper">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
@@ -417,13 +558,21 @@ function SelectedWork() {
         <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-5">
           {PROJECTS.map((project, idx) => {
             const theme = getTheme(project.slug);
+            const isExpanded = openSlug === project.slug;
             return (
             <React.Fragment key={idx}>
             <Reveal delay={0.06 + idx * 0.08} className="flex flex-col">
-              <Link
-                to={`/project/${project.slug}`}
-                className="bezel work-card flex flex-col h-full group"
-                style={{ textDecoration: 'none', background: '#FDFBF7', ['--wc' as string]: theme.accent } as React.CSSProperties}
+              <button
+                type="button"
+                onClick={() => toggle(project.slug)}
+                aria-expanded={isExpanded}
+                className="bezel work-card flex flex-col h-full group text-left w-full"
+                style={{
+                  textDecoration: 'none',
+                  background: '#FDFBF7',
+                  ['--wc' as string]: theme.accent,
+                  boxShadow: isExpanded ? `0 0 0 2px ${theme.accent}` : undefined,
+                } as React.CSSProperties}
               >
                 <div
                   className="bezel-core flex flex-col h-full overflow-hidden"
@@ -508,20 +657,38 @@ function SelectedWork() {
                     )}
                     <div className="mt-5 pt-4 border-t border-hairline">
                       <div className="flex items-center justify-between text-sm font-medium text-ink">
-                        <span>View case study</span>
-                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px" style={{ background: theme.accent }}>
-                          <ArrowRight size={13} weight="light" />
+                        <span>{isExpanded ? 'Collapse' : 'View case study'}</span>
+                        <span
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
+                          style={{
+                            background: theme.accent,
+                            transform: isExpanded ? 'rotate(90deg)' : undefined,
+                          }}
+                        >
+                          {isExpanded ? <CaretDown size={13} weight="light" /> : <ArrowRight size={13} weight="light" />}
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-              </Link>
+              </button>
             </Reveal>
             </React.Fragment>
           );
           })}
         </div>
+
+        {mountedSlug && (
+          <ExpandedCase
+            slug={mountedSlug}
+            closing={closing}
+            onClose={closeProject}
+            onNext={() => {
+              const idx = PROJECTS.findIndex(p => p.slug === mountedSlug);
+              openProject(PROJECTS[(idx + 1) % PROJECTS.length].slug);
+            }}
+          />
+        )}
       </div>
     </section>
   );
