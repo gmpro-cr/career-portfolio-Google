@@ -97,13 +97,12 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={e => go(e, link.href)}
-                  className="relative text-sm py-1 transition-colors duration-300"
+                  className="group relative text-sm py-1 transition-colors duration-300"
                   style={{ color: active ? '#1A1410' : '#78716C' }}
                 >
                   {link.label}
                   <span
-                    className="absolute left-0 -bottom-0.5 h-px bg-ink transition-all duration-300"
-                    style={{ width: active ? '100%' : '0%' }}
+                    className={`absolute left-0 -bottom-0.5 h-px bg-ink transition-all duration-300 ${active ? 'w-full' : 'w-0 group-hover:w-full'}`}
                     aria-hidden
                   />
                 </a>

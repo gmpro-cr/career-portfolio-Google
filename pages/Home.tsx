@@ -151,10 +151,15 @@ function Hero() {
             </p>
           </div>
           <div
-            className="flex-shrink-0 rounded-full overflow-hidden w-14 h-14 sm:w-[84px] sm:h-[84px]"
-            style={{ boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
+            className="flex-shrink-0"
+            style={{ opacity: 0, animation: `popIn 0.6s ${EASE} 0.2s forwards` }}
           >
-            <img src="/profile-avatar.png" alt="Gaurav Mahale" className="w-full h-full object-cover" />
+            <div
+              className="rounded-full overflow-hidden w-[68px] h-[68px] sm:w-[104px] sm:h-[104px] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-rotate-3 hover:scale-105"
+              style={{ boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
+            >
+              <img src="/profile-avatar.png" alt="Gaurav Mahale" className="w-full h-full object-cover" />
+            </div>
           </div>
         </div>
 
@@ -175,16 +180,16 @@ function Hero() {
         </div>
 
         <div className="mt-7 flex gap-2.5" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
-          <a href="mailto:mahalegauravk@gmail.com" aria-label="Email" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+          <a href="mailto:mahalegauravk@gmail.com" aria-label="Email" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
             <EnvelopeSimple size={16} weight="light" />
           </a>
-          <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+          <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
             <LinkedinLogo size={16} weight="light" />
           </a>
-          <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+          <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
             <GithubLogo size={16} weight="light" />
           </a>
-          <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" aria-label="X" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+          <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" aria-label="X" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
             <XMark size={14} />
           </a>
         </div>
@@ -209,17 +214,20 @@ function TechStack() {
           <span className="font-display italic text-ink-muted" style={{ fontSize: '0.85rem' }}>tech stack</span>
           <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">What I build with</h2>
         </Reveal>
-        <Reveal delay={0.08} className="mt-5 flex flex-wrap gap-2">
-          {TECH_STACK.map(t => (
-            <span
-              key={t}
-              className="text-sm border border-hairline bg-white rounded-full px-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.25)]"
-              style={{ color: 'rgba(26,20,16,0.75)' }}
-            >
-              {t}
-            </span>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {TECH_STACK.map((t, i) => (
+            <React.Fragment key={t}>
+              <Reveal delay={0.06 + i * 0.035} className="inline-block">
+                <span
+                  className="text-sm border border-hairline bg-white rounded-full px-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.25)]"
+                  style={{ color: 'rgba(26,20,16,0.75)' }}
+                >
+                  {t}
+                </span>
+              </Reveal>
+            </React.Fragment>
           ))}
-        </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -596,7 +604,7 @@ function Contact() {
                 { href: 'https://x.com/mahalegauravk', label: 'X', icon: <XMark size={14} /> },
               ].map(s => (
                 <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+                  className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
                   {s.icon}
                 </a>
               ))}
@@ -618,6 +626,10 @@ export default function Home() {
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: none; }
+        }
+        @keyframes popIn {
+          from { opacity: 0; transform: scale(0.86); }
+          to   { opacity: 1; transform: scale(1); }
         }
         details[open] .details-caret {
           transform: rotate(90deg);
