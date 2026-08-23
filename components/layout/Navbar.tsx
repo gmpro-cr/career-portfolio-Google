@@ -70,7 +70,7 @@ export default function Navbar() {
 
       {/* Plain top bar — no floating pill, gains a hairline + blur once scrolled */}
       <nav
-        className="fixed inset-x-0 top-0 z-40"
+        className="fixed inset-x-0 top-0 z-50"
         style={{
           background: scrolled ? 'rgba(253,251,247,0.88)' : 'transparent',
           backdropFilter: scrolled ? 'blur(10px)' : 'none',

@@ -141,9 +141,9 @@ function Hero() {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-6 md:pb-10">
-        <div className="flex items-start justify-between gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
-          <div>
-            <h1 className="font-display font-light leading-[1.05] tracking-[-0.02em]" style={{ fontSize: 'clamp(2.4rem, 6vw, 3.4rem)', color: '#1A1410' }}>
+        <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
+          <div className="min-w-0">
+            <h1 className="font-display font-light leading-[1.05] tracking-[-0.02em]" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)', color: '#1A1410' }}>
               hey, I&rsquo;m <b className="font-medium">Gaurav</b>
             </h1>
             <p className="mt-2.5 font-display italic" style={{ fontSize: '1.05rem', color: 'rgba(26,20,16,0.55)' }}>
@@ -151,8 +151,8 @@ function Hero() {
             </p>
           </div>
           <div
-            className="hidden sm:block flex-shrink-0 rounded-full overflow-hidden"
-            style={{ width: 84, height: 84, boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
+            className="flex-shrink-0 rounded-full overflow-hidden w-14 h-14 sm:w-[84px] sm:h-[84px]"
+            style={{ boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
           >
             <img src="/profile-avatar.png" alt="Gaurav Mahale" className="w-full h-full object-cover" />
           </div>
@@ -461,16 +461,18 @@ function ExperienceRow({ exp, delay, defaultOpen }: { exp: (typeof EXPERIENCES)[
   const [ref, style] = useRevealStyle(delay);
   return (
     <details ref={ref as React.Ref<HTMLDetailsElement>} className="group border-b border-hairline first:border-t" open={defaultOpen} style={style}>
-      <summary className="list-none cursor-pointer py-4 flex items-center gap-3.5 transition-colors duration-300 hover:bg-shell/60 rounded-lg px-2 -mx-2 [&::-webkit-details-marker]:hidden">
-        <span className="flex-shrink-0 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted transition-transform duration-300 group-hover:scale-105">
+      <summary className="list-none cursor-pointer py-4 flex items-start gap-3.5 transition-colors duration-300 hover:bg-shell/60 rounded-lg px-2 -mx-2 [&::-webkit-details-marker]:hidden">
+        <span className="flex-shrink-0 mt-0.5 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted transition-transform duration-300 group-hover:scale-105">
           {EXPERIENCE_BADGES[exp.company] ?? exp.company.slice(0, 2).toUpperCase()}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="text-sm font-semibold text-ink">{exp.role}</span>
-          <span className="ml-2 text-xs text-ink-muted">{exp.company}</span>
+          <span className="block text-sm font-semibold text-ink">{exp.role}</span>
+          <span className="block text-xs text-ink-muted mt-0.5">{exp.company}</span>
         </span>
-        <span className="flex-shrink-0 text-xs text-ink-muted/70 tabular whitespace-nowrap">{exp.period}</span>
-        <CaretRight size={11} className="flex-shrink-0 text-ink-muted/70 transition-transform duration-200 details-caret" />
+        <span className="flex-shrink-0 flex items-start gap-2 pl-1 mt-0.5">
+          <span className="text-xs text-ink-muted/70 tabular text-right max-w-[6rem] sm:max-w-none">{exp.period}</span>
+          <CaretRight size={11} className="flex-shrink-0 mt-0.5 text-ink-muted/70 transition-transform duration-200 details-caret" />
+        </span>
       </summary>
       <ul className="ml-[3.15rem] mb-4 space-y-2 max-w-[56ch]">
         {exp.description.map((desc, idx) => (
@@ -512,7 +514,7 @@ function Trajectory() {
           ))}
         </div>
 
-        <div className="mt-12 grid sm:grid-cols-2 gap-x-10 gap-y-8">
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
           <div>
             <Reveal>
               <span className="font-display italic text-ink-muted" style={{ fontSize: '0.8rem' }}>academic</span>

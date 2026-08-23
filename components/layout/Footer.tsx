@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <footer className="bg-paper border-t border-hairline">
       <div className="max-w-4xl mx-auto px-6 md:px-10 py-10">
-        <div className="grid sm:grid-cols-[1.6fr_1fr_1fr] gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-[1.6fr_1fr_1fr] gap-8">
           <div>
             <p className="font-display text-base font-medium text-ink">Gaurav Mahale</p>
             <p className="text-xs text-ink-muted mt-1.5 leading-relaxed max-w-[32ch]">
