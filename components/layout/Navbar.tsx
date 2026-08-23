@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
 const navLinks = [
@@ -16,6 +16,8 @@ export default function Navbar() {
   const [activeSection, setActive]  = useState('');
   const [scrolled, setScrolled]     = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isProjectPage = location.pathname.startsWith('/project/');
 
   /* ── scroll tracking: active section + scrolled-past-top state ─── */
   useEffect(() => {
@@ -52,8 +54,29 @@ export default function Navbar() {
   const go = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setIsOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (isProjectPage) {
+      // Not on the homepage — navigate there first, then scroll once its
+      // sections exist. A fixed delay isn't reliable (Home's mount time
+      // varies with image/HMR load), so poll for the target briefly
+      // instead of guessing a timeout — with setTimeout, not
+      // requestAnimationFrame, since rAF is throttled to near-zero on a
+      // backgrounded tab and would never fire. Instant, not smooth: this
+      // is a landing position after a route change, not a continuous
+      // user gesture — and Chromium silently drops smooth-scroll
+      // requests on a backgrounded tab, where instant scrolls still
+      // apply immediately.
+      navigate('/');
+      const deadline = Date.now() + 2000;
+      const tryScroll = () => {
+        const el = document.querySelector(href);
+        if (el) { el.scrollIntoView({ behavior: 'instant' }); return; }
+        if (Date.now() < deadline) setTimeout(tryScroll, 60);
+      };
+      setTimeout(tryScroll, 60);
+    } else {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const { scrollYProgress } = useScroll();

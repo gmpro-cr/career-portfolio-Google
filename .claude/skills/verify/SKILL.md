@@ -66,3 +66,15 @@ await new Promise(r=>setTimeout(r, 500));
 - The dev server auto-picks a free port (3000, 3001, 3002...) if the default
   is busy — check the actual `Local:` URL it prints rather than assuming
   :3000.
+- **`requestAnimationFrame` is throttled to near-zero (effectively paused)
+  on a backgrounded tab** — same root cause as the smooth-scroll gotcha
+  above. A polling loop written as `requestAnimationFrame(tryAgain)` can
+  silently never fire again once the tab is backgrounded, even though the
+  condition it's polling for (e.g. an element existing after a route
+  change) becomes true almost immediately. `setTimeout(tryAgain, ms)`
+  keeps firing (throttled, not paused) and is the reliable choice for any
+  polling/retry loop that must work regardless of tab focus — e.g.
+  Navbar.tsx's cross-page "navigate home then scroll to an anchor" retry.
+  Diagnose this by comparing a `setTimeout`-based sampling loop (which
+  will show the condition becoming true) against the actual polling code
+  (which never proceeds) — if they disagree, suspect rAF throttling.
