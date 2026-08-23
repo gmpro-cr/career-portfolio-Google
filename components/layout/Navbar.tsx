@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
 const navLinks = [
-  { href: '#work',       label: 'Projects'   },
+  { href: '#work',       label: 'Work'       },
   { href: '#trajectory', label: 'Trajectory' },
   { href: '#contact',    label: 'Contact'    },
 ];
@@ -14,12 +14,10 @@ const ALL_SECTIONS = ['hero', 'work', 'trajectory', 'contact'];
 export default function Navbar() {
   const [isOpen, setIsOpen]         = useState(false);
   const [activeSection, setActive]  = useState('');
-  const [navVisible, setNavVisible] = useState(true);
-  const idleTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pastHeroRef = useRef(false);
-  const navigate   = useNavigate();
+  const [scrolled, setScrolled]     = useState(false);
+  const navigate = useNavigate();
 
-  /* ── scroll tracking ──────────────────────────────────────── */
+  /* ── scroll tracking: active section + scrolled-past-top state ─── */
   useEffect(() => {
     let raf = 0;
     const update = () => {
@@ -29,19 +27,7 @@ export default function Navbar() {
         if (el && el.getBoundingClientRect().top <= 180) current = `#${id}`;
       }
       setActive(current);
-
-      const pastHero = window.scrollY > window.innerHeight * 0.8;
-      pastHeroRef.current = pastHero;
-      if (!pastHero) {
-        if (idleTimer.current) clearTimeout(idleTimer.current);
-        setNavVisible(true);
-      } else {
-        setNavVisible(true);
-        if (idleTimer.current) clearTimeout(idleTimer.current);
-        idleTimer.current = setTimeout(() => {
-          if (pastHeroRef.current) setNavVisible(false);
-        }, 2000);
-      }
+      setScrolled(window.scrollY > 24);
     };
     const onScroll = () => { if (raf) cancelAnimationFrame(raf); raf = requestAnimationFrame(update); };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -49,7 +35,6 @@ export default function Navbar() {
     return () => {
       window.removeEventListener('scroll', onScroll);
       if (raf) cancelAnimationFrame(raf);
-      if (idleTimer.current) clearTimeout(idleTimer.current);
     };
   }, []);
 
@@ -82,31 +67,29 @@ export default function Navbar() {
         className="fixed inset-x-0 top-0 z-50 h-[2px] origin-left"
         style={{ scaleX: progress, background: 'rgba(26,20,16,0.55)' }}
       />
-      <nav className="fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none">
-        <div
-          className="nav-island pointer-events-auto flex items-center gap-1 px-2 py-2 md:px-3"
-          style={{
-            opacity:   navVisible ? 1 : 0,
-            transform: navVisible ? 'translateY(0) scale(1)' : 'translateY(-12px) scale(0.97)',
-            transition: `opacity 0.45s ${EASE}, transform 0.45s ${EASE}`,
-            pointerEvents: navVisible ? 'auto' : 'none',
-          }}
-        >
-          {/* Logo / name */}
+
+      {/* Plain top bar — no floating pill, gains a hairline + blur once scrolled */}
+      <nav
+        className="fixed inset-x-0 top-0 z-40"
+        style={{
+          background: scrolled ? 'rgba(253,251,247,0.88)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(10px)' : 'none',
+          borderBottom: scrolled ? '1px solid #E7E5E4' : '1px solid transparent',
+          transition: `background 0.4s ${EASE}, border-color 0.4s ${EASE}`,
+        }}
+      >
+        <div className="max-w-4xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           <a
             href="/"
             onClick={e => { e.preventDefault(); navigate('/'); setIsOpen(false); }}
             aria-label="Gaurav Mahale — home"
-            className="px-4 text-sm font-medium tracking-tight hover:opacity-70 transition-opacity duration-500"
-            style={{ color: '#1A1410', transition: `opacity 0.5s ${EASE}` }}
+            className="font-display text-sm font-medium tracking-tight text-ink hover:opacity-70 transition-opacity duration-300"
           >
             Gaurav Mahale
           </a>
 
-          <span className="hidden md:inline-block h-4 w-px bg-hairline mx-1" aria-hidden />
-
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop links — plain text, underline on hover, no pill */}
+          <div className="hidden md:flex items-center gap-7">
             {navLinks.map(link => {
               const active = activeSection === link.href;
               return (
@@ -114,11 +97,15 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={e => go(e, link.href)}
-                  className="relative rounded-full px-3 py-1.5 text-sm transition-all duration-500"
-                  style={{ color: active ? '#1A1410' : '#78716C', transition: `color 0.4s ${EASE}` }}
+                  className="relative text-sm py-1 transition-colors duration-300"
+                  style={{ color: active ? '#1A1410' : '#78716C' }}
                 >
-                  {active && <span className="absolute inset-0 -z-10 rounded-full bg-paper" aria-hidden />}
                   {link.label}
+                  <span
+                    className="absolute left-0 -bottom-0.5 h-px bg-ink transition-all duration-300"
+                    style={{ width: active ? '100%' : '0%' }}
+                    aria-hidden
+                  />
                 </a>
               );
             })}
@@ -129,7 +116,7 @@ export default function Navbar() {
             onClick={() => setIsOpen(v => !v)}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
-            className="relative md:hidden ml-1 grid h-9 w-9 place-items-center rounded-full border border-hairline bg-white text-ink transition-colors duration-500"
+            className="relative md:hidden grid h-9 w-9 place-items-center rounded-full border border-hairline bg-white text-ink transition-colors duration-300"
           >
             <span className="relative block h-3 w-4">
               <span className={`absolute left-0 top-0 block h-px w-full bg-ink transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isOpen ? 'translate-y-[6px] rotate-45' : ''}`} />

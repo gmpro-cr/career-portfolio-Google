@@ -67,6 +67,20 @@ function useOnceVisible(margin = '-6%') {
 /* ── CSS-driven Reveal — opacity + translateY, GPU-composited ──── */
 const EASE = 'cubic-bezier(0.32, 0.72, 0, 1)';
 
+/* Same reveal motion as <Reveal>, but returns ref+style to spread directly
+   onto an existing element (e.g. a <details> row) instead of adding a
+   wrapper div — keeps CSS :first-child/sibling selectors intact. */
+function useRevealStyle(delay = 0) {
+  const [ref, visible] = useOnceVisible('-8%');
+  const style: React.CSSProperties = {
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'none' : 'translateY(14px)',
+    transition: `opacity 0.55s ${EASE} ${delay}s, transform 0.55s ${EASE} ${delay}s`,
+    willChange: visible ? 'auto' : 'opacity, transform',
+  };
+  return [ref, style] as const;
+}
+
 const Reveal = ({
   children, delay = 0, className = '',
 }: {
@@ -197,7 +211,11 @@ function TechStack() {
         </Reveal>
         <Reveal delay={0.08} className="mt-5 flex flex-wrap gap-2">
           {TECH_STACK.map(t => (
-            <span key={t} className="text-sm border border-hairline bg-white rounded-full px-4 py-1.5" style={{ color: 'rgba(26,20,16,0.75)' }}>
+            <span
+              key={t}
+              className="text-sm border border-hairline bg-white rounded-full px-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.25)]"
+              style={{ color: 'rgba(26,20,16,0.75)' }}
+            >
               {t}
             </span>
           ))}
@@ -351,7 +369,7 @@ function SelectedWork() {
                 type="button"
                 onClick={() => toggle(project.slug)}
                 aria-expanded={isExpanded}
-                className="flex flex-col h-full text-left w-full rounded-2xl border border-hairline overflow-hidden bg-white transition-colors duration-300"
+                className="group flex flex-col h-full text-left w-full rounded-2xl border border-hairline overflow-hidden bg-white transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:shadow-[0_20px_36px_-24px_rgba(26,20,16,0.28)]"
                 style={isExpanded ? { borderColor: theme.accent } : undefined}
               >
                 {/* Screenshot thumbnail */}
@@ -365,7 +383,7 @@ function SelectedWork() {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover object-top"
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.06]"
                       style={{ filter: 'saturate(0.94)' }}
                     />
                   )}
@@ -439,6 +457,44 @@ const EXPERIENCE_BADGES: Record<string, string> = {
   'Suraksha Asset Reconstruction Ltd.': 'SA',
 };
 
+function ExperienceRow({ exp, delay, defaultOpen }: { exp: (typeof EXPERIENCES)[number]; delay: number; defaultOpen: boolean }) {
+  const [ref, style] = useRevealStyle(delay);
+  return (
+    <details ref={ref as React.Ref<HTMLDetailsElement>} className="group border-b border-hairline first:border-t" open={defaultOpen} style={style}>
+      <summary className="list-none cursor-pointer py-4 flex items-center gap-3.5 transition-colors duration-300 hover:bg-shell/60 rounded-lg px-2 -mx-2 [&::-webkit-details-marker]:hidden">
+        <span className="flex-shrink-0 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted transition-transform duration-300 group-hover:scale-105">
+          {EXPERIENCE_BADGES[exp.company] ?? exp.company.slice(0, 2).toUpperCase()}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="text-sm font-semibold text-ink">{exp.role}</span>
+          <span className="ml-2 text-xs text-ink-muted">{exp.company}</span>
+        </span>
+        <span className="flex-shrink-0 text-xs text-ink-muted/70 tabular whitespace-nowrap">{exp.period}</span>
+        <CaretRight size={11} className="flex-shrink-0 text-ink-muted/70 transition-transform duration-200 details-caret" />
+      </summary>
+      <ul className="ml-[3.15rem] mb-4 space-y-2 max-w-[56ch]">
+        {exp.description.map((desc, idx) => (
+          <li key={idx} className="flex gap-3 text-sm text-ink/70 leading-relaxed">
+            <span className="flex-shrink-0 mt-2 block w-3 h-px bg-ink-muted/50" aria-hidden />
+            <span>{desc}</span>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
+
+function MiniRow({ title, sub, meta, delay }: { title: string; sub: string; meta: string; delay: number }) {
+  const [ref, style] = useRevealStyle(delay);
+  return (
+    <div ref={ref} className="flex items-baseline justify-between gap-3 py-3 border-b border-hairline first:border-t text-sm" style={style}>
+      <span className="font-semibold text-ink">{title}</span>
+      <span className="text-ink-muted text-xs flex-1 text-right truncate">{sub}</span>
+      <span className="text-ink-muted/70 text-[11px] tabular flex-shrink-0">{meta}</span>
+    </div>
+  );
+}
+
 function Trajectory() {
   return (
     <section id="trajectory" className="relative py-8 md:py-12 bg-paper">
@@ -450,27 +506,9 @@ function Trajectory() {
 
         <div className="mt-6 flex flex-col">
           {EXPERIENCES.map((exp, i) => (
-            <details key={i} className="border-b border-hairline first:border-t" open={i === 0}>
-              <summary className="list-none cursor-pointer py-4 flex items-center gap-3.5 [&::-webkit-details-marker]:hidden">
-                <span className="flex-shrink-0 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted">
-                  {EXPERIENCE_BADGES[exp.company] ?? exp.company.slice(0, 2).toUpperCase()}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="text-sm font-semibold text-ink">{exp.role}</span>
-                  <span className="ml-2 text-xs text-ink-muted">{exp.company}</span>
-                </span>
-                <span className="flex-shrink-0 text-xs text-ink-muted/70 tabular whitespace-nowrap">{exp.period}</span>
-                <CaretRight size={11} className="flex-shrink-0 text-ink-muted/70 transition-transform duration-200 details-caret" />
-              </summary>
-              <ul className="ml-[3.15rem] mb-4 space-y-2 max-w-[56ch]">
-                {exp.description.map((desc, idx) => (
-                  <li key={idx} className="flex gap-3 text-sm text-ink/70 leading-relaxed">
-                    <span className="flex-shrink-0 mt-2 block w-3 h-px bg-ink-muted/50" aria-hidden />
-                    <span>{desc}</span>
-                  </li>
-                ))}
-              </ul>
-            </details>
+            <React.Fragment key={i}>
+              <ExperienceRow exp={exp} delay={i * 0.07} defaultOpen={i === 0} />
+            </React.Fragment>
           ))}
         </div>
 
@@ -481,12 +519,10 @@ function Trajectory() {
               <h2 className="mt-1 font-display font-light text-xl text-ink tracking-tight">Education</h2>
             </Reveal>
             <div className="mt-3">
-              {EDUCATION_DATA.map(e => (
-                <div key={e.id} className="flex items-baseline justify-between gap-3 py-3 border-b border-hairline first:border-t text-sm">
-                  <span className="font-semibold text-ink">{e.institution}</span>
-                  <span className="text-ink-muted text-xs flex-1 text-right truncate">{e.degree}</span>
-                  <span className="text-ink-muted/70 text-[11px] tabular flex-shrink-0">{e.year}</span>
-                </div>
+              {EDUCATION_DATA.map((e, i) => (
+                <React.Fragment key={e.id}>
+                  <MiniRow title={e.institution} sub={e.degree} meta={e.year} delay={i * 0.07} />
+                </React.Fragment>
               ))}
             </div>
           </div>
@@ -496,12 +532,10 @@ function Trajectory() {
               <h2 className="mt-1 font-display font-light text-xl text-ink tracking-tight">Certifications</h2>
             </Reveal>
             <div className="mt-3">
-              {CERTIFICATIONS_DATA.map(c => (
-                <div key={c.id} className="flex items-baseline justify-between gap-3 py-3 border-b border-hairline first:border-t text-sm">
-                  <span className="font-semibold text-ink">{c.name}</span>
-                  <span className="text-ink-muted text-xs flex-1 text-right truncate">{c.issuer}</span>
-                  <span className="text-ink-muted/70 text-[11px] tabular flex-shrink-0">{c.year}</span>
-                </div>
+              {CERTIFICATIONS_DATA.map((c, i) => (
+                <React.Fragment key={c.id}>
+                  <MiniRow title={c.name} sub={c.issuer} meta={c.year} delay={i * 0.07} />
+                </React.Fragment>
               ))}
             </div>
           </div>
