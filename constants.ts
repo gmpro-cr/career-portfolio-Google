@@ -99,17 +99,6 @@ Seeking AI Product Management roles where finance expertise and practical AI-bui
 
 export const EXPERIENCES: Experience[] = [
   {
-    role: "AI Product Evaluator & Domain Expert",
-    company: "Pareto.AI",
-    period: "Dec 2025 – Present",
-    type: 'AI',
-    description: [
-      "Train and fine-tune Large Language Models on financial modelling, document generation, and presentation creation through structured evaluation (evals) and prompt engineering.",
-      "Evaluate and iteratively improve AI outputs for corporate credit analysis, financial projections, and business documentation against expert benchmarks.",
-      "Apply banking domain expertise to enhance LLM accuracy in corporate finance tasks, bridging the gap between raw model capability and real-world financial workflows.",
-    ]
-  },
-  {
     role: "Product Manager",
     company: "Yes Bank Limited",
     period: "Apr 2022 – Present",
@@ -119,6 +108,17 @@ export const EXPERIENCES: Experience[] = [
       "Authored comprehensive Credit Appraisal Memorandums (the banking equivalent of PRDs) for portfolios worth 500 Cr+, synthesising financial analysis, risk assessment, and industry research.",
       "Validated borrower needs through structured discovery — identifying pain points across working capital, term loans, and trade finance — and translated insights into tailored product proposals.",
       "Built early-warning monitoring frameworks post-disbursement to reduce delinquency risk and improve portfolio retention.",
+    ]
+  },
+  {
+    role: "AI Product Evaluator & Domain Expert",
+    company: "Pareto.AI",
+    period: "Project-based · ongoing",
+    type: 'AI',
+    description: [
+      "Engaged per-project to train and fine-tune Large Language Models on financial modelling, document generation, and presentation creation through structured evaluation (evals) and prompt engineering.",
+      "Evaluate and iteratively improve AI outputs for corporate credit analysis, financial projections, and business documentation against expert benchmarks.",
+      "Apply banking domain expertise to enhance LLM accuracy in corporate finance tasks, bridging the gap between raw model capability and real-world financial workflows.",
     ]
   },
   {

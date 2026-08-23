@@ -1,21 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import {
   ArrowRight,
-  ArrowDown,
   ArrowUpRight,
-  GraduationCap,
-  SealCheck,
   PaperPlaneTilt,
   GithubLogo,
   LinkedinLogo,
-  FileText,
+  EnvelopeSimple,
   X,
   CaretDown,
+  CaretRight,
 } from '@phosphor-icons/react';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA, getTheme } from '../constants';
-import type { ProjectTheme } from '../types';
 import XMark from '../components/XMark';
 import { PROJECT_EXTRAS, type CaseProps } from './projects/caseData';
 import PersonaCase from './projects/PersonaCase';
@@ -34,44 +31,6 @@ const CASE_COMPONENTS: Record<string, React.ComponentType<CaseProps>> = {
   'pyquest-learn-python-by-writing-it': PyQuestCase,
   'sqlquest-learn-sql-on-real-postgres': SQLQuestCase,
 };
-
-/* ── Mini flow diagram for project cards ─────────────────────────── */
-const CardFlow = ({ steps, theme }: { steps: string[]; theme: ProjectTheme }) => (
-  <div className="flex items-center flex-wrap gap-y-1.5">
-    {steps.map((step, i) => (
-      <React.Fragment key={i}>
-        <span
-          style={{
-            background: theme.accentBg,
-            border: `1px solid ${theme.accentBorder}40`,
-            color: theme.accentDark,
-            fontSize: '10px',
-            fontWeight: 600,
-            letterSpacing: '0.02em',
-            padding: '3px 9px',
-            borderRadius: '9999px',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {step}
-        </span>
-        {i < steps.length - 1 && (
-          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden className="mx-0.5 flex-shrink-0">
-            <path d="M0 4h9M6 1l3 3-3 3" stroke={theme.accent} strokeOpacity="0.5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        )}
-      </React.Fragment>
-    ))}
-  </div>
-);
-
-/* ── Eyebrow pill ───────────────────────────────────────────────── */
-const Eyebrow = ({ children, light = false }: { children: React.ReactNode; light?: boolean }) => (
-  <span className={`eyebrow ${light ? '!border-white/20 !bg-white/10 !text-white/60' : ''}`}>
-    <span className={`rule ${light ? '!bg-white/30' : ''}`} />
-    {children}
-  </span>
-);
 
 /* ── Single shared IntersectionObserver hook ─────────────────────
    Fires once when element enters viewport, then disconnects.
@@ -131,282 +90,118 @@ const Reveal = ({
   );
 };
 
-/* ── Masked line reveal — each line rises out of an overflow clip ── */
-function MaskLines({
-  lines, as: Tag = 'h2', className = '', style, base = 0.05, step = 0.09,
-}: {
-  lines: React.ReactNode[]; as?: 'h1' | 'h2' | 'p'; className?: string; style?: React.CSSProperties; base?: number; step?: number;
-}) {
-  const [ref, visible] = useOnceVisible();
+/* ═══════════════════════════════════════════════════════════════
+   HERO — compact, conversational; entrance fades only, no scroll link
+   ═══════════════════════════════════════════════════════════════ */
+function Hero() {
   return (
-    <div ref={ref}>
-      <Tag className={className} style={style}>
-        {lines.map((line, i) => (
-          <span key={i} className="block overflow-hidden">
-            <span
-              className="block"
-              style={{
-                transform: visible ? 'none' : 'translateY(112%)',
-                transition: `transform 0.9s ${EASE} ${base + i * step}s`,
-              }}
-            >
-              {line}
-            </span>
-          </span>
-        ))}
-      </Tag>
-    </div>
-  );
-}
-
-/* ── Stagger list — each child gets an incremental CSS delay ─────  */
-function StaggerList({
-  children, base = 0, step = 0.05, className = '', style,
-}: {
-  children: React.ReactNode[]; base?: number; step?: number; className?: string; style?: React.CSSProperties;
-}) {
-  const [ref, visible] = useOnceVisible('-5%');
-  return (
-    <div ref={ref} className={className} style={style}>
-      {React.Children.map(children, (child, i) =>
-        React.isValidElement(child)
-          ? React.cloneElement(child as React.ReactElement<{ style?: React.CSSProperties }>, {
-              style: {
-                ...(child.props as { style?: React.CSSProperties }).style,
-                opacity: visible ? 1 : 0,
-                transform: visible ? 'none' : 'translateY(16px)',
-                filter: visible ? 'none' : 'blur(6px)',
-                transition: `opacity 0.55s ${EASE} ${base + i * step}s, transform 0.55s ${EASE} ${base + i * step}s, filter 0.55s ${EASE} ${base + i * step}s`,
-                willChange: visible ? 'auto' : 'opacity, transform, filter',
-              },
-            })
-          : child
-      )}
-    </div>
-  );
-}
-
-/* ── FlowDiagram: numbered boxes with CSS-stagger arrows ─────────  */
-function FlowDiagram({ steps }: { steps: { step: string }[] }) {
-  const [ref, visible] = useOnceVisible();
-  return (
-    <div ref={ref} className="w-full">
-      {steps.map((s, i) => (
-        <React.Fragment key={i}>
-          <div
+    <section id="hero" className="relative overflow-hidden bg-paper">
+      {/* Faint diagonal streaks + soft accent blobs, hero-only */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden style={{ height: 640 }}>
+        {[
+          { top: 40, left: '8%', width: 130 },
+          { top: 90, left: '16%', width: 90 },
+          { top: 20, left: '30%', width: 80 },
+          { top: 130, left: '46%', width: 110 },
+          { top: 55, left: '70%', width: 100 },
+          { top: 160, left: '82%', width: 80 },
+        ].map((s, i) => (
+          <span
+            key={i}
+            className="absolute h-px"
             style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'none' : 'translateX(-12px)',
-              transition: `opacity 0.4s ${EASE} ${i * 0.06}s, transform 0.4s ${EASE} ${i * 0.06}s`,
+              top: s.top, left: s.left, width: s.width,
+              background: 'linear-gradient(90deg, transparent, rgba(26,20,16,0.09), transparent)',
+              transform: 'rotate(-32deg)',
             }}
-            className="flex items-start gap-3 px-4 py-3.5 rounded-2xl border border-hairline bg-paper"
-          >
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-ink text-white text-[9px] font-semibold flex items-center justify-center tabular mt-0.5">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <span className="text-sm text-ink/80 leading-relaxed">{s.step}</span>
+          />
+        ))}
+        <span
+          className="absolute rounded-full"
+          style={{ width: 240, height: 240, top: 20, right: -70, background: 'radial-gradient(circle at 40% 40%, #F5F3FF, transparent 70%)', filter: 'blur(2px)' }}
+        />
+        <span
+          className="absolute rounded-full"
+          style={{ width: 170, height: 170, top: 300, left: -50, background: 'radial-gradient(circle at 60% 40%, #FFFBEB, transparent 70%)', filter: 'blur(2px)' }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-6 md:pb-10">
+        <div className="flex items-start justify-between gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
+          <div>
+            <h1 className="font-display font-light leading-[1.05] tracking-[-0.02em]" style={{ fontSize: 'clamp(2.4rem, 6vw, 3.4rem)', color: '#1A1410' }}>
+              hey, I&rsquo;m <b className="font-medium">Gaurav</b>
+            </h1>
+            <p className="mt-2.5 font-display italic" style={{ fontSize: '1.05rem', color: 'rgba(26,20,16,0.55)' }}>
+              nine years in banking, now building AI products full&#8209;time
+            </p>
           </div>
-          {i < steps.length - 1 && (
-            <div
-              style={{
-                opacity: visible ? 1 : 0,
-                transition: `opacity 0.25s ${EASE} ${i * 0.06 + 0.2}s`,
-              }}
-              className="flex flex-col items-center py-0.5"
-              aria-hidden
-            >
-              <div className="w-px h-3 bg-hairline" />
-              <svg width="10" height="7" viewBox="0 0 10 7" fill="none">
-                <path d="M5 7L0.67 0.875H9.33L5 7Z" fill="#D6D3D1" />
-              </svg>
-            </div>
-          )}
-        </React.Fragment>
-      ))}
-    </div>
+          <div
+            className="hidden sm:block flex-shrink-0 rounded-full overflow-hidden"
+            style={{ width: 84, height: 84, boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
+          >
+            <img src="/profile-avatar.png" alt="Gaurav Mahale" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        <div className="mt-8 max-w-xl flex flex-col gap-3" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
+          <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
+            Currently <b className="font-semibold text-ink">evaluating &amp; fine&#8209;tuning LLMs</b> at Pareto.AI, and{' '}
+            <b className="font-semibold text-ink">building AI products independently</b> &mdash; four LLM platforms and two browser&#8209;native learning tools, all live.
+          </p>
+          <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
+            Spent 9 years writing <b className="font-semibold text-ink">credit appraisal memos</b> at Yes Bank and HDFC &mdash; turns out that&rsquo;s good training for writing prompts.
+          </p>
+          <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
+            Open to <b className="font-semibold text-ink">AI Product Management</b> roles. Based in Pune, happy to go remote.{' '}
+            <a href="/Gaurav_Mahale_Resume.pdf" download className="text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors">
+              Download CV
+            </a>
+          </p>
+        </div>
+
+        <div className="mt-7 flex gap-2.5" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
+          <a href="mailto:mahalegauravk@gmail.com" aria-label="Email" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+            <EnvelopeSimple size={16} weight="light" />
+          </a>
+          <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+            <LinkedinLogo size={16} weight="light" />
+          </a>
+          <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+            <GithubLogo size={16} weight="light" />
+          </a>
+          <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" aria-label="X" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+            <XMark size={14} />
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   HERO — Framer Motion only for entrance (runs once)
+   TECH STACK — deduped tools across all six shipped projects
    ═══════════════════════════════════════════════════════════════ */
-function Hero() {
-  const words = ['Gaurav', 'Mahale'];
+const TECH_STACK = [
+  'Next.js', 'React', 'TypeScript', 'Python', 'FastAPI', 'PostgreSQL',
+  'Supabase', 'Gemini API', 'Claude API', 'WASM (Pyodide / PGlite)', 'Tailwind CSS', 'Vercel',
+];
 
-  /* Pointer-tilt physics for the portrait — springed, desktop only */
-  const reduced = useReducedMotion();
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-4.5, 4.5]), { stiffness: 60, damping: 14 });
-  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [3.5, -3.5]), { stiffness: 60, damping: 14 });
-
-  const onMove = (e: React.PointerEvent<HTMLElement>) => {
-    if (reduced || e.pointerType !== 'mouse') return;
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set((e.clientX - r.left) / r.width - 0.5);
-    my.set((e.clientY - r.top) / r.height - 0.5);
-  };
-  const onLeave = () => { mx.set(0); my.set(0); };
-
+function TechStack() {
   return (
-    <section
-      id="hero"
-      className="relative min-h-[100dvh] flex items-center overflow-hidden bg-paper"
-      onPointerMove={onMove}
-      onPointerLeave={onLeave}
-    >
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{ background: 'radial-gradient(ellipse 80% 70% at 65% 50%, rgba(200,170,120,0.06) 0%, transparent 70%)' }}
-        aria-hidden
-      />
-
-      {/* Portrait card — static, no scroll link */}
-      <div
-        className="hidden lg:flex absolute right-8 md:right-16 lg:right-24 inset-y-0 items-center pointer-events-none"
-        aria-hidden
-      >
-        <div style={{ opacity: 0, animation: `heroPortrait 1s ${EASE} 0.2s forwards`, perspective: '1200px' }}>
-          <motion.div
-            className="relative"
-            style={{
-              width: 'clamp(260px, 32vw, 460px)',
-              rotateX,
-              rotateY,
-              transformStyle: 'preserve-3d',
-            }}
-          >
-            {/* Cut-out subject on transparency — the paper background reads
-                straight through, so there is no card edge to break the page. */}
-            <img
-              src="/profile-cutout.png"
-              alt="Gaurav Mahale"
-              className="w-full h-auto object-contain"
-              style={{
-                filter:
-                  'grayscale(1) brightness(1.02) contrast(1.12) drop-shadow(0 26px 40px rgba(26,20,16,0.16))',
-              }}
-            />
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Text — Framer Motion entrance only, no scroll link */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-24">
-
-        {/* Mobile-only circular portrait */}
-        <div
-          className="lg:hidden mb-6 flex justify-center"
-          style={{ opacity: 0, animation: `popIn 0.7s ${EASE} 0.2s forwards` }}
-        >
-          <div
-            className="w-36 h-36 rounded-full overflow-hidden"
-            style={{
-              background: '#FDFBF7',
-              boxShadow: '0 0 0 2px rgba(26,20,16,0.08), 0 12px 32px rgba(26,20,16,0.14)',
-            }}
-          >
-            {/* Its own square crop, framed on the head. The hero cutout is
-                composed for a full-torso portrait and sits off-centre, so
-                centring it in a circle pushes the face to one side. */}
-            <img
-              src="/profile-avatar.png"
-              alt="Gaurav Mahale"
-              className="w-full h-full object-cover"
-              style={{ filter: 'grayscale(1) brightness(1.02) contrast(1.12)' }}
-            />
-          </div>
-        </div>
-
-        {/* Role line */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.25s forwards` }}>
-          <p
-            className="font-display italic text-center lg:text-left"
-            style={{ fontSize: 'clamp(1rem, 2vw, 1.3rem)', color: 'rgba(26,20,16,0.55)' }}
-          >
-            AI Product Builder&ensp;&middot;&ensp;Finance Domain Expert
-          </p>
-        </div>
-
-        {/* Name — word slide */}
-        <h1
-          className="mt-5 lg:mt-8 font-display font-light leading-[0.92] tracking-[-0.03em] text-center lg:text-left"
-          style={{ fontSize: 'clamp(2.4rem, 8vw, 6rem)', color: '#1A1410' }}
-        >
-          {words.map((word, wi) => (
-            <span
-              key={wi}
-              className="inline-block lg:block overflow-hidden"
-              style={wi === 0 ? { marginRight: '0.25em' } : undefined}
-            >
-              <span
-                className="block"
-                style={{
-                  opacity: 0,
-                  transform: 'translateY(110%)',
-                  animation: `wordUp 0.85s ${EASE} ${0.3 + wi * 0.1}s forwards`,
-                }}
-              >
-                {word}
-              </span>
+    <section className="relative py-8 md:py-12 bg-paper">
+      <div className="max-w-4xl mx-auto px-6 md:px-10">
+        <Reveal>
+          <span className="font-display italic text-ink-muted" style={{ fontSize: '0.85rem' }}>tech stack</span>
+          <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">What I build with</h2>
+        </Reveal>
+        <Reveal delay={0.08} className="mt-5 flex flex-wrap gap-2">
+          {TECH_STACK.map(t => (
+            <span key={t} className="text-sm border border-hairline bg-white rounded-full px-4 py-1.5" style={{ color: 'rgba(26,20,16,0.75)' }}>
+              {t}
             </span>
           ))}
-        </h1>
-
-        {/* Summary */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.55s forwards` }}>
-          <p
-            className="mt-5 lg:mt-8 max-w-2xl text-base md:text-lg font-normal leading-relaxed"
-            style={{ color: 'rgba(26,20,16,0.74)' }}
-          >
-            Nine years in banking and credit risk; now independently designing, building and shipping
-            products end to end &mdash; four LLM platforms and two browser-native learning tools, all live.
-            Experienced across the full lifecycle: discovery, MVP scoping, prompt engineering, and iterative releases.
-          </p>
-        </div>
-
-        {/* CTAs */}
-        <div style={{ opacity: 0, animation: `fadeUp 0.5s ${EASE} 0.65s forwards` }}>
-          <div className="mt-7 lg:mt-10 flex items-center justify-center lg:justify-start gap-3">
-            <a
-              href="#work"
-              className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium transition-all duration-500 whitespace-nowrap"
-              style={{ background: '#1A1410', color: '#FDFBF7' }}
-            >
-              View my projects
-              <span className="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-px">
-                <ArrowDown size={14} />
-              </span>
-            </a>
-            <a
-              href="/Gaurav_Mahale_Resume.pdf"
-              download
-              className="group inline-flex items-center gap-1.5 rounded-full pl-6 pr-1.5 py-1.5 text-sm font-medium border transition-all duration-500 whitespace-nowrap"
-              style={{ borderColor: 'rgba(26,20,16,0.18)', color: 'rgba(26,20,16,0.7)', background: 'transparent' }}
-            >
-              Download CV
-              <span className="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-px"
-                style={{ background: 'rgba(26,20,16,0.06)' }}>
-                <FileText size={14} />
-              </span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-      {/* Scroll indicator */}
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
-        style={{
-          color: 'rgba(26,20,16,0.25)',
-          opacity: 0,
-          animation: `fadeIn 1s ease 1.4s forwards`,
-        }}
-      >
-        <div style={{ animation: 'scrollcue 2.4s cubic-bezier(0.33,0,0.2,1) infinite' }}>
-          <ArrowDown size={16} weight="light" />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -538,137 +333,76 @@ function SelectedWork() {
   };
 
   return (
-    <section id="work" className="relative py-14 md:py-36 bg-paper">
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="flex items-end justify-between gap-6 border-b border-ink/15 pb-6">
-          <div>
-            <Reveal delay={0.02}>
-              <span className="font-display italic text-ink-muted" style={{ fontSize: '0.95rem' }}>selected projects</span>
-            </Reveal>
-            <MaskLines
-              className="mt-2 font-display font-light text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink"
-              lines={['Six products,', <em key="i" className="italic font-normal text-ink-muted">end to end.</em>]}
-            />
-          </div>
-          <Reveal delay={0.25}>
-            <span className="hidden md:block font-display italic text-ink-muted oldstyle whitespace-nowrap" style={{ fontSize: '1.15rem' }}>06 / 06</span>
-          </Reveal>
-        </div>
+    <section id="work" className="relative py-8 md:py-12 bg-paper">
+      <div className="max-w-4xl mx-auto px-6 md:px-10">
+        <Reveal>
+          <span className="font-display italic text-ink-muted" style={{ fontSize: '0.85rem' }}>portfolio</span>
+          <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">Featured Projects</h2>
+        </Reveal>
 
-        <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {PROJECTS.map((project, idx) => {
             const theme = getTheme(project.slug);
             const isExpanded = openSlug === project.slug;
             return (
-            <React.Fragment key={idx}>
-            <Reveal delay={0.06 + idx * 0.08} className="flex flex-col">
+            <React.Fragment key={project.slug}>
+            <Reveal delay={0.04 + idx * 0.05} className="flex flex-col">
               <button
                 type="button"
                 onClick={() => toggle(project.slug)}
                 aria-expanded={isExpanded}
-                className="bezel work-card flex flex-col h-full group text-left w-full"
-                style={{
-                  textDecoration: 'none',
-                  background: '#FDFBF7',
-                  ['--wc' as string]: theme.accent,
-                  boxShadow: isExpanded ? `0 0 0 2px ${theme.accent}` : undefined,
-                } as React.CSSProperties}
+                className="flex flex-col h-full text-left w-full rounded-2xl border border-hairline overflow-hidden bg-white transition-colors duration-300"
+                style={isExpanded ? { borderColor: theme.accent } : undefined}
               >
-                <div
-                  className="bezel-core flex flex-col h-full overflow-hidden"
-                  style={{ background: '#FDFBF7', borderRadius: 'calc(2rem - 0.375rem)' }}
-                >
-                  {/* Screenshot image */}
-                  <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 'clamp(160px, 30vw, 220px)' }}>
-                    {/* Themed backdrop (also the fallback when no screenshot) */}
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: `linear-gradient(135deg, ${theme.accentBg} 0%, #FDFBF7 70%)` }}
-                      aria-hidden
+                {/* Screenshot thumbnail */}
+                <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 120 }}>
+                  <span
+                    className="absolute top-2.5 left-2.5 z-10 h-2 w-2 rounded-full"
+                    style={{ background: theme.accent }}
+                    aria-hidden
+                  />
+                  {project.image && (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover object-top"
+                      style={{ filter: 'saturate(0.94)' }}
                     />
-                    {project.image && (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
-                        style={{ filter: 'brightness(0.88) saturate(0.95)' }}
-                      />
-                    )}
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(253,251,247,0.95) 100%)' }}
-                      aria-hidden
-                    />
-                    <div className="sheen" aria-hidden />
-                    <div className="absolute top-4 left-4 z-10">
-                      <span
-                        className="font-display italic oldstyle text-sm px-2.5 py-1 rounded-full"
-                        style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)', border: '1px solid rgba(26,20,16,0.12)', color: 'rgba(26,20,16,0.55)' }}
-                      >
-                        {String(idx + 1).padStart(2, '0')}
-                      </span>
-                    </div>
-                    <div className="absolute top-4 right-4 z-10">
-                      <span
-                        className="font-display italic text-sm font-medium px-3 py-1.5 rounded-full"
-                        style={{ background: 'rgba(253,251,247,0.92)', backdropFilter: 'blur(8px)', border: `1px solid ${theme.accentBorder}55`, color: theme.accentDark }}
-                      >
-                        {project.metrics}
-                      </span>
-                    </div>
-                  </div>
+                  )}
+                </div>
 
-                  {/* Card body */}
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <Eyebrow>{project.category === 'build' ? 'Shipped' : 'Case Study'}</Eyebrow>
-                      <span className="font-display italic text-xs text-ink-muted whitespace-nowrap">{project.date}</span>
-                    </div>
-                    <h3 className="font-display font-light text-[1.55rem] md:text-[1.65rem] text-ink leading-tight tracking-tight">
-                      {project.title}
-                    </h3>
-                    <p
-                      className="mt-3 text-sm text-ink/75 leading-relaxed font-normal"
-                      style={{
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical' as const,
-                        overflow: 'hidden',
-                      } as React.CSSProperties}
-                    >
-                      {project.cardSummary ?? project.description}
-                    </p>
-                    <div className="flex-1 min-h-[1rem]" />
-                    <div className="flex flex-wrap gap-1.5 mt-4">
-                      {project.tech.slice(0, 4).map((t, i) => (
-                        <span key={i} className="text-[11px] tracking-wide text-ink-muted border border-hairline rounded-full px-2.5 py-0.5">
+                {/* Card body */}
+                <div className="p-4 flex flex-col flex-1">
+                  <span className="text-[10px] text-ink-muted/70 tabular">{project.date} &middot; {project.metrics}</span>
+                  <h3 className="mt-1.5 font-display font-medium text-[15px] leading-tight text-ink tracking-tight">
+                    {project.title}
+                  </h3>
+                  <p
+                    className="mt-1.5 text-xs text-ink/65 leading-relaxed"
+                    style={{
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical' as const,
+                      overflow: 'hidden',
+                    } as React.CSSProperties}
+                  >
+                    {project.cardSummary ?? project.description}
+                  </p>
+                  <div className="flex-1 min-h-[0.5rem]" />
+                  <div className="flex items-center justify-between gap-2 mt-3">
+                    <div className="flex flex-wrap gap-1">
+                      {project.tech.slice(0, 2).map((t, i) => (
+                        <span key={i} className="text-[9px] text-ink-muted/70 border border-hairline rounded-full px-2 py-0.5">
                           {t}
                         </span>
                       ))}
-                      {project.tech.length > 4 && (
-                        <span className="text-[11px] text-ink-muted px-1.5 py-0.5">+{project.tech.length - 4}</span>
-                      )}
                     </div>
-                    {project.cardFlow && (
-                      <div className="mt-5">
-                        <p className="font-display italic text-ink-muted mb-2" style={{ fontSize: '12px' }}>how it works</p>
-                        <CardFlow steps={project.cardFlow} theme={theme} />
-                      </div>
-                    )}
-                    <div className="mt-5 pt-4 border-t border-hairline">
-                      <div className="flex items-center justify-between text-sm font-medium text-ink">
-                        <span>{isExpanded ? 'Collapse' : 'View case study'}</span>
-                        <span
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
-                          style={{
-                            background: theme.accent,
-                            transform: isExpanded ? 'rotate(90deg)' : undefined,
-                          }}
-                        >
-                          {isExpanded ? <CaretDown size={13} weight="light" /> : <ArrowRight size={13} weight="light" />}
-                        </span>
-                      </div>
-                    </div>
+                    <span
+                      className="inline-flex h-6 w-6 items-center justify-center rounded-full flex-shrink-0 transition-transform duration-300"
+                      style={{ color: theme.accent, transform: isExpanded ? 'rotate(90deg)' : undefined }}
+                    >
+                      {isExpanded ? <CaretDown size={12} weight="bold" /> : <ArrowRight size={12} weight="bold" />}
+                    </span>
                   </div>
                 </div>
               </button>
@@ -695,97 +429,83 @@ function SelectedWork() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   TRAJECTORY
+   TRAJECTORY — row-list, click to expand (mirrors the project cards'
+   own expand-in-place pattern, via the native <details> element)
    ═══════════════════════════════════════════════════════════════ */
-/* The timeline spine draws itself as the section enters view */
-function TimelineRule() {
-  const [ref, visible] = useOnceVisible('-8%');
-  return (
-    <span
-      ref={ref as React.Ref<HTMLSpanElement>}
-      className="hidden md:block absolute left-[24%] top-0 bottom-0 w-px bg-ink/15"
-      style={{
-        transform: visible ? 'scaleY(1)' : 'scaleY(0)',
-        transformOrigin: 'top',
-        transition: `transform 1.8s ${EASE} 0.15s`,
-      }}
-      aria-hidden
-    />
-  );
-}
+const EXPERIENCE_BADGES: Record<string, string> = {
+  'Yes Bank Limited': 'YB',
+  'Pareto.AI': 'AI',
+  'HDFC Bank Limited': 'HD',
+  'Suraksha Asset Reconstruction Ltd.': 'SA',
+};
 
 function Trajectory() {
   return (
-    <section id="trajectory" className="relative py-14 md:py-28 bg-paper">
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <MaskLines
-          className="mt-6 font-display font-light text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink"
-          lines={['Nine years', <em key="i" className="italic font-normal text-ink-muted">across two worlds.</em>]}
-        />
+    <section id="trajectory" className="relative py-8 md:py-12 bg-paper">
+      <div className="max-w-4xl mx-auto px-6 md:px-10">
+        <Reveal>
+          <span className="font-display italic text-ink-muted" style={{ fontSize: '0.85rem' }}>career</span>
+          <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">Work Experience</h2>
+        </Reveal>
 
-        <div className="mt-20 relative">
-          <TimelineRule />
-          <StaggerList base={0} step={0.08} className="space-y-14 md:space-y-20">
-            {EXPERIENCES.map((exp, i) => (
-              <div key={i} className="grid md:grid-cols-12 gap-6 md:gap-10 relative">
-                <div className="md:col-span-3">
-                  <p className="font-display italic text-ink-muted text-base">{exp.period}</p>
-                  <span className={`mt-2 eyebrow ${exp.type === 'AI' ? '!border-stone-300 !bg-stone-50 text-stone-600' : ''}`}>
-                    {exp.type}
-                  </span>
-                </div>
-                <span className="hidden md:block absolute left-[24%] top-2 -translate-x-1/2 h-2.5 w-2.5 rounded-full bg-ink ring-4 ring-paper" aria-hidden />
-                <div className="md:col-span-9 md:pl-8">
-                  <h3 className="font-display font-light text-2xl md:text-3xl text-ink leading-tight tracking-tight">{exp.role}</h3>
-                  <p className="mt-1 text-sm font-medium text-ink-muted">{exp.company}</p>
-                  <ul className="mt-5 space-y-3">
-                    {exp.description.map((desc, idx) => (
-                      <li key={idx} className="flex gap-3 text-base text-ink/75 font-normal leading-relaxed">
-                        <span className="flex-shrink-0 mt-2.5 block w-4 h-px bg-ink-muted/50" aria-hidden />
-                        <span>{desc}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </StaggerList>
+        <div className="mt-6 flex flex-col">
+          {EXPERIENCES.map((exp, i) => (
+            <details key={i} className="border-b border-hairline first:border-t" open={i === 0}>
+              <summary className="list-none cursor-pointer py-4 flex items-center gap-3.5 [&::-webkit-details-marker]:hidden">
+                <span className="flex-shrink-0 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted">
+                  {EXPERIENCE_BADGES[exp.company] ?? exp.company.slice(0, 2).toUpperCase()}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="text-sm font-semibold text-ink">{exp.role}</span>
+                  <span className="ml-2 text-xs text-ink-muted">{exp.company}</span>
+                </span>
+                <span className="flex-shrink-0 text-xs text-ink-muted/70 tabular whitespace-nowrap">{exp.period}</span>
+                <CaretRight size={11} className="flex-shrink-0 text-ink-muted/70 transition-transform duration-200 details-caret" />
+              </summary>
+              <ul className="ml-[3.15rem] mb-4 space-y-2 max-w-[56ch]">
+                {exp.description.map((desc, idx) => (
+                  <li key={idx} className="flex gap-3 text-sm text-ink/70 leading-relaxed">
+                    <span className="flex-shrink-0 mt-2 block w-3 h-px bg-ink-muted/50" aria-hidden />
+                    <span>{desc}</span>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ))}
         </div>
 
-        <StaggerList base={0} step={0.08} className="mt-24 grid md:grid-cols-2 gap-4">
-          {[
-            {
-              icon: <GraduationCap size={20} weight="light" className="text-ink" />,
-              label: 'Education',
-              items: EDUCATION_DATA.map(e => ({ title: e.institution, sub: e.degree, meta: e.year })),
-            },
-            {
-              icon: <SealCheck size={20} weight="light" className="text-ink" />,
-              label: 'Certifications',
-              items: CERTIFICATIONS_DATA.map(c => ({ title: c.name, sub: c.issuer, meta: c.year })),
-            },
-          ].map((block, bi) => (
-            <div key={bi} className="bezel">
-              <div className="bezel-core p-8">
-                <header className="flex items-center gap-3 mb-6">
-                  {block.icon}
-                  <Eyebrow>{block.label}</Eyebrow>
-                </header>
-                <div className="space-y-5">
-                  {block.items.map((item, ii) => (
-                    <div key={ii} className="flex justify-between gap-4 items-start">
-                      <div>
-                        <h4 className="font-display font-light text-lg text-ink leading-snug">{item.title}</h4>
-                        <p className="text-sm text-ink-muted mt-0.5">{item.sub}</p>
-                      </div>
-                      <span className="text-xs text-ink-muted tabular flex-shrink-0 pt-1">{item.meta}</span>
-                    </div>
-                  ))}
+        <div className="mt-12 grid sm:grid-cols-2 gap-x-10 gap-y-8">
+          <div>
+            <Reveal>
+              <span className="font-display italic text-ink-muted" style={{ fontSize: '0.8rem' }}>academic</span>
+              <h2 className="mt-1 font-display font-light text-xl text-ink tracking-tight">Education</h2>
+            </Reveal>
+            <div className="mt-3">
+              {EDUCATION_DATA.map(e => (
+                <div key={e.id} className="flex items-baseline justify-between gap-3 py-3 border-b border-hairline first:border-t text-sm">
+                  <span className="font-semibold text-ink">{e.institution}</span>
+                  <span className="text-ink-muted text-xs flex-1 text-right truncate">{e.degree}</span>
+                  <span className="text-ink-muted/70 text-[11px] tabular flex-shrink-0">{e.year}</span>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </StaggerList>
+          </div>
+          <div>
+            <Reveal>
+              <span className="font-display italic text-ink-muted" style={{ fontSize: '0.8rem' }}>credentials</span>
+              <h2 className="mt-1 font-display font-light text-xl text-ink tracking-tight">Certifications</h2>
+            </Reveal>
+            <div className="mt-3">
+              {CERTIFICATIONS_DATA.map(c => (
+                <div key={c.id} className="flex items-baseline justify-between gap-3 py-3 border-b border-hairline first:border-t text-sm">
+                  <span className="font-semibold text-ink">{c.name}</span>
+                  <span className="text-ink-muted text-xs flex-1 text-right truncate">{c.issuer}</span>
+                  <span className="text-ink-muted/70 text-[11px] tabular flex-shrink-0">{c.year}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -815,33 +535,32 @@ function MagneticLink({ href, className, children }: { href: string; className?:
 
 function Contact() {
   return (
-    <section id="contact" className="relative py-14 md:py-36 bg-paper">
-      <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
-        <MaskLines
-          className="mt-8 font-display font-light leading-[1.02] tracking-tight text-ink"
-          style={{ fontSize: 'clamp(2.6rem, 7vw, 5rem)' }}
-          lines={['Let’s build', <em key="i" className="italic font-normal text-ink-muted">something real.</em>]}
-        />
-        <Reveal delay={0.12}>
-          <p className="mt-10 max-w-xl mx-auto text-base md:text-lg text-ink/70 font-normal leading-relaxed">
-            Whether it&rsquo;s an AI PM role, scaling an LLM product, or navigating a complex
-            regulated system — I&rsquo;m comfortable with all three.
-          </p>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <MagneticLink href="mailto:mahalegauravk@gmail.com" className="btn-pill">
-              mahalegauravk@gmail.com
+    <section id="contact" className="relative py-8 md:py-12 bg-paper">
+      <div className="max-w-4xl mx-auto px-6 md:px-10">
+        <Reveal>
+          <div
+            className="rounded-[22px] border border-hairline text-center py-16 md:py-20 px-6"
+            style={{
+              backgroundImage: 'radial-gradient(#E7E5E4 1px, transparent 1px)',
+              backgroundSize: '16px 16px',
+            }}
+          >
+            <span className="font-display italic text-ink-muted" style={{ fontSize: '0.85rem' }}>get in touch</span>
+            <h2 className="mt-2 font-display font-light text-2xl md:text-3xl text-ink tracking-tight">
+              I&rsquo;d love to build something real together.
+            </h2>
+            <MagneticLink href="mailto:mahalegauravk@gmail.com" className="btn-pill mt-8 inline-flex">
+              Say hello
               <span className="btn-pill-icon"><PaperPlaneTilt size={14} weight="light" /></span>
             </MagneticLink>
-            <div className="flex gap-2">
+            <div className="mt-6 flex justify-center gap-2">
               {[
-                { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinLogo size={18} weight="light" /> },
-                { href: 'https://github.com/gmpro-cr', label: 'GitHub', icon: <GithubLogo size={18} weight="light" /> },
-                { href: 'https://x.com/mahalegauravk', label: 'X', icon: <XMark size={16} /> },
+                { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinLogo size={16} weight="light" /> },
+                { href: 'https://github.com/gmpro-cr', label: 'GitHub', icon: <GithubLogo size={16} weight="light" /> },
+                { href: 'https://x.com/mahalegauravk', label: 'X', icon: <XMark size={14} /> },
               ].map(s => (
                 <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
-                  className="grid h-12 w-12 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
+                  className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-colors duration-200">
                   {s.icon}
                 </a>
               ))}
@@ -864,30 +583,13 @@ export default function Home() {
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: none; }
         }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to   { opacity: 1; }
-        }
-        @keyframes wordUp {
-          from { opacity: 0; transform: translateY(110%); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes heroPortrait {
-          from { opacity: 0; transform: translateY(80px) scale(0.96); }
-          to   { opacity: 1; transform: translateY(60px) scale(1); }
-        }
-        @keyframes popIn {
-          from { opacity: 0; transform: scale(0.9); }
-          to   { opacity: 1; transform: scale(1); }
-        }
-        @keyframes scrollcue {
-          0%       { transform: translateY(0); opacity: 0.35; }
-          50%      { transform: translateY(7px); opacity: 1; }
-          100%     { transform: translateY(0); opacity: 0.35; }
+        details[open] .details-caret {
+          transform: rotate(90deg);
         }
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
         <Hero />
+        <TechStack />
         <SelectedWork />
         <Trajectory />
         <Contact />
