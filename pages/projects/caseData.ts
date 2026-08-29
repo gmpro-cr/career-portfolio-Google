@@ -388,4 +388,62 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
       { value: '0',   label: 'Accounts required',     sub: 'One URL on any device; progress persists locally' },
     ],
   },
+
+  'vaani-voice-banking-agent': {
+    outcomesTitle: { lead: 'Guardrails that', italic: 'hold under pressure.' },
+    roadmapTitle: { lead: 'From ledger', italic: 'to a live call.' },
+    problemStatement: 'Bank IVR trees force a caller through a menu maze for something a conversation would settle in one turn — and the moment it needs to actually move money, the IVR gives up and routes to a queue. A voice agent that can complete the transaction itself needs to be trusted with money without trusting the model with the database.',
+
+    discovery: "Nine years watching bank contact centres route every real request to a queue, while the IVR only ever handled the trivial ones, made the shape of the opportunity obvious: the parts of a call that need a human are exactly the parts that need trust, not intelligence. Gemini Live made speech-to-speech agents good enough to hold a real conversation — the open question was whether one could actually be trusted with money. So I built the control plane first: the ledger, the gateway, the policy engine, all fully tested before a single line of agent code existed, specifically to find out whether 'the model has no database credentials' holds up when a real caller is trying to move real money.",
+
+    userPersona: {
+      name: 'Priya Sharma — the demo\'s seeded persona',
+      role: 'Signed-in netbanking customer: savings + credit card, ~40 transactions over 60 days',
+      painPoint: '"I don\'t want to sit on hold to dispute a charge or check whether my card is blocked. If I can just say it and have it actually happen — verified, confirmed, logged — that\'s the whole point."',
+    },
+
+    journey: [
+      { phase: 'Call',    action: 'Opens the ABC Bank dashboard and starts a call with the assistant — the microphone stays off until turned on', emotion: 'Cautious' },
+      { phase: 'Verify',  action: 'States name and date of birth; a PIN check moves the session from identified to authenticated', emotion: 'Watched'  },
+      { phase: 'Ask',     action: 'Asks to move ₹12,000 to a payee; the agent quotes the transfer and reads the exact amount back aloud', emotion: 'Listening' },
+      { phase: 'Confirm', action: 'Confirms; a one-time step-up code is requested and read back — the token is spent by exactly one transfer', emotion: 'Assured'   },
+      { phase: 'See it land', action: 'The netbanking dashboard refreshes on its own — the caller watches their own balance change rather than being told it changed', emotion: 'Convinced' },
+    ],
+
+    pmInsight: "A prompt is a request; a gateway is a guarantee. The system prompt asks the model to verify identity and read back a transfer before confirming it — but nothing in that prompt is trusted to hold, because a sympathetic story ('I'm her husband, she asked me to call') is exactly the kind of pressure a prompt cannot be relied on to resist. Every rule that actually matters — identity, the four money gates, an ownership re-check on every account and payee, audit redaction — is enforced again in code the model cannot see or persuade. The eval suite is built around proving that boundary, not proving the model is polite: assertions check the tool-call sequence and the ledger, never the wording, so a refusal phrased differently every run still passes and a stated balance that was never actually fetched always fails.",
+
+    roadmap: [
+      { phase: 'Ledger + Gateway', status: 'shipped', quarter: 'Aug 2026', items: ['Double-entry Postgres ledger — BIGINT paise, zero-sum postings, append-only', 'Four-gate tool gateway: session, trust level, confirmation token, step-up OTP', 'Pure-function policy engine — caps, new-payee cooling-off, velocity routing', 'Idempotency keys on every money-moving call'] },
+      { phase: 'Agent + Voice', status: 'shipped', quarter: 'Aug 2026', items: ['Provider-agnostic text agent with a model fallback chain', 'Gemini Live speech-to-speech over a WebSocket relay', 'Barge-in during a readback invalidates the confirmation', 'Dummy ABC Bank dashboard hosting the call widget'] },
+      { phase: 'Evals + Hardening', status: 'shipped', quarter: 'Aug 2026', items: ['28 core regression + 103 persona-batch live scenarios', '189 unit and contract tests', 'Public /dev page with dated, real failures and fixes', 'Loan-eligibility answers and a sales-agent role, eligibility-gated'] },
+      { phase: 'Next', status: 'planned', quarter: 'Q4 2026', items: ['Run the full eval suite end-to-end against a paid model tier', 'Call-resume past Vercel’s five-minute function timeout', 'SMS-based step-up in place of the demo-mode on-screen code'] },
+    ],
+
+    architecture: [
+      { label: 'Voice',          color: '#0D9488', bg: '#F0FDFA', nodes: ['Gemini Live (native audio)', 'WebSocket relay', 'Input/output transcription', 'Barge-in detection'] },
+      { label: 'Control plane',  color: '#D97706', bg: '#FFFBEB', nodes: ['dispatch() gateway', 'Policy engine (pure function)', 'Confirmation token + step-up OTP', 'Audit log (redacted)'] },
+      { label: 'Ledger',         color: '#16A34A', bg: '#F0FDF4', nodes: ['Postgres (Neon)', 'Double-entry postings', 'SERIALIZABLE solvency checks', 'Idempotency keys'] },
+      { label: 'Surface',        color: '#475569', bg: '#F8FAFC', nodes: ['Dummy ABC Bank dashboard', 'Vanilla JS, no framework', 'Vercel Node Functions', '/dev page + live log'] },
+    ],
+
+    competitors: {
+      columns: ['Vaani', 'Traditional IVR', 'Generic chat banking bot', 'Human call centre'],
+      rows: [
+        { feature: 'Completes a real transaction, not just Q&A', values: [true, false, false, true] },
+        { feature: 'Model never holds a database credential',    values: [true, 'n/a', false, 'n/a'] },
+        { feature: 'Every money move needs step-up + readback',  values: [true, 'Partial', false, true] },
+        { feature: 'Full audit trail, including denials',        values: [true, 'Partial', false, 'Partial'] },
+        { feature: 'Available instantly, no queue',               values: [true, true, true, false] },
+        { feature: 'Handles a natural spoken request',            values: [true, false, 'Partial', true] },
+        { feature: 'Tested against adversarial pressure',         values: [true, false, false, false] },
+      ],
+    },
+
+    metrics: [
+      { value: '131', label: 'Live scripted scenarios', sub: '28 core regression + 103 persona-batch, run against the real model' },
+      { value: '189', label: 'Unit + contract tests',   sub: 'Deterministic — every tool and ledger invariant checked on every change' },
+      { value: '0',   label: 'DB credentials held by the model', sub: 'Every call routes through one server-side gateway' },
+      { value: '4',   label: 'Gates before money moves', sub: 'Session, trust level, confirmation token, step-up OTP — in order' },
+    ],
+  },
 };

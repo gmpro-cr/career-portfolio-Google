@@ -71,6 +71,17 @@ export const THEMES: Record<string, ProjectTheme> = {
       { bg: '#F8FAFC', border: '#475569', text: '#334155', dot: '#475569' }, // slate counter
     ],
   },
+  // Vaani — deep banking teal + gold (matches the product's own dark-green-and-gold netbanking identity)
+  'vaani-voice-banking-agent': {
+    accent: '#0D9488', accentDark: '#115E59', accentBg: '#F0FDFA', accentBorder: '#0D9488',
+    ramp: [
+      { bg: '#F0FDFA', border: '#0D9488', text: '#115E59', dot: '#0D9488' }, // teal
+      { bg: '#FFFBEB', border: '#D97706', text: '#92400E', dot: '#D97706' }, // gold
+      { bg: '#F0FDF4', border: '#16A34A', text: '#14532D', dot: '#16A34A' }, // green
+      { bg: '#F8FAFC', border: '#475569', text: '#334155', dot: '#475569' }, // slate
+      { bg: '#FEF2F2', border: '#DC2626', text: '#991B1B', dot: '#DC2626' }, // red (denials/refusals)
+    ],
+  },
 };
 
 export const FALLBACK_THEME: ProjectTheme = {
@@ -92,7 +103,7 @@ Location: Pune, India. Open to hybrid/remote roles. Contact: mahalegauravk@gmail
 LinkedIn: https://www.linkedin.com/in/mahalegauravk
 
 Summary: AI Product Builder and Finance Domain Expert with 9+ years in banking, credit risk, and portfolio management.
-Independently designed, built, and shipped 6 products — 4 LLM-based platforms and 2 browser-native learning tools (PyQuest, SQLQuest) — using Claude, Cursor and Groq API.
+Independently designed, built, and shipped 7 products — 5 LLM-based platforms and 2 browser-native learning tools (PyQuest, SQLQuest) — using Claude, Cursor and Groq API.
 Experienced across the full product lifecycle: problem discovery, MVP scoping, prompt engineering, stakeholder alignment, and iterative releases.
 Seeking AI Product Management roles where finance expertise and practical AI-building experience combine to create transformative products.
 `;
@@ -408,6 +419,51 @@ export const PROJECTS: Project[] = [
       ],
     },
     reflection: "SQLQuest confirmed a thesis PyQuest suggested: the WASM-ization of real engines is a product unlock for education, not just an engineering trick — the moment the real tool runs client-side, the whole cost-and-friction structure of teaching it collapses. What I'd do differently: I'd design the checker contract before writing a single exercise. Retrofitting row-comparison semantics (ordering, NULLs, float tolerance) across early exercises cost more than building the 148 exercises themselves. And I'd ship the test suite from exercise one — the 204 tests transformed content editing from nervous to fearless, which is precisely when curriculum quality started compounding. Next: a shared-dataset capstone tier where learners answer open analytical questions instead of guided exercises.",
+  },
+  {
+    title: "Vaani — Voice Banking Agent",
+    slug: "vaani-voice-banking-agent",
+    date: "Aug 2026",
+    image: "/vaani.png",
+    description: "A speech-to-speech voice banking agent that replaces an IVR tree — the caller talks, and the agent authenticates them, answers questions about their accounts, and completes real transactions (block a card, raise a dispute, pay a bill, transfer money) within policy limits. The architectural rule: the model never holds a database credential. It emits tool calls; a server-side gateway independently enforces identity, a four-gate confirmation flow, and policy limits before any money moves — and every attempt is logged as structured data regardless of what was spoken.",
+    cardSummary: "The model never touches the database — it emits tool calls; a server-side gateway enforces identity, a four-gate confirmation flow, and policy limits before any money moves. 131 live scripted scenarios and 189 unit tests hold that promise to account.",
+    tech: ["Gemini Live", "Node.js", "WebSocket", "Neon Postgres", "Vercel Functions", "TypeScript"],
+    metrics: "131 live scenarios",
+    link: "https://vaani-iota.vercel.app",
+    cardFlow: ["Call", "Verify", "Confirm", "Post"],
+    category: 'build',
+    flowType: 'voice',
+    problem: "Bank IVR trees force callers through a maze of menus to do something a conversation would settle in one turn — and the moment a call needs to actually move money, the IVR gives up and routes to a human queue. A voice agent that can complete the transaction itself needs a way to be trusted with money without trusting the model with the database.",
+    approach: [
+      "Put every control that matters in a server-side gateway, not the system prompt. The model can say anything; it can only do what dispatch() permits. Every rule the prompt states — verify identity, read back a transfer before confirming — is enforced again in code the model cannot see or persuade.",
+      "Built the ledger first, before any agent code: double-entry Postgres, BIGINT paise, postings that must sum to zero (a deferred constraint trigger checked at COMMIT), balances derived rather than stored, and an append-only postings table where UPDATE and DELETE are refused by trigger. A correction is a new reversing transfer, not an edit.",
+      "Designed money movement as four gates in strict order: session validity, trust level (anonymous to identified to authenticated), a confirmation token bound to a hash of the exact amount and payee, and a one-time step-up code spent by exactly one transfer. Skipping a gate, replaying a token, or reusing a spent code all fail closed.",
+      "Made the policy engine a pure function — no database, no clock, no I/O, no override parameter — so a per-transaction cap, daily cap, new-payee cooling-off, and velocity rule can be reasoned about and tested in isolation from everything else.",
+      "Kept the same dispatch() function underneath every channel: a typed agent for development, live Gemini Live voice for the real demo, and the automated eval suite all route through the identical gateway, so a scenario that passes in text passes for the same reason it would on a call.",
+      "Wrapped the agent in a dummy 'ABC Bank' netbanking dashboard rather than a bare chat window, so the assistant sits where a real bank puts its support widget and the demo reads as a product, not a prototype.",
+    ],
+    keyInsights: [
+      "A prompt is a request; a gateway is a guarantee. Every safety rule that actually has to hold was worth building twice — once as an instruction the model reads, once as code the model cannot negotiate with — and only the second copy is the one that matters under pressure.",
+      "Testing this seriously means reporting what it actually breaks, not just the score after the fix. A live persona batch found a real bug — identify_caller silently rejecting an already-authenticated session — that a caller could have hit too; publishing that finding (and the fix) is more convincing than any pass-rate number.",
+      "Assertions should check the tool-call sequence and the ledger, never the wording. An agent that refuses a transfer with a different sentence every run should pass; one that states a balance it never fetched should always fail — evals that grade phrasing miss exactly the failures that matter.",
+    ],
+    outcomes: [
+      "Money moves through exactly one code path — dispatch() — regardless of whether the request came from a live voice call, typed text, or the eval suite.",
+      "131 live scripted phone-call scenarios (28 core regression + 103 persona-batch across 10 caller categories, including code-switching and Devanagari) plus 189 unit and contract tests, asserting on the tool-call sequence and ledger rather than wording.",
+      "Live at vaani-iota.vercel.app on Vercel Functions, holding a WebSocket open for the length of a call, against a Neon Postgres ledger.",
+    ],
+    technicalDetails: {
+      architecture: "A caller's voice (or typed text) reaches a browser tab, which streams audio over a WebSocket to a Node relay. The relay forwards it to Gemini Live, a real-time speech-to-speech model; both directions are transcribed so an audio conversation stays auditable. When the model wants to do anything — check a balance, move money — it calls a named tool, and every call passes through one server-side gateway (dispatch()) that checks session validity, trust level, a confirmation token bound to the exact quoted amount, and a single-use step-up code, in that order, before touching the Postgres ledger. The gateway is transport-agnostic: the HTTP server, the voice relay, and the eval harness are all thin shells calling the same function.",
+      dataFlow: [
+        { step: "Caller speaks; browser streams 16kHz PCM audio over a WebSocket to the relay" },
+        { step: "Relay forwards audio to Gemini Live; the model proposes a tool call" },
+        { step: "Every tool call routes through dispatch() — session, trust level, and policy checked before anything runs" },
+        { step: "A money-moving call first quotes: policy runs, and a confirmation token plus a spoken readback come back" },
+        { step: "Caller confirms; a one-time step-up code is requested, verified, and spent by exactly one transfer" },
+        { step: "Postings are written to the double-entry ledger; the dashboard refreshes so the caller sees their own balance change" },
+      ],
+    },
+    reflection: "The lesson I'd carry into the next agent project is to build the control plane before the conversation, not alongside it. Having the ledger's invariants and the gateway's four gates fully tested before a single line of agent code existed meant every later layer — text agent, then voice, then the eval suite — was just a new client of a boundary that already held. What I'd do differently: instrument tool-call arguments in the eval reports from day one. Two persona-batch runs came back looking like the model had nearly stopped working; the real cause — identify_caller silently rejecting an already-confirmed session — only became obvious once the logs showed the exact arguments being sent, ruling out a model formatting problem. Next: running the full eval suite against a paid tier rather than the free-tier quota that currently spreads 103 persona-batch scenarios across a daily job, and giving Vercel's five-minute function timeout a proper call-resume path instead of disclosing it as a known limit.",
   }
 ];
 
