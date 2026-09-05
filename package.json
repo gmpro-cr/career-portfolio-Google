@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "emoji-guard": "node scripts/no-emoji-guard.mjs",
+    "design-audit": "node scripts/design-audit.mjs",
     "verify": "npm run emoji-guard && npm run typecheck && npm run build",
     "preview:ci": "npm run build && npm run preview"
   },

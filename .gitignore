@@ -26,3 +26,6 @@ dist-ssr
 
 # impeccable critique snapshots (local tool cache)
 .impeccable/
+
+# design-audit baseline (machine-local; a fresh clone starts its own)
+out/
