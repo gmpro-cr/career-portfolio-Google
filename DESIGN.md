@@ -100,6 +100,8 @@ Numerals in tabular contexts use `.tabular`.
   `shadow-lifted-sm` and should use the token.
 - Paper grain (`body::before`, opacity `0.028`) is committed identity. It is a
   texture, not an effect — do not raise its opacity.
+- The grain **drifts 8px over 30s**, alternating (see §4). Opacity stays
+  `0.028`; the drift is what gives the surface life, not additional contrast.
 
 ---
 
@@ -110,6 +112,14 @@ Numerals in tabular contexts use `.tabular`.
   token for no benefit — use `ease-spring`.
 - **Duration:** 700ms for surface transitions, 900ms for `fade-up` entrance.
 - **Entrance:** the `fade-up` keyframe (opacity + 24px rise + 6px blur).
+- **Ambient motion** is limited to the paper grain: `grainDrift`, 8px over 30s,
+  `ease-in-out infinite alternate`, driven by `transform: translate3d` so it is
+  GPU-composited rather than repainting the viewport. Amplitude is deliberately
+  below the threshold of notice — the site should feel like paper, not look
+  animated. Raising the amplitude or shortening the period reads as shimmer on
+  low-DPI displays and is a defect.
+- This is the **only** idle background animation in the system. A second one
+  competes with it and needs a human decision first.
 - **`prefers-reduced-motion` is mandatory.** `index.css` neutralises animation
   and transition globally; Framer Motion components must not reintroduce motion
   that escapes it.
