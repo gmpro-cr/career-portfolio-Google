@@ -8,6 +8,19 @@ import {
   LinkedinLogo,
   EnvelopeSimple,
   CaretRight,
+  Layout,
+  Atom,
+  FileTs,
+  FilePy,
+  Lightning,
+  Database,
+  HardDrives,
+  Sparkle,
+  Asterisk,
+  Cube,
+  ArrowsLeftRight,
+  Wind,
+  Triangle,
 } from '@phosphor-icons/react';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA, getTheme } from '../constants';
 import XMark from '../components/XMark';
@@ -181,9 +194,25 @@ function Hero() {
 /* ═══════════════════════════════════════════════════════════════
    TECH STACK — deduped tools across all six shipped projects
    ═══════════════════════════════════════════════════════════════ */
+/* Phosphor carries no brand marks for this stack, so each glyph is chosen for
+   meaning and, where possible, for resemblance to the real mark: Vercel is a
+   triangle, React an atom, Gemini a sparkle, Anthropic an asterisk, Tailwind a
+   wind. Every entry is distinct — a repeated glyph would add weight without
+   adding information. */
 const TECH_STACK = [
-  'Next.js', 'React', 'TypeScript', 'Python', 'FastAPI', 'PostgreSQL',
-  'Supabase', 'Gemini API', 'Claude API', 'WASM (Pyodide / PGlite)', 'WebSocket', 'Tailwind CSS', 'Vercel',
+  { name: 'Next.js', Icon: Layout },
+  { name: 'React', Icon: Atom },
+  { name: 'TypeScript', Icon: FileTs },
+  { name: 'Python', Icon: FilePy },
+  { name: 'FastAPI', Icon: Lightning },
+  { name: 'PostgreSQL', Icon: Database },
+  { name: 'Supabase', Icon: HardDrives },
+  { name: 'Gemini API', Icon: Sparkle },
+  { name: 'Claude API', Icon: Asterisk },
+  { name: 'WASM (Pyodide / PGlite)', Icon: Cube },
+  { name: 'WebSocket', Icon: ArrowsLeftRight },
+  { name: 'Tailwind CSS', Icon: Wind },
+  { name: 'Vercel', Icon: Triangle },
 ];
 
 function TechStack() {
@@ -195,14 +224,15 @@ function TechStack() {
           <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">What I build with</h2>
         </Reveal>
         <div className="mt-5 flex flex-wrap gap-2">
-          {TECH_STACK.map((t, i) => (
-            <React.Fragment key={t}>
+          {TECH_STACK.map(({ name, Icon }, i) => (
+            <React.Fragment key={name}>
               <Reveal delay={0.06 + i * 0.035} className="inline-block">
                 <span
-                  className="text-sm border border-hairline bg-white rounded-full px-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.25)]"
+                  className="inline-flex items-center gap-1.5 text-sm border border-hairline bg-white rounded-full pl-3 pr-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.25)]"
                   style={{ color: 'rgba(26,20,16,0.75)' }}
                 >
-                  {t}
+                  <Icon size={14} weight="light" aria-hidden className="shrink-0 text-ink-muted" />
+                  {name}
                 </span>
               </Reveal>
             </React.Fragment>
