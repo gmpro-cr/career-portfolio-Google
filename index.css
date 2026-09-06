@@ -14,14 +14,21 @@
     font-feature-settings: 'ss01', 'cv11';
   }
 
-  /* Paper grain — fixed, non-interactive; breaks digital flatness without reading as an effect */
+  /* Paper grain — fixed, non-interactive; breaks digital flatness without reading as an effect.
+     Drifts ~8px over 30s so the surface reads as paper rather than screen. The motion is
+     deliberately below the threshold of notice: you feel it, you do not watch it.
+     inset is negative so the drift never exposes an edge, and the animation runs on
+     transform (GPU-composited) rather than background-position, which would repaint the
+     full viewport every frame. The global prefers-reduced-motion block below stops it. */
   body::before {
     content: '';
     position: fixed;
-    inset: 0;
+    inset: -12px;
     z-index: 80;
     pointer-events: none;
     opacity: 0.028;
+    will-change: transform;
+    animation: grainDrift 30s ease-in-out infinite alternate;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
@@ -185,6 +192,13 @@
 @keyframes heroImgSettle {
   from { transform: scale(1.08); }
   to   { transform: scale(1); }
+}
+
+/* Paper grain drift — 8px over 30s, alternating so it sways rather than scrolls.
+   Amplitude is intentionally tiny; larger values read as shimmer on low-DPI screens. */
+@keyframes grainDrift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-8px, -8px, 0); }
 }
 
 /* ── Work-card themed hover: accent ring + tinted lift shadow ──
