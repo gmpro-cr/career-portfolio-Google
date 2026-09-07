@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import {
   ArrowRight,
   PaperPlaneTilt,
-  GithubLogo,
-  LinkedinLogo,
   EnvelopeSimple,
   CaretRight,
   ArrowsLeftRight,
@@ -14,7 +12,7 @@ import {
 import {
   NextjsMark, ReactMark, TypeScriptMark, PythonMark, FastApiMark, PostgreSqlMark,
   SupabaseMark, GeminiMark, ClaudeMark, WasmMark, TailwindMark, VercelMark,
-  LINKEDIN_BLUE,
+  LinkedinMark, GithubMark,
 } from '../components/BrandIcons';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA, getTheme } from '../constants';
 import XMark from '../components/XMark';
@@ -172,10 +170,10 @@ function Hero() {
             <EnvelopeSimple size={16} weight="light" />
           </a>
           <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
-            <LinkedinLogo size={16} weight="light" style={{ color: LINKEDIN_BLUE }} />
+            <LinkedinMark size={15} />
           </a>
           <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
-            <GithubLogo size={16} weight="light" />
+            <GithubMark size={15} color="currentColor" />
           </a>
           <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" aria-label="X" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
             <XMark size={14} />
@@ -467,8 +465,8 @@ function Contact() {
             </MagneticLink>
             <div className="mt-6 flex justify-center gap-2">
               {[
-                { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinLogo size={16} weight="light" style={{ color: LINKEDIN_BLUE }} /> },
-                { href: 'https://github.com/gmpro-cr', label: 'GitHub', icon: <GithubLogo size={16} weight="light" /> },
+                { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinMark size={15} /> },
+                { href: 'https://github.com/gmpro-cr', label: 'GitHub', icon: <GithubMark size={15} color="currentColor" /> },
                 { href: 'https://x.com/mahalegauravk', label: 'X', icon: <XMark size={14} /> },
               ].map(s => (
                 <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
