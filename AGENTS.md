@@ -8,7 +8,8 @@ Humans provide intent and taste. Agents execute inside these guardrails.
 ## 1. Non-Negotiables (Hard Constraints)
 
 - **No emojis** in any UI, copy, alt text, or comments that surface to users.
-- **Icon policy**: Use `@phosphor-icons/react` exclusively for new or modified icons. Do not introduce or expand usage of `lucide-react` in new work. Existing Lucide usage may be left or migrated only when touching the component.
+- **Icon policy**: Use `@phosphor-icons/react` exclusively for new or modified **UI** icons. Do not introduce or expand usage of `lucide-react` in new work. Existing Lucide usage may be left or migrated only when touching the component.
+  - **Exception — third-party brand marks.** Phosphor carries no logo for this stack (all 1517 checked). Brand marks therefore come from `components/BrandIcons.tsx`, generated from simple-icons by `scripts/gen-brand-icons.mjs`, and render in official brand colours. See DESIGN.md section 1. This exception covers logos only; every other icon is still Phosphor.
 - **Typography**: 
   - Body / UI: `font-sans` → Geist
   - Display / headlines: `font-display` → Fraunces
