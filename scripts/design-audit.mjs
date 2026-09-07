@@ -52,6 +52,12 @@ const OK_TEXT_SIZES = ['10px'];
 const OK_TRACKING = ['0.22em'];
 const OK_RADII = ['2rem', 'calc(2rem-0.375rem)'];
 
+// Official brand marks carry official brand colours by definition -- that is the
+// entire point of a logo. components/BrandIcons.tsx is generated from
+// simple-icons, so its hexes are upstream facts, not palette drift. Reported
+// once, informationally, and never auto-fixed. See DESIGN.md section 1.
+const BRAND_MARK_FILE = 'components/BrandIcons.tsx';
+
 const SPRING = 'cubic-bezier(0.32,0.72,0,1)';
 
 // ---------------------------------------------------------------- colour maths
@@ -134,6 +140,15 @@ for (const { path: file, text } of files) {
   // CATEGORICAL palette — architecture diagrams, status badges. Those exist to
   // stay mutually distinguishable, so flattening them into the warm ramp would
   // be a regression, not a fix. Collapsed to one informational finding per file.
+  if (file === BRAND_MARK_FILE) {
+    const brandHexes = new Set([...text.matchAll(/#[0-9A-Fa-f]{6}\b/g)].map((m) => m[0].toUpperCase()));
+    for (const h of known) brandHexes.delete(h);
+    if (brandHexes.size) {
+      add('low', 'brand-marks', 'DESIGN.md §1 (official brand marks — documented exception)', file, 0,
+        `${brandHexes.size} official brand colours in the generated brand-mark file — upstream facts, not drift; never auto-fix`);
+    }
+    continue;
+  }
   const categorical = new Set();
   for (const m of text.matchAll(/#[0-9A-Fa-f]{6}\b/g)) {
     const hex = m[0].toUpperCase();

@@ -40,6 +40,29 @@ Note `ink-muted` measures ~4.8:1 on white and ~4.6:1 on `paper`. It passes, but
 with almost no headroom — do not darken surfaces or lighten `ink-muted`
 without re-measuring. The audit computes this on every run.
 
+### Official brand marks — a deliberate exception
+
+Third-party logos render as their **official mark in their official brand
+colour**. A logo recoloured to fit a palette is no longer that logo, and an
+approximated one reads as a wrong logo, so neither hand-drawing nor recolouring
+is acceptable here.
+
+Geometry and colours come from simple-icons via
+`scripts/gen-brand-icons.mjs`, which writes `components/BrandIcons.tsx`. That
+file is generated — do not hand-edit it, regenerate it.
+
+Two rules still bind:
+
+- Marks whose official colour is black (Vercel, Next.js, GitHub, X) render in
+  `ink` instead. Indistinguishable at 14px, and pure `#000` stays banned.
+- Anything without a real brand mark keeps a semantic Phosphor glyph in `ink`:
+  WebSocket is a protocol rather than a product, and email and the CV link are
+  not brands at all. Inventing a mark for these would be worse than not having
+  one.
+
+The audit reports this file's colours once, informationally, and never fixes
+them.
+
 ### Categorical colour — OPEN DECISION
 
 Two places use colour *categorically* rather than decoratively:

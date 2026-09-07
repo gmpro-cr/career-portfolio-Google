@@ -8,20 +8,14 @@ import {
   LinkedinLogo,
   EnvelopeSimple,
   CaretRight,
-  Layout,
-  Atom,
-  FileTs,
-  FilePy,
-  Lightning,
-  Database,
-  HardDrives,
-  Sparkle,
-  Asterisk,
-  Cube,
   ArrowsLeftRight,
-  Wind,
-  Triangle,
+  FilePdf,
 } from '@phosphor-icons/react';
+import {
+  NextjsMark, ReactMark, TypeScriptMark, PythonMark, FastApiMark, PostgreSqlMark,
+  SupabaseMark, GeminiMark, ClaudeMark, WasmMark, TailwindMark, VercelMark,
+  LINKEDIN_BLUE,
+} from '../components/BrandIcons';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA, getTheme } from '../constants';
 import XMark from '../components/XMark';
 
@@ -166,7 +160,8 @@ function Hero() {
           </p>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
             Open to <b className="font-semibold text-ink">AI Product Management</b> roles. Based in Pune, happy to go remote.{' '}
-            <a href="/Gaurav_Mahale_Resume.pdf" download className="text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors">
+            <a href="/Gaurav_Mahale_Resume.pdf" download className="inline-flex items-center gap-1.5 text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors">
+              <FilePdf size={15} weight="light" aria-hidden className="shrink-0 text-ink-muted" />
               Download CV
             </a>
           </p>
@@ -177,7 +172,7 @@ function Hero() {
             <EnvelopeSimple size={16} weight="light" />
           </a>
           <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
-            <LinkedinLogo size={16} weight="light" />
+            <LinkedinLogo size={16} weight="light" style={{ color: LINKEDIN_BLUE }} />
           </a>
           <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
             <GithubLogo size={16} weight="light" />
@@ -194,25 +189,24 @@ function Hero() {
 /* ═══════════════════════════════════════════════════════════════
    TECH STACK — deduped tools across all six shipped projects
    ═══════════════════════════════════════════════════════════════ */
-/* Phosphor carries no brand marks for this stack, so each glyph is chosen for
-   meaning and, where possible, for resemblance to the real mark: Vercel is a
-   triangle, React an atom, Gemini a sparkle, Anthropic an asterisk, Tailwind a
-   wind. Every entry is distinct — a repeated glyph would add weight without
-   adding information. */
+/* Official brand marks in official brand colours, geometry pulled from
+   simple-icons by scripts/gen-brand-icons.mjs rather than drawn by hand.
+   WebSocket is the one exception -- it is a protocol, not a product, and has no
+   brand mark, so it keeps a semantic Phosphor glyph in ink. */
 const TECH_STACK = [
-  { name: 'Next.js', Icon: Layout },
-  { name: 'React', Icon: Atom },
-  { name: 'TypeScript', Icon: FileTs },
-  { name: 'Python', Icon: FilePy },
-  { name: 'FastAPI', Icon: Lightning },
-  { name: 'PostgreSQL', Icon: Database },
-  { name: 'Supabase', Icon: HardDrives },
-  { name: 'Gemini API', Icon: Sparkle },
-  { name: 'Claude API', Icon: Asterisk },
-  { name: 'WASM (Pyodide / PGlite)', Icon: Cube },
-  { name: 'WebSocket', Icon: ArrowsLeftRight },
-  { name: 'Tailwind CSS', Icon: Wind },
-  { name: 'Vercel', Icon: Triangle },
+  { name: 'Next.js', icon: <NextjsMark size={14} /> },
+  { name: 'React', icon: <ReactMark size={14} /> },
+  { name: 'TypeScript', icon: <TypeScriptMark size={14} /> },
+  { name: 'Python', icon: <PythonMark size={14} /> },
+  { name: 'FastAPI', icon: <FastApiMark size={14} /> },
+  { name: 'PostgreSQL', icon: <PostgreSqlMark size={14} /> },
+  { name: 'Supabase', icon: <SupabaseMark size={14} /> },
+  { name: 'Gemini API', icon: <GeminiMark size={14} /> },
+  { name: 'Claude API', icon: <ClaudeMark size={14} /> },
+  { name: 'WASM (Pyodide / PGlite)', icon: <WasmMark size={14} /> },
+  { name: 'WebSocket', icon: <ArrowsLeftRight size={14} weight="light" className="text-ink-muted" /> },
+  { name: 'Tailwind CSS', icon: <TailwindMark size={14} /> },
+  { name: 'Vercel', icon: <VercelMark size={14} /> },
 ];
 
 function TechStack() {
@@ -224,14 +218,14 @@ function TechStack() {
           <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">What I build with</h2>
         </Reveal>
         <div className="mt-5 flex flex-wrap gap-2">
-          {TECH_STACK.map(({ name, Icon }, i) => (
+          {TECH_STACK.map(({ name, icon }, i) => (
             <React.Fragment key={name}>
               <Reveal delay={0.06 + i * 0.035} className="inline-block">
                 <span
                   className="inline-flex items-center gap-1.5 text-sm border border-hairline bg-white rounded-full pl-3 pr-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.25)]"
                   style={{ color: 'rgba(26,20,16,0.75)' }}
                 >
-                  <Icon size={14} weight="light" aria-hidden className="shrink-0 text-ink-muted" />
+                  <span className="shrink-0 grid place-items-center">{icon}</span>
                   {name}
                 </span>
               </Reveal>
@@ -473,7 +467,7 @@ function Contact() {
             </MagneticLink>
             <div className="mt-6 flex justify-center gap-2">
               {[
-                { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinLogo size={16} weight="light" /> },
+                { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinLogo size={16} weight="light" style={{ color: LINKEDIN_BLUE }} /> },
                 { href: 'https://github.com/gmpro-cr', label: 'GitHub', icon: <GithubLogo size={16} weight="light" /> },
                 { href: 'https://x.com/mahalegauravk', label: 'X', icon: <XMark size={14} /> },
               ].map(s => (
