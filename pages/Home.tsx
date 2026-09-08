@@ -331,14 +331,45 @@ const EXPERIENCE_BADGES: Record<string, string> = {
   'Suraksha Asset Reconstruction Ltd.': 'SA',
 };
 
+/* Real company marks. Yes Bank and Pareto publish only wide wordmarks (5.9:1
+   and 1.8:1), which is why these sit in a wide lockup rather than the circular
+   badge -- a wordmark squeezed into a 36px circle is an illegible smudge.
+   Provenance and licensing: docs/company-logos.md. Any company without a file
+   here falls back to the monogram badge. */
+const EXPERIENCE_LOGOS: Record<string, string> = {
+  'Yes Bank Limited': '/logos/yes-bank.svg',
+  'Pareto.AI': '/logos/pareto-ai.svg',
+  'HDFC Bank Limited': '/logos/hdfc-bank.svg',
+  'Suraksha Asset Reconstruction Ltd.': '/logos/suraksha-arc-mark.png',
+};
+
 function ExperienceRow({ exp, delay, defaultOpen }: { exp: (typeof EXPERIENCES)[number]; delay: number; defaultOpen: boolean }) {
   const [ref, style] = useRevealStyle(delay);
   return (
     <details ref={ref as React.Ref<HTMLDetailsElement>} className="group border-b border-hairline first:border-t" open={defaultOpen} style={style}>
       <summary className="list-none cursor-pointer py-4 flex items-start gap-3.5 transition-colors duration-300 hover:bg-shell/60 rounded-lg px-2 -mx-2 [&::-webkit-details-marker]:hidden">
-        <span className="flex-shrink-0 mt-0.5 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted transition-transform duration-300 group-hover:scale-105">
-          {EXPERIENCE_BADGES[exp.company] ?? exp.company.slice(0, 2).toUpperCase()}
-        </span>
+        {EXPERIENCE_LOGOS[exp.company] ? (
+          <span className="flex-shrink-0 mt-0.5 h-9 w-16 sm:w-20 grid place-items-center transition-transform duration-300 group-hover:scale-105">
+            <img
+              src={EXPERIENCE_LOGOS[exp.company]}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              /* Explicit width AND height: these SVGs declare only a viewBox, and a
+                 replaced element with no intrinsic size collapses to zero width
+                 when left on w-auto. object-contain does the letterboxing, so
+                 every logo occupies the same slot whatever its aspect ratio.
+                 The slot is 24px rather than 20px so squarer marks (Pareto,
+                 Suraksha) are not capped far smaller than the wide wordmarks;
+                 the wordmarks are width-limited and unaffected by the change. */
+              className="h-6 w-full object-contain object-left"
+            />
+          </span>
+        ) : (
+          <span className="flex-shrink-0 mt-0.5 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted transition-transform duration-300 group-hover:scale-105">
+            {EXPERIENCE_BADGES[exp.company] ?? exp.company.slice(0, 2).toUpperCase()}
+          </span>
+        )}
         <span className="min-w-0 flex-1">
           <span className="block text-sm font-semibold text-ink">{exp.role}</span>
           <span className="block text-xs text-ink-muted mt-0.5">{exp.company}</span>
