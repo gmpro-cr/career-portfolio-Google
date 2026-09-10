@@ -28,7 +28,12 @@ const ICONS = {
   VercelMark:     ['vercel',       'Vercel'],
   GithubMark:     ['github',       'GitHub'],
   XBrandMark:     ['x',            'X'],
+  LinkedinMark:   ['linkedin',     'LinkedIn'],
 };
+
+// simple-icons still publishes the LinkedIn mark but has dropped it from the
+// data file, so its official brand blue is supplied here rather than looked up.
+const MANUAL_HEX = { LinkedIn: '0A66C2' };
 
 const INK = '#1A1410';
 const raw = await (await fetch(DATA)).json();
@@ -39,7 +44,7 @@ const rows = [];
 for (const [name, [slug, title]] of Object.entries(ICONS)) {
   const svg = await (await fetch(SVG(slug))).text();
   const d = svg.match(/ d="([^"]+)"/)?.[1];
-  const hex = hexOf[title];
+  const hex = hexOf[title] ?? MANUAL_HEX[title];
   if (!d || !hex) { console.error(`FAILED ${slug}: path=${!!d} hex=${!!hex}`); process.exit(1); }
   // Brands whose official colour is black render in ink instead: visually
   // identical at 14px, and DESIGN.md forbids pure #000 anywhere on this site.
@@ -63,14 +68,16 @@ process.stdout.write(`/* AUTO-GENERATED — do not hand-edit.
    DESIGN.md rules out pure #000 site-wide. */
 import React from 'react';
 
-export type BrandIconProps = { size?: number; className?: string };
+export type BrandIconProps = { size?: number; className?: string; color?: string };
 
-const mark = ({ size = 14, className = '' }: BrandIconProps, color: string, d: string) => (
+/* \`color\` overrides the brand colour — used where a mark must inherit
+   currentColor to keep an existing hover transition. */
+const mark = ({ size = 14, className = '', color }: BrandIconProps, brand: string, d: string) => (
   <svg
     width={size}
     height={size}
     viewBox="0 0 24 24"
-    fill={color}
+    fill={color ?? brand}
     className={className}
     aria-hidden="true"
     focusable="false"
@@ -80,8 +87,4 @@ const mark = ({ size = 14, className = '' }: BrandIconProps, color: string, d: s
 );
 
 ${body}
-
-/** LinkedIn is no longer carried by simple-icons, so its mark stays on Phosphor's
-    LinkedinLogo; this is its official brand blue, applied at the call site. */
-export const LINKEDIN_BLUE = '#0A66C2';
 `);

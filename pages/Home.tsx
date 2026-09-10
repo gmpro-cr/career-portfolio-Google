@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import {
   ArrowRight,
   PaperPlaneTilt,
-  GithubLogo,
-  LinkedinLogo,
   EnvelopeSimple,
   CaretRight,
   ArrowsLeftRight,
@@ -14,7 +12,7 @@ import {
 import {
   NextjsMark, ReactMark, TypeScriptMark, PythonMark, FastApiMark, PostgreSqlMark,
   SupabaseMark, GeminiMark, ClaudeMark, WasmMark, TailwindMark, VercelMark,
-  LINKEDIN_BLUE,
+  LinkedinMark, GithubMark,
 } from '../components/BrandIcons';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA, getTheme } from '../constants';
 import XMark from '../components/XMark';
@@ -172,10 +170,10 @@ function Hero() {
             <EnvelopeSimple size={16} weight="light" />
           </a>
           <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
-            <LinkedinLogo size={16} weight="light" style={{ color: LINKEDIN_BLUE }} />
+            <LinkedinMark size={15} />
           </a>
           <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
-            <GithubLogo size={16} weight="light" />
+            <GithubMark size={15} color="currentColor" />
           </a>
           <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" aria-label="X" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
             <XMark size={14} />
@@ -333,14 +331,45 @@ const EXPERIENCE_BADGES: Record<string, string> = {
   'Suraksha Asset Reconstruction Ltd.': 'SA',
 };
 
+/* Real company marks. Yes Bank and Pareto publish only wide wordmarks (5.9:1
+   and 1.8:1), which is why these sit in a wide lockup rather than the circular
+   badge -- a wordmark squeezed into a 36px circle is an illegible smudge.
+   Provenance and licensing: docs/company-logos.md. Any company without a file
+   here falls back to the monogram badge. */
+const EXPERIENCE_LOGOS: Record<string, string> = {
+  'Yes Bank Limited': '/logos/yes-bank.svg',
+  'Pareto.AI': '/logos/pareto-ai.svg',
+  'HDFC Bank Limited': '/logos/hdfc-bank.svg',
+  'Suraksha Asset Reconstruction Ltd.': '/logos/suraksha-arc-mark.png',
+};
+
 function ExperienceRow({ exp, delay, defaultOpen }: { exp: (typeof EXPERIENCES)[number]; delay: number; defaultOpen: boolean }) {
   const [ref, style] = useRevealStyle(delay);
   return (
     <details ref={ref as React.Ref<HTMLDetailsElement>} className="group border-b border-hairline first:border-t" open={defaultOpen} style={style}>
       <summary className="list-none cursor-pointer py-4 flex items-start gap-3.5 transition-colors duration-300 hover:bg-shell/60 rounded-lg px-2 -mx-2 [&::-webkit-details-marker]:hidden">
-        <span className="flex-shrink-0 mt-0.5 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted transition-transform duration-300 group-hover:scale-105">
-          {EXPERIENCE_BADGES[exp.company] ?? exp.company.slice(0, 2).toUpperCase()}
-        </span>
+        {EXPERIENCE_LOGOS[exp.company] ? (
+          <span className="flex-shrink-0 mt-0.5 h-9 w-16 sm:w-20 grid place-items-center transition-transform duration-300 group-hover:scale-105">
+            <img
+              src={EXPERIENCE_LOGOS[exp.company]}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              /* Explicit width AND height: these SVGs declare only a viewBox, and a
+                 replaced element with no intrinsic size collapses to zero width
+                 when left on w-auto. object-contain does the letterboxing, so
+                 every logo occupies the same slot whatever its aspect ratio.
+                 The slot is 24px rather than 20px so squarer marks (Pareto,
+                 Suraksha) are not capped far smaller than the wide wordmarks;
+                 the wordmarks are width-limited and unaffected by the change. */
+              className="h-6 w-full object-contain object-left"
+            />
+          </span>
+        ) : (
+          <span className="flex-shrink-0 mt-0.5 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted transition-transform duration-300 group-hover:scale-105">
+            {EXPERIENCE_BADGES[exp.company] ?? exp.company.slice(0, 2).toUpperCase()}
+          </span>
+        )}
         <span className="min-w-0 flex-1">
           <span className="block text-sm font-semibold text-ink">{exp.role}</span>
           <span className="block text-xs text-ink-muted mt-0.5">{exp.company}</span>
@@ -467,8 +496,8 @@ function Contact() {
             </MagneticLink>
             <div className="mt-6 flex justify-center gap-2">
               {[
-                { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinLogo size={16} weight="light" style={{ color: LINKEDIN_BLUE }} /> },
-                { href: 'https://github.com/gmpro-cr', label: 'GitHub', icon: <GithubLogo size={16} weight="light" /> },
+                { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinMark size={15} /> },
+                { href: 'https://github.com/gmpro-cr', label: 'GitHub', icon: <GithubMark size={15} color="currentColor" /> },
                 { href: 'https://x.com/mahalegauravk', label: 'X', icon: <XMark size={14} /> },
               ].map(s => (
                 <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
