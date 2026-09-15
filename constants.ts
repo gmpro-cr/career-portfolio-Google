@@ -256,6 +256,7 @@ export const PROJECTS: Project[] = [
     description: "Identified and solved a real enterprise bottleneck: CAM preparation takes analysts 4–6 hours due to manual extraction from annual reports. Scoped the MVP using 9 years of lived experience writing CAMs at Yes Bank and HDFC. Built a two-stage pipeline: a deterministic Python engine (PDFMiner + Screener.in + Yahoo Finance + BSE annual reports) followed by a Karpathy-style autonomous research loop that self-scores its own knowledge completeness (threshold: 85%) before passing structured JSON to the LLM for narrative synthesis.",
     tech: ["Python", "FastAPI", "Next.js 16", "Google Gemini API", "Claude API", "Supabase", "SQLite", "OpenPyXL", "PDFMiner", "GitHub"],
     metrics: "–80% time",
+    link: "https://creditguard-ai.vercel.app",
     category: 'build',
     flowType: 'credit',
     problem: "Senior analysts spend 4–6 hours manually scrubbing 100+ page annual reports for data extraction and subjective risk synthesis. This low-leverage bottleneck is prone to human error and restricts the volume of transactions that can be evaluated per analyst per day.",

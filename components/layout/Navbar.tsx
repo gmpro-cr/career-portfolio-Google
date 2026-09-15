@@ -141,16 +141,16 @@ export default function Navbar() {
             className="relative md:hidden grid h-9 w-9 place-items-center rounded-full border border-hairline bg-white text-ink transition-colors duration-300"
           >
             <span className="relative block h-3 w-4">
-              <span className={`absolute left-0 top-0 block h-px w-full bg-ink transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isOpen ? 'translate-y-[6px] rotate-45' : ''}`} />
+              <span className={`absolute left-0 top-0 block h-px w-full bg-ink transition-all duration-500 ease-spring ${isOpen ? 'translate-y-[6px] rotate-45' : ''}`} />
               <span className={`absolute left-0 top-1.5 block h-px w-full bg-ink transition-opacity duration-500 ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
-              <span className={`absolute left-0 bottom-0 block h-px w-full bg-ink transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isOpen ? '-translate-y-[6px] -rotate-45' : ''}`} />
+              <span className={`absolute left-0 bottom-0 block h-px w-full bg-ink transition-all duration-500 ease-spring ${isOpen ? '-translate-y-[6px] -rotate-45' : ''}`} />
             </span>
           </button>
         </div>
       </nav>
 
       {/* Mobile overlay */}
-      <div className={`fixed inset-0 z-40 md:hidden bg-white/90 backdrop-blur-2xl transition-opacity duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+      <div className={`fixed inset-0 z-40 md:hidden bg-white/90 backdrop-blur-2xl transition-opacity duration-700 ease-spring ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex h-full flex-col items-start justify-center px-8 gap-2">
           {navLinks.map((link, i) => (
             <a
@@ -158,7 +158,7 @@ export default function Navbar() {
               href={link.href}
               onClick={e => go(e, link.href)}
               style={{ transitionDelay: isOpen ? `${120 + i * 60}ms` : '0ms' }}
-              className={`font-display text-5xl font-light text-ink transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${isOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-8 opacity-0 blur-md'}`}
+              className={`font-display text-5xl font-light text-ink transition-all duration-700 ease-spring ${isOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-8 opacity-0 blur-md'}`}
             >
               {link.label}
             </a>

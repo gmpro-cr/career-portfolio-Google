@@ -98,7 +98,7 @@ export default function VisitorCount() {
         {count.toLocaleString('en-IN')}
       </span>
       <span
-        className="uppercase tracking-[0.16em]"
+        className="uppercase tracking-[0.22em]"
         style={{ fontSize: '9px', color: 'rgba(26,20,16,0.45)' }}
       >
         visitors

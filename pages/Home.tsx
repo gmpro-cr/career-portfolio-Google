@@ -117,18 +117,18 @@ function Hero() {
         ))}
         <span
           className="absolute rounded-full"
-          style={{ width: 240, height: 240, top: 20, right: -70, background: 'radial-gradient(circle at 40% 40%, #F5F3FF, transparent 70%)', filter: 'blur(2px)' }}
+          style={{ width: 240, height: 240, top: 20, right: -70, background: 'radial-gradient(circle at 40% 40%, rgba(26,20,16,0.06), transparent 70%)', filter: 'blur(2px)' }}
         />
         <span
           className="absolute rounded-full"
-          style={{ width: 170, height: 170, top: 300, left: -50, background: 'radial-gradient(circle at 60% 40%, #FFFBEB, transparent 70%)', filter: 'blur(2px)' }}
+          style={{ width: 170, height: 170, top: 300, left: -50, background: 'radial-gradient(circle at 60% 40%, rgba(26,20,16,0.045), transparent 70%)', filter: 'blur(2px)' }}
         />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-6 md:pb-10">
         <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
           <div className="min-w-0">
-            <h1 className="font-display font-light leading-[1.05] tracking-[-0.02em]" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)', color: '#1A1410' }}>
+            <h1 className="font-display font-light leading-[1.05] tracking-tight" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)', color: '#1A1410' }}>
               hey, I&rsquo;m <b className="font-medium">Gaurav</b>
             </h1>
             <p className="mt-2.5 font-display italic" style={{ fontSize: '1.05rem', color: 'rgba(26,20,16,0.55)' }}>
@@ -140,7 +140,7 @@ function Hero() {
             style={{ opacity: 0, animation: `popIn 0.6s ${EASE} 0.2s forwards` }}
           >
             <div
-              className="rounded-full overflow-hidden w-[68px] h-[68px] sm:w-[104px] sm:h-[104px] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-rotate-3 hover:scale-105"
+              className="rounded-full overflow-hidden w-[68px] h-[68px] sm:w-[104px] sm:h-[104px] transition-transform duration-500 ease-spring hover:-rotate-3 hover:scale-105"
               style={{ boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
             >
               <img src="/profile-avatar.png" alt="Gaurav Mahale" className="w-full h-full object-cover" />
@@ -166,16 +166,16 @@ function Hero() {
         </div>
 
         <div className="mt-7 flex gap-2.5" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
-          <a href="mailto:mahalegauravk@gmail.com" aria-label="Email" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
+          <a href="mailto:mahalegauravk@gmail.com" aria-label="Email" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
             <EnvelopeSimple size={16} weight="light" />
           </a>
-          <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
+          <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
             <LinkedinMark size={15} />
           </a>
-          <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
+          <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
             <GithubMark size={15} color="currentColor" />
           </a>
-          <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" aria-label="X" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
+          <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" aria-label="X" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
             <XMark size={14} />
           </a>
         </div>
@@ -220,7 +220,7 @@ function TechStack() {
             <React.Fragment key={name}>
               <Reveal delay={0.06 + i * 0.035} className="inline-block">
                 <span
-                  className="inline-flex items-center gap-1.5 text-sm border border-hairline bg-white rounded-full pl-3 pr-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.25)]"
+                  className="inline-flex items-center gap-1.5 text-sm border border-hairline bg-white rounded-full pl-3 pr-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-lifted-sm"
                   style={{ color: 'rgba(26,20,16,0.75)' }}
                 >
                   <span className="shrink-0 grid place-items-center">{icon}</span>
@@ -247,15 +247,15 @@ function SelectedWork() {
           <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">Featured Projects</h2>
         </Reveal>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="mt-6 flex flex-wrap justify-center gap-5">
           {PROJECTS.map((project, idx) => {
             const theme = getTheme(project.slug);
             return (
             <React.Fragment key={project.slug}>
-            <Reveal delay={0.04 + idx * 0.05} className="flex flex-col">
+            <Reveal delay={0.04 + idx * 0.05} className="flex flex-col w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)]">
               <Link
                 to={`/project/${project.slug}`}
-                className="group flex flex-col h-full rounded-2xl border border-hairline overflow-hidden bg-white transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:shadow-[0_20px_36px_-24px_rgba(26,20,16,0.28)]"
+                className="group flex flex-col h-full rounded-2xl border border-hairline overflow-hidden bg-white transition-all duration-500 ease-spring hover:-translate-y-1 hover:shadow-lifted"
                 style={{ textDecoration: 'none' }}
               >
                 {/* Screenshot thumbnail */}
@@ -269,7 +269,7 @@ function SelectedWork() {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.06]"
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-spring group-hover:scale-[1.06]"
                       style={{ filter: 'saturate(0.94)' }}
                     />
                   )}
@@ -278,7 +278,7 @@ function SelectedWork() {
                 {/* Card body */}
                 <div className="p-4 flex flex-col flex-1">
                   <span className="text-[10px] text-ink-muted/70 tabular">{project.date} &middot; {project.metrics}</span>
-                  <h3 className="mt-1.5 font-display font-medium text-[15px] leading-tight text-ink tracking-tight">
+                  <h3 className="mt-1.5 font-display font-medium text-base leading-tight text-ink tracking-tight">
                     {project.title}
                   </h3>
                   <p
@@ -296,7 +296,7 @@ function SelectedWork() {
                   <div className="flex items-center justify-between gap-2 mt-3">
                     <div className="flex flex-wrap gap-1">
                       {project.tech.slice(0, 2).map((t, i) => (
-                        <span key={i} className="text-[9px] text-ink-muted/70 border border-hairline rounded-full px-2 py-0.5">
+                        <span key={i} className="text-[10px] text-ink-muted/70 border border-hairline rounded-full px-2 py-0.5">
                           {t}
                         </span>
                       ))}
@@ -397,7 +397,7 @@ function MiniRow({ title, sub, meta, delay }: { title: string; sub: string; meta
     <div ref={ref} className="flex items-baseline justify-between gap-3 py-3 border-b border-hairline first:border-t text-sm" style={style}>
       <span className="font-semibold text-ink">{title}</span>
       <span className="text-ink-muted text-xs flex-1 text-right truncate">{sub}</span>
-      <span className="text-ink-muted/70 text-[11px] tabular flex-shrink-0">{meta}</span>
+      <span className="text-ink-muted/70 text-xs tabular flex-shrink-0">{meta}</span>
     </div>
   );
 }
@@ -480,7 +480,7 @@ function Contact() {
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
           <div
-            className="rounded-[22px] border border-hairline text-center py-16 md:py-20 px-6"
+            className="rounded-[calc(2rem-0.375rem)] border border-hairline text-center py-16 md:py-20 px-6"
             style={{
               backgroundImage: 'radial-gradient(#E7E5E4 1px, transparent 1px)',
               backgroundSize: '16px 16px',
@@ -501,7 +501,7 @@ function Contact() {
                 { href: 'https://x.com/mahalegauravk', label: 'X', icon: <XMark size={14} /> },
               ].map(s => (
                 <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_-10px_rgba(26,20,16,0.3)]">
+                  className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
                   {s.icon}
                 </a>
               ))}

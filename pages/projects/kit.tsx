@@ -123,7 +123,7 @@ export function LifecycleSpine({ stages, theme }: { stages: { stage: string; det
             <span className="font-display italic oldstyle" style={{ fontSize: '1.05rem', color: theme.accent, lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</span>
             <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#1A1410', letterSpacing: '0.01em' }}>{s.stage}</span>
           </div>
-          <p className="mt-2.5 text-[13px] text-ink/75 leading-relaxed">{s.detail}</p>
+          <p className="mt-2.5 text-xs text-ink/75 leading-relaxed">{s.detail}</p>
         </div>
       ))}
     </div>

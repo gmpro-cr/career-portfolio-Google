@@ -67,7 +67,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
             </div>
             <div>
               <RadialMap theme={theme} center="AI Spirit" nodes={['Business', 'Spiritual', 'Entertainment', 'Companion', 'Fitness', 'Anime']} />
-              <p className="mt-3 text-center text-[11px] text-ink-muted">Six flagship categories shown, of 40 in the catalogue.</p>
+              <p className="mt-3 text-center text-xs text-ink-muted">Six flagship categories shown, of 40 in the catalogue.</p>
             </div>
           </div>
         </div>
@@ -151,7 +151,7 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
           <div className="max-w-6xl mx-auto px-4 md:px-12">
             <Reveal>
               <div className="flex items-center gap-2 mb-5"><Clock size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Reflection</p></div>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-ink-muted mb-4">What I&rsquo;d do differently</p>
+              <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-4">What I&rsquo;d do differently</p>
               <p className="font-display font-light text-ink/80 leading-relaxed tracking-tight max-w-4xl" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
             </Reveal>
           </div>

@@ -18,7 +18,7 @@ export default function Footer() {
             </p>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.14em] text-ink-muted/70 font-semibold mb-2.5">Links</p>
+            <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted/70 font-semibold mb-2.5">Links</p>
             <div className="flex flex-col gap-2 text-sm text-ink-muted">
               <a href="#work" className="hover:text-ink transition-colors">Work</a>
               <a href="#trajectory" className="hover:text-ink transition-colors">Trajectory</a>
@@ -26,7 +26,7 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.14em] text-ink-muted/70 font-semibold mb-2.5">Elsewhere</p>
+            <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted/70 font-semibold mb-2.5">Elsewhere</p>
             <div className="flex flex-col gap-2 text-sm text-ink-muted">
               <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">LinkedIn</a>
               <a href="https://github.com/gmpro-cr" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">GitHub</a>
