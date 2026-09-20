@@ -49,7 +49,7 @@ export default function ProjectDetail() {
   return (
     <div className="bg-paper min-h-screen">
       {/* Back nav */}
-      <div className="pt-24 md:pt-32 pb-4 px-6 md:px-10 max-w-4xl mx-auto flex items-center justify-between gap-4">
+      <div className="pt-24 md:pt-32 pb-4 px-4 md:px-12 max-w-6xl mx-auto flex items-center justify-between gap-4">
         <button onClick={() => navigate(-1)} className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors duration-200 group">
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-hairline bg-white group-hover:border-ink/20 transition-colors duration-200">
             <ArrowLeft size={13} weight="light" />
@@ -75,7 +75,7 @@ export default function ProjectDetail() {
 
       {/* Next project */}
       <section className="py-12 md:py-24 bg-paper border-t border-hairline">
-        <div className="max-w-4xl mx-auto px-6 md:px-10">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-6">Next Project</p>
           <Link to={`/project/${nextProject.slug}`} className="group flex items-center justify-between gap-4">
             <div className="min-w-0">

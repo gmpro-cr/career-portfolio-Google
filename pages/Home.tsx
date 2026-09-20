@@ -420,7 +420,7 @@ function Trajectory() {
         </div>
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
-          <div>
+          <div id="education">
             <Reveal>
               <span className="font-display italic text-ink-muted" style={{ fontSize: '0.8rem' }}>academic</span>
               <h2 className="mt-1 font-display font-light text-xl text-ink tracking-tight">Education</h2>
@@ -433,7 +433,7 @@ function Trajectory() {
               ))}
             </div>
           </div>
-          <div>
+          <div id="certifications">
             <Reveal>
               <span className="font-display italic text-ink-muted" style={{ fontSize: '0.8rem' }}>credentials</span>
               <h2 className="mt-1 font-display font-light text-xl text-ink tracking-tight">Certifications</h2>
@@ -534,8 +534,8 @@ export default function Home() {
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
         <Hero />
-        <TechStack />
         <SelectedWork />
+        <TechStack />
         <Trajectory />
         <Contact />
       </div>
