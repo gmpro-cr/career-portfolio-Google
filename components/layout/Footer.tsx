@@ -16,7 +16,7 @@ export default function Footer() {
           <div>
             <p className="font-display text-base font-medium text-ink">Gaurav Mahale</p>
             <p className="text-xs text-ink-muted mt-1.5 leading-relaxed max-w-[32ch]">
-              AI Product Builder from India. Nine years in banking, now building AI products end to end.
+              Product manager at Yes Bank, based in Pune. I also build AI products end to end.
             </p>
           </div>
           <div>

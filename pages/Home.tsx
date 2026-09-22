@@ -99,7 +99,7 @@ function Hero() {
               Gaurav Mahale
             </h1>
             <p className="mt-3 text-base sm:text-lg text-ink-muted">
-              Product manager. Nine years in banking and credit risk, now building LLM products.
+              Product manager at Yes Bank. Nine years in banking and credit risk, and I design and ship LLM products.
             </p>
           </div>
           <div
@@ -121,7 +121,7 @@ function Hero() {
             <b className="font-semibold text-ink">building AI products independently</b>. Five LLM platforms and two browser&#8209;native learning tools, all live.
           </p>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
-            Spent 9 years writing <b className="font-semibold text-ink">credit appraisal memos</b> at Yes Bank and HDFC, which turned out to be good training for writing prompts.
+            Writing <b className="font-semibold text-ink">credit appraisal memos</b> at Yes Bank and HDFC turned out to be good training for writing prompts.
           </p>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
             Open to <b className="font-semibold text-ink">AI Product Management</b> roles. Based in Pune, happy to go remote.{' '}
