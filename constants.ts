@@ -207,7 +207,7 @@ export const PROJECTS: Project[] = [
     slug: "ai-persona-interaction-platform",
     date: "Oct 2025",
     description: "Conceived and launched a B2C AI product with 350+ personas across 40 categories. Applied a 10-item JTBD framework to identify five distinct user segments (career professionals, self-improvement seekers, spiritual explorers, entertainment/pop-culture fans, companion seekers), each with different WTP, session frequency, and retention drivers. Defined North Star Metric as Messages Sent Per Day, ran a formal production readiness audit before launch, and shipped a freemium monetisation model (Razorpay) targeting ₹10K MRR.",
-    cardSummary: "Found the gap between admiring someone and talking to them, chose Messages Sent Per Day as the North Star, and redesigned onboarding around a 3× retention signal from Mixpanel cohorts. Now at 500+ MAU with zero paid acquisition.",
+    cardSummary: "A chat platform with 350+ AI personas of public figures. Chose Messages Sent Per Day as the North Star and redesigned onboarding around a 3× retention signal from Mixpanel cohorts. 500+ MAU with no paid acquisition.",
     tech: ["Next.js", "Supabase", "Gemini 1.5 Flash", "Groq Llama 3.3", "Google OAuth", "Sarvam TTS", "Mixpanel", "Vercel"],
     metrics: "500+ MAU",
     link: "https://ai-spirit.in",

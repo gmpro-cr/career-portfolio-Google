@@ -95,11 +95,11 @@ function Hero() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-6 md:pb-10">
         <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
           <div className="min-w-0">
-            <h1 className="font-display font-light leading-[1.05] tracking-tight" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)', color: '#1A1410' }}>
-              hey, I&rsquo;m <b className="font-medium">Gaurav</b>
+            <h1 className="font-display font-normal leading-[1.05] tracking-tight text-ink" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)' }}>
+              Gaurav Mahale
             </h1>
-            <p className="mt-2.5 font-display italic" style={{ fontSize: '1.05rem', color: 'rgba(26,20,16,0.55)' }}>
-              nine years in banking, now building AI products full&#8209;time
+            <p className="mt-3 text-base sm:text-lg text-ink-muted">
+              Product manager. Nine years in banking and credit risk, now building LLM products.
             </p>
           </div>
           <div
@@ -179,23 +179,18 @@ function TechStack() {
     <section className="relative py-8 md:py-12 bg-paper">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
-          <h2 className="font-display font-light text-2xl text-ink tracking-tight">What I build with</h2>
+          <h2 className="font-display font-light text-2xl text-ink tracking-tight">Tools I build with</h2>
         </Reveal>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {TECH_STACK.map(({ name, icon }, i) => (
-            <React.Fragment key={name}>
-              <Reveal delay={0.06 + i * 0.035} className="inline-block">
-                <span
-                  className="inline-flex items-center gap-1.5 text-sm border border-hairline bg-white rounded-full pl-3 pr-4 py-1.5 "
-                  style={{ color: 'rgba(26,20,16,0.75)' }}
-                >
-                  <span className="shrink-0 grid place-items-center">{icon}</span>
-                  {name}
-                </span>
-              </Reveal>
-            </React.Fragment>
-          ))}
-        </div>
+        <Reveal>
+          <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm" style={{ color: 'rgba(26,20,16,0.75)' }}>
+            {TECH_STACK.map(({ name, icon }) => (
+              <li key={name} className="inline-flex items-center gap-2">
+                <span className="shrink-0 grid place-items-center" aria-hidden>{icon}</span>
+                {name}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );
@@ -204,6 +199,48 @@ function TechStack() {
 /* ═══════════════════════════════════════════════════════════════
    SELECTED WORK — cards navigate to /project/:slug
    ═══════════════════════════════════════════════════════════════ */
+function ProjectRow({ project, delay }: { project: (typeof PROJECTS)[number]; delay: number }) {
+  const [ref, style] = useRevealStyle(delay);
+  return (
+    <li ref={ref as React.Ref<HTMLLIElement>} className="border-b border-hairline first:border-t" style={style}>
+      <Link
+        to={`/project/${project.slug}`}
+        className="group grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-4 sm:gap-6 py-6 rounded-lg px-2 -mx-2 transition-colors duration-300 hover:bg-shell/60"
+        style={{ textDecoration: 'none' }}
+      >
+        {project.image && (
+          <span className="hidden sm:block overflow-hidden rounded-md border border-hairline bg-white aspect-[16/10] self-start">
+            <img
+              src={project.image}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              className="w-full h-full object-cover object-top"
+            />
+          </span>
+        )}
+        <span className="min-w-0 flex flex-col">
+          <span className="flex items-baseline justify-between gap-4">
+            <span className="font-display text-lg md:text-xl leading-snug text-ink tracking-tight underline decoration-transparent underline-offset-4 transition-colors duration-300 group-hover:decoration-ink/40">
+              {project.title}
+            </span>
+            <span className="flex-shrink-0 text-xs text-ink-muted tabular">{project.date}</span>
+          </span>
+          <span className="mt-2 text-sm text-ink/75 leading-relaxed max-w-[62ch]">
+            {project.cardSummary ?? project.description}
+          </span>
+          <span className="mt-3 flex items-center gap-2 text-xs text-ink-muted">
+            {project.metrics && <span className="font-medium text-ink tabular">{project.metrics}</span>}
+            {project.metrics && <span aria-hidden>&middot;</span>}
+            <span>{project.tech.slice(0, 3).join(', ')}</span>
+            <ArrowRight size={12} className="ml-auto text-ink-muted transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-ink" aria-hidden />
+          </span>
+        </span>
+      </Link>
+    </li>
+  );
+}
+
 function SelectedWork() {
   return (
     <section id="work" className="relative py-8 md:py-12 bg-paper">
@@ -212,67 +249,13 @@ function SelectedWork() {
           <h2 className="font-display font-light text-2xl text-ink tracking-tight">Selected work</h2>
         </Reveal>
 
-        <div className="mt-6 flex flex-wrap justify-center gap-5">
-          {PROJECTS.map((project, idx) => {
-            return (
+        <ul className="mt-6 flex flex-col">
+          {PROJECTS.map((project, idx) => (
             <React.Fragment key={project.slug}>
-            <Reveal delay={0.04 + idx * 0.05} className="flex flex-col w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)]">
-              <Link
-                to={`/project/${project.slug}`}
-                className="group flex flex-col h-full rounded-2xl border border-hairline overflow-hidden bg-white transition-all duration-500 ease-spring hover:border-ink/25 hover:shadow-lifted-sm"
-                style={{ textDecoration: 'none' }}
-              >
-                {/* Screenshot thumbnail */}
-                <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 120 }}>
-                  {project.image && (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-spring group-hover:scale-[1.02]"
-                      style={{ filter: 'saturate(0.94)' }}
-                    />
-                  )}
-                </div>
-
-                {/* Card body */}
-                <div className="p-4 flex flex-col flex-1">
-                  <span className="text-[10px] text-ink-muted/70 tabular">{project.date} &middot; {project.metrics}</span>
-                  <h3 className="mt-1.5 font-display font-medium text-base leading-tight text-ink tracking-tight">
-                    {project.title}
-                  </h3>
-                  <p
-                    className="mt-1.5 text-xs text-ink/65 leading-relaxed"
-                    style={{
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical' as const,
-                      overflow: 'hidden',
-                    } as React.CSSProperties}
-                  >
-                    {project.cardSummary ?? project.description}
-                  </p>
-                  <div className="flex-1 min-h-[0.5rem]" />
-                  <div className="flex items-center justify-between gap-2 mt-3">
-                    <div className="flex flex-wrap gap-1">
-                      {project.tech.slice(0, 2).map((t, i) => (
-                        <span key={i} className="text-[10px] text-ink-muted/70 border border-hairline rounded-full px-2 py-0.5">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                    <span
-                      className="inline-flex h-6 w-6 items-center justify-center rounded-full flex-shrink-0 text-ink-muted transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-ink"
-                    >
-                      <ArrowRight size={12} weight="bold" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </Reveal>
+              <ProjectRow project={project} delay={idx * 0.04} />
             </React.Fragment>
-          );
-          })}
-        </div>
+          ))}
+        </ul>
       </div>
     </section>
   );
