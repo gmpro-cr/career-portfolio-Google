@@ -1,15 +1,17 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { ArrowUp } from '@phosphor-icons/react';
 import VisitorCount from '../VisitorCount';
 
 export default function Footer() {
+  const isProjectPage = useLocation().pathname.startsWith('/project/');
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <footer className="bg-paper border-t border-hairline">
-      <div className="max-w-4xl mx-auto px-6 md:px-10 py-10">
+      <div className={`${isProjectPage ? 'max-w-6xl px-4 md:px-12' : 'max-w-4xl px-6 md:px-10'} mx-auto py-10`}>
         <div className="grid grid-cols-1 sm:grid-cols-[1.6fr_1fr_1fr] gap-8">
           <div>
             <p className="font-display text-base font-medium text-ink">Gaurav Mahale</p>
@@ -21,7 +23,7 @@ export default function Footer() {
             <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted/70 font-semibold mb-2.5">Links</p>
             <div className="flex flex-col gap-2 text-sm text-ink-muted">
               <a href="#work" className="hover:text-ink transition-colors">Work</a>
-              <a href="#trajectory" className="hover:text-ink transition-colors">Trajectory</a>
+              <a href="#trajectory" className="hover:text-ink transition-colors">Experience</a>
               <a href="#contact" className="hover:text-ink transition-colors">Contact</a>
             </div>
           </div>
@@ -38,7 +40,7 @@ export default function Footer() {
         <div className="mt-9 pt-5 border-t border-hairline flex items-center justify-between gap-4 text-xs text-ink-muted">
           <span className="tabular">&copy; {new Date().getFullYear()} Gaurav Mahale</span>
           <div className="flex items-center gap-3">
-            <VisitorCount />
+            <VisitorCount silent />
             <button
               onClick={scrollToTop}
               aria-label="Back to top"

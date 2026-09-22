@@ -37,24 +37,17 @@ export function Reveal({ children, delay = 0, className = '' }: { children: Reac
   return (
     <div ref={ref} className={className} style={{
       opacity: visible ? 1 : 0,
-      transform: visible ? 'none' : 'translateY(22px)',
-      filter: visible ? 'none' : 'blur(8px)',
-      transition: `opacity 0.7s ${EASE_STR} ${delay}s, transform 0.7s ${EASE_STR} ${delay}s, filter 0.7s ${EASE_STR} ${delay}s`,
+      transform: visible ? 'none' : 'translateY(8px)',
+      transition: `opacity 0.5s ${EASE_STR} ${delay}s, transform 0.5s ${EASE_STR} ${delay}s`,
     }}>
       {children}
     </div>
   );
 }
 
-/* ─── Section eyebrow / label ────────────────────────────────── */
-export function SectionLabel({ children, theme, icon }: { children: React.ReactNode; theme?: ProjectTheme; icon?: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-2.5 mb-4">
-      <span aria-hidden style={{ width: '1.75rem', height: 1, background: theme ? theme.accent : 'rgba(26,20,16,0.3)', display: 'inline-block', flexShrink: 0 }} />
-      {icon && <span style={{ color: theme?.accent, display: 'inline-flex' }}>{icon}</span>}
-      <span className="font-display italic text-ink-muted" style={{ fontSize: '0.95rem', lineHeight: 1.2 }}>{children}</span>
-    </div>
-  );
+/* ─── Section label: plain text, used only where no heading follows ── */
+export function SectionLabel({ children }: { children: React.ReactNode; theme?: ProjectTheme; icon?: React.ReactNode }) {
+  return <p className="text-sm font-medium text-ink-muted mb-4">{children}</p>;
 }
 
 export const Pill = ({ children, theme }: { children: React.ReactNode; theme: ProjectTheme }) => (
@@ -91,13 +84,13 @@ export function CaseHero({ project, theme }: { project: Project; theme: ProjectT
             <div className="bezel" style={{ background: theme.accentBg }}>
               <div
                 className="bezel-core overflow-hidden"
-                style={{ borderRadius: 'calc(2rem - 0.375rem)', animation: `wipeIn 1.2s ${EASE_STR} 0.35s both` }}
+                style={{ borderRadius: 'calc(2rem - 0.375rem)' }}
               >
                 <img
                   src={project.image}
                   alt={`${project.title}, the deployed product`}
                   className="w-full object-cover object-top"
-                  style={{ aspectRatio: '16 / 10', maxHeight: 460, animation: `heroImgSettle 1.6s ${EASE_STR} 0.35s both` }}
+                  style={{ aspectRatio: '16 / 10', maxHeight: 460 }}
                 />
               </div>
             </div>

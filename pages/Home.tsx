@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
-  PaperPlaneTilt,
   EnvelopeSimple,
   CaretRight,
   ArrowsLeftRight,
@@ -14,7 +12,7 @@ import {
   SupabaseMark, GeminiMark, ClaudeMark, WasmMark, TailwindMark, VercelMark,
   LinkedinMark, GithubMark,
 } from '../components/BrandIcons';
-import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA, getTheme } from '../constants';
+import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 import XMark from '../components/XMark';
 
 /* ── Single shared IntersectionObserver hook ─────────────────────
@@ -59,7 +57,7 @@ function useRevealStyle(delay = 0) {
   const [ref, visible] = useOnceVisible('-8%');
   const style: React.CSSProperties = {
     opacity: visible ? 1 : 0,
-    transform: visible ? 'none' : 'translateY(14px)',
+    transform: visible ? 'none' : 'translateY(8px)',
     transition: `opacity 0.55s ${EASE} ${delay}s, transform 0.55s ${EASE} ${delay}s`,
     willChange: visible ? 'auto' : 'opacity, transform',
   };
@@ -78,10 +76,9 @@ const Reveal = ({
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? 'none' : 'translateY(18px)',
-        filter: visible ? 'none' : 'blur(8px)',
-        transition: `opacity 0.65s ${EASE} ${delay}s, transform 0.65s ${EASE} ${delay}s, filter 0.65s ${EASE} ${delay}s`,
-        willChange: visible ? 'auto' : 'opacity, transform, filter',
+        transform: visible ? 'none' : 'translateY(8px)',
+        transition: `opacity 0.5s ${EASE} ${delay}s, transform 0.5s ${EASE} ${delay}s`,
+        willChange: visible ? 'auto' : 'opacity, transform',
       }}
     >
       {children}
@@ -95,36 +92,6 @@ const Reveal = ({
 function Hero() {
   return (
     <section id="hero" className="relative overflow-hidden bg-paper">
-      {/* Faint diagonal streaks + soft accent blobs, hero-only */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden style={{ height: 640 }}>
-        {[
-          { top: 40, left: '8%', width: 130 },
-          { top: 90, left: '16%', width: 90 },
-          { top: 20, left: '30%', width: 80 },
-          { top: 130, left: '46%', width: 110 },
-          { top: 55, left: '70%', width: 100 },
-          { top: 160, left: '82%', width: 80 },
-        ].map((s, i) => (
-          <span
-            key={i}
-            className="absolute h-px"
-            style={{
-              top: s.top, left: s.left, width: s.width,
-              background: 'linear-gradient(90deg, transparent, rgba(26,20,16,0.09), transparent)',
-              transform: 'rotate(-32deg)',
-            }}
-          />
-        ))}
-        <span
-          className="absolute rounded-full"
-          style={{ width: 240, height: 240, top: 20, right: -70, background: 'radial-gradient(circle at 40% 40%, rgba(26,20,16,0.06), transparent 70%)', filter: 'blur(2px)' }}
-        />
-        <span
-          className="absolute rounded-full"
-          style={{ width: 170, height: 170, top: 300, left: -50, background: 'radial-gradient(circle at 60% 40%, rgba(26,20,16,0.045), transparent 70%)', filter: 'blur(2px)' }}
-        />
-      </div>
-
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-6 md:pb-10">
         <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
           <div className="min-w-0">
@@ -137,10 +104,10 @@ function Hero() {
           </div>
           <div
             className="flex-shrink-0"
-            style={{ opacity: 0, animation: `popIn 0.6s ${EASE} 0.2s forwards` }}
+            style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}
           >
             <div
-              className="rounded-full overflow-hidden w-[68px] h-[68px] sm:w-[104px] sm:h-[104px] transition-transform duration-500 ease-spring hover:-rotate-3 hover:scale-105"
+              className="rounded-full overflow-hidden w-[68px] h-[68px] sm:w-[104px] sm:h-[104px]"
               style={{ boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
             >
               <img src="/profile-avatar.png" alt="Gaurav Mahale" className="w-full h-full object-cover" />
@@ -151,10 +118,10 @@ function Hero() {
         <div className="mt-8 max-w-xl flex flex-col gap-3" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
             Currently <b className="font-semibold text-ink">evaluating &amp; fine&#8209;tuning LLMs</b> at Pareto.AI, and{' '}
-            <b className="font-semibold text-ink">building AI products independently</b> &mdash; five LLM platforms and two browser&#8209;native learning tools, all live.
+            <b className="font-semibold text-ink">building AI products independently</b>. Five LLM platforms and two browser&#8209;native learning tools, all live.
           </p>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
-            Spent 9 years writing <b className="font-semibold text-ink">credit appraisal memos</b> at Yes Bank and HDFC &mdash; turns out that&rsquo;s good training for writing prompts.
+            Spent 9 years writing <b className="font-semibold text-ink">credit appraisal memos</b> at Yes Bank and HDFC, which turned out to be good training for writing prompts.
           </p>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
             Open to <b className="font-semibold text-ink">AI Product Management</b> roles. Based in Pune, happy to go remote.{' '}
@@ -212,15 +179,14 @@ function TechStack() {
     <section className="relative py-8 md:py-12 bg-paper">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
-          <span className="font-display italic text-ink-muted" style={{ fontSize: '0.85rem' }}>tech stack</span>
-          <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">What I build with</h2>
+          <h2 className="font-display font-light text-2xl text-ink tracking-tight">What I build with</h2>
         </Reveal>
         <div className="mt-5 flex flex-wrap gap-2">
           {TECH_STACK.map(({ name, icon }, i) => (
             <React.Fragment key={name}>
               <Reveal delay={0.06 + i * 0.035} className="inline-block">
                 <span
-                  className="inline-flex items-center gap-1.5 text-sm border border-hairline bg-white rounded-full pl-3 pr-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-lifted-sm"
+                  className="inline-flex items-center gap-1.5 text-sm border border-hairline bg-white rounded-full pl-3 pr-4 py-1.5 "
                   style={{ color: 'rgba(26,20,16,0.75)' }}
                 >
                   <span className="shrink-0 grid place-items-center">{icon}</span>
@@ -243,33 +209,26 @@ function SelectedWork() {
     <section id="work" className="relative py-8 md:py-12 bg-paper">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
-          <span className="font-display italic text-ink-muted" style={{ fontSize: '0.85rem' }}>portfolio</span>
-          <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">Featured Projects</h2>
+          <h2 className="font-display font-light text-2xl text-ink tracking-tight">Selected work</h2>
         </Reveal>
 
         <div className="mt-6 flex flex-wrap justify-center gap-5">
           {PROJECTS.map((project, idx) => {
-            const theme = getTheme(project.slug);
             return (
             <React.Fragment key={project.slug}>
             <Reveal delay={0.04 + idx * 0.05} className="flex flex-col w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)]">
               <Link
                 to={`/project/${project.slug}`}
-                className="group flex flex-col h-full rounded-2xl border border-hairline overflow-hidden bg-white transition-all duration-500 ease-spring hover:-translate-y-1 hover:shadow-lifted"
+                className="group flex flex-col h-full rounded-2xl border border-hairline overflow-hidden bg-white transition-all duration-500 ease-spring hover:border-ink/25 hover:shadow-lifted-sm"
                 style={{ textDecoration: 'none' }}
               >
                 {/* Screenshot thumbnail */}
                 <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 120 }}>
-                  <span
-                    className="absolute top-2.5 left-2.5 z-10 h-2 w-2 rounded-full"
-                    style={{ background: theme.accent }}
-                    aria-hidden
-                  />
                   {project.image && (
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-spring group-hover:scale-[1.06]"
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-spring group-hover:scale-[1.02]"
                       style={{ filter: 'saturate(0.94)' }}
                     />
                   )}
@@ -302,8 +261,7 @@ function SelectedWork() {
                       ))}
                     </div>
                     <span
-                      className="inline-flex h-6 w-6 items-center justify-center rounded-full flex-shrink-0 transition-transform duration-300 group-hover:translate-x-0.5"
-                      style={{ color: theme.accent }}
+                      className="inline-flex h-6 w-6 items-center justify-center rounded-full flex-shrink-0 text-ink-muted transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-ink"
                     >
                       <ArrowRight size={12} weight="bold" />
                     </span>
@@ -407,8 +365,7 @@ function Trajectory() {
     <section id="trajectory" className="relative py-8 md:py-12 bg-paper">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
-          <span className="font-display italic text-ink-muted" style={{ fontSize: '0.85rem' }}>career</span>
-          <h2 className="mt-1 font-display font-light text-2xl text-ink tracking-tight">Work Experience</h2>
+          <h2 className="font-display font-light text-2xl text-ink tracking-tight">Experience</h2>
         </Reveal>
 
         <div className="mt-6 flex flex-col">
@@ -422,8 +379,7 @@ function Trajectory() {
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
           <div id="education">
             <Reveal>
-              <span className="font-display italic text-ink-muted" style={{ fontSize: '0.8rem' }}>academic</span>
-              <h2 className="mt-1 font-display font-light text-xl text-ink tracking-tight">Education</h2>
+              <h2 className="font-display font-light text-xl text-ink tracking-tight">Education</h2>
             </Reveal>
             <div className="mt-3">
               {EDUCATION_DATA.map((e, i) => (
@@ -435,8 +391,7 @@ function Trajectory() {
           </div>
           <div id="certifications">
             <Reveal>
-              <span className="font-display italic text-ink-muted" style={{ fontSize: '0.8rem' }}>credentials</span>
-              <h2 className="mt-1 font-display font-light text-xl text-ink tracking-tight">Certifications</h2>
+              <h2 className="font-display font-light text-xl text-ink tracking-tight">Certifications</h2>
             </Reveal>
             <div className="mt-3">
               {CERTIFICATIONS_DATA.map((c, i) => (
@@ -455,57 +410,20 @@ function Trajectory() {
 /* ═══════════════════════════════════════════════════════════════
    CONTACT
    ═══════════════════════════════════════════════════════════════ */
-/* ── Magnetic pill — leans toward the cursor, springs back ──────── */
-function MagneticLink({ href, className, children }: { href: string; className?: string; children: React.ReactNode }) {
-  const reduced = useReducedMotion();
-  const x = useSpring(useMotionValue(0), { stiffness: 180, damping: 16 });
-  const y = useSpring(useMotionValue(0), { stiffness: 180, damping: 16 });
-  const onMove = (e: React.PointerEvent<HTMLAnchorElement>) => {
-    if (reduced || e.pointerType !== 'mouse') return;
-    const r = e.currentTarget.getBoundingClientRect();
-    x.set(((e.clientX - r.left) / r.width - 0.5) * 14);
-    y.set(((e.clientY - r.top) / r.height - 0.5) * 10);
-  };
-  const onLeave = () => { x.set(0); y.set(0); };
-  return (
-    <motion.a href={href} className={className} style={{ x, y }} onPointerMove={onMove} onPointerLeave={onLeave}>
-      {children}
-    </motion.a>
-  );
-}
-
 function Contact() {
   return (
-    <section id="contact" className="relative py-8 md:py-12 bg-paper">
+    <section id="contact" className="relative py-12 md:py-16 bg-paper">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
-          <div
-            className="rounded-[calc(2rem-0.375rem)] border border-hairline text-center py-16 md:py-20 px-6"
-            style={{
-              backgroundImage: 'radial-gradient(#E7E5E4 1px, transparent 1px)',
-              backgroundSize: '16px 16px',
-            }}
-          >
-            <span className="font-display italic text-ink-muted" style={{ fontSize: '0.85rem' }}>get in touch</span>
-            <h2 className="mt-2 font-display font-light text-2xl md:text-3xl text-ink tracking-tight">
-              I&rsquo;d love to build something real together.
-            </h2>
-            <MagneticLink href="mailto:mahalegauravk@gmail.com" className="btn-pill mt-8 inline-flex">
-              Say hello
-              <span className="btn-pill-icon"><PaperPlaneTilt size={14} weight="light" /></span>
-            </MagneticLink>
-            <div className="mt-6 flex justify-center gap-2">
-              {[
-                { href: 'https://linkedin.com/in/mahalegauravk', label: 'LinkedIn', icon: <LinkedinMark size={15} /> },
-                { href: 'https://github.com/gmpro-cr', label: 'GitHub', icon: <GithubMark size={15} color="currentColor" /> },
-                { href: 'https://x.com/mahalegauravk', label: 'X', icon: <XMark size={14} /> },
-              ].map(s => (
-                <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
-                  {s.icon}
-                </a>
-              ))}
-            </div>
+          <div className="border-t border-hairline pt-10 md:pt-12">
+            <h2 className="font-display font-light text-2xl md:text-3xl text-ink tracking-tight">Contact</h2>
+            <p className="mt-3 max-w-xl text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
+              Open to AI Product Management roles. Email is the quickest way to reach me.
+            </p>
+            <a href="mailto:mahalegauravk@gmail.com" className="btn-pill mt-6 inline-flex">
+              mahalegauravk@gmail.com
+              <span className="btn-pill-icon"><EnvelopeSimple size={14} weight="light" /></span>
+            </a>
           </div>
         </Reveal>
       </div>
@@ -523,10 +441,6 @@ export default function Home() {
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: none; }
-        }
-        @keyframes popIn {
-          from { opacity: 0; transform: scale(0.86); }
-          to   { opacity: 1; transform: scale(1); }
         }
         details[open] .details-caret {
           transform: rotate(90deg);

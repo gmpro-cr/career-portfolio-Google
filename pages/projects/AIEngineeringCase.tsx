@@ -1,12 +1,12 @@
 import React from 'react';
-import { Lightbulb, User, Wrench } from '@phosphor-icons/react';
+import { Lightbulb, User } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
 import { Reveal, SectionLabel, LifecycleSpine, CaseHero } from './kit';
 import { RadialMap, Sequence } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
 
 const LIFECYCLE = [
-  { stage: 'Idea', detail: 'Re-reading a 535-page PDF to find one paragraph on RAG chunking — make the book itself queryable.' },
+  { stage: 'Idea', detail: 'Re-reading a 535-page PDF to find one paragraph on RAG chunking. Better to make the book itself queryable.' },
   { stage: 'Discovery', detail: 'What was missing was retrieval and deep links, not a summary: a reference tool, not a read-once.' },
   { stage: 'Validation', detail: 'Content-as-data proved a one-line chapter edit; grounding plus citations is what built reader trust.' },
   { stage: 'MVP scope', detail: 'Ten chapters as structured data, one reusable diagram component, Cmd+K search, and an Ask-the-book chat.' },
@@ -41,7 +41,7 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
       {/* ── Problem ──────────────────────────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>The Problem</SectionLabel>
+          <Reveal><SectionLabel>The problem</SectionLabel>
             <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
           </Reveal>
         </div>
@@ -50,8 +50,8 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
       {/* ── Lifecycle: idea to deployment ────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>from idea to deployment</SectionLabel>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">From 535 pages <em className="italic font-normal text-ink-muted">to an askable book.</em></h2>
+          <Reveal>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">How a 535-page book became a reference tool</h2>
           </Reveal>
           <LifecycleSpine stages={LIFECYCLE} theme={theme} />
         </div>
@@ -62,9 +62,9 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
             <div>
-              <SectionLabel theme={theme}>Knowledge Map</SectionLabel>
-              <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">Ten chapters, <em className="italic font-normal text-ink-muted">cross-linked.</em></h2>
-              <p className="text-sm text-ink/75 leading-relaxed">The book is stored as pure data — each chapter a structured file of sections, concepts, terms, and connections. Dashed links mark the cross-chapter references that turn a linear read into a navigable graph: eval methodology feeds eval-of-systems, RAG borrows from finetuning and dataset engineering.</p>
+              
+              <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">How the ten chapters link to each other</h2>
+              <p className="text-sm text-ink/75 leading-relaxed">The book is stored as pure data, each chapter a structured file of sections, concepts, terms, and connections. Dashed links mark the cross-chapter references that turn a linear read into a navigable graph: eval methodology feeds eval-of-systems, RAG borrows from finetuning and dataset engineering.</p>
             </div>
             <RadialMap theme={theme} center="AI Engineering" nodes={CHAPTERS.map((c, i) => `${i + 1} ${c}`)} links={LINKS} />
           </div>
@@ -74,9 +74,9 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
       {/* ── RAG sequence diagram (signature) ─────────────────────── */}
       <section className="py-12 md:py-24 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme} icon={<Wrench size={13} weight="light" />}>Ask the Book · RAG</SectionLabel>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">Every answer, <em className="italic font-normal text-ink-muted">traced to a chapter.</em></h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">Retrieval happens server-side over 1,325 chunks that never enter the client bundle. Generation is grounded strictly in what was retrieved, and forced to cite — verifiability is what makes a reader trust the answer over re-reading the source.</p>
+          <Reveal>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">Every answer cites its chapter</h2>
+            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">Retrieval happens server-side over 1,325 chunks that never enter the client bundle. Generation is grounded strictly in what was retrieved, and forced to cite. Being able to verify is what makes a reader trust the answer over re-reading the source.</p>
           </Reveal>
           <Sequence actors={RAG_ACTORS} messages={RAG_MESSAGES} theme={theme} />
           <Reveal delay={0.1}>

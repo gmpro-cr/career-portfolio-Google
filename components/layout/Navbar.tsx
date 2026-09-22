@@ -4,7 +4,7 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 
 const navLinks = [
   { href: '#work',       label: 'Work'       },
-  { href: '#trajectory', label: 'Trajectory' },
+  { href: '#trajectory', label: 'Experience' },
   { href: '#contact',    label: 'Contact'    },
 ];
 
@@ -101,7 +101,9 @@ export default function Navbar() {
           transition: `background 0.4s ${EASE}, border-color 0.4s ${EASE}`,
         }}
       >
-        <div className="max-w-4xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+        {/* Container matches the page below it: case studies run wider than Home,
+            and the brand/links must share the content's left edge on both. */}
+        <div className={`${isProjectPage ? 'max-w-6xl px-4 md:px-12' : 'max-w-4xl px-6 md:px-10'} mx-auto h-16 flex items-center justify-between`}>
           <a
             href="/"
             onClick={e => { e.preventDefault(); navigate('/'); setIsOpen(false); }}

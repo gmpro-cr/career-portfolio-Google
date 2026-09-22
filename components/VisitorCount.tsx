@@ -42,7 +42,9 @@ function deviceId(): string {
   return minted;
 }
 
-export default function VisitorCount() {
+/** `silent` keeps counting but renders nothing -- the tally is for the owner,
+    not a public badge. */
+export default function VisitorCount({ silent = false }: { silent?: boolean }) {
   // Seed from the highest figure this device has seen, so a slow or failed
   // request can never make the number appear to drop.
   const [count, setCount] = useState<number | null>(() => {
@@ -87,7 +89,7 @@ export default function VisitorCount() {
   }, []);
 
   // Never render a zero.
-  if (count === null || count < 1) return null;
+  if (silent || count === null || count < 1) return null;
 
   return (
     <span

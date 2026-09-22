@@ -1,28 +1,28 @@
 import React from 'react';
-import { Lightbulb, User, Database, ShieldCheck } from '@phosphor-icons/react';
+import { Lightbulb, User } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
 import { Reveal, SectionLabel, LifecycleSpine, CaseHero } from './kit';
 import { Sequence, Swimlane } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
 
 const LIFECYCLE = [
-  { stage: 'Idea', detail: 'Nine years watching analysts learn SQL from canned-table tutorials, then flounder on production — teach on the real engine.' },
+  { stage: 'Idea', detail: 'Nine years watching analysts learn SQL from canned-table tutorials, then flounder on production. Teach on the real engine instead.' },
   { stage: 'Discovery', detail: 'The skill gap is authenticity: real errors, real NULLs, real query plans are exactly what the fakes skip.' },
-  { stage: 'Validation', detail: 'PGlite proved full PostgreSQL 18 boots inside a browser tab — the cost structure of teaching it collapsed.' },
-  { stage: 'MVP scope', detail: 'Three tiers to genuine depth — window frames, recursion, EXPLAIN, row-level security — with a row-comparison checker.' },
+  { stage: 'Validation', detail: 'PGlite proved full PostgreSQL 18 boots inside a browser tab, which collapsed the cost structure of teaching it.' },
+  { stage: 'MVP scope', detail: 'Three tiers to genuine depth (window frames, recursion, EXPLAIN, row-level security) with a row-comparison checker.' },
   { stage: 'Build', detail: '34 stages / 148 exercises as declarative data; seed SQL per stage; the "Green Bar" phosphor-terminal identity.' },
   { stage: 'Ship / deploy', detail: 'Static bundle on Vercel, GitHub auto-deploy, cache-busted assets, Web Analytics measuring real usage.' },
   { stage: 'Measure', detail: '204-test suite green as the quality bar; analytics tracking which stages learners actually reach.' },
-  { stage: 'Iterate', detail: 'A shared-dataset capstone tier — open analytical questions instead of guided drills — is planned next.' },
+  { stage: 'Iterate', detail: 'A shared-dataset capstone tier, with open analytical questions instead of guided drills, is planned next.' },
 ];
 
 const QUERY_ACTORS = ['Learner', 'Editor', 'Postgres 18', 'Checker'];
 const QUERY_MESSAGES = [
   { from: 0, to: 1, label: 'writes a query', note: 'any correct SQL is fine' },
-  { from: 1, to: 2, label: 'executes in-tab', note: 'PGlite — real engine, no server' },
+  { from: 1, to: 2, label: 'executes in-tab', note: 'PGlite: real engine, no server' },
   { from: 2, to: 1, label: 'real rows (or the real error)' },
   { from: 1, to: 3, label: 'result relation', note: 'rows, not query text' },
-  { from: 3, to: 0, label: 'compared to expected rows — pass → XP', note: 'any correct query unlocks the next stage' },
+  { from: 3, to: 0, label: 'compared to expected rows; pass → XP', note: 'any correct query unlocks the next stage' },
 ];
 
 const QUALITY_LANES = [
@@ -39,7 +39,7 @@ export default function SQLQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Problem ──────────────────────────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>The Simulation Problem</SectionLabel>
+          <Reveal><SectionLabel>The problem</SectionLabel>
             <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
           </Reveal>
         </div>
@@ -48,8 +48,8 @@ export default function SQLQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Lifecycle: idea to deployment ────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>from idea to deployment</SectionLabel>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">From canned tables <em className="italic font-normal text-ink-muted">to a real database.</em></h2>
+          <Reveal>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">Why it runs a real database</h2>
           </Reveal>
           <LifecycleSpine stages={LIFECYCLE} theme={theme} />
         </div>
@@ -58,9 +58,9 @@ export default function SQLQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Query loop sequence (signature) ──────────────────────── */}
       <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme} icon={<Database size={13} weight="light" />}>The Core Loop</SectionLabel>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">Type, run, <em className="italic font-normal text-ink-muted">rows come back.</em></h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">A full PostgreSQL 18 boots inside the tab via PGlite — so a NULL surprise, a genuine error message, or an EXPLAIN plan behaves exactly as it will on the job. The checker compares result rows, not query text: any semantically correct SQL passes, and learners are free to find their own path to the answer.</p>
+          <Reveal>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">The query loop</h2>
+            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">A full PostgreSQL 18 boots inside the tab via PGlite, so a NULL surprise, a genuine error message, or an EXPLAIN plan behaves exactly as it will on the job. The checker compares result rows, not query text: any semantically correct SQL passes, and learners are free to find their own path to the answer.</p>
           </Reveal>
           <Sequence actors={QUERY_ACTORS} messages={QUERY_MESSAGES} theme={theme} />
           <Reveal delay={0.1}>
@@ -75,8 +75,8 @@ export default function SQLQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Curriculum-as-code (signature) ───────────────────────── */}
       <section className="py-12 md:py-24 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme} icon={<ShieldCheck size={13} weight="light" />}>Curriculum as Code</SectionLabel>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">One engine, <em className="italic font-normal text-ink-muted">both sides of the deploy.</em></h2>
+          <Reveal>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">The same engine in the browser and in CI</h2>
             <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">The same PostgreSQL engine that serves learners also gates releases: a 204-test suite replays every exercise&rsquo;s seed, solution, and checker in CI, so a curriculum edit can&rsquo;t silently break a lesson. Content quality stops being an editorial hope and becomes a build gate.</p>
           </Reveal>
           <Swimlane lanes={QUALITY_LANES} theme={theme} handoff="same engine, same exercises" />

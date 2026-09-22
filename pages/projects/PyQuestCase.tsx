@@ -1,23 +1,23 @@
 import React from 'react';
-import { Lightbulb, User, GameController } from '@phosphor-icons/react';
+import { Lightbulb, User } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
 import { Reveal, SectionLabel, LifecycleSpine, CaseHero } from './kit';
 import { Flowchart, Funnel, type FlowNode } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
 
 const LIFECYCLE = [
-  { stage: 'Idea', detail: 'Friends kept abandoning Python at the installer — collapse time-to-first-run to one click and keep them typing.' },
+  { stage: 'Idea', detail: 'Friends kept abandoning Python at the installer. Goal: collapse time-to-first-run to one click and keep them typing.' },
   { stage: 'Discovery', detail: 'The first ten minutes decide everything: setup friction, not lesson quality, is where beginners are lost.' },
-  { stage: 'Validation', detail: 'Pyodide proved genuine CPython could run in a tab — real errors, real f-strings, nothing simulated.' },
-  { stage: 'MVP scope', detail: 'Three tracks, XP and Firewall checkpoints, localStorage progress — and a hard rule: no backend, ever.' },
+  { stage: 'Validation', detail: 'Pyodide proved genuine CPython could run in a tab: real errors, real f-strings, nothing simulated.' },
+  { stage: 'MVP scope', detail: 'Three tracks, XP and Firewall checkpoints, localStorage progress, and a hard rule: no backend, ever.' },
   { stage: 'Build', detail: '20 stages / 56 exercises with per-exercise assertion checkers; the WASM runtime lazy-loads behind stage one.' },
-  { stage: 'Ship / deploy', detail: 'Fully static on Vercel CDN with GitHub auto-deploy — zero servers, zero marginal cost per learner.' },
+  { stage: 'Ship / deploy', detail: 'Fully static on Vercel CDN with GitHub auto-deploy: no servers and no marginal cost per learner.' },
   { stage: 'Measure', detail: 'Time-to-first-run as the north star; the gap today is aggregate drop-off telemetry per exercise.' },
-  { stage: 'Iterate', detail: 'Hint system for difficulty cliffs, then a multi-file projects tier — exercises teach syntax, projects create programmers.' },
+  { stage: 'Iterate', detail: 'Hint system for difficulty cliffs, then a multi-file projects tier. Exercises teach syntax; projects make programmers.' },
 ];
 
 const RUN_LOOP: FlowNode[] = [
-  { id: 'land', label: 'Learner lands — editor with runnable starter code is the hero', type: 'start', forwardLabel: 'meanwhile' },
+  { id: 'land', label: 'Learner lands on an editor with runnable starter code', type: 'start', forwardLabel: 'meanwhile' },
   { id: 'load', label: 'Pyodide (CPython → WASM) lazy-loads in the background' },
   { id: 'type', label: 'Learner edits code and hits Run' },
   { id: 'exec', label: 'Real CPython executes in the tab; stdout + exceptions captured' },
@@ -26,7 +26,7 @@ const RUN_LOOP: FlowNode[] = [
 ];
 
 const FRICTION = [
-  { label: 'Land on PyQuest', value: '0s', sub: 'One URL — no signup wall, no course paywall' },
+  { label: 'Land on PyQuest', value: '0s', sub: 'One URL, no signup wall, no course paywall' },
   { label: 'Runtime ready', value: '~1s felt', sub: 'WASM loads in the background while stage one is read' },
   { label: 'First code run', value: '1 click', sub: 'Type, hit Run, see real CPython output' },
   { label: 'Traditional path', value: 'hours', sub: 'Installer → PATH errors → editor choice → most never start' },
@@ -41,7 +41,7 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Problem ──────────────────────────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>The Setup Wall</SectionLabel>
+          <Reveal><SectionLabel>The problem</SectionLabel>
             <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
           </Reveal>
         </div>
@@ -50,8 +50,8 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Lifecycle: idea to deployment ────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme}>from idea to deployment</SectionLabel>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">From installer despair <em className="italic font-normal text-ink-muted">to a one-click first run.</em></h2>
+          <Reveal>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">From installing Python to a one-click first run</h2>
           </Reveal>
           <LifecycleSpine stages={LIFECYCLE} theme={theme} />
         </div>
@@ -62,9 +62,9 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
             <div>
-              <SectionLabel theme={theme}>Time to First Run</SectionLabel>
-              <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">Seconds, <em className="italic font-normal text-ink-muted">not evenings.</em></h2>
-              <p className="text-sm text-ink/75 leading-relaxed">Every second between landing and successfully running code is funnel leakage. PyQuest treats time-to-first-run as the product&rsquo;s north-star metric: the heavyweight WASM runtime loads quietly behind the first lesson, so the learner&rsquo;s very first interaction is typing real Python — not installing it.</p>
+              
+              <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">Time to first working code</h2>
+              <p className="text-sm text-ink/75 leading-relaxed">Every second between landing and successfully running code is funnel leakage. PyQuest treats time-to-first-run as the product&rsquo;s north-star metric: the heavyweight WASM runtime loads quietly behind the first lesson, so the learner&rsquo;s very first interaction is typing real Python instead of installing it.</p>
             </div>
             <Funnel stages={FRICTION} theme={theme} />
           </div>
@@ -74,9 +74,9 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Run-check-reward loop (signature) ────────────────────── */}
       <section className="py-12 md:py-24 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel theme={theme} icon={<GameController size={13} weight="light" />}>The Core Loop</SectionLabel>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">Type, run, <em className="italic font-normal text-ink-muted">level up.</em></h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">Real CPython — not a lookalike interpreter — executes inside the tab, so a failed attempt returns the same error a terminal would. The game layer (XP, level titles, Firewall boss checkpoints) is spaced retrieval disguised as play: it&rsquo;s what turns a first run into a second session.</p>
+          <Reveal>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">The exercise loop: type, run, earn XP</h2>
+            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">Real CPython, not a lookalike interpreter, executes inside the tab, so a failed attempt returns the same error a terminal would. The game layer (XP, level titles, Firewall boss checkpoints) is spaced retrieval disguised as play: it&rsquo;s what turns a first run into a second session.</p>
           </Reveal>
           <Flowchart nodes={RUN_LOOP} theme={theme} />
           <Reveal delay={0.1}>
