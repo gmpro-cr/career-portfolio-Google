@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -12,6 +12,7 @@ import {
   SupabaseMark, GeminiMark, ClaudeMark, TailwindMark, VercelMark,
 } from '../components/BrandIcons';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
+import DotField from '../components/DotField';
 
 /* ── Single shared IntersectionObserver hook ─────────────────────
    Fires once when element enters viewport, then disconnects.
@@ -88,15 +89,20 @@ const Reveal = ({
    HERO — compact, conversational; entrance fades only, no scroll link
    ═══════════════════════════════════════════════════════════════ */
 function Hero() {
+  // The dot field starts just right of the widest hero text, so nothing you read sits on top of it.
+  const introRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+  const clearOf = useMemo(() => [introRef, taglineRef], []);
   return (
     <section id="hero" className="relative overflow-hidden bg-paper">
+      <DotField clearOf={clearOf} />
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-6 md:pb-10">
         <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
           <div className="min-w-0">
             <h1 className="font-display font-normal leading-[1.05] tracking-tight text-ink" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)' }}>
               Gaurav Mahale
             </h1>
-            <p className="mt-3 text-base sm:text-lg text-ink-muted">
+            <p ref={taglineRef} className="mt-3 text-base sm:text-lg text-ink-muted">
               Product manager at Yes Bank. Nine years in banking and credit risk, and I design and ship LLM products.
             </p>
           </div>
@@ -113,7 +119,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="mt-8 max-w-xl flex flex-col gap-3" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
+        <div ref={introRef} className="mt-8 max-w-xl flex flex-col gap-3" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
             Currently evaluating &amp; fine&#8209;tuning LLMs at Pareto.AI, and{' '}
             building AI products independently. Five LLM platforms and two browser&#8209;native learning tools, all live.

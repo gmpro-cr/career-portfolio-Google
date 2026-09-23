@@ -140,8 +140,15 @@ Numerals in tabular contexts use `.tabular`.
   below the threshold of notice — the site should feel like paper, not look
   animated. Raising the amplitude or shortening the period reads as shimmer on
   low-DPI displays and is a defect.
-- This is the **only** idle background animation in the system. A second one
-  competes with it and needs a human decision first.
+- The only other idle animation is the hero **dot field**
+  (`components/DotField.tsx`), picked by the owner from a live preview on
+  2026-09-24: a fine ink-dot grid with a slow travelling wave and a cursor
+  ripple. Rules: it starts right of the intro text (measured, never behind
+  body copy) and fades toward the bottom; hidden when under 18% of the width
+  is free (phones); decorative (`aria-hidden`); pauses off-screen and in hidden
+  tabs; one still frame under reduced motion. A third idle animation needs a
+  human decision first. (Rejected and removed: the "memo becomes prompt"
+  text rewrite and the security-print guilloche.)
 - **`prefers-reduced-motion` is mandatory.** `index.css` neutralises animation
   and transition globally; Framer Motion components must not reintroduce motion
   that escapes it.
