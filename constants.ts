@@ -203,7 +203,7 @@ export const PROJECTS: Project[] = [
     reflection: "The lesson I'd carry into the next agent project is to build the control plane before the conversation, not alongside it. Having the ledger's invariants and the gateway's four gates fully tested before a single line of agent code existed meant every later layer (text agent, then voice, then the eval suite) was just a new client of a boundary that already held. What I'd do differently: instrument tool-call arguments in the eval reports from day one. Two persona-batch runs came back looking like the model had nearly stopped working; the real cause, identify_caller silently rejecting an already-confirmed session, only became obvious once the logs showed the exact arguments being sent, ruling out a model formatting problem. Next: running the full eval suite against a paid tier rather than the free-tier quota that currently spreads 103 persona-batch scenarios across a daily job, and giving Vercel's five-minute function timeout a proper call-resume path instead of disclosing it as a known limit.",
   },
   {
-    title: "AI Persona Interaction Platform",
+    title: "AI Spirit — Chat with AI Personas",
     slug: "ai-persona-interaction-platform",
     date: "Oct 2025",
     description: "Conceived and launched a B2C AI product with 350+ personas across 40 categories. Applied a 10-item JTBD framework to identify five distinct user segments (career professionals, self-improvement seekers, spiritual explorers, entertainment/pop-culture fans, companion seekers), each with different WTP, session frequency, and retention drivers. Defined North Star Metric as Messages Sent Per Day, ran a formal production readiness audit before launch, and shipped a freemium monetisation model (Razorpay) targeting ₹10K MRR.",
@@ -247,7 +247,7 @@ export const PROJECTS: Project[] = [
     reflection: "If I were starting over, I'd ship proactive AI-initiated interactions from week one, not month three. Our Mixpanel data made the impact obvious in retrospect (D7 retention lifted dramatically when the AI sent the first message), but I'd assumed the engagement burden sat with the user. The second thing I'd change: I'd have defined the 'aha' moment explicitly before writing a line of code. Users who experienced a single moment of unexpected-but-consistent character behaviour converted to 30-day actives at far higher rates; I discovered this pattern mid-build instead of designing the onboarding funnel around it from the start. What I'd build next: a creator-side tool that lets users publish their own personas, transforming the platform from a catalogue into a marketplace with network-effect dynamics.",
   },
   {
-    title: "AI Credit Intelligence Platform",
+    title: "CreditGuard AI — Credit Memo Co-pilot",
     slug: "ai-credit-intelligence-platform",
     date: "Dec 2025",
     image: "/credit-platform.png",

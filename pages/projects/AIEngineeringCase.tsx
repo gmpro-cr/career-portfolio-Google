@@ -1,20 +1,8 @@
 import React from 'react';
-import { Lightbulb, User } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, LifecycleSpine, CaseHero } from './kit';
+import { Reveal, SectionLabel, CaseHero } from './kit';
 import { RadialMap, Sequence } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
-
-const LIFECYCLE = [
-  { stage: 'Idea', detail: 'Re-reading a 535-page PDF to find one paragraph on RAG chunking. Better to make the book itself queryable.' },
-  { stage: 'Discovery', detail: 'What was missing was retrieval and deep links, not a summary: a reference tool, not a read-once.' },
-  { stage: 'Validation', detail: 'Content-as-data proved a one-line chapter edit; grounding plus citations is what built reader trust.' },
-  { stage: 'MVP scope', detail: 'Ten chapters as structured data, one reusable diagram component, Cmd+K search, and an Ask-the-book chat.' },
-  { stage: 'Build', detail: 'React 19 + Vite; 1,325 server-side chunks; TF-IDF retrieval feeding grounded Gemini generation.' },
-  { stage: 'Ship / deploy', detail: 'Live on Vercel with GitHub auto-deploy; chapter-cited answers and a graceful no-API-key fallback.' },
-  { stage: 'Measure', detail: 'Answers cited 100% of the time, retrieval relevance, and read-progress resumption across sessions.' },
-  { stage: 'Iterate', detail: 'Hybrid embedding retrieval, upload-your-own-PDF, and a multi-book library are planned next.' },
-];
 
 const CHAPTERS = ['Intro', 'Foundation Models', 'Eval Methodology', 'Eval AI Systems', 'Prompt Eng.', 'RAG & Agents', 'Finetuning', 'Dataset Eng.', 'Inference Opt.', 'Architecture'];
 // cross-chapter connections (index pairs)
@@ -42,18 +30,8 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal><SectionLabel>The problem</SectionLabel>
-            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
+            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>{extras.problemStatement}</p>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ── Lifecycle: idea to deployment ────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">How a 535-page book became a reference tool</h2>
-          </Reveal>
-          <LifecycleSpine stages={LIFECYCLE} theme={theme} />
         </div>
       </section>
 
@@ -80,28 +58,18 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
           </Reveal>
           <Sequence actors={RAG_ACTORS} messages={RAG_MESSAGES} theme={theme} />
           <Reveal delay={0.1}>
-            <div className="mt-10 max-w-3xl" style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}40`, borderRadius: '1.25rem', padding: '18px 20px' }}>
-              <p style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: theme.accentDark, fontWeight: 700, marginBottom: 8 }}>PM Insight</p>
-              <p className="text-sm text-ink/80 leading-relaxed">{extras.pmInsight}</p>
-            </div>
+            <p className="mt-10 max-w-3xl text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
           </Reveal>
         </div>
       </section>
 
-      {/* ── Discovery + archetype ────────────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
-        <div className="max-w-6xl mx-auto px-4 md:px-12 grid md:grid-cols-2 gap-10 md:gap-20">
+      {/* ── How I found the problem ─────────────────────────────── */}
+      <section className="py-12 md:py-20 border-t border-hairline">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
-            <div className="flex items-center gap-2 mb-4"><Lightbulb size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">How I Found This Problem</p></div>
-            <p className="text-sm text-ink/75 leading-relaxed dropcap">{extras.discovery}</p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="flex items-center gap-2 mb-4"><User size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Who It&rsquo;s For</p></div>
-            <div style={{ background: 'white', border: `1px solid ${theme.accentBorder}50`, borderRadius: '1.25rem', padding: '20px' }}>
-              <p style={{ fontSize: '13px', fontWeight: 700, color: '#1A1410', marginBottom: 4 }}>{extras.userPersona.name}</p>
-              <p style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.16em', color: theme.accentDark, fontWeight: 600, marginBottom: 12, opacity: 0.85 }}>{extras.userPersona.role}</p>
-              <div style={{ paddingTop: 12, borderTop: `1px solid ${theme.accentBorder}30` }}><p style={{ fontSize: '12px', color: theme.accentDark, lineHeight: 1.6, fontStyle: 'italic' }}>{extras.userPersona.painPoint}</p></div>
-            </div>
+            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
+            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="mt-5 text-base text-ink/80 leading-relaxed max-w-3xl"><span className="font-medium text-ink">Who it&rsquo;s for: </span>{extras.audience}</p>
           </Reveal>
         </div>
       </section>

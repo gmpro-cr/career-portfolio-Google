@@ -10,10 +10,8 @@ import {
 import {
   NextjsMark, ReactMark, TypeScriptMark, PythonMark, FastApiMark, PostgreSqlMark,
   SupabaseMark, GeminiMark, ClaudeMark, WasmMark, TailwindMark, VercelMark,
-  LinkedinMark, GithubMark,
 } from '../components/BrandIcons';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
-import XMark from '../components/XMark';
 
 /* ── Single shared IntersectionObserver hook ─────────────────────
    Fires once when element enters viewport, then disconnects.
@@ -117,14 +115,14 @@ function Hero() {
 
         <div className="mt-8 max-w-xl flex flex-col gap-3" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
-            Currently <b className="font-semibold text-ink">evaluating &amp; fine&#8209;tuning LLMs</b> at Pareto.AI, and{' '}
-            <b className="font-semibold text-ink">building AI products independently</b>. Five LLM platforms and two browser&#8209;native learning tools, all live.
+            Currently evaluating &amp; fine&#8209;tuning LLMs at Pareto.AI, and{' '}
+            building AI products independently. Five LLM platforms and two browser&#8209;native learning tools, all live.
           </p>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
-            Writing <b className="font-semibold text-ink">credit appraisal memos</b> at Yes Bank and HDFC turned out to be good training for writing prompts.
+            Writing credit appraisal memos at Yes Bank and HDFC turned out to be good training for writing prompts.
           </p>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
-            Open to <b className="font-semibold text-ink">AI Product Management</b> roles. Based in Pune, happy to go remote.{' '}
+            Open to AI Product Management roles. Based in Pune, happy to go remote.{' '}
             <a href="/Gaurav_Mahale_Resume.pdf" download className="inline-flex items-center gap-1.5 text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors">
               <FilePdf size={15} weight="light" aria-hidden className="shrink-0 text-ink-muted" />
               Download CV
@@ -132,20 +130,24 @@ function Hero() {
           </p>
         </div>
 
-        <div className="mt-7 flex gap-2.5" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
-          <a href="mailto:mahalegauravk@gmail.com" aria-label="Email" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
-            <EnvelopeSimple size={16} weight="light" />
-          </a>
-          <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
-            <LinkedinMark size={15} />
-          </a>
-          <a href="https://github.com/gmpro-cr" target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
-            <GithubMark size={15} color="currentColor" />
-          </a>
-          <a href="https://x.com/mahalegauravk" target="_blank" rel="noreferrer" aria-label="X" className="grid h-10 w-10 place-items-center rounded-full border border-hairline bg-white text-ink-muted hover:text-ink transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lifted-sm">
-            <XMark size={14} />
-          </a>
-        </div>
+        <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
+          {[
+            { href: 'mailto:mahalegauravk@gmail.com', label: 'Email' },
+            { href: 'https://www.linkedin.com/in/mahalegauravk', label: 'LinkedIn', external: true },
+            { href: 'https://github.com/gmpro-cr', label: 'GitHub', external: true },
+            { href: 'https://x.com/mahalegauravk', label: 'X', external: true },
+          ].map(l => (
+            <li key={l.label}>
+              <a
+                href={l.href}
+                {...(l.external ? { target: '_blank', rel: 'noreferrer' } : {})}
+                className="text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

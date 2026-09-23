@@ -1,20 +1,8 @@
 import React from 'react';
-import { Lightbulb, User } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, LifecycleSpine, CaseHero } from './kit';
+import { Reveal, SectionLabel, CaseHero } from './kit';
 import { RadialMap, Funnel } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
-
-const LIFECYCLE = [
-  { stage: 'Idea', detail: 'Two hours every morning filtering Naukri and LinkedIn. Automating the top of the funnel gives that time back.' },
-  { stage: 'Discovery', detail: 'A high-noise, low-signal data problem: relevance, not volume, was what actually needed solving.' },
-  { stage: 'Validation', detail: 'Three months of self-use with 7,413 jobs as ground truth; five peers asking for it triggered the multi-user pivot.' },
-  { stage: 'MVP scope', detail: 'A 6-portal scraper, local Ollama scoring and a Telegram digest, gated by a 65-point relevance threshold.' },
-  { stage: 'Build', detail: 'Selenium + BeautifulSoup, fingerprint dedup, Mistral 7B scoring, and a Flask settings dashboard.' },
-  { stage: 'Ship / deploy', detail: 'Multi-user rewrite on Vercel + Neon + Blob, scheduled by GitHub Actions cron, with no 24/7 server.' },
-  { stage: 'Measure', detail: 'Daily time saved, matched roles per day, and threshold calibration against the catalogued ground truth.' },
-  { stage: 'Iterate', detail: 'Conversational onboarding and an apply / dismiss feedback loop (the model learns) are in build.' },
-];
 
 const SIGNAL = [
   { label: 'Raw listings scraped per run', value: '200–500', sub: '6 portals scraped in parallel' },
@@ -33,18 +21,8 @@ export default function JobAgentCase({ project, extras, theme }: CaseProps) {
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal><SectionLabel>The problem</SectionLabel>
-            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
+            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>{extras.problemStatement}</p>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ── Lifecycle: idea to deployment ────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">How a morning chore became an agent</h2>
-          </Reveal>
-          <LifecycleSpine stages={LIFECYCLE} theme={theme} />
         </div>
       </section>
 
@@ -70,30 +48,20 @@ export default function JobAgentCase({ project, extras, theme }: CaseProps) {
               
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">Hundreds of listings in, ten out</h2>
               <p className="text-sm text-ink/75 leading-relaxed mb-6">The 65-point relevance threshold is the product&rsquo;s most important parameter, and setting it is a product decision. Calibrated empirically over three months of self-use against 7,413 catalogued jobs as ground truth.</p>
-              <div style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}40`, borderRadius: '1.25rem', padding: '18px 20px' }}>
-                <p style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: theme.accentDark, fontWeight: 700, marginBottom: 8 }}>PM Insight</p>
-                <p className="text-sm text-ink/80 leading-relaxed">{extras.pmInsight}</p>
-              </div>
+              <p className="text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
             </div>
             <Funnel stages={SIGNAL} theme={theme} />
           </div>
         </div>
       </section>
 
-      {/* ── Discovery + archetype ────────────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
-        <div className="max-w-6xl mx-auto px-4 md:px-12 grid md:grid-cols-2 gap-10 md:gap-20">
+      {/* ── How I found the problem ─────────────────────────────── */}
+      <section className="py-12 md:py-20 border-t border-hairline">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
-            <div className="flex items-center gap-2 mb-4"><Lightbulb size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">How I Found This Problem</p></div>
-            <p className="text-sm text-ink/75 leading-relaxed dropcap">{extras.discovery}</p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="flex items-center gap-2 mb-4"><User size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Archetypal User</p></div>
-            <div style={{ background: 'white', border: `1px solid ${theme.accentBorder}50`, borderRadius: '1.25rem', padding: '20px' }}>
-              <p style={{ fontSize: '13px', fontWeight: 700, color: '#1A1410', marginBottom: 4 }}>{extras.userPersona.name}</p>
-              <p style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.16em', color: theme.accentDark, fontWeight: 600, marginBottom: 12, opacity: 0.85 }}>{extras.userPersona.role}</p>
-              <div style={{ paddingTop: 12, borderTop: `1px solid ${theme.accentBorder}30` }}><p style={{ fontSize: '12px', color: theme.accentDark, lineHeight: 1.6, fontStyle: 'italic' }}>{extras.userPersona.painPoint}</p></div>
-            </div>
+            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
+            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="mt-5 text-base text-ink/80 leading-relaxed max-w-3xl"><span className="font-medium text-ink">Who it&rsquo;s for: </span>{extras.audience}</p>
           </Reveal>
         </div>
       </section>

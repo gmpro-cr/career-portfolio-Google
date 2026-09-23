@@ -69,7 +69,6 @@ Two places use colour *categorically* rather than decoratively:
 
 - `pages/projects/caseData.ts` — architecture-diagram layer accents
   (frontend / API / AI engine / data), 29 colours
-- `pages/projects/kit.tsx` — shipped / building / planned status badges
 
 These are Tailwind default blue/violet/emerald/orange, so they sit outside the
 warm palette. But they exist to stay **mutually distinguishable**: flattening a
@@ -167,6 +166,9 @@ Do not reintroduce these. They are settled, not open questions.
 
 - **No emoji anywhere.** Enforced by `scripts/no-emoji-guard.mjs`.
 - **No new `lucide-react`.** Phosphor only for new or modified icons.
+- **Case pages have no shared template sections.** No lifecycle grids,
+  roadmap cards, competitor tables, persona cards or invented user quotes;
+  each page carries only what is specific to that project.
 - **The June featured-grid / ResultBand redesign was built and reverted.** Do
   not propose or reimplement a card-grid treatment of Featured Projects, or a
   banded results strip. The current single-column editorial layout, modelled on

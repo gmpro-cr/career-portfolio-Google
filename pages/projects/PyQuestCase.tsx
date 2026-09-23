@@ -1,20 +1,8 @@
 import React from 'react';
-import { Lightbulb, User } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, LifecycleSpine, CaseHero } from './kit';
+import { Reveal, SectionLabel, CaseHero } from './kit';
 import { Flowchart, Funnel, type FlowNode } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
-
-const LIFECYCLE = [
-  { stage: 'Idea', detail: 'Friends kept abandoning Python at the installer. Goal: collapse time-to-first-run to one click and keep them typing.' },
-  { stage: 'Discovery', detail: 'The first ten minutes decide everything: setup friction, not lesson quality, is where beginners are lost.' },
-  { stage: 'Validation', detail: 'Pyodide proved genuine CPython could run in a tab: real errors, real f-strings, nothing simulated.' },
-  { stage: 'MVP scope', detail: 'Three tracks, XP and Firewall checkpoints, localStorage progress, and a hard rule: no backend, ever.' },
-  { stage: 'Build', detail: '20 stages / 56 exercises with per-exercise assertion checkers; the WASM runtime lazy-loads behind stage one.' },
-  { stage: 'Ship / deploy', detail: 'Fully static on Vercel CDN with GitHub auto-deploy: no servers and no marginal cost per learner.' },
-  { stage: 'Measure', detail: 'Time-to-first-run as the north star; the gap today is aggregate drop-off telemetry per exercise.' },
-  { stage: 'Iterate', detail: 'Hint system for difficulty cliffs, then a multi-file projects tier. Exercises teach syntax; projects make programmers.' },
-];
 
 const RUN_LOOP: FlowNode[] = [
   { id: 'land', label: 'Learner lands on an editor with runnable starter code', type: 'start', forwardLabel: 'meanwhile' },
@@ -42,18 +30,8 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal><SectionLabel>The problem</SectionLabel>
-            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
+            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>{extras.problemStatement}</p>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ── Lifecycle: idea to deployment ────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">From installing Python to a one-click first run</h2>
-          </Reveal>
-          <LifecycleSpine stages={LIFECYCLE} theme={theme} />
         </div>
       </section>
 
@@ -80,28 +58,18 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
           </Reveal>
           <Flowchart nodes={RUN_LOOP} theme={theme} />
           <Reveal delay={0.1}>
-            <div className="mt-10 max-w-3xl" style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}40`, borderRadius: '1.25rem', padding: '18px 20px' }}>
-              <p style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: theme.accentDark, fontWeight: 700, marginBottom: 8 }}>PM Insight</p>
-              <p className="text-sm text-ink/80 leading-relaxed">{extras.pmInsight}</p>
-            </div>
+            <p className="mt-10 max-w-3xl text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
           </Reveal>
         </div>
       </section>
 
-      {/* ── Discovery + archetype ────────────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
-        <div className="max-w-6xl mx-auto px-4 md:px-12 grid md:grid-cols-2 gap-10 md:gap-20">
+      {/* ── How I found the problem ─────────────────────────────── */}
+      <section className="py-12 md:py-20 border-t border-hairline">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
-            <div className="flex items-center gap-2 mb-4"><Lightbulb size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">How I Found This Problem</p></div>
-            <p className="text-sm text-ink/75 leading-relaxed dropcap">{extras.discovery}</p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="flex items-center gap-2 mb-4"><User size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Who It&rsquo;s For</p></div>
-            <div style={{ background: 'white', border: `1px solid ${theme.accentBorder}50`, borderRadius: '1.25rem', padding: '20px' }}>
-              <p style={{ fontSize: '13px', fontWeight: 700, color: '#1A1410', marginBottom: 4 }}>{extras.userPersona.name}</p>
-              <p style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.16em', color: theme.accentDark, fontWeight: 600, marginBottom: 12, opacity: 0.85 }}>{extras.userPersona.role}</p>
-              <div style={{ paddingTop: 12, borderTop: `1px solid ${theme.accentBorder}30` }}><p style={{ fontSize: '12px', color: theme.accentDark, lineHeight: 1.6, fontStyle: 'italic' }}>{extras.userPersona.painPoint}</p></div>
-            </div>
+            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
+            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="mt-5 text-base text-ink/80 leading-relaxed max-w-3xl"><span className="font-medium text-ink">Who it&rsquo;s for: </span>{extras.audience}</p>
           </Reveal>
         </div>
       </section>

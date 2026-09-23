@@ -1,19 +1,7 @@
 import React from 'react';
-import { Lightbulb, User } from '@phosphor-icons/react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, MetricsRow, RoadmapTimeline, LifecycleSpine, CaseHero } from './kit';
+import { Reveal, SectionLabel, MetricsRow, CaseHero } from './kit';
 import { RadialMap, Flowchart, Funnel, type FlowNode } from './diagrams';
-
-const LIFECYCLE = [
-  { stage: 'Idea', detail: 'People were "talking to" Elon or Naval via ChatGPT and YouTube: real admiration with no product to close the loop into dialogue.' },
-  { stage: 'Discovery', detail: 'Early-user conversations surfaced a genuine parasocial need; a 10-item JTBD map resolved into five distinct segments.' },
-  { stage: 'Validation', detail: 'A guest-mode prototype showed multi-persona users retained 3x, a clear PMF signal in Mixpanel cohorts.' },
-  { stage: 'MVP scope', detail: '350+ personas, guest mode, an LLM router and a freemium paywall; voice and custom personas deferred to v2.' },
-  { stage: 'Build', detail: 'Next.js with Supabase memory, a persona-eval drift scorer, and a Gemini / Groq routing layer.' },
-  { stage: 'Ship / deploy', detail: 'Launched on Vercel at ai-spirit.in after a production-readiness audit that closed six critical issues.' },
-  { stage: 'Measure', detail: 'North Star: messages per day. Tracked D7 / D30 cohorts, conversion, and personas per user.' },
-  { stage: 'Iterate', detail: 'Proactive session-2 messages lifted D7 retention 3x; onboarding redesigned to expose 3+ personas in session one.' },
-];
 
 const MEMORY_LOOP: FlowNode[] = [
   { id: 'msg', label: 'User sends a message', type: 'start', forwardLabel: 'inbound' },
@@ -41,18 +29,8 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
       <section className="py-12 md:py-20 border-t border-hairline">
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal><SectionLabel>The problem</SectionLabel>
-            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>&ldquo;{extras.problemStatement}&rdquo;</p>
+            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>{extras.problemStatement}</p>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ── Lifecycle: idea to deployment ────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12 max-w-2xl">How the idea became a product</h2>
-          </Reveal>
-          <LifecycleSpine stages={LIFECYCLE} theme={theme} />
         </div>
       </section>
 
@@ -81,10 +59,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
               
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">How conversation memory works</h2>
               <p className="text-sm text-ink/75 leading-relaxed mb-6">Every message runs the same closed loop. The persona eval is the gate: if a draft reply drifts out of character, it is re-routed before it ever reaches the user. Memory is written back on every turn, so context compounds across sessions.</p>
-              <div style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}40`, borderRadius: '1.25rem', padding: '18px 20px' }}>
-                <p style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: theme.accentDark, fontWeight: 700, marginBottom: 8 }}>PM Insight</p>
-                <p className="text-sm text-ink/80 leading-relaxed">{extras.pmInsight}</p>
-              </div>
+              <p className="text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
             </div>
             <Flowchart nodes={MEMORY_LOOP} theme={theme} />
           </div>
@@ -101,20 +76,13 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
         </div>
       </section>
 
-      {/* ── Discovery + archetype ────────────────────────────────── */}
+      {/* ── How I found the problem ─────────────────────────────── */}
       <section className="py-12 md:py-20 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12 grid md:grid-cols-2 gap-10 md:gap-20">
+        <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
-            <div className="flex items-center gap-2 mb-4"><Lightbulb size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">How I Found This Problem</p></div>
-            <p className="text-sm text-ink/75 leading-relaxed dropcap">{extras.discovery}</p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="flex items-center gap-2 mb-4"><User size={14} weight="light" className="text-ink-muted" /><p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">Archetypal User</p></div>
-            <div style={{ background: theme.accentBg, border: `1px solid ${theme.accentBorder}50`, borderRadius: '1.25rem', padding: '20px' }}>
-              <p style={{ fontSize: '13px', fontWeight: 700, color: '#1A1410', marginBottom: 4 }}>{extras.userPersona.name}</p>
-              <p style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.16em', color: theme.accentDark, fontWeight: 600, marginBottom: 12, opacity: 0.85 }}>{extras.userPersona.role}</p>
-              <div style={{ paddingTop: 12, borderTop: `1px solid ${theme.accentBorder}30` }}><p style={{ fontSize: '12px', color: theme.accentDark, lineHeight: 1.6, fontStyle: 'italic' }}>{extras.userPersona.painPoint}</p></div>
-            </div>
+            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
+            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="mt-5 text-base text-ink/80 leading-relaxed max-w-3xl"><span className="font-medium text-ink">Who it&rsquo;s for: </span>{extras.audience}</p>
           </Reveal>
         </div>
       </section>
@@ -124,7 +92,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
   );
 }
 
-/* Shared tail: metrics → roadmap → competitive → reflection */
+/* Shared tail: outcomes, then reflection */
 export function CaseFooterSections({ project, extras, theme }: CaseProps) {
   return (
     <>
@@ -137,14 +105,6 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
         </div>
       </section>
 
-      <section className="py-12 md:py-24 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12">What&rsquo;s next</h2>
-          </Reveal>
-          <RoadmapTimeline phases={extras.roadmap} />
-        </div>
-      </section>
 
       {project.reflection && (
         <section className="py-12 md:py-24 border-t border-hairline">
