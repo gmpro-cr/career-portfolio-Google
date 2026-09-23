@@ -285,10 +285,10 @@ const EXPERIENCE_LOGOS: Record<string, string> = {
   'Suraksha Asset Reconstruction Ltd.': '/logos/suraksha-arc-mark.png',
 };
 
-function ExperienceRow({ exp, delay, defaultOpen }: { exp: (typeof EXPERIENCES)[number]; delay: number; defaultOpen: boolean }) {
+function ExperienceRow({ exp, delay }: { exp: (typeof EXPERIENCES)[number]; delay: number }) {
   const [ref, style] = useRevealStyle(delay);
   return (
-    <details ref={ref as React.Ref<HTMLDetailsElement>} className="group border-b border-hairline first:border-t" open={defaultOpen} style={style}>
+    <details ref={ref as React.Ref<HTMLDetailsElement>} className="group border-b border-hairline first:border-t" style={style}>
       <summary className="list-none cursor-pointer py-4 flex items-start gap-3.5 transition-colors duration-300 hover:bg-shell/60 rounded-lg px-2 -mx-2 [&::-webkit-details-marker]:hidden">
         {EXPERIENCE_LOGOS[exp.company] ? (
           <span className="flex-shrink-0 mt-0.5 h-9 w-16 sm:w-20 grid place-items-center transition-transform duration-300 group-hover:scale-105">
@@ -355,7 +355,7 @@ function Trajectory() {
         <div className="mt-6 flex flex-col">
           {EXPERIENCES.map((exp, i) => (
             <React.Fragment key={i}>
-              <ExperienceRow exp={exp} delay={i * 0.07} defaultOpen={i === 0} />
+              <ExperienceRow exp={exp} delay={i * 0.07} />
             </React.Fragment>
           ))}
         </div>
