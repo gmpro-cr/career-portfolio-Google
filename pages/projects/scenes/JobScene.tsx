@@ -87,8 +87,8 @@ export default function JobScene({ theme }: { theme: ProjectTheme }) {
                         className="w-full rounded-t overflow-hidden flex flex-col justify-end"
                         style={{ height: beat >= 3 ? `${h}%` : '0%', transition: `height .8s cubic-bezier(0.32,0.72,0,1) ${i * 0.06}s`, minHeight: beat >= 3 ? 3 : 0 }}
                       >
-                        {upper > 0 && <div style={{ flex: upper, background: highlight ? a : '#CFCBC6', transition: 'background .5s' }} />}
-                        {n - upper > 0 && <div style={{ flex: n - upper, background: highlight ? '#E7E5E4' : '#CFCBC6', transition: 'background .5s' }} />}
+                        {upper > 0 && <div style={{ flex: upper, background: highlight ? a : '#E8E3DC', transition: 'background .5s' }} />}
+                        {n - upper > 0 && <div style={{ flex: n - upper, background: highlight ? '#E7E5E4' : '#E8E3DC', transition: 'background .5s' }} />}
                       </div>
                     </div>
                   );

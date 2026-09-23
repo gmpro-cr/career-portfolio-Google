@@ -23,7 +23,7 @@ function Bubble({ who, children, accent }: { who: 'caller' | 'agent'; children: 
     <div className={`flex ${agent ? 'justify-start' : 'justify-end'}`}>
       <div
         className="max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed"
-        style={agent ? { background: '#F4F4F2', color: '#1A1410' } : { background: accent, color: '#fff' }}
+        style={agent ? { background: '#F5F5F4', color: '#1A1410' } : { background: accent, color: '#fff' }}
       >
         <span className="block text-[11px] font-medium opacity-70 mb-0.5">{agent ? 'Assistant' : 'Customer'}</span>
         {children}

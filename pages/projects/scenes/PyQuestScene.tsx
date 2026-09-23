@@ -71,7 +71,7 @@ export default function PyQuestScene({ theme }: { theme: ProjectTheme }) {
                 <p className="text-[11px] font-sans font-medium text-ink-muted mb-1">Output</p>
                 {errored && (
                   <p className="text-ink/80">
-                    <span className="text-[#9A3412]">SyntaxError</span>: '(' was never closed
+                    <span className="text-amber-800">SyntaxError</span>: '(' was never closed
                   </p>
                 )}
                 {passed && <p className="text-ink">Hello from Pune</p>}

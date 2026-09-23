@@ -58,7 +58,7 @@ export default function SQLQuestScene({ theme }: { theme: ProjectTheme }) {
               </pre>
               {beat === 1 && (
                 <pre className="border-t border-hairline px-4 py-3 text-[12.5px] leading-6 font-mono bg-[#FAFAF9] overflow-x-auto" style={{ animation: 'sceneFade .4s ease both' }}>
-                  <span className="text-[#9A3412]">ERROR</span>:  syntax error at or near "GRUP"{'\n'}LINE 3: GRUP BY c.name{'\n'}        ^
+                  <span className="text-amber-800">ERROR</span>:  syntax error at or near "GRUP"{'\n'}LINE 3: GRUP BY c.name{'\n'}        ^
                 </pre>
               )}
             </div>

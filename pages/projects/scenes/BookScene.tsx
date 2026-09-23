@@ -80,7 +80,7 @@ export default function BookScene({ theme }: { theme: ProjectTheme }) {
               </ul>
             </Appear>
             <Appear show={beat >= 3}>
-              <div className="rounded-2xl p-4 text-sm leading-relaxed text-ink" style={{ background: '#F4F4F2' }}>
+              <div className="rounded-2xl p-4 text-sm leading-relaxed text-ink" style={{ background: '#F5F5F4' }}>
                 <Typed
                   text="There is no single right size. Chunks need to be small enough that each one is about one thing, and large enough to keep the context around it. Overlapping them slightly stops an idea being cut in half. Try a few sizes and measure how well retrieval finds the right passage."
                   run={beat >= 3}

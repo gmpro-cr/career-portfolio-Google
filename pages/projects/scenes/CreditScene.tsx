@@ -134,7 +134,7 @@ export default function CreditScene({ theme }: { theme: ProjectTheme }) {
                       className="flex-shrink-0 rounded px-1.5 py-px text-[10px] font-medium"
                       style={conf === 'Low'
                         ? { background: '#FEF3C7', color: '#92400E', outline: beat >= 5 ? `2px solid ${a}` : 'none' }
-                        : { background: '#F4F4F2', color: '#57534E' }}
+                        : { background: '#F5F5F4', color: '#57534E' }}
                     >
                       {conf}
                     </span>

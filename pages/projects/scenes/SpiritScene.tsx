@@ -40,7 +40,7 @@ export default function SpiritScene({ theme }: { theme: ProjectTheme }) {
             </div>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {CATEGORIES.map((c, i) => (
-                <span key={c} className="rounded-full px-2.5 py-1 text-xs" style={i === 2 && beat >= 0 ? { background: a, color: '#fff' } : { background: '#F4F4F2', color: '#57534E' }}>{c}</span>
+                <span key={c} className="rounded-full px-2.5 py-1 text-xs" style={i === 2 && beat >= 0 ? { background: a, color: '#fff' } : { background: '#F5F5F4', color: '#57534E' }}>{c}</span>
               ))}
             </div>
             <ul className="mt-4 space-y-2">
@@ -85,7 +85,7 @@ export default function SpiritScene({ theme }: { theme: ProjectTheme }) {
               </div>
             </Appear>
             <Appear show={beat >= 4}>
-              <div className="max-w-[90%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed" style={{ background: '#F4F4F2', color: '#1A1410' }}>
+              <div className="max-w-[90%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed" style={{ background: '#F5F5F4', color: '#1A1410' }}>
                 <span className="block text-[11px] font-medium opacity-60 mb-0.5">Chanakya (AI persona)</span>
                 <Typed text="A wise man does not leave one shelter before the next has a roof. You told me your savings worry you. Count the months they can carry you, then build the new venture in the evenings until it can pay for itself." run={beat >= 4} done={beat > 4} cps={45} />
               </div>
