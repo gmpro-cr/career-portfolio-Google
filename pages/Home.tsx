@@ -12,7 +12,7 @@ import {
   SupabaseMark, GeminiMark, ClaudeMark, TailwindMark, VercelMark,
 } from '../components/BrandIcons';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
-import DotField from '../components/DotField';
+import InkField from '../components/InkField';
 
 /* ── Single shared IntersectionObserver hook ─────────────────────
    Fires once when element enters viewport, then disconnects.
@@ -89,13 +89,13 @@ const Reveal = ({
    HERO — compact, conversational; entrance fades only, no scroll link
    ═══════════════════════════════════════════════════════════════ */
 function Hero() {
-  // The dot field starts just right of the widest hero text, so nothing you read sits on top of it.
+  // The ink field starts just right of the widest hero text, so nothing you read sits on top of it.
   const introRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const clearOf = useMemo(() => [introRef, taglineRef], []);
   return (
     <section id="hero" className="relative overflow-hidden bg-paper">
-      <DotField clearOf={clearOf} />
+      <InkField clearOf={clearOf} />
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-6 md:pb-10">
         <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
           <div className="min-w-0">
