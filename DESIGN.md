@@ -140,14 +140,15 @@ Numerals in tabular contexts use `.tabular`.
   below the threshold of notice — the site should feel like paper, not look
   animated. Raising the amplitude or shortening the period reads as shimmer on
   low-DPI displays and is a defect.
-- The only other idle animation is the hero **ink field**
+- The only other idle animation is the homepage **ink field**
   (`components/InkField.tsx`), chosen by the owner on 2026-09-24 after seeing
   live previews: hair-thin ink lines drifting like ink in still water,
-  bending away from the cursor. Rules: it starts right of the widest hero
-  text (measured, never behind body copy) and fades under the navbar and
-  towards the bottom; hidden when under 18% of the width is free (phones);
-  decorative (`aria-hidden`); canvas stays transparent; pauses off-screen and
-  in hidden tabs; one still frame under reduced motion. A third idle
+  bending away from the cursor. At the owner's request it is a fixed,
+  full-screen layer behind the whole homepage, kept sparse (one line per
+  3,200 px²) and light (28% ink) because body text sits on it. Homepage
+  sections therefore carry no background of their own. Decorative
+  (`aria-hidden`, no pointer events); canvas stays transparent; pauses in
+  hidden tabs; one still frame under reduced motion. A third idle
   animation needs a human decision first. (Tried and removed: the dot field,
   the "memo becomes prompt" text rewrite and the security-print guilloche.)
 - **`prefers-reduced-motion` is mandatory.** `index.css` neutralises animation

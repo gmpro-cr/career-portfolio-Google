@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -89,20 +89,15 @@ const Reveal = ({
    HERO — compact, conversational; entrance fades only, no scroll link
    ═══════════════════════════════════════════════════════════════ */
 function Hero() {
-  // The ink field starts just right of the widest hero text, so nothing you read sits on top of it.
-  const introRef = useRef<HTMLDivElement>(null);
-  const taglineRef = useRef<HTMLParagraphElement>(null);
-  const clearOf = useMemo(() => [introRef, taglineRef], []);
   return (
-    <section id="hero" className="relative overflow-hidden bg-paper">
-      <InkField clearOf={clearOf} />
+    <section id="hero" className="relative overflow-hidden">
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-6 md:pb-10">
         <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
           <div className="min-w-0">
             <h1 className="font-display font-normal leading-[1.05] tracking-tight text-ink" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)' }}>
               Gaurav Mahale
             </h1>
-            <p ref={taglineRef} className="mt-3 text-base sm:text-lg text-ink-muted">
+            <p className="mt-3 text-base sm:text-lg text-ink-muted">
               Product manager at Yes Bank. Nine years in banking and credit risk, and I design and ship LLM products.
             </p>
           </div>
@@ -119,7 +114,7 @@ function Hero() {
           </div>
         </div>
 
-        <div ref={introRef} className="mt-8 max-w-xl flex flex-col gap-3" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
+        <div className="mt-8 max-w-xl flex flex-col gap-3" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
             Currently evaluating &amp; fine&#8209;tuning LLMs at Pareto.AI, and{' '}
             building AI products independently. Five LLM platforms and two browser&#8209;native learning tools, all live.
@@ -183,7 +178,7 @@ const TECH_STACK = [
 
 function TechStack() {
   return (
-    <section className="relative py-8 md:py-12 bg-paper">
+    <section className="relative py-8 md:py-12">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
           <h2 className="font-display font-light text-2xl text-ink tracking-tight">Tools I build with</h2>
@@ -250,7 +245,7 @@ function ProjectRow({ project, delay }: { project: (typeof PROJECTS)[number]; de
 
 function SelectedWork() {
   return (
-    <section id="work" className="relative py-8 md:py-12 bg-paper">
+    <section id="work" className="relative py-8 md:py-12">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
           <h2 className="font-display font-light text-2xl text-ink tracking-tight">Selected work</h2>
@@ -352,7 +347,7 @@ function MiniRow({ title, sub, meta, delay }: { title: string; sub: string; meta
 
 function Trajectory() {
   return (
-    <section id="trajectory" className="relative py-8 md:py-12 bg-paper">
+    <section id="trajectory" className="relative py-8 md:py-12">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
           <h2 className="font-display font-light text-2xl text-ink tracking-tight">Experience</h2>
@@ -402,7 +397,7 @@ function Trajectory() {
    ═══════════════════════════════════════════════════════════════ */
 function Contact() {
   return (
-    <section id="contact" className="relative py-12 md:py-16 bg-paper">
+    <section id="contact" className="relative py-12 md:py-16">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
           <div className="border-t border-hairline pt-10 md:pt-12">
@@ -437,6 +432,8 @@ export default function Home() {
         }
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
+        {/* Full-screen ink layer. Rendered first, so every (positioned) section paints above it. */}
+        <InkField />
         <Hero />
         <SelectedWork />
         <TechStack />
