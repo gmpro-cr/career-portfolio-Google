@@ -3,8 +3,9 @@ import type { CaseProps } from './caseData';
 import { Reveal, CaseHero } from './kit';
 import { RadialMap, Sequence } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
-import { HowItWorks, ProductBrief } from './explainers';
-import { BRIEFS, HOW_IT_WORKS } from './briefs';
+import { ProductBrief } from './explainers';
+import BookScene from './scenes/BookScene';
+import { BRIEFS } from './briefs';
 
 const CHAPTERS = ['Intro', 'Foundation Models', 'Eval Methodology', 'Eval AI Systems', 'Prompt Eng.', 'RAG & Agents', 'Finetuning', 'Dataset Eng.', 'Inference Opt.', 'Architecture'];
 // cross-chapter connections (index pairs)
@@ -28,7 +29,7 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      <HowItWorks steps={HOW_IT_WORKS[project.slug]} theme={theme} />
+      <BookScene theme={theme} />
       <ProductBrief brief={BRIEFS[project.slug]} />
 
       {/* ── Chapter knowledge map (signature) ────────────────────── */}
@@ -38,7 +39,7 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
             <div>
               
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">How the ten chapters link to each other</h2>
-              <p className="text-sm text-ink/75 leading-relaxed">The book is stored as pure data, each chapter a structured file of sections, concepts, terms, and connections. Dashed links mark the cross-chapter references that turn a linear read into a navigable graph: eval methodology feeds eval-of-systems, RAG borrows from finetuning and dataset engineering.</p>
+              <p className="text-sm text-ink/75 leading-relaxed max-w-2xl">The book is stored as pure data, each chapter a structured file of sections, concepts, terms, and connections. Dashed links mark the cross-chapter references that turn a linear read into a navigable graph: eval methodology feeds eval-of-systems, RAG borrows from finetuning and dataset engineering.</p>
             </div>
             <RadialMap theme={theme} center="AI Engineering" nodes={CHAPTERS.map((c, i) => `${i + 1} ${c}`)} links={LINKS} />
           </div>
@@ -50,11 +51,11 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">Every answer cites its chapter</h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">Retrieval happens server-side over 1,325 chunks that never enter the client bundle. Generation is grounded strictly in what was retrieved, and forced to cite. Being able to verify is what makes a reader trust the answer over re-reading the source.</p>
+            <p className="text-sm text-ink/75 leading-relaxed mb-8 md:mb-12 max-w-2xl">Retrieval happens server-side over 1,325 chunks that never enter the client bundle. Generation is grounded strictly in what was retrieved, and forced to cite. Being able to verify is what makes a reader trust the answer over re-reading the source.</p>
           </Reveal>
           <Sequence actors={RAG_ACTORS} messages={RAG_MESSAGES} theme={theme} />
           <Reveal delay={0.1}>
-            <p className="mt-10 max-w-3xl text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
+            <p className="mt-10 text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
           </Reveal>
         </div>
       </section>
@@ -64,7 +65,7 @@ export default function AIEngineeringCase({ project, extras, theme }: CaseProps)
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
-            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="text-base text-ink/80 leading-relaxed max-w-2xl">{extras.discovery}</p>
           </Reveal>
         </div>
       </section>

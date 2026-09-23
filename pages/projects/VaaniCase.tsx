@@ -3,8 +3,9 @@ import type { CaseProps } from './caseData';
 import { Reveal, CaseHero } from './kit';
 import { Sequence, Swimlane } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
-import { HowItWorks, ProductBrief } from './explainers';
-import { BRIEFS, HOW_IT_WORKS } from './briefs';
+import { ProductBrief } from './explainers';
+import VaaniScene from './scenes/VaaniScene';
+import { BRIEFS } from './briefs';
 
 const GATE_ACTORS = ['Caller', 'Agent', 'Gateway', 'Ledger'];
 const GATE_MESSAGES = [
@@ -28,7 +29,7 @@ export default function VaaniCase({ project, extras, theme }: CaseProps) {
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      <HowItWorks steps={HOW_IT_WORKS[project.slug]} theme={theme} />
+      <VaaniScene theme={theme} />
       <ProductBrief brief={BRIEFS[project.slug]} />
 
       {/* ── Four-gate confirmation sequence (signature) ──────────── */}
@@ -36,11 +37,11 @@ export default function VaaniCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">Four checks before any money moves</h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">Session, trust level, a confirmation token bound to a hash of the exact arguments, and a one-time step-up code, in that order, enforced by the gateway rather than the prompt. A caller who barges in mid-readback invalidates the token; nothing gets spent twice, and nothing moves on the model’s word alone.</p>
+            <p className="text-sm text-ink/75 leading-relaxed mb-8 md:mb-12 max-w-2xl">Session, trust level, a confirmation token bound to a hash of the exact arguments, and a one-time step-up code, in that order, enforced by the gateway rather than the prompt. A caller who barges in mid-readback invalidates the token; nothing gets spent twice, and nothing moves on the model’s word alone.</p>
           </Reveal>
           <Sequence actors={GATE_ACTORS} messages={GATE_MESSAGES} theme={theme} />
           <Reveal delay={0.1}>
-            <p className="mt-10 max-w-3xl text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
+            <p className="mt-10 text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
           </Reveal>
         </div>
       </section>
@@ -50,7 +51,7 @@ export default function VaaniCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">What the agent can do, and what only the gateway can</h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">The agent can ask, listen, and propose. It cannot enforce anything. Every rule that actually matters is checked again, in code, on the other side of a boundary the model can’t see or talk its way past.</p>
+            <p className="text-sm text-ink/75 leading-relaxed mb-8 md:mb-12 max-w-2xl">The agent can ask, listen, and propose. It cannot enforce anything. Every rule that actually matters is checked again, in code, on the other side of a boundary the model can’t see or talk its way past.</p>
           </Reveal>
           <Swimlane lanes={TRUST_LANES} theme={theme} handoff="same conversation, different levels of trust" />
         </div>
@@ -61,7 +62,7 @@ export default function VaaniCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
-            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="text-base text-ink/80 leading-relaxed max-w-2xl">{extras.discovery}</p>
           </Reveal>
         </div>
       </section>

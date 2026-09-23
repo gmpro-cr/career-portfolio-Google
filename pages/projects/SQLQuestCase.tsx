@@ -3,8 +3,9 @@ import type { CaseProps } from './caseData';
 import { Reveal, CaseHero } from './kit';
 import { Sequence, Swimlane } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
-import { HowItWorks, ProductBrief } from './explainers';
-import { BRIEFS, HOW_IT_WORKS } from './briefs';
+import { ProductBrief } from './explainers';
+import SQLQuestScene from './scenes/SQLQuestScene';
+import { BRIEFS } from './briefs';
 
 const QUERY_ACTORS = ['Learner', 'Editor', 'Postgres 18', 'Checker'];
 const QUERY_MESSAGES = [
@@ -26,7 +27,7 @@ export default function SQLQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      <HowItWorks steps={HOW_IT_WORKS[project.slug]} theme={theme} />
+      <SQLQuestScene theme={theme} />
       <ProductBrief brief={BRIEFS[project.slug]} />
 
       {/* ── Query loop sequence (signature) ──────────────────────── */}
@@ -34,11 +35,11 @@ export default function SQLQuestCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">The query loop</h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">A full PostgreSQL 18 boots inside the tab via PGlite, so a NULL surprise, a genuine error message, or an EXPLAIN plan behaves exactly as it will on the job. The checker compares result rows, not query text: any semantically correct SQL passes, and learners are free to find their own path to the answer.</p>
+            <p className="text-sm text-ink/75 leading-relaxed mb-8 md:mb-12 max-w-2xl">A full PostgreSQL 18 boots inside the tab via PGlite, so a NULL surprise, a genuine error message, or an EXPLAIN plan behaves exactly as it will on the job. The checker compares result rows, not query text: any semantically correct SQL passes, and learners are free to find their own path to the answer.</p>
           </Reveal>
           <Sequence actors={QUERY_ACTORS} messages={QUERY_MESSAGES} theme={theme} />
           <Reveal delay={0.1}>
-            <p className="mt-10 max-w-3xl text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
+            <p className="mt-10 text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
           </Reveal>
         </div>
       </section>
@@ -48,7 +49,7 @@ export default function SQLQuestCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">The same engine in the browser and in CI</h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">The same PostgreSQL engine that serves learners also gates releases: a 204-test suite replays every exercise&rsquo;s seed, solution, and checker in CI, so a curriculum edit can&rsquo;t silently break a lesson. Content quality stops being an editorial hope and becomes a build gate.</p>
+            <p className="text-sm text-ink/75 leading-relaxed mb-8 md:mb-12 max-w-2xl">The same PostgreSQL engine that serves learners also gates releases: a 204-test suite replays every exercise&rsquo;s seed, solution, and checker in CI, so a curriculum edit can&rsquo;t silently break a lesson. Content quality stops being an editorial hope and becomes a build gate.</p>
           </Reveal>
           <Swimlane lanes={QUALITY_LANES} theme={theme} handoff="same engine, same exercises" />
         </div>
@@ -59,7 +60,7 @@ export default function SQLQuestCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
-            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="text-base text-ink/80 leading-relaxed max-w-2xl">{extras.discovery}</p>
           </Reveal>
         </div>
       </section>

@@ -1,8 +1,9 @@
 import React from 'react';
 import type { CaseProps } from './caseData';
 import { Reveal, MetricsRow, CaseHero } from './kit';
-import { HowItWorks, ProductBrief } from './explainers';
-import { BRIEFS, HOW_IT_WORKS } from './briefs';
+import { ProductBrief } from './explainers';
+import SpiritScene from './scenes/SpiritScene';
+import { BRIEFS } from './briefs';
 import { RadialMap, Flowchart, Funnel, type FlowNode } from './diagrams';
 
 const MEMORY_LOOP: FlowNode[] = [
@@ -27,7 +28,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      <HowItWorks steps={HOW_IT_WORKS[project.slug]} theme={theme} />
+      <SpiritScene theme={theme} />
       <ProductBrief brief={BRIEFS[project.slug]} />
 
       {/* ── Persona constellation ────────────────────────────────── */}
@@ -37,7 +38,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
             <div>
               
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">One hub for forty persona worlds</h2>
-              <p className="text-sm text-ink/75 leading-relaxed">350+ curated personas fan out from a single product surface across 40 categories. India-first by design: Chanakya, Sadhguru, Shah Rukh Khan, Osho, characters Western platforms don&rsquo;t serve. The breadth is the moat: discovery across categories is what drives the multi-persona habit that retains.</p>
+              <p className="text-sm text-ink/75 leading-relaxed max-w-2xl">350+ curated personas fan out from a single product surface across 40 categories. India-first by design: Chanakya, Sadhguru, Shah Rukh Khan, Osho, characters Western platforms don&rsquo;t serve. The breadth is the moat: discovery across categories is what drives the multi-persona habit that retains.</p>
             </div>
             <div>
               <RadialMap theme={theme} center="AI Spirit" nodes={['Business', 'Spiritual', 'Entertainment', 'Companion', 'Fitness', 'Anime']} />
@@ -54,7 +55,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
             <div>
               
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">How conversation memory works</h2>
-              <p className="text-sm text-ink/75 leading-relaxed mb-6">Every message runs the same closed loop. The persona eval is the gate: if a draft reply drifts out of character, it is re-routed before it ever reaches the user. Memory is written back on every turn, so context compounds across sessions.</p>
+              <p className="text-sm text-ink/75 leading-relaxed mb-6 max-w-2xl">Every message runs the same closed loop. The persona eval is the gate: if a draft reply drifts out of character, it is re-routed before it ever reaches the user. Memory is written back on every turn, so context compounds across sessions.</p>
               <p className="text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
             </div>
             <Flowchart nodes={MEMORY_LOOP} theme={theme} />
@@ -77,7 +78,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
-            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="text-base text-ink/80 leading-relaxed max-w-2xl">{extras.discovery}</p>
           </Reveal>
         </div>
       </section>
@@ -106,7 +107,7 @@ export function CaseFooterSections({ project, extras, theme }: CaseProps) {
           <div className="max-w-6xl mx-auto px-4 md:px-12">
             <Reveal>
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-6 md:mb-8">Reflection</h2>
-              <p className="font-display font-light text-ink/80 leading-relaxed tracking-tight max-w-4xl" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
+              <p className="font-display font-light text-ink/80 leading-relaxed tracking-tight max-w-2xl" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
             </Reveal>
           </div>
         </section>

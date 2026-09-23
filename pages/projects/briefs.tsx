@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   Product briefs + plain-English explainers, one per case study.
+   Product briefs, one per case study.
 
    Sourcing rule: every line comes from the project's own repo (README,
    PRODUCT.md, design docs, PM framework) or from facts already published
@@ -7,15 +7,6 @@
    are tagged 'hypothesis' and unmeasured ones 'notyet' -- never stated as
    results. Add nothing here that cannot be sourced.
    ═══════════════════════════════════════════════════════════════ */
-import type { Icon } from '@phosphor-icons/react';
-import {
-  Phone, Robot, ShieldCheck, Bank, CheckCircle, UsersThree, ChatCircleText, Brain, Sparkle,
-  ArrowsClockwise, FileArrowUp, Calculator, MagnifyingGlass, PenNib, UserCheck, Clock, Globe,
-  Gauge, Funnel, PaperPlaneTilt, BookOpen, ListBullets, ChartBar, ChatText, Quotes, Browser,
-  Play, Trophy, Database, Code, Table,
-} from '@phosphor-icons/react';
-
-export interface ExplainerStep { icon: Icon; title: string; text: string }
 
 export interface Brief {
   problem: string;
@@ -27,58 +18,6 @@ export interface Brief {
   alsoTracked?: string;
   results: { status: 'measured' | 'shipped' | 'target' | 'hypothesis' | 'notyet'; text: string }[];
 }
-
-export const HOW_IT_WORKS: Record<string, ExplainerStep[]> = {
-  'vaani-voice-banking-agent': [
-    { icon: Phone, title: 'You speak', text: 'You talk to your bank instead of pressing buttons, for example "block my card" or "send ₹12,000 to Rohan".' },
-    { icon: Robot, title: 'The assistant understands', text: 'An AI voice model listens, works out what you want, and asks a follow-up question if something is missing.' },
-    { icon: ShieldCheck, title: 'A separate guard checks it', text: 'Before any money moves, a separate program checks it is really you, the amount is within your limits, and you confirmed with a one-time code. The AI cannot skip this.' },
-    { icon: Bank, title: 'The bank records it', text: 'The money moves in a proper double-entry bank ledger, and every attempt is logged, whatever was said.' },
-    { icon: CheckCircle, title: 'You hear the result', text: 'The assistant tells you it is done, and the balance on your screen updates by itself.' },
-  ],
-  'ai-persona-interaction-platform': [
-    { icon: UsersThree, title: 'Pick someone', text: 'Choose from 350+ AI personas of public figures, like a business leader or a spiritual teacher. No sign-up needed to start.' },
-    { icon: ChatCircleText, title: 'Ask your question', text: 'Type what is on your mind, such as a career decision you are stuck on.' },
-    { icon: Brain, title: 'It remembers you', text: 'The app looks up what you talked about before, so the conversation carries on instead of starting from zero.' },
-    { icon: Sparkle, title: 'It answers in character', text: 'An AI model replies in that person\'s style. A check scores each reply, and one that drifts out of character is regenerated before you see it.' },
-    { icon: ArrowsClockwise, title: 'You come back', text: 'Next time, the persona can pick up where you left off.' },
-  ],
-  'ai-credit-intelligence-platform': [
-    { icon: FileArrowUp, title: 'Upload the annual report', text: 'A bank analyst uploads a company\'s annual report, often more than 100 pages long.' },
-    { icon: Calculator, title: 'The numbers are calculated', text: 'A normal program, not AI, reads the figures and works out 12 standard ratios, such as how comfortably the company can repay its loans. It also flags 10 known warning signs.' },
-    { icon: MagnifyingGlass, title: 'AI researches the company', text: 'An AI agent searches the web for things like rating downgrades or court cases, and keeps searching until it rates its own research at least 85% complete.' },
-    { icon: PenNib, title: 'AI drafts the memo', text: 'An AI model writes the 8-section credit memo using only the checked numbers and research. It never does the maths itself.' },
-    { icon: UserCheck, title: 'The analyst decides', text: 'The analyst reviews the sections marked as uncertain, edits, and exports it in the bank\'s own Excel format. The lending decision stays with a person.' },
-  ],
-  'automated-job-discovery-agent': [
-    { icon: Clock, title: 'It wakes up twice a day', text: 'On a schedule, with nobody needing to press anything.' },
-    { icon: Globe, title: 'It checks six job sites', text: 'LinkedIn, Naukri, Indeed, HiringCafe, Wellfound and IIMJobs, collecting every new listing.' },
-    { icon: Gauge, title: 'It scores every job', text: 'An AI model rates each listing from 0 to 100 against your CV and what you are looking for.' },
-    { icon: Funnel, title: 'It keeps only the good ones', text: 'Only jobs scoring 65 or more make the list. Duplicates posted on several sites are removed.' },
-    { icon: PaperPlaneTilt, title: 'You get a short list', text: 'The best matches arrive in one message: about 5 minutes of reading instead of 2 hours of searching.' },
-  ],
-  'ai-engineering-field-guide': [
-    { icon: BookOpen, title: 'Start with a 535-page book', text: 'Chip Huyen\'s "AI Engineering", read cover to cover.' },
-    { icon: ListBullets, title: 'Turn it into structured notes', text: 'Each of the 10 chapters is broken into sections, key terms, takeaways and links to related chapters.' },
-    { icon: ChartBar, title: 'Explain it with diagrams', text: '29 diagrams make the hardest ideas visual.' },
-    { icon: ChatText, title: 'You ask a question', text: 'Type any question into "Ask the book", in your own words.' },
-    { icon: Quotes, title: 'It answers from the book', text: 'It finds the most relevant passages and answers from them, naming the chapter so you can check.' },
-  ],
-  'pyquest-learn-python-by-writing-it': [
-    { icon: Browser, title: 'Open the site', text: 'No sign-up and nothing to install. The first lesson is ready straight away.' },
-    { icon: BookOpen, title: 'Read one short idea', text: 'One concept at a time, in plain, simple English.' },
-    { icon: Play, title: 'Write and run real Python', text: 'Real Python runs inside your browser tab, so your code behaves exactly as it would on your own computer.' },
-    { icon: CheckCircle, title: 'It checks your answer', text: 'Your output is compared with the expected result. A wrong answer gets a hint, not a telling-off.' },
-    { icon: Trophy, title: 'Level up', text: 'Earn XP and clear a checkpoint challenge to unlock the next stage. Your progress saves in the browser.' },
-  ],
-  'sqlquest-learn-sql-on-real-postgres': [
-    { icon: Database, title: 'A real database starts in your tab', text: 'A full PostgreSQL 18 database loads inside the browser. No server, no sign-up.' },
-    { icon: Code, title: 'Write a question in SQL', text: 'Ask the data something, like "which customers spent the most last month?"' },
-    { icon: Table, title: 'See real results', text: 'Real rows come back, and real error messages when something is wrong, just like at work.' },
-    { icon: CheckCircle, title: 'Any correct answer passes', text: 'Your result is compared with the expected rows, not with our query, so your own approach counts.' },
-    { icon: Trophy, title: 'Move up', text: '34 stages take you from the basics to the advanced topics that come up on the job.' },
-  ],
-};
 
 export const BRIEFS: Record<string, Brief> = {
   // Source: vaani/docs/plans/2026-08-14-vaani-voice-banking-agent-design.md (§1, §8, §9)

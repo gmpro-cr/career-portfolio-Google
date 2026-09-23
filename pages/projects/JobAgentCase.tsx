@@ -3,8 +3,9 @@ import type { CaseProps } from './caseData';
 import { Reveal, CaseHero } from './kit';
 import { RadialMap, Funnel } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
-import { HowItWorks, ProductBrief } from './explainers';
-import { BRIEFS, HOW_IT_WORKS } from './briefs';
+import { ProductBrief } from './explainers';
+import JobScene from './scenes/JobScene';
+import { BRIEFS } from './briefs';
 
 const SIGNAL = [
   { label: 'Raw listings scraped per run', value: '200–500', sub: '6 portals scraped in parallel' },
@@ -19,7 +20,7 @@ export default function JobAgentCase({ project, extras, theme }: CaseProps) {
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      <HowItWorks steps={HOW_IT_WORKS[project.slug]} theme={theme} />
+      <JobScene theme={theme} />
       <ProductBrief brief={BRIEFS[project.slug]} />
 
       {/* ── 6-portal fan-in (signature) ──────────────────────────── */}
@@ -29,7 +30,7 @@ export default function JobAgentCase({ project, extras, theme }: CaseProps) {
             <div>
               
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">Six job portals, one pipeline</h2>
-              <p className="text-sm text-ink/75 leading-relaxed">Selenium + BeautifulSoup scrape six fragmented job boards in parallel, each with its own anti-scrape handling, session management, and pagination quirks, and funnel everything into a single deduplicated stream. No portal is hit twice within 12 hours.</p>
+              <p className="text-sm text-ink/75 leading-relaxed max-w-2xl">Selenium + BeautifulSoup scrape six fragmented job boards in parallel, each with its own anti-scrape handling, session management, and pagination quirks, and funnel everything into a single deduplicated stream. No portal is hit twice within 12 hours.</p>
             </div>
             <RadialMap theme={theme} center="Scraper" nodes={['LinkedIn', 'Naukri', 'Indeed', 'HiringCafe', 'Wellfound', 'IIMJobs']} />
           </div>
@@ -43,7 +44,7 @@ export default function JobAgentCase({ project, extras, theme }: CaseProps) {
             <div>
               
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">Hundreds of listings in, ten out</h2>
-              <p className="text-sm text-ink/75 leading-relaxed mb-6">The 65-point relevance threshold is the product&rsquo;s most important parameter, and setting it is a product decision. Calibrated empirically over three months of self-use against 7,413 catalogued jobs as ground truth.</p>
+              <p className="text-sm text-ink/75 leading-relaxed mb-6 max-w-2xl">The 65-point relevance threshold is the product&rsquo;s most important parameter, and setting it is a product decision. Calibrated empirically over three months of self-use against 7,413 catalogued jobs as ground truth.</p>
               <p className="text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
             </div>
             <Funnel stages={SIGNAL} theme={theme} />
@@ -56,7 +57,7 @@ export default function JobAgentCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
-            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="text-base text-ink/80 leading-relaxed max-w-2xl">{extras.discovery}</p>
           </Reveal>
         </div>
       </section>

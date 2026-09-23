@@ -3,8 +3,9 @@ import type { CaseProps } from './caseData';
 import { Reveal, CaseHero } from './kit';
 import { Swimlane, Flowchart, type FlowNode } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
-import { HowItWorks, ProductBrief } from './explainers';
-import { BRIEFS, HOW_IT_WORKS } from './briefs';
+import { ProductBrief } from './explainers';
+import CreditScene from './scenes/CreditScene';
+import { BRIEFS } from './briefs';
 
 const RESEARCH_LOOP: FlowNode[] = [
   { id: 'seed', label: 'Seed: borrower name + sector', type: 'start', forwardLabel: 'begin' },
@@ -20,7 +21,7 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      <HowItWorks steps={HOW_IT_WORKS[project.slug]} theme={theme} />
+      <CreditScene theme={theme} />
       <ProductBrief brief={BRIEFS[project.slug]} />
 
       {/* ── Two-stage swimlane (signature) ───────────────────────── */}
@@ -28,7 +29,7 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">Python computes the ratios; the LLM writes the memo</h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-10">The strict separation is the whole design: the Python engine owns every number so the LLM never touches arithmetic; it only writes the story from pre-verified JSON. That one decision solved ~90% of accuracy issues.</p>
+            <p className="text-sm text-ink/75 leading-relaxed mb-8 md:mb-10 max-w-2xl">The strict separation is the whole design: the Python engine owns every number so the LLM never touches arithmetic; it only writes the story from pre-verified JSON. That one decision solved ~90% of accuracy issues.</p>
           </Reveal>
           <Swimlane
             theme={theme}
@@ -48,7 +49,7 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
             <div>
               
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">A research loop with a stopping rule</h2>
-              <p className="text-sm text-ink/75 leading-relaxed mb-6">A Karpathy-style agent self-scores its own knowledge completeness and keeps searching until it crosses 85%. Setting that threshold was a product decision: low enough to terminate, high enough that the AI never ships a shallow summary when more was findable.</p>
+              <p className="text-sm text-ink/75 leading-relaxed mb-6 max-w-2xl">A Karpathy-style agent self-scores its own knowledge completeness and keeps searching until it crosses 85%. Setting that threshold was a product decision: low enough to terminate, high enough that the AI never ships a shallow summary when more was findable.</p>
               <p className="text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
             </div>
             <Flowchart nodes={RESEARCH_LOOP} theme={theme} />
@@ -61,7 +62,7 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
-            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="text-base text-ink/80 leading-relaxed max-w-2xl">{extras.discovery}</p>
           </Reveal>
         </div>
       </section>

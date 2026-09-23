@@ -3,8 +3,9 @@ import type { CaseProps } from './caseData';
 import { Reveal, CaseHero } from './kit';
 import { Flowchart, Funnel, type FlowNode } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
-import { HowItWorks, ProductBrief } from './explainers';
-import { BRIEFS, HOW_IT_WORKS } from './briefs';
+import { ProductBrief } from './explainers';
+import PyQuestScene from './scenes/PyQuestScene';
+import { BRIEFS } from './briefs';
 
 const RUN_LOOP: FlowNode[] = [
   { id: 'land', label: 'Learner lands on an editor with runnable starter code', type: 'start', forwardLabel: 'meanwhile' },
@@ -28,7 +29,7 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      <HowItWorks steps={HOW_IT_WORKS[project.slug]} theme={theme} />
+      <PyQuestScene theme={theme} />
       <ProductBrief brief={BRIEFS[project.slug]} />
 
       {/* ── Time-to-first-run funnel (signature) ─────────────────── */}
@@ -38,7 +39,7 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
             <div>
               
               <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">Time to first working code</h2>
-              <p className="text-sm text-ink/75 leading-relaxed">Every second between landing and successfully running code is funnel leakage. PyQuest treats time-to-first-run as the product&rsquo;s north-star metric: the heavyweight WASM runtime loads quietly behind the first lesson, so the learner&rsquo;s very first interaction is typing real Python instead of installing it.</p>
+              <p className="text-sm text-ink/75 leading-relaxed max-w-2xl">Every second between landing and successfully running code is funnel leakage. PyQuest treats time-to-first-run as the product&rsquo;s north-star metric: the heavyweight WASM runtime loads quietly behind the first lesson, so the learner&rsquo;s very first interaction is typing real Python instead of installing it.</p>
             </div>
             <Funnel stages={FRICTION} theme={theme} />
           </div>
@@ -50,11 +51,11 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-3">The exercise loop: type, run, earn XP</h2>
-            <p className="text-sm text-ink/75 leading-relaxed max-w-2xl mb-8 md:mb-12">Real CPython, not a lookalike interpreter, executes inside the tab, so a failed attempt returns the same error a terminal would. The game layer (XP, level titles, Firewall boss checkpoints) is spaced retrieval disguised as play: it&rsquo;s what turns a first run into a second session.</p>
+            <p className="text-sm text-ink/75 leading-relaxed mb-8 md:mb-12 max-w-2xl">Real CPython, not a lookalike interpreter, executes inside the tab, so a failed attempt returns the same error a terminal would. The game layer (XP, level titles, Firewall boss checkpoints) is spaced retrieval disguised as play: it&rsquo;s what turns a first run into a second session.</p>
           </Reveal>
           <Flowchart nodes={RUN_LOOP} theme={theme} />
           <Reveal delay={0.1}>
-            <p className="mt-10 max-w-3xl text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
+            <p className="mt-10 text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
           </Reveal>
         </div>
       </section>
@@ -64,7 +65,7 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-12">
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
-            <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
+            <p className="text-base text-ink/80 leading-relaxed max-w-2xl">{extras.discovery}</p>
           </Reveal>
         </div>
       </section>
