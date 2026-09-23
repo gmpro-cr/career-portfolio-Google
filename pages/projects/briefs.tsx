@@ -3,8 +3,9 @@
 
    Sourcing rule: every line comes from the project's own repo (README,
    PRODUCT.md, design docs, PM framework) or from facts already published
-   on this site. Anything that could not be sourced is an `ask` and renders
-   as "Needs your input" -- it is never filled in with a plausible guess.
+   on this site, confirmed with the owner on 2026-09-23. Unvalidated claims
+   are tagged 'hypothesis' and unmeasured ones 'notyet' -- never stated as
+   results. Add nothing here that cannot be sourced.
    ═══════════════════════════════════════════════════════════════ */
 import type { Icon } from '@phosphor-icons/react';
 import {
@@ -20,12 +21,11 @@ export interface Brief {
   problem: string;
   users: string;
   job: { when: string; want: string; so: string };
-  /** `why` when sourced; otherwise `ask` names what the owner needs to supply. */
-  options: { option: string; chosen: boolean; why?: string; ask?: string }[];
-  northStar: { metric?: string; why?: string; ask?: string };
+  options: { option: string; chosen: boolean; why: string }[];
+  northStar?: { metric: string; why?: string };
   guardrails?: string;
   alsoTracked?: string;
-  results: { status: 'measured' | 'shipped' | 'target' | 'input'; text: string }[];
+  results: { status: 'measured' | 'shipped' | 'target' | 'hypothesis' | 'notyet'; text: string }[];
 }
 
 export const HOW_IT_WORKS: Record<string, ExplainerStep[]> = {
@@ -99,7 +99,7 @@ export const BRIEFS: Record<string, Brief> = {
     results: [
       { status: 'measured', text: '131 live scripted scenarios and 189 unit and contract tests run against it.' },
       { status: 'shipped', text: 'The AI holds no database credentials. Every money movement passes four checks on the server.' },
-      { status: 'input', text: 'What containment rate did the scenario runs report?' },
+      { status: 'notyet', text: 'Containment rate has not been measured yet.' },
     ],
   },
 
@@ -119,7 +119,7 @@ export const BRIEFS: Record<string, Brief> = {
     alsoTracked: 'messages per session (target: more than 5) and sessions per user per week (target: more than 2).',
     results: [
       { status: 'measured', text: 'About 500 monthly active users, with daily/monthly active ratio around 10%, and no paid acquisition.' },
-      { status: 'input', text: 'Your PM framework lists "multi-persona users retain 3x better" as a hypothesis still to validate, but this site states it as a result. Was it confirmed in Mixpanel?' },
+      { status: 'hypothesis', text: 'Users who try 2+ personas in their first week retain 3× better. Not yet validated; next step is cohort tracking in Mixpanel.' },
       { status: 'target', text: '₹10,000 monthly recurring revenue from the ₹249/month premium plan.' },
     ],
   },
@@ -139,7 +139,7 @@ export const BRIEFS: Record<string, Brief> = {
     northStar: { metric: 'Hours to prepare one credit memo' },
     guardrails: 'every figure traceable to the source report, and each section marked with a confidence level so reviewers check the uncertain parts.',
     results: [
-      { status: 'input', text: '4-6 hours down to under 1 hour per memo is published on this site. How was it measured: on your own proposals, or with other analysts?' },
+      { status: 'measured', text: '4–6 hours down to under 1 hour per memo, on my own proposals.' },
       { status: 'shipped', text: '12 ratios calculated and 10 risk patterns flagged automatically; 8-section memo with Excel and PDF export.' },
     ],
   },
@@ -147,11 +147,11 @@ export const BRIEFS: Record<string, Brief> = {
   // Source: job-search-agent/PRODUCT.md, job-search-agent/SaaSidea.md, HOW_IT_WORKS.md
   'automated-job-discovery-agent': {
     problem: 'Job portals are flooded with listings that are not really a match. Filtering them by hand took 2 hours every morning, spread across six different sites.',
-    users: 'Active job seekers, especially professionals in India, who want to stop scanning low-fit roles. It started as a tool for me, then five peers asked for it.',
+    users: 'Active job seekers, especially professionals in India, who want to stop scanning low-fit roles. I built it for my own search, and I still run it only for myself.',
     job: { when: 'I start my job search each morning', want: 'see only the roles that genuinely fit my CV, from every portal, in one place', so: 'spend my time applying instead of searching' },
     options: [
-      { option: 'Hosted multi-user web app', chosen: true, ask: 'Why hosted won over the self-deploy option your notes recommended.' },
-      { option: 'One-click self-deploy to each user\'s own free cloud account', chosen: false, ask: 'Your notes recommended this (no hosting cost, no user data to hold). Why was it dropped?' },
+      { option: 'Run it as a personal tool', chosen: true, why: 'It solves my problem today without hosting costs or anyone else\'s data to look after.' },
+      { option: 'Open it up to other users (hosted app or one-click self-deploy)', chosen: false, why: 'Weighed both. The complexity and costs weren\'t justified, and the scoring was tuned to one profile.' },
       { option: 'Downloadable desktop app', chosen: false, why: '3 to 5 days of packaging per platform, and scheduled background jobs are hard inside a packaged app.' },
       { option: 'Score listings with a local AI model', chosen: true, why: 'No API cost per listing.' },
       { option: 'A hard cut-off at a score of 65', chosen: true, why: 'Keeps the digest short. Too low floods it with noise; too high misses real roles.' },
@@ -160,7 +160,7 @@ export const BRIEFS: Record<string, Brief> = {
     results: [
       { status: 'measured', text: 'About 2 hours a day down to a 5-minute read, on my own search.' },
       { status: 'measured', text: '7,413 listings collected with duplicates removed.' },
-      { status: 'shipped', text: 'Now a multi-user product with sign-in, CV matching and email alerts.' },
+
     ],
   },
 
@@ -175,10 +175,9 @@ export const BRIEFS: Record<string, Brief> = {
       { option: 'Keyword search (TF-IDF) for "Ask the book"', chosen: true, why: 'Fast and private. The trade-off is that it misses questions worded differently from the book.' },
       { option: 'Meaning-based search (embeddings)', chosen: false, why: 'Better recall; planned as a hybrid with keyword search.' },
     ],
-    northStar: { ask: 'Which single number tells you the guide is working (e.g. questions asked per visit, return visits)?' },
     results: [
       { status: 'shipped', text: 'All 10 chapters as structured data, 29 diagrams from one reusable component, and answers with chapter citations.' },
-      { status: 'input', text: 'Any usage numbers since launch?' },
+      { status: 'notyet', text: 'Not in use by other people yet, so there are no usage numbers.' },
     ],
   },
 
@@ -196,7 +195,7 @@ export const BRIEFS: Record<string, Brief> = {
     northStar: { metric: 'Time from landing on the site to running your first code', why: 'Every second between arriving and seeing code run is where beginners drop off.' },
     results: [
       { status: 'shipped', text: '20 stages and 56 exercises across 3 tracks, all runnable in the browser.' },
-      { status: 'input', text: 'Progress lives in each learner\'s browser, so there is no usage data yet. Anything you can share (visits, completions)?' },
+      { status: 'notyet', text: 'No usage numbers yet. Progress is saved in each learner\'s browser, not on a server.' },
     ],
   },
 
@@ -212,10 +211,10 @@ export const BRIEFS: Record<string, Brief> = {
       { option: 'Check the query text', chosen: false, why: 'Fails correct answers written differently.' },
       { option: 'Show real Postgres error messages', chosen: true, why: 'Reading real errors is a skill people need at work.' },
     ],
-    northStar: { ask: 'Which single number tells you SQLQuest is working (e.g. stages completed per learner)?' },
     results: [
       { status: 'shipped', text: '34 stages and 148 exercises, from the first SELECT to window functions, query plans and row-level security.' },
       { status: 'measured', text: 'A 204-test suite runs every exercise against the live database engine.' },
+      { status: 'notyet', text: 'Not in use by other people yet, so there are no usage numbers.' },
     ],
   },
 };

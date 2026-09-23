@@ -141,13 +141,14 @@ export function HowItWorks({ steps, theme }: { steps: ExplainerStep[]; theme: Pr
    PRODUCT BRIEF — the one-screen summary a hiring manager skims:
    problem, users, job to be done, options weighed, the metric that
    mattered and what happened. Every result says whether it was
-   measured, is a target, or still needs the owner's input.
+   measured, shipped, a target, a hypothesis, or not measured yet.
    ═══════════════════════════════════════════════════════════════ */
 const STATUS_STYLE: Record<Brief['results'][number]['status'], { label: string; className: string }> = {
   measured: { label: 'Measured', className: 'bg-ink text-white' },
   shipped: { label: 'Shipped', className: 'border border-ink/30 text-ink' },
   target: { label: 'Target', className: 'border border-dashed border-ink/40 text-ink-muted' },
-  input: { label: 'Needs your input', className: 'bg-amber-100 text-amber-900 border border-amber-300' },
+  hypothesis: { label: 'Hypothesis', className: 'border border-dashed border-ink/40 text-ink-muted' },
+  notyet: { label: 'Not measured yet', className: 'bg-shell text-ink-muted border border-hairline' },
 };
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
@@ -156,14 +157,6 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
       <dt className="text-sm font-semibold text-ink">{label}</dt>
       <dd className="text-base leading-relaxed text-ink/80 min-w-0">{children}</dd>
     </div>
-  );
-}
-
-function NeedsInput({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-block rounded-md bg-amber-50 border border-amber-300 px-2 py-1 text-sm text-amber-900">
-      <span className="font-semibold">Needs your input:</span> {children}
-    </span>
   );
 }
 
@@ -189,7 +182,7 @@ export function ProductBrief({ brief }: { brief: Brief }) {
                     <span className={o.chosen ? 'font-semibold' : 'text-ink-muted line-through decoration-ink/30'}>{o.chosen ? 'Chosen' : 'Rejected'}:</span>{' '}
                     {o.option}
                   </p>
-                  <p className="mt-1 text-sm text-ink/80">{o.why ?? <NeedsInput>{o.ask}</NeedsInput>}</p>
+                  <p className="mt-1 text-sm text-ink/80">{o.why}</p>
                 </li>
               ))}
             </ul>
@@ -211,23 +204,21 @@ export function ProductBrief({ brief }: { brief: Brief }) {
                           {o.chosen ? 'Chosen' : 'Rejected'}
                         </span>
                       </td>
-                      <td className="py-3 text-ink/80">{o.why ?? <NeedsInput>{o.ask}</NeedsInput>}</td>
+                      <td className="py-3 text-ink/80">{o.why}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </Row>
-          <Row label="North Star metric">
-            {brief.northStar.metric ? (
-              <>
-                <span className="font-medium text-ink">{brief.northStar.metric}</span>
-                {brief.northStar.why && <span className="block mt-1">{brief.northStar.why}</span>}
-              </>
-            ) : <NeedsInput>{brief.northStar.ask}</NeedsInput>}
-            {brief.guardrails && <span className="block mt-2 text-sm text-ink-muted">Guardrails: {brief.guardrails}</span>}
-            {brief.alsoTracked && <span className="block mt-2 text-sm text-ink-muted">Also tracked: {brief.alsoTracked}</span>}
-          </Row>
+          {brief.northStar && (
+            <Row label="North Star metric">
+              <span className="font-medium text-ink">{brief.northStar.metric}</span>
+              {brief.northStar.why && <span className="block mt-1">{brief.northStar.why}</span>}
+              {brief.guardrails && <span className="block mt-2 text-sm text-ink-muted">Guardrails: {brief.guardrails}</span>}
+              {brief.alsoTracked && <span className="block mt-2 text-sm text-ink-muted">Also tracked: {brief.alsoTracked}</span>}
+            </Row>
+          )}
           <Row label="Results">
             <ul className="space-y-3">
               {brief.results.map((r, i) => (

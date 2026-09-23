@@ -15,10 +15,10 @@ const MEMORY_LOOP: FlowNode[] = [
 ];
 
 const RETENTION = [
-  { label: 'Discover: browse 350+ personas', value: '100%', sub: 'Guest mode, zero signup friction' },
-  { label: 'Engage: first in-character moment', value: '~60%', sub: 'The "aha": unexpected-but-consistent reply' },
-  { label: 'Habit: 2+ personas in week 1', value: '3× D30', sub: 'Multi-persona users retain 3× single-persona' },
-  { label: 'Convert: premium (Razorpay ₹249/mo)', value: '₹10K MRR', sub: 'OKR target, not yet an outcome; assumes 3% free → paid' },
+  { label: 'Discover', value: 'Guest', sub: 'Browse 350+ personas with no sign-up' },
+  { label: 'Engage', value: 'Aha', sub: 'An unexpected but in-character reply' },
+  { label: 'Habit', value: '2+', sub: 'Personas tried in week 1. Hypothesis: these users retain 3× better (not yet validated)' },
+  { label: 'Convert', value: '₹249', sub: 'Premium per month. Target: ₹10K MRR at 3% free → paid' },
 ];
 
 export default function PersonaCase({ project, extras, theme }: CaseProps) {
@@ -66,7 +66,7 @@ export default function PersonaCase({ project, extras, theme }: CaseProps) {
       <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
         <div className="max-w-3xl mx-auto px-4 md:px-12">
           <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12">The retention funnel</h2>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12">The retention funnel I&rsquo;m testing</h2>
           </Reveal>
           <Funnel stages={RETENTION} theme={theme} />
         </div>

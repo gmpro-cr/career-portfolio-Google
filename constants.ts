@@ -207,7 +207,7 @@ export const PROJECTS: Project[] = [
     slug: "ai-persona-interaction-platform",
     date: "Oct 2025",
     description: "Conceived and launched a B2C AI product with 350+ personas across 40 categories. Applied a 10-item JTBD framework to identify five distinct user segments (career professionals, self-improvement seekers, spiritual explorers, entertainment/pop-culture fans, companion seekers), each with different WTP, session frequency, and retention drivers. Defined North Star Metric as Messages Sent Per Day, ran a formal production readiness audit before launch, and shipped a freemium monetisation model (Razorpay) targeting ₹10K MRR.",
-    cardSummary: "A chat platform with 350+ AI personas of public figures. Chose Messages Sent Per Day as the North Star and redesigned onboarding around a 3× retention signal from Mixpanel cohorts. 500+ MAU with no paid acquisition.",
+    cardSummary: "A chat platform with 350+ AI personas of public figures. Chose Messages Sent Per Day as the North Star and set a testable retention hypothesis for multi-persona users. 500+ MAU with no paid acquisition.",
     tech: ["Next.js", "Supabase", "Gemini 1.5 Flash", "Groq Llama 3.3", "Google OAuth", "Sarvam TTS", "Mixpanel", "Vercel"],
     metrics: "500+ MAU",
     link: "https://ai-spirit.in",
@@ -224,8 +224,8 @@ export const PROJECTS: Project[] = [
       "India-first positioning as a deliberate defensibility strategy: 40 categories include culturally specific personas (Chanakya, Sadhguru, Shah Rukh Khan, Osho) unavailable on Western platforms. Competitive moat: India-first + 350+ personas + emotional engagement categories that Character.AI and Replika don't serve.",
     ],
     keyInsights: [
-      "PMF signal identified through data: users who have 5+ conversations with 2+ different personas in their first week are retained at 3x the rate of single-persona users. Redesigned onboarding to expose users to 3+ personas before the end of session 1.",
-      "Proactive AI interactions, where the AI opens the conversation on session 2, lifted D7 retention dramatically. Discovered this mid-build from Mixpanel cohort data; would have designed the onboarding funnel around it from day one.",
+      "Set a testable PMF hypothesis: users who have 5+ conversations with 2+ different personas in their first week retain at 3x the rate of single-persona users. Not yet validated; the test is to track persona diversity in Mixpanel and compare D30 retention.",
+      "Proactive AI interactions, where the AI opens the conversation on session 2, are the retention lever I'd bet on next. It is a hypothesis until D7 cohort data confirms it.",
       "India-first is the moat. Most AI persona platforms are Western-centric; owning culturally resonant personas (Hinglish, Indian business icons, Bollywood, spiritual figures) creates a defensible niche that global incumbents cannot easily replicate.",
     ],
     outcomes: [
@@ -244,7 +244,7 @@ export const PROJECTS: Project[] = [
         { step: "Response streamed to frontend; memory chunk persisted to Supabase" },
       ],
     },
-    reflection: "If I were starting over, I'd ship proactive AI-initiated interactions from week one, not month three. Our Mixpanel data made the impact obvious in retrospect (D7 retention lifted dramatically when the AI sent the first message), but I'd assumed the engagement burden sat with the user. The second thing I'd change: I'd have defined the 'aha' moment explicitly before writing a line of code. Users who experienced a single moment of unexpected-but-consistent character behaviour converted to 30-day actives at far higher rates; I discovered this pattern mid-build instead of designing the onboarding funnel around it from the start. What I'd build next: a creator-side tool that lets users publish their own personas, transforming the platform from a catalogue into a marketplace with network-effect dynamics.",
+    reflection: "If I were starting over, I'd instrument retention from day one. I wrote clear hypotheses (multi-persona users retain better; an AI-sent first message on session 2 lifts D7 retention) but didn't set up the cohort tracking to confirm them, so today they are still hypotheses. I'd also have defined the 'aha' moment explicitly before writing a line of code, as a single moment of unexpected-but-consistent character behaviour, and designed onboarding around it. What I'd build next: a creator-side tool that lets users publish their own personas, transforming the platform from a catalogue into a marketplace with network-effect dynamics.",
   },
   {
     title: "CreditGuard AI — Credit Memo Co-pilot",
@@ -296,7 +296,7 @@ export const PROJECTS: Project[] = [
     date: "Jan 2026",
     image: "/job-agent.png",
     cardFlow: ["Scrape", "Score", "Filter", "Deliver"],
-    cardSummary: "Two hours of daily portal-browsing became a 5-minute Telegram digest: six portals scraped, every listing scored 0–100 by a local LLM, only matches above a calibrated 65-point threshold delivered. Now live as a multi-user product.",
+    cardSummary: "Two hours of daily portal-browsing became a 5-minute Telegram digest: six portals scraped, every listing scored 0–100 by a local LLM, only matches above a calibrated 65-point threshold delivered. I run it for my own search.",
     description: "Defined the product as a solution to a personal pain point: 2 hours of daily manual searching across fragmented portals. Built a 6-portal scraper (LinkedIn, Naukri, Indeed, HiringCafe, Wellfound, IIMJobs) that runs twice daily via APScheduler, semantically scores each listing 0–100 against a candidate profile using Ollama (Mistral 7B, fully local, no API cost), and delivers the top matches as a Telegram digest. Database currently holds 7,413 catalogued jobs with deduplication via portal + company + role + location fingerprint.",
     tech: ["Python", "Flask", "Ollama / Mistral 7B", "Selenium", "SQLite", "APScheduler", "Telegram Bot API", "BeautifulSoup"],
     metrics: "2h → 5min daily",
@@ -309,12 +309,12 @@ export const PROJECTS: Project[] = [
       "Integrated Ollama running Mistral 7B locally to semantically score job descriptions (0–100) against the candidate profile. Set a 65-point hard threshold: only jobs scoring ≥65 reach the daily digest. Lower-scoring jobs are stored but left out.",
       "Built anti-duplicate fingerprinting: each job gets a unique hash of portal + company + role + location. Before any save, the system checks if that hash already exists and skips duplicates. Result: 7,413 clean, deduplicated jobs in the database.",
       "Designed a push-notification delivery model: top-scored jobs delivered as a Telegram digest daily, flipping search from 'pull' (user browses portals) to 'push' (agent delivers curated shortlist). Zero dashboard login required.",
-      "Validated PMF through 3 months of self-use with real job-search volume; then found the scale blocker (the scoring model was calibrated to one profile and broke for others) and redesigned multi-user architecture with Neon Postgres and Vercel Blob.",
+      "Validated PMF through 3 months of self-use with real job-search volume; then looked at opening it up to other users. The scoring model was calibrated to one profile and broke for others, and together with the complexity and hosting costs that made it not worth it, so it stays a personal tool.",
     ],
     keyInsights: [
       "Local LLMs (Ollama/Mistral 7B) are a viable architecture for personal automation: zero API cost, fully offline, fast enough for batch scoring, and sufficient reasoning quality for relevance filtering at this signal level.",
       "The core AI value is filtering: separating the few relevant listings from the noise. The 65-point threshold is the product's most important parameter: too low floods the digest with noise; too high misses real opportunities. Calibrating it is an ongoing product decision.",
-      "Self-use is the fastest path to a first version but the slowest path to a second. Discovering the scoring model broke for other users only after sharing it was a critical design failure. The multi-user rebuild replaces the JSON profile file with a conversational onboarding flow.",
+      "Self-use is the fastest path to a first version but the slowest path to a second. Discovering the scoring model broke for other users only after sharing it was a critical design failure. If I open it up, profile setup has to be a conversational onboarding flow, not a JSON file.",
     ],
     outcomes: [
       "100% automation of top-of-funnel job discovery across 6 portals; 7,413 jobs catalogued and deduplicated in the live database.",
@@ -332,7 +332,7 @@ export const PROJECTS: Project[] = [
         { step: "Telegram Bot API delivers formatted daily digest to user" },
       ],
     },
-    reflection: "Self-use validation is a fast path to shipping but a slow path to scale. My scoring model was calibrated to my own profile and worked well for me and inconsistently for anyone else, a blind spot I only noticed when sharing it. If I were building for multiple users from day one, the first thing I'd redesign is the profile configuration: the current JSON config is too technical and creates a high setup cost that most people won't clear. I'd replace it with a conversational onboarding flow that builds the profile through questions. The second thing I'd add is a feedback loop: when a user applies to or dismisses a suggested role, the relevance model updates its weights. That feedback flywheel is what makes the tool compoundingly more accurate over time, and it's the difference between a personal script and a product with network value. I've since started building the multi-user version with both of these lessons designed in from the start.",
+    reflection: "Self-use validation is a fast path to shipping but a slow path to scale. My scoring model was calibrated to my own profile and worked well for me and inconsistently for anyone else, a blind spot I only noticed when sharing it. If I were building for multiple users from day one, the first thing I'd redesign is the profile configuration: the current JSON config is too technical and creates a high setup cost that most people won't clear. I'd replace it with a conversational onboarding flow that builds the profile through questions. The second thing I'd add is a feedback loop: when a user applies to or dismisses a suggested role, the relevance model updates its weights. That feedback flywheel is what makes the tool compoundingly more accurate over time, and it's the difference between a personal script and a product with network value. For now I've kept it as a tool for myself: the complexity and running costs of serving other users weren't justified.",
   },
   {
     title: "AI Engineering Field Guide",

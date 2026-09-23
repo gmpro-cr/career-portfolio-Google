@@ -28,14 +28,13 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
 
 
 
-    pmInsight: "North Star Metric: Messages Sent Per Day, chosen because it captures functional value delivery, engagement depth, and retention in a single number. PMF signal identified through Mixpanel cohort data: users who have 5+ conversations with 2+ different personas in their first week are retained at 3x the D30 rate of single-persona users. That insight drove a full onboarding redesign to expose users to 3+ personas before the end of session 1. The second unlock: when the AI initiates the conversation on session 2 rather than waiting for the user, D7 retention lifted significantly. Both discoveries came from data, mid-build, when I should have designed for them from day one.",
+    pmInsight: "North Star Metric: Messages Sent Per Day, chosen because it captures functional value delivery, engagement depth, and retention in a single number. My PMF hypothesis: users who have 5+ conversations with 2+ different personas in their first week retain at 3x the D30 rate of single-persona users. A second one: when the AI opens the conversation on session 2, D7 retention goes up. Neither is validated yet; the next step is cohort tracking in Mixpanel to confirm or kill them.",
 
 
 
 
     metrics: [
       { value: '500+', label: 'Monthly Active Users',      sub: 'Organic, no paid acquisition; DAU/MAU ~10%' },
-      { value: '3×',   label: 'D7 retention lift',         sub: 'When AI initiates message on session 2 vs waiting' },
       { value: '350+', label: 'Curated AI personas',       sub: '40 categories: Business · Spiritual · Entertainment · Companion · Anime' },
       { value: '5',    label: 'User segments mapped',      sub: 'Career, self-improvement, spiritual, entertainment, companionship' },
     ],
@@ -64,11 +63,11 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
   'automated-job-discovery-agent': {
     problemStatement: 'Job hunting is a high-noise, low-signal data problem. Portals are flooded with irrelevant listings: "Senior Product Manager" roles that are actually customer support, or Bangalore jobs that are listed in Mumbai. Manual filtering consumes 2+ hours every morning with no compounding value.',
 
-    discovery: "I was spending 2 hours every morning clicking through Naukri and LinkedIn. Same irrelevant listings, same filters, same frustration. I built a Python script to automate the scraping. Then added scoring via Ollama. Then a Telegram notification so I wouldn't even need to check a dashboard. Three weeks later I had a product. The pivot to multi-user came when 5 friends asked for the same thing. That's when I knew it was more than a personal script.",
+    discovery: "I was spending 2 hours every morning clicking through Naukri and LinkedIn. Same irrelevant listings, same filters, same frustration. I built a Python script to automate the scraping. Then added scoring via Ollama. Then a Telegram notification so I wouldn't even need to check a dashboard. Three weeks later I had a product.",
 
 
 
-    pmInsight: "The 65-point relevance threshold is the product's most important parameter, and setting it is a product decision. Too low and the digest is noise. Too high and real opportunities are missed. I calibrated it empirically over 3 months of self-use with 7,413 catalogued jobs as ground truth. The second insight: self-use is the fastest path to a first version but the slowest path to a second. My scoring model was perfectly calibrated to my profile and broke for others. The multi-user rewrite taught me: conversational onboarding (ask questions, build the profile) beats a JSON config file that most people won't fill out correctly. The feedback loop, where the relevance model updates its weights when a user applies to or dismisses a role, is what separates a personal script from a product with compounding accuracy. Both are now designed into the current rebuild.",
+    pmInsight: "The 65-point relevance threshold is the product's most important parameter, and setting it is a product decision. Too low and the digest is noise. Too high and real opportunities are missed. I calibrated it empirically over 3 months of self-use with 7,413 catalogued jobs as ground truth. The second insight: self-use is the fastest path to a first version but the slowest path to a second. My scoring model was perfectly calibrated to my profile and broke for others. Opening it up would need two things: conversational onboarding (ask questions, build the profile) instead of a JSON config file most people won't fill out correctly, and a feedback loop where the relevance model updates its weights when a user applies to or dismisses a role. Weighed against the complexity and running costs, I've kept it as a tool for myself.",
 
 
 
