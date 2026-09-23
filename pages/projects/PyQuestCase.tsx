@@ -1,8 +1,10 @@
 import React from 'react';
 import type { CaseProps } from './caseData';
-import { Reveal, SectionLabel, CaseHero } from './kit';
+import { Reveal, CaseHero } from './kit';
 import { Flowchart, Funnel, type FlowNode } from './diagrams';
 import { CaseFooterSections } from './PersonaCase';
+import { HowItWorks, ProductBrief } from './explainers';
+import { BRIEFS, HOW_IT_WORKS } from './briefs';
 
 const RUN_LOOP: FlowNode[] = [
   { id: 'land', label: 'Learner lands on an editor with runnable starter code', type: 'start', forwardLabel: 'meanwhile' },
@@ -26,14 +28,8 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
       {/* ── Hero + deployed-site screenshot ──────────────────────── */}
       <CaseHero project={project} theme={theme} />
 
-      {/* ── Problem ──────────────────────────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal><SectionLabel>The problem</SectionLabel>
-            <p className="font-display font-light text-ink leading-[1.45] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 3vw, 2.25rem)' }}>{extras.problemStatement}</p>
-          </Reveal>
-        </div>
-      </section>
+      <HowItWorks steps={HOW_IT_WORKS[project.slug]} theme={theme} />
+      <ProductBrief brief={BRIEFS[project.slug]} />
 
       {/* ── Time-to-first-run funnel (signature) ─────────────────── */}
       <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
@@ -69,7 +65,6 @@ export default function PyQuestCase({ project, extras, theme }: CaseProps) {
           <Reveal>
             <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
             <p className="text-base text-ink/80 leading-relaxed max-w-3xl">{extras.discovery}</p>
-            <p className="mt-5 text-base text-ink/80 leading-relaxed max-w-3xl"><span className="font-medium text-ink">Who it&rsquo;s for: </span>{extras.audience}</p>
           </Reveal>
         </div>
       </section>

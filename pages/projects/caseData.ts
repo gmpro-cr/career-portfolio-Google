@@ -10,8 +10,6 @@ export interface ProjectExtra {
   metrics: MetricCard[];
   problemStatement: string;
   discovery: string;
-  /** One plain sentence on who the product is for. */
-  audience: string;
   pmInsight: string;
 }
 
@@ -27,7 +25,6 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     problemStatement: 'Generic AI chatbots fail at long-term engagement because they lack character consistency and memory. Users crave authentic, persistent relationships with figures they admire, but foundational models drift from their system prompts during extended conversations, destroying immersion and user trust.',
 
     discovery: "While building side projects I kept watching people switch between ChatGPT and YouTube, trying to \"talk to\" Elon, Naval, or Sadhguru. ChatGPT answered as itself. YouTube was one-way. The parasocial relationship, feeling close to someone you'll never actually meet, was real. But there was no product that closed the loop from admiration to actual dialogue. That gap was the product.",
-    audience: "People who follow a public figure closely and want to ask that person about their own situation.",
 
 
 
@@ -48,7 +45,6 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     problemStatement: 'Senior credit analysts spend 4–6 hours manually scrubbing 100+ page annual reports for data extraction and subjective risk synthesis. This low-leverage bottleneck is prone to human error and restricts the volume of transactions that can be evaluated per analyst per day. Every hour spent extracting is an hour not spent thinking.',
 
     discovery: "After 9 years writing Credit Appraisal Memorandums at Yes Bank and HDFC, I knew exactly where the 4–6 hours went: not in judgment, but in extraction. Forty pages of ratio calculations that Python could do in 4 seconds. Thirty tabs of company research that an AI agent could synthesise in a minute. The bottleneck was mechanical labour. That was the product.",
-    audience: "Relationship managers and credit underwriters in commercial banks.",
 
 
 
@@ -69,7 +65,6 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     problemStatement: 'Job hunting is a high-noise, low-signal data problem. Portals are flooded with irrelevant listings: "Senior Product Manager" roles that are actually customer support, or Bangalore jobs that are listed in Mumbai. Manual filtering consumes 2+ hours every morning with no compounding value.',
 
     discovery: "I was spending 2 hours every morning clicking through Naukri and LinkedIn. Same irrelevant listings, same filters, same frustration. I built a Python script to automate the scraping. Then added scoring via Ollama. Then a Telegram notification so I wouldn't even need to check a dashboard. Three weeks later I had a product. The pivot to multi-user came when 5 friends asked for the same thing. That's when I knew it was more than a personal script.",
-    audience: "Me first, then five peers. It's for people moving from finance or operations into AI product roles.",
 
 
 
@@ -90,7 +85,6 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     problemStatement: 'Dense technical books are read once and forgotten. "AI Engineering" is the canonical text for building on foundation models, but 535 pages of linear PDF is impossible to search semantically and gives you no way to ask "where does the book cover X?". The knowledge is locked in a format that does not match how people actually reference it.',
 
     discovery: "I read \"AI Engineering\" cover-to-cover while building my own LLM products and kept flipping back to find the one paragraph on evals, or RAG chunking, or inference optimisation. The PDF couldn't help: no search that understood meaning, no deep links, no way to ask it a question. I realised the most useful thing wasn't a summary; it was making the book itself queryable and navigable. The gap between owning the knowledge and reaching it on demand was the product.",
-    audience: "Engineers, AI PMs and founders who use the book as a reference, not a one-time read.",
 
 
 
@@ -111,7 +105,6 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     problemStatement: 'Most "learn Python" resources are passive (videos where the learner watches someone else code), and the active alternatives demand an install-and-configure gauntlet that kills beginners before their first print(). The missing product: an environment where writing and running real code is the very first interaction, not the reward after an hour of setup.',
 
     discovery: "Watching friends try to start Python, the pattern was identical: enthusiasm, then a wall of installers, PATH errors, and editor choices, and most never wrote a line. The insight wasn't that people need better lessons; it's that the first ten minutes decide everything. When I found Pyodide could run genuine CPython inside a browser tab, the product became obvious: collapse time-to-first-run to a single click, then keep people typing with game mechanics.",
-    audience: "Complete beginners, and people coming back to Python after stalling at setup.",
 
 
 
@@ -132,7 +125,6 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     problemStatement: 'SQL tutorials mostly fake it: canned result tables, toy interpreters that accept only the blessed answer, or hosted sandboxes gated behind signup. Learners never touch a real engine or see a genuine query plan, a NULL surprise, or an honest error message, so the skill fails to transfer to the first day of a real job.',
 
     discovery: "After shipping PyQuest I kept asking: which other skill is taught almost entirely through fakes? SQL was the standout. I'd spent nine years in banking watching analysts learn it badly from canned-table tutorials, then flounder against a production database. PGlite had just made full PostgreSQL 18 bootable inside a browser tab. The product wrote itself: the first SQL course where the database is not simulated, one URL, no account, and the deepest curriculum I could test-gate.",
-    audience: "Analysts and career-switchers who need SQL that holds up on a real database at work.",
 
 
 
@@ -153,7 +145,6 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtra> = {
     problemStatement: 'Bank IVR trees force a caller through a menu maze for something a conversation would settle in one turn. When it needs to actually move money, the IVR gives up and routes to a queue. A voice agent that can complete the transaction itself needs to be trusted with money without trusting the model with the database.',
 
     discovery: "Nine years watching bank contact centres route every real request to a queue, while the IVR only ever handled the trivial ones, made the shape of the opportunity obvious: the parts of a call that need a human are exactly the parts that need trust, not intelligence. Gemini Live made speech-to-speech agents good enough to hold a real conversation. The open question was whether one could actually be trusted with money. So I built the control plane first: the ledger, the gateway, the policy engine, all fully tested before a single line of agent code existed, specifically to find out whether 'the model has no database credentials' holds up when a real caller is trying to move real money.",
-    audience: "Retail netbanking customers who would otherwise wait on hold. The demo runs as a seeded customer with a savings account and a credit card.",
 
 
 
