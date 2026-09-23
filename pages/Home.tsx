@@ -12,7 +12,6 @@ import {
   SupabaseMark, GeminiMark, ClaudeMark, TailwindMark, VercelMark,
 } from '../components/BrandIcons';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
-import InkField from '../components/InkField';
 
 /* ── Single shared IntersectionObserver hook ─────────────────────
    Fires once when element enters viewport, then disconnects.
@@ -432,8 +431,6 @@ export default function Home() {
         }
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
-        {/* Full-screen ink layer. Rendered first, so every (positioned) section paints above it. */}
-        <InkField />
         <Hero />
         <SelectedWork />
         <TechStack />

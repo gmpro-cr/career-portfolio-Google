@@ -140,17 +140,10 @@ Numerals in tabular contexts use `.tabular`.
   below the threshold of notice — the site should feel like paper, not look
   animated. Raising the amplitude or shortening the period reads as shimmer on
   low-DPI displays and is a defect.
-- The only other idle animation is the homepage **ink field**
-  (`components/InkField.tsx`), chosen by the owner on 2026-09-24 after seeing
-  live previews: hair-thin ink lines drifting like ink in still water,
-  bending away from the cursor. At the owner's request it is a fixed,
-  full-screen layer behind the whole homepage, kept sparse (one line per
-  3,200 px²) and light (28% ink) because body text sits on it. Homepage
-  sections therefore carry no background of their own. Decorative
-  (`aria-hidden`, no pointer events); canvas stays transparent; pauses in
-  hidden tabs; one still frame under reduced motion. A third idle
-  animation needs a human decision first. (Tried and removed: the dot field,
-  the "memo becomes prompt" text rewrite and the security-print guilloche.)
+- This is the **only** idle background animation in the system. A second one
+  needs a human decision first. (Tried and removed on 2026-09-24: ink in
+  water, a dot field, a "memo becomes prompt" text rewrite, and a
+  security-print guilloche.)
 - **`prefers-reduced-motion` is mandatory.** `index.css` neutralises animation
   and transition globally; Framer Motion components must not reintroduce motion
   that escapes it.
