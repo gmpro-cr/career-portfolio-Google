@@ -9,7 +9,7 @@ import {
 } from '@phosphor-icons/react';
 import {
   NextjsMark, ReactMark, TypeScriptMark, PythonMark, FastApiMark, PostgreSqlMark,
-  SupabaseMark, GeminiMark, ClaudeMark, WasmMark, TailwindMark, VercelMark,
+  SupabaseMark, GeminiMark, ClaudeMark, TailwindMark, VercelMark,
 } from '../components/BrandIcons';
 import { EXPERIENCES, PROJECTS, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../constants';
 
@@ -170,7 +170,6 @@ const TECH_STACK = [
   { name: 'Supabase', icon: <SupabaseMark size={14} /> },
   { name: 'Gemini API', icon: <GeminiMark size={14} /> },
   { name: 'Claude Code', icon: <ClaudeMark size={14} /> },
-  { name: 'WASM (Pyodide / PGlite)', icon: <WasmMark size={14} /> },
   { name: 'WebSocket', icon: <ArrowsLeftRight size={14} weight="light" className="text-ink-muted" /> },
   { name: 'Tailwind CSS', icon: <TailwindMark size={14} /> },
   { name: 'Vercel', icon: <VercelMark size={14} /> },
