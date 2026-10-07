@@ -169,7 +169,7 @@ const TECH_STACK = [
   { name: 'PostgreSQL', icon: <PostgreSqlMark size={14} /> },
   { name: 'Supabase', icon: <SupabaseMark size={14} /> },
   { name: 'Gemini API', icon: <GeminiMark size={14} /> },
-  { name: 'Claude API', icon: <ClaudeMark size={14} /> },
+  { name: 'Claude Code', icon: <ClaudeMark size={14} /> },
   { name: 'WASM (Pyodide / PGlite)', icon: <WasmMark size={14} /> },
   { name: 'WebSocket', icon: <ArrowsLeftRight size={14} weight="light" className="text-ink-muted" /> },
   { name: 'Tailwind CSS', icon: <TailwindMark size={14} /> },
@@ -184,10 +184,10 @@ function TechStack() {
           <h2 className="font-display font-light text-2xl text-ink tracking-tight">Tools I build with</h2>
         </Reveal>
         <Reveal>
-          <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm" style={{ color: 'rgba(26,20,16,0.75)' }}>
+          <ul className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-3 text-sm" style={{ color: 'rgba(26,20,16,0.75)' }}>
             {TECH_STACK.map(({ name, icon }) => (
-              <li key={name} className="inline-flex items-center gap-2">
-                <span className="shrink-0 grid place-items-center" aria-hidden>{icon}</span>
+              <li key={name} className="flex items-start gap-2 min-w-0">
+                <span className="shrink-0 w-4 h-5 grid place-items-center" aria-hidden>{icon}</span>
                 {name}
               </li>
             ))}
