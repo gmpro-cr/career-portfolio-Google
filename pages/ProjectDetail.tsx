@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ArrowUpRight, GithubLogo } from '@phosphor-icons/react';
 import { PROJECTS, getTheme } from '../constants';
+import { usePageMeta } from '../components/usePageMeta';
 import { PROJECT_EXTRAS, type CaseProps } from './projects/caseData';
 import PersonaCase from './projects/PersonaCase';
 import CreditCase from './projects/CreditCase';
@@ -31,6 +32,7 @@ export default function ProjectDetail() {
   const theme = getTheme(slug ?? '');
 
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
+  usePageMeta(project?.title.split(' — ')[0], `/project/${slug ?? ''}`);
 
   if (!project || !extras || !CaseBody) {
     return (
@@ -56,7 +58,10 @@ export default function ProjectDetail() {
           </span>
           Back
         </button>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
+          <Link to={`/project/${project.slug}/how-it-works`} className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-ink-muted transition-colors">
+            How it works <ArrowRight size={13} weight="light" />
+          </Link>
           {project.link && (
             <a href={project.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-ink-muted transition-colors">
               Live site <ArrowUpRight size={13} weight="light" />
@@ -72,6 +77,19 @@ export default function ProjectDetail() {
 
       {/* Bespoke case study */}
       <CaseBody project={project} extras={extras} theme={theme} />
+
+      {/* Technical report hand-off */}
+      <section className="py-12 md:py-16 border-t border-hairline" style={{ background: theme.accentBg }}>
+        <div className="max-w-6xl mx-auto px-4 md:px-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="max-w-2xl">
+            <h2 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight">How it works, in plain English</h2>
+            <p className="mt-3 text-sm md:text-base leading-relaxed text-ink/75">Which AI models it uses and why, what talks to what, one request followed end to end, what happens when things fail, and how it is tested.</p>
+          </div>
+          <Link to={`/project/${project.slug}/how-it-works`} className="self-start md:self-auto inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-white hover:bg-ink/85 transition-colors">
+            Read the technical report <ArrowRight size={14} weight="light" />
+          </Link>
+        </div>
+      </section>
 
       {/* Next project */}
       <section className="py-12 md:py-24 bg-paper border-t border-hairline">

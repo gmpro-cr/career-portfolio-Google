@@ -10,7 +10,7 @@ const BEATS: Beat[] = [
   { caption: 'Twice a day, on a schedule, the agent opens six job sites. Nobody has to press anything.' },
   { caption: 'It collects every new listing from each site.', ms: 3000 },
   { caption: 'The same job is often posted on several sites. Each listing gets a fingerprint (site, company, role, location), and repeats are dropped.', ms: 3400 },
-  { caption: 'An AI model running on the computer scores every remaining listing from 0 to 100 against the CV and preferences.', ms: 3600 },
+  { caption: 'Every remaining listing is scored from 0 to 100 against the CV and preferences: fixed rules for role, location, skills and domain, plus a small embedding model that measures how close the job reads to the profile.', ms: 3600 },
   { caption: 'Only listings scoring 65 or more make the cut. Everything else is stored but kept out of the way.', ms: 3200 },
   { caption: 'The short list arrives as one message: a five-minute read instead of two hours of searching.', ms: 4000 },
 ];

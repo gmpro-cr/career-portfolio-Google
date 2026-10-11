@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { usePageMeta } from '../components/usePageMeta';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -115,8 +116,7 @@ function Hero() {
 
         <div className="mt-8 max-w-xl flex flex-col gap-3" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
-            Currently evaluating &amp; fine&#8209;tuning LLMs at Pareto.AI, and{' '}
-            building AI products independently. Five LLM platforms and two browser&#8209;native learning tools, all live.
+            I also write evals for LLM outputs on finance work at Pareto.AI, and build AI products on my own: five LLM platforms and two browser&#8209;native learning tools, all live. Each project has a plain-English technical report on how it works.
           </p>
           <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
             Writing credit appraisal memos at Yes Bank and HDFC turned out to be good training for writing prompts.
@@ -204,11 +204,9 @@ function ProjectRow({ project, delay }: { project: (typeof PROJECTS)[number]; de
   const [ref, style] = useRevealStyle(delay);
   return (
     <li ref={ref as React.Ref<HTMLLIElement>} className="border-b border-hairline first:border-t" style={style}>
-      <Link
-        to={`/project/${project.slug}`}
-        className="group grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-4 sm:gap-6 py-6 rounded-lg px-2 -mx-2 transition-colors duration-300 hover:bg-shell/60"
-        style={{ textDecoration: 'none' }}
-      >
+      {/* The title link is stretched over the whole row, so the row stays one
+          click target while "How it works" can still be its own link. */}
+      <div className="group relative grid grid-cols-1 sm:grid-cols-[11rem_1fr] gap-4 sm:gap-6 py-6 rounded-lg px-2 -mx-2 transition-colors duration-300 hover:bg-shell/60">
         {project.image && (
           <span className="hidden sm:block overflow-hidden rounded-md border border-hairline bg-white aspect-[16/10] self-start">
             <img
@@ -222,22 +220,32 @@ function ProjectRow({ project, delay }: { project: (typeof PROJECTS)[number]; de
         )}
         <span className="min-w-0 flex flex-col">
           <span className="flex items-baseline justify-between gap-4">
-            <span className="font-display text-lg md:text-xl leading-snug text-ink tracking-tight underline decoration-transparent underline-offset-4 transition-colors duration-300 group-hover:decoration-ink/40">
+            <Link
+              to={`/project/${project.slug}`}
+              className="font-display text-lg md:text-xl leading-snug text-ink tracking-tight underline decoration-transparent underline-offset-4 transition-colors duration-300 group-hover:decoration-ink/40 after:absolute after:inset-0 after:content-['']"
+              style={{ textDecoration: 'none' }}
+            >
               {project.title}
-            </span>
+            </Link>
             <span className="flex-shrink-0 text-xs text-ink-muted tabular">{project.date}</span>
           </span>
           <span className="mt-2 text-sm text-ink/75 leading-relaxed max-w-[62ch]">
             {project.cardSummary ?? project.description}
           </span>
-          <span className="mt-3 flex items-center gap-2 text-xs text-ink-muted">
+          <span className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-muted">
             {project.metrics && <span className="font-medium text-ink tabular">{project.metrics}</span>}
             {project.metrics && <span aria-hidden>&middot;</span>}
             <span>{project.tech.slice(0, 3).join(', ')}</span>
-            <ArrowRight size={12} className="ml-auto text-ink-muted transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-ink" aria-hidden />
+            <Link
+              to={`/project/${project.slug}/how-it-works`}
+              className="relative z-10 ml-auto inline-flex items-center gap-1 font-medium text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors"
+            >
+              How it works
+              <ArrowRight size={12} aria-hidden />
+            </Link>
           </span>
         </span>
-      </Link>
+      </div>
     </li>
   );
 }
@@ -271,6 +279,7 @@ const EXPERIENCE_BADGES: Record<string, string> = {
   'Pareto.AI': 'AI',
   'HDFC Bank Limited': 'HD',
   'Suraksha Asset Reconstruction Ltd.': 'SA',
+  'Tata Trusts': 'TT',
 };
 
 /* Real company marks. Yes Bank and Pareto publish only wide wordmarks (5.9:1
@@ -317,7 +326,7 @@ function ExperienceRow({ exp, delay }: { exp: (typeof EXPERIENCES)[number]; dela
           <span className="block text-xs text-ink-muted mt-0.5">{exp.company}</span>
         </span>
         <span className="flex-shrink-0 flex items-start gap-2 pl-1 mt-0.5">
-          <span className="text-xs text-ink-muted/70 tabular text-right max-w-[6rem] sm:max-w-none">{exp.period}</span>
+          <span className="text-xs text-ink-muted/70 tabular text-right whitespace-nowrap">{exp.period}</span>
           <CaretRight size={11} className="flex-shrink-0 mt-0.5 text-ink-muted/70 transition-transform duration-200 details-caret" />
         </span>
       </summary>
@@ -335,11 +344,15 @@ function ExperienceRow({ exp, delay }: { exp: (typeof EXPERIENCES)[number]; dela
 
 function MiniRow({ title, sub, meta, delay }: { title: string; sub: string; meta: string; delay: number }) {
   const [ref, style] = useRevealStyle(delay);
+  // Two lines rather than one: the degree and issuer were being truncated
+  // ("B.E. – Electr…") on phones when they shared a line with the title.
   return (
-    <div ref={ref} className="flex items-baseline justify-between gap-3 py-3 border-b border-hairline first:border-t text-sm" style={style}>
-      <span className="font-semibold text-ink">{title}</span>
-      <span className="text-ink-muted text-xs flex-1 text-right truncate">{sub}</span>
-      <span className="text-ink-muted/70 text-xs tabular flex-shrink-0">{meta}</span>
+    <div ref={ref} className="py-3 border-b border-hairline first:border-t text-sm" style={style}>
+      <span className="flex items-baseline justify-between gap-3">
+        <span className="font-semibold text-ink">{title}</span>
+        <span className="text-ink-muted/70 text-xs tabular flex-shrink-0 whitespace-nowrap">{meta}</span>
+      </span>
+      <span className="block mt-0.5 text-ink-muted text-xs">{sub}</span>
     </div>
   );
 }
@@ -419,6 +432,7 @@ function Contact() {
    PAGE ROOT + CSS keyframes
    ═══════════════════════════════════════════════════════════════ */
 export default function Home() {
+  usePageMeta(undefined, '/');
   return (
     <>
       <style>{`

@@ -10,8 +10,8 @@ import { BRIEFS } from './briefs';
 const SIGNAL = [
   { label: 'Raw listings scraped per run', value: '200–500', sub: '6 portals scraped in parallel' },
   { label: 'After fingerprint dedup', value: '~7.4K', sub: 'portal + company + role + location hash' },
-  { label: 'Semantic score ≥ 65 threshold', value: 'cut', sub: 'below 65 stored but excluded from digest' },
-  { label: 'Delivered to Telegram digest', value: '~10/day', sub: '5-minute review vs 2-hour browse' },
+  { label: 'Score ≥ 65 (rules + embeddings)', value: 'cut', sub: 'below 65 stored but excluded from digest' },
+  { label: 'Delivered as a digest', value: '~10/run', sub: '5-minute review vs 2-hour browse' },
 ];
 
 export default function JobAgentCase({ project, extras, theme }: CaseProps) {

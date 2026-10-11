@@ -20,14 +20,16 @@ function reducedMotion() {
 }
 
 export function SceneShell({
-  title, intro, beats, theme, note = 'Example', children,
+  title, intro, beats, theme, note = 'Example', stageClass = 'min-h-[22rem]', children,
 }: {
-  title: string;
+  title: React.ReactNode;
   intro: string;
   beats: Beat[];
   theme: ProjectTheme;
   /** Shown top-left of the stage, e.g. "Example" or "Illustrative numbers". */
   note?: string;
+  /** Height floor of the stage; scenes with little content pass a smaller one. */
+  stageClass?: string;
   children: (beat: number) => React.ReactNode;
 }) {
   const [reduced] = useState(reducedMotion);
@@ -81,7 +83,7 @@ export function SceneShell({
             </button>
           </div>
 
-          <div className="relative px-4 md:px-8 py-6 md:py-8 min-h-[22rem]">
+          <div className={`relative px-4 md:px-8 py-6 md:py-8 ${stageClass}`}>
             {children(beat)}
           </div>
 

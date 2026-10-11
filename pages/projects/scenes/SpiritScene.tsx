@@ -5,12 +5,13 @@ import { SceneShell, Appear, Typed, type Beat } from './SceneShell';
 
 /* One returning user, one question. Shows the three things that make
    it different from a plain chatbot: choosing who you talk to, the
-   memory recalled from last time, and the in-character check. */
+   memory recalled from last time, and the check that the reply is an
+   answer rather than the model's own reasoning leaking out. */
 const BEATS: Beat[] = [
   { caption: 'You browse personas by category and pick one. Guests can start without signing up.' },
   { caption: 'You ask something personal, the kind of question you would bring to a mentor.', ms: 3400 },
   { caption: 'Before replying, the app recalls what you discussed last time and adds it to the conversation.' },
-  { caption: 'The model drafts a reply in that person\'s style. A check scores it for staying in character; a reply that drifts is regenerated before you see it.' },
+  { caption: 'The model drafts a reply in that person\'s style. The first words are held back and checked: if the model has started thinking out loud instead of answering, that reply is dropped and the next model in the chain answers instead.' },
   { caption: 'The answer arrives in the persona\'s voice and builds on what it remembers about you.', ms: 4000 },
 ];
 
@@ -81,7 +82,7 @@ export default function SpiritScene({ theme }: { theme: ProjectTheme }) {
             <Appear show={beat >= 3}>
               <div className="flex items-center gap-2 text-xs text-ink-muted">
                 <CheckCircle size={15} weight="fill" style={{ color: a }} aria-hidden />
-                Character check passed: tone and worldview match the persona
+                Reply checked: an answer, not the model thinking out loud
               </div>
             </Appear>
             <Appear show={beat >= 4}>

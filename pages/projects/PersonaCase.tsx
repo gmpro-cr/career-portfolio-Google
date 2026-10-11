@@ -10,8 +10,8 @@ const MEMORY_LOOP: FlowNode[] = [
   { id: 'msg', label: 'User sends a message', type: 'start', forwardLabel: 'inbound' },
   { id: 'recall', label: 'Recall persona + last N memory chunks (Supabase)' },
   { id: 'assemble', label: 'Assemble prompt: system persona + memory + input' },
-  { id: 'route', label: 'LLM router → Gemini Flash (speed) or Groq Llama (depth)' },
-  { id: 'eval', label: 'Persona eval scores character consistency', type: 'decision', forwardLabel: 'in-character', loopBackTo: 'route', loopLabel: 'drift → re-route' },
+  { id: 'route', label: 'Free OpenRouter models in turn; Groq gpt-oss-120b if all are busy' },
+  { id: 'eval', label: 'Is the reply an answer, not leaked reasoning?', type: 'decision', forwardLabel: 'clean', loopBackTo: 'route', loopLabel: 'leak → next model' },
   { id: 'reply', label: 'Stream reply + persist new memory chunk', type: 'output' },
 ];
 

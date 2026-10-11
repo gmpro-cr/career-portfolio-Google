@@ -92,7 +92,7 @@ export const BRIEFS: Record<string, Brief> = {
       { option: 'Run it as a personal tool', chosen: true, why: 'It solves my problem today without hosting costs or anyone else\'s data to look after.' },
       { option: 'Open it up to other users (hosted app or one-click self-deploy)', chosen: false, why: 'Weighed both. The complexity and costs weren\'t justified, and the scoring was tuned to one profile.' },
       { option: 'Downloadable desktop app', chosen: false, why: '3 to 5 days of packaging per platform, and scheduled background jobs are hard inside a packaged app.' },
-      { option: 'Score listings with a local AI model', chosen: true, why: 'No API cost per listing.' },
+      { option: 'Score with fixed rules plus a small embedding model', chosen: true, why: 'Free, fast on hundreds of listings, and the same listing always gets the same score. An earlier version scored with a local LLM (Mistral 7B); it was replaced.' },
       { option: 'A hard cut-off at a score of 65', chosen: true, why: 'Keeps the digest short. Too low floods it with noise; too high misses real roles.' },
     ],
     northStar: { metric: 'Time spent finding relevant jobs each day' },

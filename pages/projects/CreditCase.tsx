@@ -9,7 +9,7 @@ import { BRIEFS } from './briefs';
 
 const RESEARCH_LOOP: FlowNode[] = [
   { id: 'seed', label: 'Seed: borrower name + sector', type: 'start', forwardLabel: 'begin' },
-  { id: 'search', label: 'Search Screener.in · Yahoo Finance · BSE · open web' },
+  { id: 'search', label: 'LLM writes 3 targeted queries; DuckDuckGo search + page fetch' },
   { id: 'gather', label: 'Gather: pledging, downgrades, court cases, headwinds' },
   { id: 'score', label: 'Self-score knowledge completeness ≥ 85% ?', type: 'decision', forwardLabel: 'yes · enough', loopBackTo: 'search', loopLabel: 'no · keep digging' },
   { id: 'handoff', label: 'Pass verified structured JSON to LLM narrative', type: 'output' },
@@ -36,7 +36,7 @@ export default function CreditCase({ project, extras, theme }: CaseProps) {
             handoff="hand-off: verified JSON only"
             lanes={[
               { label: 'Python Engine', sub: 'deterministic, no hallucinations', rampIndex: 1, steps: ['PDF upload', 'PDFMiner extract', 'Parse P&L · BS · CF', '12 ratios (DSCR, D/E, ICR)', '10 risk flags'] },
-              { label: 'AI Layer', sub: 'narrative synthesis only', rampIndex: 3, steps: ['Gemini drafts 8-section CAM', 'Claude cross-validates', 'Per-section confidence', 'HITL editor', 'Excel + PDF export'] },
+              { label: 'AI Layer', sub: 'narrative synthesis only', rampIndex: 3, steps: ['Gemini drafts each CAM section', 'Free fallback models if Gemini fails', 'Per-section confidence', 'Analyst edits in the app', 'Excel + PDF export'] },
             ]}
           />
         </div>
