@@ -846,7 +846,12 @@ const sqlquest: TechReportData = {
       title: 'Why a real database',
       body: [
         'Most SQL tutorials fake the database with canned result tables. Here, every claim the course makes about SQL can be run on the page against PostgreSQL 18: window frames, query plans, recursive queries, row-level security. If a concept cannot be run, it does not go in a stage.',
+        'The same engine that serves learners also gates releases: the test suite replays every exercise\'s seed data, reference answer and checker before each deploy, so a curriculum edit cannot silently break a lesson.',
       ],
+      diagram: { kind: 'lanes', handoff: 'same engine, same exercises', lanes: [
+        { label: 'Learner path', sub: 'in the browser tab', rampIndex: 0, steps: ['Stage seed SQL', 'Learner query', 'PGlite executes', 'Rows compared', 'Progress saved'] },
+        { label: 'CI quality gate', sub: 'before every deploy', rampIndex: 3, steps: ['Every exercise replayed', 'Seed + solution + checker', '204 tests', 'All green → deploy'] },
+      ] },
     },
   ],
   failures: [

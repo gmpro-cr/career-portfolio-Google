@@ -1,41 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import {
-  ArrowLeft, ArrowRight, ArrowUpRight, CaretRight,
-  BookOpenText, Brain, TreeStructure, Path, GearSix, Warning, SealCheck, Stack, Flag, Notebook,
-} from '@phosphor-icons/react';
-import { PROJECTS, getTheme } from '../../constants';
-import { usePageMeta } from '../../components/usePageMeta';
+import { CaretRight, Brain, Warning, SealCheck } from '@phosphor-icons/react';
 import type { ProjectTheme } from '../../types';
 import { Reveal, useReveal, EASE_STR } from './kit';
+import { CHAPTERS, Chapter, ChapterHead, SceneChapter, dots } from './chapters';
 import { Flowchart, Sequence, Swimlane } from './diagrams';
 import { SystemMap, ChainScene } from './tech/SystemMap';
 import { REPORTS } from './tech/reports';
 import type { Diagram, ModelUse, TechReportData } from './tech/types';
 
 /* ═══════════════════════════════════════════════════════════════
-   TECHNICAL REPORT — /project/:slug/how-it-works
+   HOW IT WORKS — chapters 03 to 11 and 13 of every project page.
    One template for all seven products, so the same question always
-   sits in the same place. Each section has its own visual form (model
+   sits in the same place. Each chapter has its own visual form (model
    cards, a filling timeline, a layered hosting stack, a glossary grid)
    so a long read never settles into one repeated shape, and everything
    is tinted from the project's own theme so the seven reports differ.
    ═══════════════════════════════════════════════════════════════ */
-
-type IconType = React.ComponentType<{ size?: number; weight?: 'light' | 'regular' | 'duotone' | 'fill'; color?: string; 'aria-hidden'?: boolean }>;
-
-const SECTIONS: { id: string; label: string; icon: IconType }[] = [
-  { id: 'summary', label: 'In one minute', icon: BookOpenText },
-  { id: 'models', label: 'The AI models', icon: Brain },
-  { id: 'system', label: 'The system', icon: TreeStructure },
-  { id: 'request', label: 'Step by step', icon: Path },
-  { id: 'mechanisms', label: 'Key parts', icon: GearSix },
-  { id: 'failures', label: 'When things go wrong', icon: Warning },
-  { id: 'testing', label: 'Testing', icon: SealCheck },
-  { id: 'hosting', label: 'Hosting and cost', icon: Stack },
-  { id: 'limits', label: 'Known limits', icon: Flag },
-  { id: 'glossary', label: 'Glossary', icon: Notebook },
-];
 
 const WHEN_LABEL: Record<ModelUse['when'], string> = {
   'every request': 'Every request',
@@ -44,46 +24,6 @@ const WHEN_LABEL: Record<ModelUse['when'], string> = {
   'development only': 'Development only',
   'on demand': 'On demand',
 };
-
-/* Faint dot grid in the project accent, for tinted sections. */
-const dots = (theme: ProjectTheme) => ({
-  backgroundColor: `${theme.accentBg}`,
-  backgroundImage: `radial-gradient(${theme.accent}22 1px, transparent 1.2px)`,
-  backgroundSize: '22px 22px',
-});
-
-function Section({ id, children, theme, tint }: { id: string; children: React.ReactNode; theme: ProjectTheme; tint?: boolean }) {
-  return (
-    <section id={id} data-report-section className="scroll-mt-32 py-16 md:py-24 border-t border-hairline" style={tint ? dots(theme) : undefined}>
-      <div className="max-w-6xl mx-auto px-4 md:px-12">{children}</div>
-    </section>
-  );
-}
-
-/* Big outlined numeral + icon tile + title. */
-function SectionHead({ n, theme, title, intro }: { n: number; theme: ProjectTheme; title: React.ReactNode; intro?: string }) {
-  const Icon = SECTIONS[n - 1].icon;
-  return (
-    <Reveal>
-      <div className="flex items-end gap-4 md:gap-6">
-        <span
-          aria-hidden
-          className="font-display font-light leading-none tabular select-none"
-          style={{ fontSize: 'clamp(3.5rem, 8vw, 6rem)', color: 'transparent', WebkitTextStroke: `1.25px ${theme.accent}`, letterSpacing: '-0.04em' }}
-        >
-          {String(n).padStart(2, '0')}
-        </span>
-        <div className="pb-1.5 md:pb-3 min-w-0">
-          <span className="inline-grid h-9 w-9 place-items-center rounded-xl mb-3" style={{ background: theme.accentBg, color: theme.accentDark, boxShadow: `inset 0 0 0 1px ${theme.accent}33` }}>
-            <Icon size={18} weight="duotone" aria-hidden />
-          </span>
-          <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight leading-[1.02]" style={{ textWrap: 'balance' }}>{title}</h2>
-        </div>
-      </div>
-      {intro && <p className="mt-5 max-w-2xl text-base md:text-lg leading-relaxed text-ink/75">{intro}</p>}
-    </Reveal>
-  );
-}
 
 /* Card with a cursor-following accent glow on its border. */
 function GlowCard({ theme, className = '', style, children }: { theme: ProjectTheme; className?: string; style?: React.CSSProperties; children: React.ReactNode }) {
@@ -122,13 +62,13 @@ function DiagramView({ d, theme }: { d: Diagram; theme: ProjectTheme }) {
 }
 
 /* ─── Sticky chapter bar: where am I, how far through ─────────── */
-function ChapterBar({ theme }: { theme: ProjectTheme }) {
-  const [active, setActive] = useState('summary');
+export function ChapterBar({ theme }: { theme: ProjectTheme }) {
+  const [active, setActive] = useState<string>(CHAPTERS[0].id);
   const [progress, setProgress] = useState(0);
   const listRef = useRef<HTMLOListElement>(null);
 
   useEffect(() => {
-    const els = SECTIONS.map(s => document.getElementById(s.id)).filter(Boolean) as HTMLElement[];
+    const els = CHAPTERS.map(s => document.getElementById(s.id)).filter(Boolean) as HTMLElement[];
     const onScroll = () => {
       const first = els[0]; const last = els[els.length - 1];
       if (!first || !last) return;
@@ -157,12 +97,14 @@ function ChapterBar({ theme }: { theme: ProjectTheme }) {
   return (
     <div className="sticky top-16 z-40 border-y border-hairline" style={{ background: 'rgba(253,251,247,0.9)', backdropFilter: 'blur(10px)' }}>
       <div className="max-w-6xl mx-auto px-4 md:px-12">
-        <ol ref={listRef} className="flex gap-1.5 overflow-x-auto py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Sections">
-          {SECTIONS.map((s, i) => {
+        <ol ref={listRef} className="flex gap-1.5 overflow-x-auto py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Chapters">
+          {CHAPTERS.map((s, i) => {
             const on = s.id === active;
             const Icon = s.icon;
+            const newPart = i > 0 && CHAPTERS[i - 1].part !== s.part;
             return (
-              <li key={s.id} data-id={s.id} className="flex-shrink-0">
+              <li key={s.id} data-id={s.id} className="flex-shrink-0 flex items-center gap-1.5">
+                {newPart && <span aria-hidden className="mx-1.5 h-4 w-px bg-ink/15" />}
                 <a
                   href={`#${s.id}`}
                   onClick={e => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
@@ -337,13 +279,14 @@ function HostingStack({ rows, theme }: { rows: TechReportData['hosting']; theme:
   );
 }
 
-function ReportBody({ r, theme }: { r: TechReportData; theme: ProjectTheme }) {
+/* Chapters 03 to 11. */
+export function HowItWorks({ r, theme }: { r: TechReportData; theme: ProjectTheme }) {
   const [lead, ...restSummary] = r.summary;
   return (
     <>
-      {/* 01 Summary: the lead paragraph carries the page */}
-      <Section id="summary" theme={theme}>
-        <SectionHead n={1} theme={theme} title="In one minute" />
+      {/* 03 Summary: the lead paragraph carries the page */}
+      <Chapter id="summary" theme={theme}>
+        <ChapterHead id="summary" theme={theme} title="How it works, in one minute" />
         <div className="mt-10 grid lg:grid-cols-[1.25fr_1fr] gap-8 lg:gap-16 items-start">
           <Reveal>
             <p className="font-display font-light text-ink leading-[1.3] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 2.6vw, 2rem)', textWrap: 'pretty' }}>{lead}</p>
@@ -358,29 +301,29 @@ function ReportBody({ r, theme }: { r: TechReportData; theme: ProjectTheme }) {
             ))}
           </div>
         </div>
-      </Section>
+      </Chapter>
 
-      {/* 02 Models */}
-      <Section id="models" theme={theme} tint>
-        <SectionHead n={2} theme={theme} title="The AI models" intro={r.models.intro} />
+      {/* 04 Models */}
+      <Chapter id="models" theme={theme} tint>
+        <ChapterHead id="models" theme={theme} title="The AI models" intro={r.models.intro} />
         {r.models.none ? <NoModel text={r.models.none} theme={theme} /> : <ModelCards uses={r.models.uses} theme={theme} />}
-      </Section>
+      </Chapter>
       {r.models.chains?.map((c, i) => <React.Fragment key={i}><ChainScene chain={c} theme={theme} /></React.Fragment>)}
 
-      {/* 03 System map */}
-      <div id="system" data-report-section className="scroll-mt-32">
-        <SystemMap number={3} intro={r.map.intro} nodes={r.map.nodes} hops={r.map.hops} theme={theme} />
-      </div>
+      {/* 05 System map */}
+      <SceneChapter id="system" theme={theme}>
+        <SystemMap intro={r.map.intro} nodes={r.map.nodes} hops={r.map.hops} theme={theme} />
+      </SceneChapter>
 
-      {/* 04 Step by step */}
-      <Section id="request" theme={theme} tint>
-        <SectionHead n={4} theme={theme} title={r.request.title} intro={r.request.intro} />
+      {/* 06 Step by step */}
+      <Chapter id="request" theme={theme} tint>
+        <ChapterHead id="request" theme={theme} title={r.request.title} intro={r.request.intro} />
         <Timeline steps={r.request.steps} theme={theme} />
-      </Section>
+      </Chapter>
 
-      {/* 05 Mechanisms: zig-zag, diagram alternates sides */}
-      <Section id="mechanisms" theme={theme}>
-        <SectionHead n={5} theme={theme} title="How the key parts work" />
+      {/* 07 Mechanisms: zig-zag, diagram alternates sides */}
+      <Chapter id="mechanisms" theme={theme}>
+        <ChapterHead id="mechanisms" theme={theme} title="How the key parts work" />
         <div className="mt-14 space-y-16 md:space-y-24">
           {r.mechanisms.map((m, i) => {
             const flip = i % 2 === 1;
@@ -402,11 +345,11 @@ function ReportBody({ r, theme }: { r: TechReportData; theme: ProjectTheme }) {
             );
           })}
         </div>
-      </Section>
+      </Chapter>
 
-      {/* 06 Failures: masonry of problem cards */}
-      <Section id="failures" theme={theme} tint>
-        <SectionHead n={6} theme={theme} title="When things go wrong" />
+      {/* 08 Failures: masonry of problem cards */}
+      <Chapter id="failures" theme={theme} tint>
+        <ChapterHead id="failures" theme={theme} title="When things go wrong" />
         <div className="mt-12 columns-1 md:columns-2 gap-5 [&>*]:mb-5 [&>*]:break-inside-avoid">
           {r.failures.map((f, i) => (
             <React.Fragment key={i}>
@@ -426,11 +369,11 @@ function ReportBody({ r, theme }: { r: TechReportData; theme: ProjectTheme }) {
             </React.Fragment>
           ))}
         </div>
-      </Section>
+      </Chapter>
 
-      {/* 07 Testing: checklist bento */}
-      <Section id="testing" theme={theme}>
-        <SectionHead n={7} theme={theme} title="How it is tested" />
+      {/* 09 Testing: checklist bento */}
+      <Chapter id="testing" theme={theme}>
+        <ChapterHead id="testing" theme={theme} title="How it is tested" />
         <div className="mt-12 grid md:grid-cols-2 gap-4 md:gap-5">
           {r.testing.map((t, i) => (
             <React.Fragment key={i}>
@@ -447,19 +390,19 @@ function ReportBody({ r, theme }: { r: TechReportData; theme: ProjectTheme }) {
             </React.Fragment>
           ))}
         </div>
-      </Section>
+      </Chapter>
 
-      {/* 08 Hosting: a layered stack */}
-      <Section id="hosting" theme={theme} tint>
-        <SectionHead n={8} theme={theme} title="Hosting and cost" />
+      {/* 10 Hosting: a layered stack */}
+      <Chapter id="hosting" theme={theme} tint>
+        <ChapterHead id="hosting" theme={theme} title="Hosting and cost" />
         <HostingStack rows={r.hosting} theme={theme} />
-      </Section>
+      </Chapter>
 
-      {/* 09 Limits */}
-      <Section id="limits" theme={theme}>
+      {/* 11 Limits */}
+      <Chapter id="limits" theme={theme}>
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16 items-start">
           <div className="lg:sticky lg:top-40">
-            <SectionHead n={9} theme={theme} title="Known limits" intro="What this does not do yet, stated plainly." />
+            <ChapterHead id="limits" theme={theme} title="Known limits" intro="What this does not do yet, stated plainly." />
           </div>
           <ol className="grid gap-3">
             {r.limits.map((l, i) => (
@@ -474,117 +417,26 @@ function ReportBody({ r, theme }: { r: TechReportData; theme: ProjectTheme }) {
             ))}
           </ol>
         </div>
-      </Section>
-
-      {/* 10 Glossary */}
-      <Section id="glossary" theme={theme} tint>
-        <SectionHead n={10} theme={theme} title="Glossary" />
-        <dl className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-          {r.glossary.map((g, i) => (
-            <React.Fragment key={i}>
-              <GlowCard theme={theme} className="p-5">
-                <dt className="font-display text-lg text-ink tracking-tight" style={{ color: theme.accentDark }}>{g.term}</dt>
-                <dd className="mt-1.5 text-sm leading-relaxed text-ink/75">{g.def}</dd>
-              </GlowCard>
-            </React.Fragment>
-          ))}
-        </dl>
-        <p className="mt-12 max-w-2xl text-xs leading-relaxed text-ink-muted">Sources: {r.sources}</p>
-      </Section>
+      </Chapter>
     </>
   );
 }
 
-export default function TechReport() {
-  const { slug } = useParams<{ slug: string }>();
-  const project = PROJECTS.find(p => p.slug === slug);
-  const report = slug ? REPORTS[slug] : undefined;
-  const theme = getTheme(slug ?? '');
-  const name = project?.title.split(' — ')[0];
-
-  useEffect(() => { window.scrollTo(0, 0); }, [slug]);
-  usePageMeta(name ? `How ${name} works` : undefined, `/project/${slug ?? ''}/how-it-works`);
-
-  if (!project || !report) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="font-display text-4xl text-ink mb-4">Report not found</p>
-          <Link to="/" className="text-ink-muted hover:text-ink text-sm transition-colors">&larr; Back to portfolio</Link>
-        </div>
-      </div>
-    );
-  }
-
-  const idx = PROJECTS.findIndex(p => p.slug === slug);
-  const nextProject = PROJECTS[(idx + 1) % PROJECTS.length];
-
+export function Glossary({ r, theme }: { r: TechReportData; theme: ProjectTheme }) {
   return (
-    <div className="bg-paper min-h-screen">
-      <div className="pt-24 md:pt-28 pb-2 px-4 md:px-12 max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
-        <Link to={`/project/${project.slug}`} className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors duration-200 group">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-hairline bg-white group-hover:border-ink/20 group-active:scale-95 transition-all duration-200">
-            <ArrowLeft size={13} weight="light" />
-          </span>
-          Case study
-        </Link>
-        {project.link && (
-          <a href={project.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-ink-muted transition-colors">
-            Live site <ArrowUpRight size={13} weight="light" />
-          </a>
-        )}
-      </div>
-
-      {/* Hero: title and promise left, the real product right, key facts overlapping it */}
-      <section className="relative overflow-hidden pt-6 pb-14 md:pb-20">
-        <span aria-hidden className="pointer-events-none absolute -top-40 right-[-10%] h-[36rem] w-[36rem] rounded-full" style={{ background: `radial-gradient(circle, ${theme.accent}26, transparent 65%)` }} />
-        <div className="relative max-w-6xl mx-auto px-4 md:px-12 grid lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-14 items-center">
-          <div style={{ opacity: 0, animation: `fadeUp 0.7s ${EASE_STR} 0.05s forwards` }}>
-            <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium" style={{ background: theme.accentBg, color: theme.accentDark, boxShadow: `inset 0 0 0 1px ${theme.accent}33` }}>
-              <span className="h-1.5 w-1.5 rounded-full" style={{ background: theme.accent }} /> Technical report
-            </span>
-            <h1 className="mt-5 font-display font-light leading-[0.95] tracking-tight text-ink" style={{ fontSize: 'clamp(2.6rem, 6vw, 5.2rem)', textWrap: 'balance' }}>
-              How <span style={{ color: theme.accentDark }}>{name}</span> works
-            </h1>
-            <p className="mt-6 max-w-xl text-base md:text-lg leading-relaxed text-ink/75">
-              Written so you can follow it without an engineering background. Wherever you see <span className="font-medium text-ink">For engineers</span>, the exact detail is one click away.
-            </p>
-          </div>
-
-          <div className="relative" style={{ opacity: 0, animation: `fadeUp 0.8s ${EASE_STR} 0.15s forwards` }}>
-            {project.image && (
-              <div className="bezel" style={{ background: theme.accentBg }}>
-                <div className="bezel-core overflow-hidden" style={{ borderRadius: 'calc(2rem - 0.375rem)' }}>
-                  <img src={project.image} alt={`${name}, the deployed product`} className="w-full object-cover object-top" style={{ aspectRatio: '16 / 10' }} />
-                </div>
-              </div>
-            )}
-            <dl className="relative z-10 -mt-10 lg:-mt-16 mx-3 lg:-ml-10 lg:mr-6 grid grid-cols-2 gap-2.5">
-              {report.glance.map((g, i) => (
-                <div key={i} className="rounded-2xl bg-white/95 px-4 py-3.5" style={{ border: '1px solid #E7E5E4', boxShadow: `0 20px 40px -28px ${theme.accentDark}`, backdropFilter: 'blur(8px)' }}>
-                  <dt className="text-xs font-medium" style={{ color: theme.accentDark }}>{g.label}</dt>
-                  <dd className="mt-1 text-sm font-medium leading-snug text-ink">{g.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-      </section>
-
-      <ChapterBar theme={theme} />
-      <ReportBody r={report} theme={theme} />
-
-      <section className="py-16 md:py-24 border-t border-hairline" style={dots(theme)}>
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <p className="text-sm text-ink-muted mb-6">Next technical report</p>
-          <Link to={`/project/${nextProject.slug}/how-it-works`} className="group flex items-center justify-between gap-4">
-            <h3 className="font-display font-light text-2xl md:text-5xl text-ink leading-tight tracking-tight group-hover:translate-x-2 transition-transform duration-700 ease-spring">How {nextProject.title.split(' — ')[0]} works</h3>
-            <span className="flex-shrink-0 inline-flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-spring group-hover:translate-x-1 group-active:scale-95">
-              <ArrowRight size={16} weight="light" />
-            </span>
-          </Link>
-        </div>
-      </section>
-    </div>
+    <Chapter id="glossary" theme={theme} tint>
+      <ChapterHead id="glossary" theme={theme} />
+      <dl className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        {r.glossary.map((g, i) => (
+          <React.Fragment key={i}>
+            <GlowCard theme={theme} className="p-5">
+              <dt className="font-display text-lg text-ink tracking-tight" style={{ color: theme.accentDark }}>{g.term}</dt>
+              <dd className="mt-1.5 text-sm leading-relaxed text-ink/75">{g.def}</dd>
+            </GlowCard>
+          </React.Fragment>
+        ))}
+      </dl>
+      <p className="mt-12 max-w-2xl text-xs leading-relaxed text-ink-muted">Sources: {r.sources}</p>
+    </Chapter>
   );
 }

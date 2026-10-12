@@ -1,19 +1,7 @@
 import React from 'react';
 import type { CaseProps } from './caseData';
-import { Reveal, MetricsRow, CaseHero } from './kit';
-import { ProductBrief } from './explainers';
-import SpiritScene from './scenes/SpiritScene';
-import { BRIEFS } from './briefs';
-import { RadialMap, Flowchart, Funnel, type FlowNode } from './diagrams';
-
-const MEMORY_LOOP: FlowNode[] = [
-  { id: 'msg', label: 'User sends a message', type: 'start', forwardLabel: 'inbound' },
-  { id: 'recall', label: 'Recall persona + last N memory chunks (Supabase)' },
-  { id: 'assemble', label: 'Assemble prompt: system persona + memory + input' },
-  { id: 'route', label: 'Free OpenRouter models in turn; Groq gpt-oss-120b if all are busy' },
-  { id: 'eval', label: 'Is the reply an answer, not leaked reasoning?', type: 'decision', forwardLabel: 'clean', loopBackTo: 'route', loopLabel: 'leak → next model' },
-  { id: 'reply', label: 'Stream reply + persist new memory chunk', type: 'output' },
-];
+import { ProductBlock } from './kit';
+import { RadialMap, Funnel } from './diagrams';
 
 const RETENTION = [
   { label: 'Discover', value: 'Guest', sub: 'Browse 350+ personas with no sign-up' },
@@ -22,96 +10,20 @@ const RETENTION = [
   { label: 'Convert', value: '₹249', sub: 'Premium per month. Target: ₹10K MRR at 3% free → paid' },
 ];
 
-export default function PersonaCase({ project, extras, theme }: CaseProps) {
-  return (
-    <div>
-      {/* ── Hero + deployed-site screenshot ──────────────────────── */}
-      <CaseHero project={project} theme={theme} />
-
-      <SpiritScene theme={theme} />
-      <ProductBrief brief={BRIEFS[project.slug]} />
-
-      {/* ── Persona constellation ────────────────────────────────── */}
-      <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-            <div>
-              
-              <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">One hub for forty persona worlds</h2>
-              <p className="text-sm text-ink/75 leading-relaxed max-w-2xl">350+ curated personas fan out from a single product surface across 40 categories. India-first by design: Chanakya, Sadhguru, Shah Rukh Khan, Osho, characters Western platforms don&rsquo;t serve. The breadth is the moat: discovery across categories is what drives the multi-persona habit that retains.</p>
-            </div>
-            <div>
-              <RadialMap theme={theme} center="AI Spirit" nodes={['Business', 'Spiritual', 'Entertainment', 'Companion', 'Fitness', 'Anime']} />
-              <p className="mt-3 text-center text-xs text-ink-muted">Six flagship categories shown, of 40 in the catalogue.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Conversation memory loop (signature flowchart) ───────── */}
-      <section className="py-12 md:py-24 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <div className="grid md:grid-cols-[1fr_1.1fr] gap-10 md:gap-16 items-start">
-            <div>
-              
-              <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">How conversation memory works</h2>
-              <p className="text-sm text-ink/75 leading-relaxed mb-6 max-w-2xl">Every message runs the same closed loop. The persona eval is the gate: if a draft reply drifts out of character, it is re-routed before it ever reaches the user. Memory is written back on every turn, so context compounds across sessions.</p>
-              <p className="text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
-            </div>
-            <Flowchart nodes={MEMORY_LOOP} theme={theme} />
-          </div>
-        </div>
-      </section>
-
-      {/* ── Retention funnel ─────────────────────────────────────── */}
-      <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
-        <div className="max-w-3xl mx-auto px-4 md:px-12">
-          <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12">The retention funnel I&rsquo;m testing</h2>
-          </Reveal>
-          <Funnel stages={RETENTION} theme={theme} />
-        </div>
-      </section>
-
-      {/* ── How I found the problem ─────────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
-            <p className="text-base text-ink/80 leading-relaxed max-w-2xl">{extras.discovery}</p>
-          </Reveal>
-        </div>
-      </section>
-
-      <CaseFooterSections project={project} extras={extras} theme={theme} />
-    </div>
-  );
-}
-
-/* Shared tail: outcomes, then reflection */
-export function CaseFooterSections({ project, extras, theme }: CaseProps) {
+/* Chapter 02 visuals for AI Spirit. How memory works lives in Key parts. */
+export default function PersonaCase({ theme }: CaseProps) {
   return (
     <>
-      <section className="py-12 md:py-24 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-8 md:mb-12">Outcomes</h2>
-          </Reveal>
-          <MetricsRow metrics={extras.metrics} theme={theme} />
-        </div>
-      </section>
-
-
-      {project.reflection && (
-        <section className="py-12 md:py-24 border-t border-hairline">
-          <div className="max-w-6xl mx-auto px-4 md:px-12">
-            <Reveal>
-              <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-6 md:mb-8">Reflection</h2>
-              <p className="font-display font-light text-ink/80 leading-relaxed tracking-tight max-w-2xl" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
-            </Reveal>
-          </div>
-        </section>
-      )}
+      <ProductBlock
+        title="One hub for forty persona worlds"
+        visual={<>
+          <RadialMap theme={theme} center="AI Spirit" nodes={['Business', 'Spiritual', 'Entertainment', 'Companion', 'Fitness', 'Anime']} />
+          <p className="mt-3 text-center text-xs text-ink-muted">Six flagship categories shown, of 40 in the catalogue.</p>
+        </>}
+      >
+        <p>350+ curated personas fan out from a single product surface across 40 categories. India-first by design: Chanakya, Sadhguru, Shah Rukh Khan, Osho, characters Western platforms don&rsquo;t serve. The breadth is the moat: discovery across categories is what drives the multi-persona habit that retains.</p>
+      </ProductBlock>
+      <ProductBlock title="The retention funnel I&rsquo;m testing" visual={<Funnel stages={RETENTION} theme={theme} />} wideVisual />
     </>
   );
 }

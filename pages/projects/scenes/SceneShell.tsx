@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowCounterClockwise, Pause, Play } from '@phosphor-icons/react';
 import type { ProjectTheme } from '../../../types';
+import { ChapterHead, useSceneChapter } from '../chapters';
 
 /* ═══════════════════════════════════════════════════════════════
    Shared frame for the per-project scenes. Each scene is a short
@@ -32,6 +33,7 @@ export function SceneShell({
   stageClass?: string;
   children: (beat: number) => React.ReactNode;
 }) {
+  const chapter = useSceneChapter();
   const [reduced] = useState(reducedMotion);
   const last = beats.length - 1;
   const [beat, setBeat] = useState(reduced ? last : 0);
@@ -65,10 +67,16 @@ export function SceneShell({
   };
 
   return (
-    <section className="py-12 md:py-20 border-t border-hairline">
+    <section className={chapter ? 'py-16 md:py-24 border-t border-hairline' : 'py-12 md:py-20 border-t border-hairline'}>
       <div className="max-w-6xl mx-auto px-4 md:px-12">
-        <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight">{title}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/80">{intro}</p>
+        {chapter ? (
+          <ChapterHead id={chapter.id} theme={chapter.theme} title={title} intro={intro} />
+        ) : (
+          <>
+            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight">{title}</h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/80">{intro}</p>
+          </>
+        )}
 
         <div ref={ref} className="mt-8 md:mt-10 rounded-[1.25rem] border border-hairline bg-white overflow-hidden">
           <div className="flex items-center justify-between gap-4 px-4 md:px-6 py-3 border-b border-hairline bg-shell/60">

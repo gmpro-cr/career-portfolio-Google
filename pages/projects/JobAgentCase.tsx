@@ -1,11 +1,7 @@
 import React from 'react';
 import type { CaseProps } from './caseData';
-import { Reveal, CaseHero } from './kit';
+import { ProductBlock } from './kit';
 import { RadialMap, Funnel } from './diagrams';
-import { CaseFooterSections } from './PersonaCase';
-import { ProductBrief } from './explainers';
-import JobScene from './scenes/JobScene';
-import { BRIEFS } from './briefs';
 
 const SIGNAL = [
   { label: 'Raw listings scraped per run', value: '200–500', sub: '6 portals scraped in parallel' },
@@ -14,55 +10,19 @@ const SIGNAL = [
   { label: 'Delivered as a digest', value: '~10/run', sub: '5-minute review vs 2-hour browse' },
 ];
 
-export default function JobAgentCase({ project, extras, theme }: CaseProps) {
+/* Chapter 02 visuals for the job agent. Scoring itself lives in Key parts. */
+export default function JobAgentCase({ theme }: CaseProps) {
   return (
-    <div>
-      {/* ── Hero + deployed-site screenshot ──────────────────────── */}
-      <CaseHero project={project} theme={theme} />
-
-      <JobScene theme={theme} />
-      <ProductBrief brief={BRIEFS[project.slug]} />
-
-      {/* ── 6-portal fan-in (signature) ──────────────────────────── */}
-      <section className="py-12 md:py-24 border-t border-hairline" style={{ background: `${theme.accentBg}55` }}>
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-            <div>
-              
-              <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">Six job portals, one pipeline</h2>
-              <p className="text-sm text-ink/75 leading-relaxed max-w-2xl">Selenium + BeautifulSoup scrape six fragmented job boards in parallel, each with its own anti-scrape handling, session management, and pagination quirks, and funnel everything into a single deduplicated stream. No portal is hit twice within 12 hours.</p>
-            </div>
-            <RadialMap theme={theme} center="Scraper" nodes={['LinkedIn', 'Naukri', 'Indeed', 'HiringCafe', 'Wellfound', 'IIMJobs']} />
-          </div>
-        </div>
-      </section>
-
-      {/* ── Noise → signal funnel (signature) ────────────────────── */}
-      <section className="py-12 md:py-24 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <div className="grid md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-center">
-            <div>
-              
-              <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight mb-4">Hundreds of listings in, ten out</h2>
-              <p className="text-sm text-ink/75 leading-relaxed mb-6 max-w-2xl">The 65-point relevance threshold is the product&rsquo;s most important parameter, and setting it is a product decision. Calibrated empirically over three months of self-use against 7,413 catalogued jobs as ground truth.</p>
-              <p className="text-sm text-ink/80 leading-relaxed max-w-2xl">{extras.pmInsight}</p>
-            </div>
-            <Funnel stages={SIGNAL} theme={theme} />
-          </div>
-        </div>
-      </section>
-
-      {/* ── How I found the problem ─────────────────────────────── */}
-      <section className="py-12 md:py-20 border-t border-hairline">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <Reveal>
-            <h2 className="font-display font-light text-3xl md:text-4xl text-ink tracking-tight mb-5">How I found the problem</h2>
-            <p className="text-base text-ink/80 leading-relaxed max-w-2xl">{extras.discovery}</p>
-          </Reveal>
-        </div>
-      </section>
-
-      <CaseFooterSections project={project} extras={extras} theme={theme} />
-    </div>
+    <>
+      <ProductBlock
+        title="Six job portals, one pipeline"
+        visual={<RadialMap theme={theme} center="Scraper" nodes={['LinkedIn', 'Naukri', 'Indeed', 'HiringCafe', 'Wellfound', 'IIMJobs']} />}
+      >
+        <p>Selenium + BeautifulSoup scrape six fragmented job boards in parallel, each with its own anti-scrape handling, session management, and pagination quirks, and funnel everything into a single deduplicated stream. No portal is hit twice within 12 hours.</p>
+      </ProductBlock>
+      <ProductBlock title="Hundreds of listings in, ten out" visual={<Funnel stages={SIGNAL} theme={theme} />} wideVisual>
+        <p>The 65-point relevance threshold is the product&rsquo;s most important parameter, and setting it is a product decision. Calibrated empirically over three months of self-use against 7,413 catalogued jobs as ground truth.</p>
+      </ProductBlock>
+    </>
   );
 }

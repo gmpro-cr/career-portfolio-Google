@@ -153,10 +153,10 @@ function MapStage({ nodes, hops, beat, theme }: { nodes: SysNode[]; hops: SysHop
   );
 }
 
-export function SystemMap({ number, intro, nodes, hops, theme }: { number: number; intro: string; nodes: SysNode[]; hops: SysHop[]; theme: ProjectTheme }) {
+export function SystemMap({ intro, nodes, hops, theme }: { intro: string; nodes: SysNode[]; hops: SysHop[]; theme: ProjectTheme }) {
   const beats: Beat[] = hops.map(h => ({ caption: h.caption, ms: h.ms ?? 3600 }));
   return (
-    <SceneShell title={<span className="flex items-end gap-4 md:gap-6"><span aria-hidden className="font-light leading-none tabular select-none" style={{ fontSize: 'clamp(3.5rem, 8vw, 6rem)', color: 'transparent', WebkitTextStroke: `1.25px ${theme.accent}`, letterSpacing: '-0.04em' }}>{String(number).padStart(2, '0')}</span><span className="pb-1.5 md:pb-3">The system, part by part</span></span>} intro={intro} beats={beats} theme={theme} note="One request, travelling through the real architecture">
+    <SceneShell title="The system, part by part" intro={intro} beats={beats} theme={theme} note="One request, travelling through the real architecture">
       {beat => <MapStage nodes={nodes} hops={hops} beat={beat} theme={theme} />}
     </SceneShell>
   );

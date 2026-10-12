@@ -237,7 +237,7 @@ function ProjectRow({ project, delay }: { project: (typeof PROJECTS)[number]; de
             {project.metrics && <span aria-hidden>&middot;</span>}
             <span>{project.tech.slice(0, 3).join(', ')}</span>
             <Link
-              to={`/project/${project.slug}/how-it-works`}
+              to={`/project/${project.slug}#summary`}
               className="relative z-10 ml-auto inline-flex items-center gap-1 font-medium text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors"
             >
               How it works

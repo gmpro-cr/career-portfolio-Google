@@ -51,7 +51,7 @@ export function SectionLabel({ children }: { children: React.ReactNode; theme?: 
 }
 
 /* ─── Case hero: themed wash + deployed-site screenshot ───────── */
-export function CaseHero({ project, theme }: { project: Project; theme: ProjectTheme }) {
+export function CaseHero({ project, theme, glance }: { project: Project; theme: ProjectTheme; glance?: { label: string; value: string }[] }) {
   // "Vaani — Voice Banking Agent": the product name is the headline, the
   // descriptor sits under it rather than wrapping the h1 onto three lines.
   const [name, descriptor] = project.title.split(' — ');
@@ -77,6 +77,7 @@ export function CaseHero({ project, theme }: { project: Project; theme: ProjectT
             </div>
           </div>
           {project.image && (
+            <div>
             <div className="bezel" style={{ background: theme.accentBg }}>
               <div
                 className="bezel-core overflow-hidden"
@@ -89,6 +90,18 @@ export function CaseHero({ project, theme }: { project: Project; theme: ProjectT
                   style={{ aspectRatio: '16 / 10', maxHeight: 460 }}
                 />
               </div>
+            </div>
+            {/* Key facts from the technical side, overlapping the screenshot */}
+            {glance && glance.length > 0 && (
+              <dl className="relative z-10 -mt-10 lg:-mt-14 mx-3 lg:-ml-10 lg:mr-6 grid grid-cols-2 gap-2.5">
+                {glance.map((g, i) => (
+                  <div key={i} className="rounded-2xl bg-white/95 px-4 py-3.5" style={{ border: '1px solid #E7E5E4', boxShadow: `0 20px 40px -28px ${theme.accentDark}`, backdropFilter: 'blur(8px)' }}>
+                    <dt className="text-xs font-medium" style={{ color: theme.accentDark }}>{g.label}</dt>
+                    <dd className="mt-1 text-sm font-medium leading-snug text-ink">{g.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
             </div>
           )}
         </div>
@@ -111,6 +124,19 @@ export function MetricsRow({ metrics }: { metrics: MetricCard[]; theme?: Project
           <p className="mt-1 text-xs text-ink-muted leading-relaxed">{m.sub}</p>
         </div>
       ))}
+    </div>
+  );
+}
+
+/* ─── Product shape: one titled visual inside chapter 02 ──────── */
+export function ProductBlock({ title, children, visual, wideVisual = false }: { title: string; children?: React.ReactNode; visual: React.ReactNode; wideVisual?: boolean }) {
+  return (
+    <div className={`mt-16 md:mt-20 pt-10 md:pt-12 border-t border-hairline grid gap-8 md:gap-16 items-center ${wideVisual ? 'md:grid-cols-[1fr_1.2fr]' : 'md:grid-cols-2'}`}>
+      <Reveal>
+        <h3 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight leading-[1.05]">{title}</h3>
+        {children && <div className="mt-4 text-sm md:text-base text-ink/75 leading-relaxed max-w-2xl space-y-3">{children}</div>}
+      </Reveal>
+      <div className="min-w-0">{visual}</div>
     </div>
   );
 }
