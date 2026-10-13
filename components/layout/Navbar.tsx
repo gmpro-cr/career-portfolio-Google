@@ -15,6 +15,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen]         = useState(false);
   const [activeSection, setActive]  = useState('');
   const [scrolled, setScrolled]     = useState(false);
+  // Start visible everywhere but the homepage, so case studies don't fade it in.
+  const [pastHeroName, setPastHeroName] = useState(() => window.location.pathname !== '/');
   const navigate = useNavigate();
   const location = useLocation();
   const isProjectPage = location.pathname.startsWith('/project/');
@@ -30,6 +32,10 @@ export default function Navbar() {
       }
       setActive(current);
       setScrolled(window.scrollY > 24);
+      // The homepage hero already sets the name in large type, so the bar
+      // only shows it once that headline has scrolled under the bar.
+      const heroName = document.querySelector('#hero h1');
+      setPastHeroName(!heroName || heroName.getBoundingClientRect().bottom < 64);
     };
     const onScroll = () => { if (raf) cancelAnimationFrame(raf); raf = requestAnimationFrame(update); };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -38,7 +44,7 @@ export default function Navbar() {
       window.removeEventListener('scroll', onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -79,6 +85,8 @@ export default function Navbar() {
     }
   };
 
+  const showName = isOpen || pastHeroName;
+
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
 
@@ -108,7 +116,9 @@ export default function Navbar() {
             href="/"
             onClick={e => { e.preventDefault(); navigate('/'); setIsOpen(false); }}
             aria-label="Gaurav Mahale — home"
-            className="font-display text-sm font-medium tracking-tight text-ink hover:opacity-70 transition-opacity duration-300"
+            tabIndex={showName ? undefined : -1}
+            aria-hidden={showName ? undefined : true}
+            className={`font-display text-sm font-medium tracking-tight text-ink transition-all duration-500 ease-spring hover:opacity-70 ${showName ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1 pointer-events-none'}`}
           >
             Gaurav Mahale
           </a>

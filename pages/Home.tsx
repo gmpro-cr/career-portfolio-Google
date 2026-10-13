@@ -97,8 +97,8 @@ function Hero() {
             <h1 className="font-display font-normal leading-[1.05] tracking-tight text-ink" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)' }}>
               Gaurav Mahale
             </h1>
-            <p className="mt-3 text-base sm:text-lg text-ink-muted">
-              Product manager at Yes Bank. Nine years in banking and credit risk, and I design and ship LLM products.
+            <p className="mt-3 text-[1.0625rem] sm:text-lg leading-snug text-ink-muted max-w-[34ch]">
+              Product manager at Yes Bank, building LLM products.
             </p>
           </div>
           <div
@@ -106,31 +106,24 @@ function Hero() {
             style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}
           >
             <div
-              className="rounded-full overflow-hidden w-[68px] h-[68px] sm:w-[104px] sm:h-[104px]"
+              className="rounded-full overflow-hidden w-[64px] h-[64px] sm:w-[104px] sm:h-[104px]"
               style={{ boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
             >
-              <img src="/profile-avatar.png" alt="Gaurav Mahale" className="w-full h-full object-cover" />
+              <img src="/profile-avatar.png" alt="Gaurav Mahale" width={104} height={104} className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
 
-        <div className="mt-8 max-w-xl flex flex-col gap-3" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
-          <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
-            I also write evals for LLM outputs on finance work at Pareto.AI, and build AI products on my own: five LLM platforms and two browser&#8209;native learning tools, all live. Each project has a plain-English technical report on how it works.
+        <div className="mt-7 max-w-xl flex flex-col gap-3 text-[0.9375rem] sm:text-base leading-[1.65] text-ink" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
+          <p>
+            Nine years in banking and credit risk. I write LLM evals for finance work at Pareto.AI and have shipped seven AI products of my own, each with a plain-English report on how it works.
           </p>
-          <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
-            Writing credit appraisal memos at Yes Bank and HDFC turned out to be good training for writing prompts.
-          </p>
-          <p className="text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
-            Open to AI Product Management roles. Based in Pune, happy to go remote.{' '}
-            <a href="/Gaurav_Mahale_Resume.pdf" download className="inline-flex items-center gap-1.5 text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors">
-              <FilePdf size={15} weight="light" aria-hidden className="shrink-0 text-ink-muted" />
-              Download CV
-            </a>
+          <p>
+            Open to AI product management roles. Based in Pune, open to remote.
           </p>
         </div>
 
-        <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
+        <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2.5 text-sm" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
           {[
             { href: 'mailto:mahalegauravk@gmail.com', label: 'Email' },
             { href: 'https://www.linkedin.com/in/mahalegauravk', label: 'LinkedIn', external: true },
@@ -147,6 +140,12 @@ function Hero() {
               </a>
             </li>
           ))}
+          <li>
+            <a href="/Gaurav_Mahale_Resume.pdf" download className="inline-flex items-center gap-1.5 font-medium text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors">
+              <FilePdf size={15} weight="light" aria-hidden className="shrink-0 text-ink-muted" />
+              Download CV
+            </a>
+          </li>
         </ul>
       </div>
     </section>
