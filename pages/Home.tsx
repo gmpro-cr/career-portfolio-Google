@@ -90,8 +90,11 @@ const Reveal = ({
    ═══════════════════════════════════════════════════════════════ */
 function Hero() {
   return (
-    <section id="hero" className="relative overflow-hidden">
-      <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-6 md:pb-10">
+    /* On phones the hero is one full screen (svh, so it holds when the browser
+       bar collapses): summary and links only, with Selected work starting on
+       the next scroll. Desktop keeps its natural height. */
+    <section id="hero" className="relative overflow-hidden min-h-svh flex flex-col justify-center md:min-h-0 md:block">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-10 pt-20 pb-24 md:pt-36 md:pb-10">
         <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
           <div className="min-w-0">
             <h1 className="font-display font-normal leading-[1.05] tracking-tight text-ink" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)' }}>
