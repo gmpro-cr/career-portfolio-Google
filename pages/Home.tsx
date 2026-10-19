@@ -92,9 +92,11 @@ function Hero() {
   return (
     /* On phones the hero is one full screen (svh, so it holds when the browser
        bar collapses): summary and links only, with Selected work starting on
-       the next scroll. Desktop keeps its natural height. */
-    <section id="hero" className="relative overflow-hidden min-h-svh flex flex-col justify-center md:min-h-0 md:block">
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-10 pt-20 pb-24 md:pt-36 md:pb-10">
+       the next scroll. The name sits up under the bar, the links down toward
+       the bottom, and two capped spacers share what is left so the screen
+       reads as filled on any height. Desktop keeps its natural height. */
+    <section id="hero" className="relative overflow-hidden min-h-svh flex flex-col md:min-h-0 md:block">
+      <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-4xl mx-auto px-6 md:px-10 pt-24 pb-20 md:pt-36 md:pb-10">
         <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
           <div className="min-w-0">
             <h1 className="font-display font-normal leading-[1.05] tracking-tight text-ink" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)' }}>
@@ -117,7 +119,8 @@ function Hero() {
           </div>
         </div>
 
-        <div className="mt-7 max-w-xl flex flex-col gap-3 text-[0.9375rem] sm:text-base leading-[1.65] text-ink" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
+        <div aria-hidden className="flex-1 min-h-7 max-h-32 md:hidden" />
+        <div className="md:mt-7 max-w-xl flex flex-col gap-3 text-[0.9375rem] sm:text-base leading-[1.65] text-ink" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
           <p>
             Nine years in banking and credit risk. I write LLM evals for finance work at Pareto.AI and have shipped seven AI products of my own, each with a plain-English report on how it works.
           </p>
@@ -126,7 +129,8 @@ function Hero() {
           </p>
         </div>
 
-        <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2.5 text-sm" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
+        <div aria-hidden className="flex-1 min-h-6 max-h-32 md:hidden" />
+        <ul className="md:mt-6 flex flex-wrap items-center gap-x-5 gap-y-2.5 text-sm" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
           {[
             { href: 'mailto:mahalegauravk@gmail.com', label: 'Email' },
             { href: 'https://www.linkedin.com/in/mahalegauravk', label: 'LinkedIn', external: true },
