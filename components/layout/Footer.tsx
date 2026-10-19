@@ -32,7 +32,7 @@ export default function Footer() {
             <div className="flex flex-col gap-2 text-sm text-ink-muted">
               <a href="https://www.linkedin.com/in/mahalegauravk" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">LinkedIn</a>
               <a href="https://github.com/gmpro-cr" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">GitHub</a>
-              <a href="/Gaurav_Mahale_Resume.pdf" download className="hover:text-ink transition-colors">Resume (PDF)</a>
+              <a href="/Gaurav_Mahale_Resume.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">CV (PDF)</a>
             </div>
           </div>
         </div>

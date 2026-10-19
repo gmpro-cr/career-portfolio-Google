@@ -1,7 +1,7 @@
 import React from 'react';
 
 /* ── Monogram ─────────────────────────────────────────────────────
-   A small hairline-ring mark with Fraunces italic initials. Hand-set
+   A small hairline-ring mark with Geist initials. Hand-set
    rather than a stock icon, so it reads as identity, not template. */
 export function Monogram({ size = 30, className = '' }: { size?: number; className?: string }) {
   return (
@@ -21,8 +21,7 @@ export function Monogram({ size = 30, className = '' }: { size?: number; classNa
     >
       <span
         style={{
-          fontFamily: "'Fraunces', ui-serif, Georgia, serif",
-          fontStyle: 'italic',
+          fontFamily: "'Geist', ui-sans-serif, system-ui, sans-serif",
           fontWeight: 500,
           fontSize: size * 0.46,
           lineHeight: 1,

@@ -12,7 +12,9 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-                display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
+                // One family site-wide (owner's call): display is Geist too, kept as its
+                // own token so headings can still be styled as a group.
+                display: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
             },
             colors: {
                 // Soft Structuralism palette (warm whites + espresso accent)

@@ -73,7 +73,7 @@ export function SceneShell({
           <ChapterHead id={chapter.id} theme={chapter.theme} title={title} intro={intro} />
         ) : (
           <>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight">{title}</h2>
+            <h2 className="font-display font-normal text-3xl md:text-5xl text-ink tracking-tight">{title}</h2>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/80">{intro}</p>
           </>
         )}

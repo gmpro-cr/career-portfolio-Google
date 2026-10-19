@@ -51,7 +51,7 @@ export function ChapterHead({ id, theme, title, intro }: { id: ChapterId; theme:
       <div className="flex items-end gap-4 md:gap-6">
         <span
           aria-hidden
-          className="font-display font-light leading-none tabular select-none"
+          className="font-display font-normal leading-none tabular select-none"
           style={{ fontSize: 'clamp(3.5rem, 8vw, 6rem)', color: 'transparent', WebkitTextStroke: `1.25px ${theme.accent}`, letterSpacing: '-0.04em' }}
         >
           {String(n).padStart(2, '0')}
@@ -60,7 +60,7 @@ export function ChapterHead({ id, theme, title, intro }: { id: ChapterId; theme:
           <span className="inline-grid h-9 w-9 place-items-center rounded-xl mb-3" style={{ background: theme.accentBg, color: theme.accentDark, boxShadow: `inset 0 0 0 1px ${theme.accent}33` }}>
             <Icon size={18} weight="duotone" aria-hidden />
           </span>
-          <h2 className="font-display font-light text-3xl md:text-5xl text-ink tracking-tight leading-[1.02]" style={{ textWrap: 'balance' }}>{title ?? label}</h2>
+          <h2 className="font-display font-normal text-3xl md:text-5xl text-ink tracking-tight leading-[1.02]" style={{ textWrap: 'balance' }}>{title ?? label}</h2>
         </div>
       </div>
       {intro && <p className="mt-5 max-w-2xl text-base md:text-lg leading-relaxed text-ink/75">{intro}</p>}

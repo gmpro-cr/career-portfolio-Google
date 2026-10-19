@@ -131,8 +131,8 @@ export default function ProjectDetail() {
         </div>
         {project.reflection && (
           <Reveal className="mt-16 md:mt-20 pt-10 md:pt-12 border-t border-hairline">
-            <h3 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight mb-6">Reflection</h3>
-            <p className="font-display font-light text-ink/80 leading-relaxed tracking-tight max-w-2xl" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
+            <h3 className="font-display font-normal text-2xl md:text-4xl text-ink tracking-tight mb-6">Reflection</h3>
+            <p className="font-display font-normal text-ink/80 leading-relaxed tracking-tight max-w-2xl" style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.45rem)' }}>{project.reflection}</p>
           </Reveal>
         )}
       </Chapter>
@@ -146,7 +146,7 @@ export default function ProjectDetail() {
           <p className="text-[10px] uppercase tracking-[0.22em] text-ink-muted mb-6">Next Project</p>
           <Link to={`/project/${nextProject.slug}`} className="group flex items-center justify-between gap-4">
             <div className="min-w-0">
-              <h3 className="font-display font-light text-2xl md:text-5xl text-ink leading-tight tracking-tight group-hover:text-ink-muted group-hover:translate-x-2 transition-all duration-700 ease-spring">{nextProject.title}</h3>
+              <h3 className="font-display font-normal text-2xl md:text-5xl text-ink leading-tight tracking-tight group-hover:text-ink-muted group-hover:translate-x-2 transition-all duration-700 ease-spring">{nextProject.title}</h3>
               <p className="mt-2 text-sm text-ink-muted">{nextProject.date} &middot; {nextProject.metrics}</p>
             </div>
             <span className="flex-shrink-0 inline-flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-ink text-white transition-transform duration-500 ease-spring group-hover:translate-x-1 group-hover:-translate-y-px">

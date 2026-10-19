@@ -140,7 +140,7 @@ function ModelCards({ uses, theme }: { uses: ModelUse[]; theme: ProjectTheme }) 
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-medium ring-1 ring-inset ring-white/25">
                 <Brain size={13} weight="fill" aria-hidden /> {WHEN_LABEL[lead.when]}
               </span>
-              <p className="mt-5 font-display font-light leading-[1.02] tracking-tight" style={{ fontSize: 'clamp(1.9rem, 4.2vw, 3.2rem)', textWrap: 'balance' }}>{lead.name}</p>
+              <p className="mt-5 font-display font-normal leading-[1.02] tracking-tight" style={{ fontSize: 'clamp(1.9rem, 4.2vw, 3.2rem)', textWrap: 'balance' }}>{lead.name}</p>
               <p className="mt-2 text-sm text-white/70">{lead.provider}</p>
             </div>
             <div className="grid gap-5 content-start">
@@ -186,7 +186,7 @@ function NoModel({ text, theme }: { text: string; theme: ProjectTheme }) {
     <Reveal>
       <div className="mt-10 grid md:grid-cols-[auto_1fr] gap-6 md:gap-12 items-center rounded-[2rem] bg-white p-6 md:p-10" style={{ border: `1px solid ${theme.accent}33`, boxShadow: `0 30px 60px -44px ${theme.accentDark}` }}>
         <div className="flex items-baseline gap-3">
-          <span className="font-display font-light leading-none tabular" style={{ fontSize: 'clamp(4.5rem, 10vw, 7.5rem)', color: theme.accentDark }}>0</span>
+          <span className="font-display font-normal leading-none tabular" style={{ fontSize: 'clamp(4.5rem, 10vw, 7.5rem)', color: theme.accentDark }}>0</span>
           <span className="text-sm font-medium text-ink-muted leading-tight">AI model calls<br />while you learn</span>
         </div>
         <p className="text-base md:text-lg leading-relaxed text-ink/80">{text}</p>
@@ -289,7 +289,7 @@ export function HowItWorks({ r, theme }: { r: TechReportData; theme: ProjectThem
         <ChapterHead id="summary" theme={theme} title="How it works, in one minute" />
         <div className="mt-10 grid lg:grid-cols-[1.25fr_1fr] gap-8 lg:gap-16 items-start">
           <Reveal>
-            <p className="font-display font-light text-ink leading-[1.3] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 2.6vw, 2rem)', textWrap: 'pretty' }}>{lead}</p>
+            <p className="font-display font-normal text-ink leading-[1.3] tracking-tight" style={{ fontSize: 'clamp(1.35rem, 2.6vw, 2rem)', textWrap: 'pretty' }}>{lead}</p>
           </Reveal>
           <div className="grid gap-5 lg:pt-2">
             {restSummary.map((p, i) => (
@@ -331,7 +331,7 @@ export function HowItWorks({ r, theme }: { r: TechReportData; theme: ProjectThem
               <div key={i} className={m.diagram ? 'grid md:grid-cols-2 gap-8 md:gap-14 items-center' : 'max-w-3xl'}>
                 <Reveal className={flip && m.diagram ? 'md:order-2' : ''}>
                   <p className="text-xs font-medium uppercase tracking-[0.22em]" style={{ color: theme.accentDark }}>Part {i + 1} of {r.mechanisms.length}</p>
-                  <h3 className="mt-3 font-display font-light text-3xl md:text-4xl text-ink tracking-tight leading-[1.05]" style={{ textWrap: 'balance' }}>{m.title}</h3>
+                  <h3 className="mt-3 font-display font-normal text-3xl md:text-4xl text-ink tracking-tight leading-[1.05]" style={{ textWrap: 'balance' }}>{m.title}</h3>
                   <div className="mt-5 space-y-3">
                     {m.body.map((p, j) => <p key={j} className="text-base leading-relaxed text-ink/80">{p}</p>)}
                   </div>

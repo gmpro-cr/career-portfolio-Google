@@ -38,8 +38,8 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: 'Fraunces', ui-serif, Georgia, serif;
-    font-feature-settings: 'opsz' on;
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
     letter-spacing: -0.02em;
   }
 
@@ -252,8 +252,8 @@
 @layer utilities {
   /* Editorial drop cap — used on the lead paragraph of a case study */
   .dropcap::first-letter {
-    font-family: 'Fraunces', ui-serif, Georgia, serif;
-    font-weight: 400;
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
     float: left;
     font-size: 3.2em;
     line-height: 0.72;

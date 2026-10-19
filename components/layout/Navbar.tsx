@@ -170,7 +170,7 @@ export default function Navbar() {
               href={link.href}
               onClick={e => go(e, link.href)}
               style={{ transitionDelay: isOpen ? `${120 + i * 60}ms` : '0ms' }}
-              className={`font-display text-5xl font-light text-ink transition-all duration-700 ease-spring ${isOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-8 opacity-0 blur-md'}`}
+              className={`font-display text-5xl font-normal text-ink transition-all duration-700 ease-spring ${isOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-8 opacity-0 blur-md'}`}
             >
               {link.label}
             </a>

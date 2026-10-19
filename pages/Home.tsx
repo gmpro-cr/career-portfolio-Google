@@ -92,11 +92,12 @@ function Hero() {
   return (
     /* On phones the hero is one full screen (svh, so it holds when the browser
        bar collapses): summary and links only, with Selected work starting on
-       the next scroll. The name sits up under the bar, the links down toward
-       the bottom, and two capped spacers share what is left so the screen
-       reads as filled on any height. Desktop keeps its natural height. */
+       the next scroll. The name and picture sit at the top, just under the bar;
+       a capped spacer sets the summary below them, and an open spacer anchors
+       the links toward the bottom so the screen reads as filled on any height.
+       Desktop keeps its natural height. */
     <section id="hero" className="relative overflow-hidden min-h-svh flex flex-col md:min-h-0 md:block">
-      <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-4xl mx-auto px-6 md:px-10 pt-24 pb-20 md:pt-36 md:pb-10">
+      <div className="relative z-10 flex-1 flex flex-col w-full max-w-4xl mx-auto px-6 md:px-10 pt-20 pb-16 md:pt-36 md:pb-10">
         <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
           <div className="min-w-0">
             <h1 className="font-display font-normal leading-[1.05] tracking-tight text-ink" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)' }}>
@@ -119,7 +120,7 @@ function Hero() {
           </div>
         </div>
 
-        <div aria-hidden className="flex-1 min-h-7 max-h-32 md:hidden" />
+        <div aria-hidden className="flex-1 min-h-7 max-h-24 md:hidden" />
         <div className="md:mt-7 max-w-xl flex flex-col gap-3 text-[0.9375rem] sm:text-base leading-[1.65] text-ink" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
           <p>
             Nine years in banking and credit risk. I write LLM evals for finance work at Pareto.AI and have shipped seven AI products of my own, each with a plain-English report on how it works.
@@ -129,7 +130,7 @@ function Hero() {
           </p>
         </div>
 
-        <div aria-hidden className="flex-1 min-h-6 max-h-32 md:hidden" />
+        <div aria-hidden className="flex-1 min-h-6 md:hidden" />
         <ul className="md:mt-6 flex flex-wrap items-center gap-x-5 gap-y-2.5 text-sm" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
           {[
             { href: 'mailto:mahalegauravk@gmail.com', label: 'Email' },
@@ -148,9 +149,11 @@ function Hero() {
             </li>
           ))}
           <li>
-            <a href="/Gaurav_Mahale_Resume.pdf" download className="inline-flex items-center gap-1.5 font-medium text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors">
+            {/* Opens in the browser's PDF viewer (new tab) rather than forcing a
+                download; the viewer still offers a download for those who want it. */}
+            <a href="/Gaurav_Mahale_Resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-medium text-ink underline decoration-hairline underline-offset-4 hover:decoration-ink transition-colors">
               <FilePdf size={15} weight="light" aria-hidden className="shrink-0 text-ink-muted" />
-              Download CV
+              View CV
             </a>
           </li>
         </ul>
@@ -186,7 +189,7 @@ function TechStack() {
     <section className="relative py-8 md:py-12">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
-          <h2 className="font-display font-light text-2xl text-ink tracking-tight">Tools I build with</h2>
+          <h2 className="font-display font-normal text-2xl text-ink tracking-tight">Tools I build with</h2>
         </Reveal>
         <Reveal>
           <ul className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-3 text-sm" style={{ color: 'rgba(26,20,16,0.75)' }}>
@@ -261,7 +264,7 @@ function SelectedWork() {
     <section id="work" className="relative py-8 md:py-12">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
-          <h2 className="font-display font-light text-2xl text-ink tracking-tight">Selected work</h2>
+          <h2 className="font-display font-normal text-2xl text-ink tracking-tight">Selected work</h2>
         </Reveal>
 
         <ul className="mt-6 flex flex-col">
@@ -323,7 +326,7 @@ function ExperienceRow({ exp, delay }: { exp: (typeof EXPERIENCES)[number]; dela
             />
           </span>
         ) : (
-          <span className="flex-shrink-0 mt-0.5 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display italic text-xs text-ink-muted transition-transform duration-300 group-hover:scale-105">
+          <span className="flex-shrink-0 mt-0.5 w-9 h-9 rounded-full border border-hairline bg-shell grid place-items-center font-display font-medium text-xs text-ink-muted transition-transform duration-300 group-hover:scale-105">
             {EXPERIENCE_BADGES[exp.company] ?? exp.company.slice(0, 2).toUpperCase()}
           </span>
         )}
@@ -368,7 +371,7 @@ function Trajectory() {
     <section id="trajectory" className="relative py-8 md:py-12">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
-          <h2 className="font-display font-light text-2xl text-ink tracking-tight">Experience</h2>
+          <h2 className="font-display font-normal text-2xl text-ink tracking-tight">Experience</h2>
         </Reveal>
 
         <div className="mt-6 flex flex-col">
@@ -382,7 +385,7 @@ function Trajectory() {
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
           <div id="education">
             <Reveal>
-              <h2 className="font-display font-light text-xl text-ink tracking-tight">Education</h2>
+              <h2 className="font-display font-normal text-xl text-ink tracking-tight">Education</h2>
             </Reveal>
             <div className="mt-3">
               {EDUCATION_DATA.map((e, i) => (
@@ -394,7 +397,7 @@ function Trajectory() {
           </div>
           <div id="certifications">
             <Reveal>
-              <h2 className="font-display font-light text-xl text-ink tracking-tight">Certifications</h2>
+              <h2 className="font-display font-normal text-xl text-ink tracking-tight">Certifications</h2>
             </Reveal>
             <div className="mt-3">
               {CERTIFICATIONS_DATA.map((c, i) => (
@@ -419,7 +422,7 @@ function Contact() {
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <Reveal>
           <div className="border-t border-hairline pt-10 md:pt-12">
-            <h2 className="font-display font-light text-2xl md:text-3xl text-ink tracking-tight">Contact</h2>
+            <h2 className="font-display font-normal text-2xl md:text-3xl text-ink tracking-tight">Contact</h2>
             <p className="mt-3 max-w-xl text-base leading-relaxed" style={{ color: 'rgba(26,20,16,0.78)' }}>
               Open to AI Product Management roles. Email is the quickest way to reach me.
             </p>

@@ -67,7 +67,7 @@ export function CaseHero({ project, theme, glance }: { project: Project; theme: 
               {project.date}
               {project.metrics && <> &middot; <span className="text-ink">{project.metrics}</span></>}
             </p>
-            <h1 className="font-display font-light leading-[0.95] tracking-tight text-ink" style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5rem)' }}>{name}</h1>
+            <h1 className="font-display font-normal leading-[0.95] tracking-tight text-ink" style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5rem)' }}>{name}</h1>
             {descriptor && <p className="mt-3 font-display text-xl md:text-2xl text-ink-muted">{descriptor}</p>}
             <p className="mt-5 md:mt-6 text-base md:text-lg text-ink/75 leading-relaxed">{project.description}</p>
             <div className="mt-6 flex flex-wrap gap-1.5">
@@ -119,7 +119,7 @@ export function MetricsRow({ metrics }: { metrics: MetricCard[]; theme?: Project
     }}>
       {metrics.map((m, i) => (
         <div key={i} className="border-t border-ink/20 pt-4">
-          <p className="font-display font-light text-ink leading-none tabular" style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em' }}>{m.value}</p>
+          <p className="font-display font-normal text-ink leading-none tabular" style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em' }}>{m.value}</p>
           <p className="mt-3 text-sm font-medium text-ink">{m.label}</p>
           <p className="mt-1 text-xs text-ink-muted leading-relaxed">{m.sub}</p>
         </div>
@@ -133,7 +133,7 @@ export function ProductBlock({ title, children, visual, wideVisual = false }: { 
   return (
     <div className={`mt-16 md:mt-20 pt-10 md:pt-12 border-t border-hairline grid gap-8 md:gap-16 items-center ${wideVisual ? 'md:grid-cols-[1fr_1.2fr]' : 'md:grid-cols-2'}`}>
       <Reveal>
-        <h3 className="font-display font-light text-2xl md:text-4xl text-ink tracking-tight leading-[1.05]">{title}</h3>
+        <h3 className="font-display font-normal text-2xl md:text-4xl text-ink tracking-tight leading-[1.05]">{title}</h3>
         {children && <div className="mt-4 text-sm md:text-base text-ink/75 leading-relaxed max-w-2xl space-y-3">{children}</div>}
       </Reveal>
       <div className="min-w-0">{visual}</div>

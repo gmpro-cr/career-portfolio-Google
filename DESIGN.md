@@ -84,10 +84,14 @@ stays open.
 
 ## 2. Typography
 
-Two families. A third is a defect.
+One family: Geist, for every piece of text. A second family is a defect
+(monospace for code snippets excepted). Owner's decision, Oct 2026; this
+replaced the earlier Fraunces display face.
 
-- **Display** — Fraunces (`font-display`). All `h1`–`h4`, set with
-  `letter-spacing: -0.02em` and `text-wrap: balance` in `index.css`.
+- **Display** — Geist via `font-display`, kept as its own token so headings
+  can be styled as a group. All `h1`–`h4`, set with `letter-spacing: -0.02em`
+  and `text-wrap: balance` in `index.css`. Use `font-normal` or heavier;
+  Geist at 300 reads soft at heading sizes.
 - **Body / UI** — Geist (`font-sans`), `font-feature-settings: 'ss01', 'cv11'`.
 - No Inter, Roboto, or generic system sans in new work.
 
