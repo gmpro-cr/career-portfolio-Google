@@ -7,6 +7,7 @@ import {
   CaretRight,
   ArrowsLeftRight,
   FilePdf,
+  ArrowDown,
 } from '@phosphor-icons/react';
 import {
   NextjsMark, ReactMark, TypeScriptMark, PythonMark, FastApiMark, PostgreSqlMark,
@@ -92,36 +93,34 @@ function Hero() {
   return (
     /* On phones the hero is one full screen (svh, so it holds when the browser
        bar collapses): summary and links only, with Selected work starting on
-       the next scroll. The name and picture sit at the top, just under the bar;
-       a capped spacer sets the summary below them, and an open spacer anchors
-       the links toward the bottom so the screen reads as filled on any height.
-       Desktop keeps its natural height. */
+       the next scroll. The screen is filled with type rather than spacing:
+       the name stacks onto two large lines beside a larger picture, the copy
+       steps up a size, and a "Selected work" cue closes the screen. Capped
+       spacers share any height left over. Desktop keeps its natural layout. */
     <section id="hero" className="relative overflow-hidden min-h-svh flex flex-col md:min-h-0 md:block">
-      <div className="relative z-10 flex-1 flex flex-col w-full max-w-4xl mx-auto px-6 md:px-10 pt-20 pb-16 md:pt-36 md:pb-10">
-        <div className="flex items-start justify-between gap-4 sm:gap-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
-          <div className="min-w-0">
-            <h1 className="font-display font-normal leading-[1.05] tracking-tight text-ink" style={{ fontSize: 'clamp(2.1rem, 8vw, 3.4rem)' }}>
-              Gaurav Mahale
-            </h1>
-            <p className="mt-3 text-[1.0625rem] sm:text-lg leading-snug text-ink-muted max-w-[34ch]">
-              Product manager at Yes Bank, building LLM products.
-            </p>
-          </div>
-          <div
-            className="flex-shrink-0"
-            style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}
-          >
+      <div className="relative z-10 flex-1 flex flex-col w-full max-w-4xl mx-auto px-6 md:px-10 pt-20 pb-4 md:pt-36 md:pb-10">
+        {/* Grid so the subtitle can sit beside the picture on desktop (as before)
+            but span the full width under it on phones, where the column beside
+            the picture is too narrow and wrapped it to three lines. */}
+        <div className="grid grid-cols-[1fr_auto] items-start gap-x-4 sm:gap-x-6" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.1s forwards` }}>
+          <h1 className="min-w-0 font-display font-normal leading-[0.98] md:leading-[1.05] tracking-tight text-ink" style={{ fontSize: 'clamp(3rem, 13.5vw, 3.4rem)' }}>
+            Gaurav <br className="md:hidden" />Mahale
+          </h1>
+          <div className="md:row-span-2">
             <div
-              className="rounded-full overflow-hidden w-[64px] h-[64px] sm:w-[104px] sm:h-[104px]"
+              className="rounded-full overflow-hidden w-[88px] h-[88px] sm:w-[104px] sm:h-[104px]"
               style={{ boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
             >
               <img src="/profile-avatar.png" alt="Gaurav Mahale" width={104} height={104} className="w-full h-full object-cover" />
             </div>
           </div>
+          <p className="col-span-2 md:col-span-1 mt-4 md:mt-3 text-xl md:text-lg leading-snug text-ink-muted max-w-[34ch]">
+            Product manager at Yes Bank, building LLM products.
+          </p>
         </div>
 
-        <div aria-hidden className="flex-1 min-h-7 max-h-24 md:hidden" />
-        <div className="md:mt-7 max-w-xl flex flex-col gap-3 text-[0.9375rem] sm:text-base leading-[1.65] text-ink" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
+        <div aria-hidden className="flex-1 min-h-6 max-h-20 md:hidden" />
+        <div className="md:mt-7 max-w-xl flex flex-col gap-4 md:gap-3 text-lg md:text-base leading-[1.6] md:leading-[1.65] text-ink" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.25s forwards` }}>
           <p>
             Nine years in banking and credit risk. I write LLM evals for finance work at Pareto.AI and have shipped seven AI products of my own, each with a plain-English report on how it works.
           </p>
@@ -130,8 +129,8 @@ function Hero() {
           </p>
         </div>
 
-        <div aria-hidden className="flex-1 min-h-6 md:hidden" />
-        <ul className="md:mt-6 flex flex-wrap items-center gap-x-5 gap-y-2.5 text-sm" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
+        <div aria-hidden className="flex-1 min-h-6 max-h-24 md:hidden" />
+        <ul className="md:mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-base md:text-sm" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
           {[
             { href: 'mailto:mahalegauravk@gmail.com', label: 'Email' },
             { href: 'https://www.linkedin.com/in/mahalegauravk', label: 'LinkedIn', external: true },
@@ -157,6 +156,18 @@ function Hero() {
             </a>
           </li>
         </ul>
+
+        {/* Phones only: closes the first screen and points to what is next. */}
+        <div aria-hidden className="flex-1 min-h-5 md:hidden" />
+        <a
+          href="#work"
+          onClick={e => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }); }}
+          className="md:hidden self-start inline-flex items-center gap-2 border-t border-hairline pt-4 pb-3 w-full text-sm text-ink-muted hover:text-ink transition-colors"
+          style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.55s forwards` }}
+        >
+          Selected work
+          <ArrowDown size={14} weight="light" aria-hidden />
+        </a>
       </div>
     </section>
   );
