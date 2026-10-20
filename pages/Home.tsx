@@ -312,6 +312,7 @@ const EXPERIENCE_LOGOS: Record<string, string> = {
   'Pareto.AI': '/logos/pareto-ai.svg',
   'HDFC Bank Limited': '/logos/hdfc-bank.svg',
   'Suraksha Asset Reconstruction Ltd.': '/logos/suraksha-arc-mark.png',
+  'Tata Trusts': '/logos/tata.svg',
 };
 
 function ExperienceRow({ exp, delay }: { exp: (typeof EXPERIENCES)[number]; delay: number }) {
