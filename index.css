@@ -10,8 +10,7 @@
   body {
     @apply bg-white text-ink antialiased;
     overflow-x: clip;
-    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
-    font-feature-settings: 'ss01', 'cv11';
+    font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, 'Lora', Georgia, serif;
   }
 
   /* Paper grain — fixed, non-interactive; breaks digital flatness without reading as an effect.
@@ -38,8 +37,7 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
-    font-feature-settings: 'ss01', 'cv11';
+    font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, 'Lora', Georgia, serif;
     letter-spacing: -0.02em;
   }
 
@@ -252,7 +250,7 @@
 @layer utilities {
   /* Editorial drop cap — used on the lead paragraph of a case study */
   .dropcap::first-letter {
-    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, 'Lora', Georgia, serif;
     font-weight: 500;
     float: left;
     font-size: 3.2em;

@@ -7,7 +7,7 @@ Personal portfolio for AI Product Management roles: four LLM products designed, 
 ## Stack
 
 - React 19 + Vite 6 + TypeScript
-- Tailwind CSS v4 (editorial system: Fraunces display + Geist body, double-bezel cards)
+- Tailwind CSS v4 (editorial system: Book Antiqua throughout, double-bezel cards)
 - Framer Motion + CSS keyframes for entrance motion
 - React Router (SPA, rewrites configured in `vercel.json`)
 

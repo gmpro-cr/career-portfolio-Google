@@ -41,7 +41,7 @@ export function Funnel({ stages, theme }: { stages: { label: string; value: stri
                 <p style={{ fontSize: '12.5px', fontWeight: 600, color: '#1A1410', lineHeight: 1.3 }}>{s.label}</p>
                 {s.sub && <p style={{ fontSize: '10.5px', color: '#78716C', marginTop: 2, lineHeight: 1.4 }}>{s.sub}</p>}
               </div>
-              <span style={{ fontFamily: 'var(--font-display, Geist, ui-sans-serif, sans-serif)', fontSize: 'clamp(1.1rem, 2.6vw, 1.7rem)', fontWeight: 400, color: r.text, lineHeight: 1, whiteSpace: 'nowrap' }}>{s.value}</span>
+              <span style={{ fontFamily: "var(--font-display, 'Book Antiqua', 'Palatino Linotype', Palatino, Lora, Georgia, serif)", fontSize: 'clamp(1.1rem, 2.6vw, 1.7rem)', fontWeight: 400, color: r.text, lineHeight: 1, whiteSpace: 'nowrap' }}>{s.value}</span>
             </div>
             {i < n - 1 && (
               <svg width="14" height="12" viewBox="0 0 14 12" fill="none" aria-hidden style={{ margin: '5px 0', opacity: visible ? 1 : 0, transition: `opacity 0.3s ${EASE_STR} ${i * 0.08 + 0.2}s` }}>

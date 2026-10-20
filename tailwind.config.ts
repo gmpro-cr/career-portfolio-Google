@@ -11,10 +11,13 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-                // One family site-wide (owner's call): display is Geist too, kept as its
-                // own token so headings can still be styled as a group.
-                display: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                // One family site-wide (owner's call, Oct 2026): Book Antiqua. It is a
+                // licensed Microsoft font that cannot be served, so the stack falls back
+                // to its near-identical Palatino (Windows, macOS, iOS), then to Lora, a
+                // free web font loaded in index.html for devices with neither (Android).
+                // `sans` keeps its name so existing font-sans classes still resolve.
+                sans: ['Book Antiqua', 'Palatino Linotype', 'Palatino', 'Lora', 'Georgia', 'serif'],
+                display: ['Book Antiqua', 'Palatino Linotype', 'Palatino', 'Lora', 'Georgia', 'serif'],
             },
             colors: {
                 // Soft Structuralism palette (warm whites + espresso accent)

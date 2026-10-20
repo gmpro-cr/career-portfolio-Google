@@ -84,15 +84,21 @@ stays open.
 
 ## 2. Typography
 
-One family: Geist, for every piece of text. A second family is a defect
-(monospace for code snippets excepted). Owner's decision, Oct 2026; this
-replaced the earlier Fraunces display face.
+One family: Book Antiqua, for every piece of text. A second family is a
+defect (monospace for code snippets excepted). Owner's decision, Oct 2026;
+this replaced Geist, which had replaced the Fraunces display face.
 
-- **Display** — Geist via `font-display`, kept as its own token so headings
-  can be styled as a group. All `h1`–`h4`, set with `letter-spacing: -0.02em`
-  and `text-wrap: balance` in `index.css`. Use `font-normal` or heavier;
-  Geist at 300 reads soft at heading sizes.
-- **Body / UI** — Geist (`font-sans`), `font-feature-settings: 'ss01', 'cv11'`.
+- **Stack** — `'Book Antiqua', 'Palatino Linotype', Palatino, 'Lora', Georgia,
+  serif`. Book Antiqua is a licensed Microsoft font: never self-host it.
+  Palatino is its near-identical system twin (Windows, macOS, iOS); Lora,
+  loaded from Google Fonts, is the fallback for Android and other devices
+  with neither, and is only downloaded where it is used.
+- **Display** — `font-display`, the same stack, kept as its own token so
+  headings can be styled as a group. All `h1`–`h4`, set with
+  `letter-spacing: -0.02em` and `text-wrap: balance` in `index.css`.
+- **Body / UI** — `font-sans`, the same stack.
+- **Weights** — Book Antiqua and Palatino ship regular and bold only, so
+  `font-medium` renders regular and `font-semibold` renders bold.
 - No Inter, Roboto, or generic system sans in new work.
 
 **Committed size scale:** `text-xs` · `text-sm` · `text-base` · `text-lg` ·

@@ -10,9 +10,10 @@ Humans provide intent and taste. Agents execute inside these guardrails.
 - **No emojis** in any UI, copy, alt text, or comments that surface to users.
 - **Icon policy**: Use `@phosphor-icons/react` exclusively for new or modified **UI** icons. Do not introduce or expand usage of `lucide-react` in new work. Existing Lucide usage may be left or migrated only when touching the component.
   - **Exception — third-party brand marks.** Phosphor carries no logo for this stack (all 1517 checked). Brand marks therefore come from `components/BrandIcons.tsx`, generated from simple-icons by `scripts/gen-brand-icons.mjs`, and render in official brand colours. See DESIGN.md section 1. This exception covers logos only; every other icon is still Phosphor.
-- **Typography**: one family, Geist, for all text (owner's decision, Oct 2026).
-  - Body / UI: `font-sans` → Geist
-  - Display / headlines: `font-display` → also Geist; the token stays so headings can be styled as a group. Do not reintroduce Fraunces or any serif.
+- **Typography**: one family, Book Antiqua, for all text (owner's decision, Oct 2026; replaced Geist).
+  - Body / UI: `font-sans` → Book Antiqua stack
+  - Display / headlines: `font-display` → the same stack; the token stays so headings can be styled as a group.
+  - Stack: `'Book Antiqua', 'Palatino Linotype', Palatino, 'Lora', Georgia, serif`. Book Antiqua is licensed and must never be self-hosted; Palatino is its near-identical system twin, and Lora (Google Fonts) covers Android.
   - Monospace is allowed only for code snippets.
 - **Design system fidelity**: Double-Bezel card system, soft structuralism palette (`paper`, `ink`, `ink-muted`, `hairline`, `shell`), lifted shadows, spring timing. Match existing components exactly unless explicitly changing the system.
 - **No Inter, Roboto, or generic sans** in new design work.
@@ -53,7 +54,7 @@ Never do "generate and hope". Always follow this loop for any non-trivial change
    - Walk the affected pages on desktop + mobile (use browser devtools or real device).
    - Check console for errors in preview.
    - Confirm no new console.log / debugger statements left in committed code.
-   - For visual/taste changes: explicitly compare against existing high-end editorial standard (Geist throughout, generous spacing, bezel cards, refined micro-interactions).
+   - For visual/taste changes: explicitly compare against existing high-end editorial standard (Book Antiqua throughout, generous spacing, bezel cards, refined micro-interactions).
 
 If any gate fails, fix it before moving on. Use the error output as structured feedback to self-correct.
 
