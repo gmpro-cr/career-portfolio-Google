@@ -9,18 +9,17 @@ not used to imply endorsement.
 | `yes-bank.svg` | Yes Bank Limited | Wikipedia (`/wikipedia/en/` — non-free, fair-use file) |
 | `hdfc-bank.svg` | HDFC Bank Limited | Wikimedia Commons |
 | `pareto-ai.svg` | Pareto.AI | pareto.ai site assets |
-| `suraksha-arc-mark.png` | Suraksha Asset Reconstruction Ltd. | surakshaarc.com site assets |
+| `suraksha-arc.png` | Suraksha Asset Reconstruction Ltd. | Official logo supplied by the site owner (Oct 2026), cropped to the mark and wordmark |
 | `tata-trusts.png` | Tata Trusts | Official logo supplied by the site owner (Oct 2026), cropped to the wordmark band |
 
 Notes:
 
 - Yes Bank and Pareto publish only wide wordmarks (5.9:1 and 1.8:1). That is why
   the experience row uses a wide lockup instead of the circular monogram badge.
-- Suraksha is the only raster here; the company publishes no vector mark. The
-  symbol-only file is used rather than the full logo, whose wordmark degrades
-  into a smudge at this size. At 24x36 it renders at roughly 0.75 of the
-  resolution a 2x display wants, so it is slightly soft. Replace it if the
-  company ever publishes a vector or larger asset.
+- Suraksha supplied as its full logo (mark plus "SURAKSHA ARC" wordmark) on
+  a white card. Cropped to the logo and converted to transparency
+  (colour-to-alpha against white, exact over white) so no white box shows on
+  the cream page. Raster, so replace it with a vector if one is published.
 - Tata Trusts supplied as white "TATA TRUSTS" on a red square (400x400 JPG).
   At the 24px row height the full square would shrink the lettering to ~2px,
   so the file is cropped to a red band around the wordmark (5.8:1, like the

@@ -311,7 +311,7 @@ const EXPERIENCE_LOGOS: Record<string, string> = {
   'Yes Bank Limited': '/logos/yes-bank.svg',
   'Pareto.AI': '/logos/pareto-ai.svg',
   'HDFC Bank Limited': '/logos/hdfc-bank.svg',
-  'Suraksha Asset Reconstruction Ltd.': '/logos/suraksha-arc-mark.png',
+  'Suraksha Asset Reconstruction Ltd.': '/logos/suraksha-arc.png',
   'Tata Trusts': '/logos/tata-trusts.png',
 };
 
