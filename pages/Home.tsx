@@ -110,10 +110,10 @@ function Hero() {
           </h1>
           <div className="md:row-span-2">
             <div
-              className="rounded-full overflow-hidden w-[112px] h-[112px] sm:w-[136px] sm:h-[136px] md:w-[176px] md:h-[176px]"
+              className="rounded-full overflow-hidden w-[112px] h-[112px] min-[360px]:w-[128px] min-[360px]:h-[128px] sm:w-[160px] sm:h-[160px] md:w-[224px] md:h-[224px]"
               style={{ boxShadow: '0 0 0 1px rgba(26,20,16,0.1), 0 14px 28px -12px rgba(26,20,16,0.22)' }}
             >
-              <img src="/profile-avatar.png" alt="Gaurav Mahale" width={176} height={176} className="w-full h-full object-cover" />
+              <img src="/profile-avatar.png" alt="Gaurav Mahale" width={224} height={224} className="w-full h-full object-cover" />
             </div>
           </div>
           <p className="col-span-2 md:col-span-1 mt-4 md:mt-3 text-xl md:text-lg leading-snug text-ink-muted max-w-[34ch]">
@@ -131,7 +131,7 @@ function Hero() {
           </p>
         </div>
 
-        <div aria-hidden className="flex-1 min-h-6 max-h-24 md:hidden" />
+        <div aria-hidden className="flex-1 min-h-4 max-h-24 md:hidden" />
         <ul className="md:mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-base md:text-sm" style={{ opacity: 0, animation: `fadeUp 0.6s ${EASE} 0.4s forwards` }}>
           {[
             { href: 'mailto:mahalegauravk@gmail.com', label: 'Email' },
@@ -160,7 +160,7 @@ function Hero() {
         </ul>
 
         {/* Closes the first screen and points to what is next. */}
-        <div aria-hidden className="flex-1 min-h-5" />
+        <div aria-hidden className="flex-1 min-h-4" />
         <a
           href="#work"
           onClick={e => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }); }}
