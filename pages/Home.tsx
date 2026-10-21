@@ -469,6 +469,12 @@ export default function Home() {
       `}</style>
       <div className="font-sans text-ink overflow-x-hidden">
         <Hero />
+        {/* Phone browsers size the hero to the small viewport (toolbars shown),
+            but show more once the toolbars collapse, and iOS Safari also draws
+            the page behind its translucent toolbar. This band covers that
+            difference so no part of Selected work reaches the first screen.
+            Zero height on desktop, where both viewports are the same. */}
+        <div aria-hidden className="h-[calc(100lvh-100svh)]" />
         <SelectedWork />
         <TechStack />
         <Trajectory />
