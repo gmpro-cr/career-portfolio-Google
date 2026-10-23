@@ -42,8 +42,8 @@ function deviceId(): string {
   return minted;
 }
 
-/** `silent` keeps counting but renders nothing -- the tally is for the owner,
-    not a public badge. */
+/** Shown in the footer. `silent` keeps counting but renders nothing, for any
+    page that should count without showing the badge. */
 export default function VisitorCount({ silent = false }: { silent?: boolean }) {
   // Seed from the highest figure this device has seen, so a slow or failed
   // request can never make the number appear to drop.
@@ -96,14 +96,11 @@ export default function VisitorCount({ silent = false }: { silent?: boolean }) {
       className="inline-flex items-baseline gap-1.5 rounded-full border border-hairline bg-white px-3 py-1.5"
       title="Distinct devices, counted without cookies or third-party analytics"
     >
-      <span className="tabular text-ink" style={{ fontSize: '0.8rem', fontWeight: 500 }}>
+      <span className="tabular text-xs text-ink">
         {count.toLocaleString('en-IN')}
       </span>
-      <span
-        className="uppercase tracking-[0.22em]"
-        style={{ fontSize: '9px', color: 'rgba(26,20,16,0.45)' }}
-      >
-        visitors
+      <span className="text-[10px] uppercase tracking-[0.22em] text-ink-muted">
+        {count === 1 ? 'visitor' : 'visitors'}
       </span>
     </span>
   );

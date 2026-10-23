@@ -40,7 +40,7 @@ export default function Footer() {
         <div className="mt-9 pt-5 border-t border-hairline flex items-center justify-between gap-4 text-xs text-ink-muted">
           <span className="tabular">&copy; {new Date().getFullYear()} Gaurav Mahale</span>
           <div className="flex items-center gap-3">
-            <VisitorCount silent />
+            <VisitorCount />
             <button
               onClick={scrollToTop}
               aria-label="Back to top"
